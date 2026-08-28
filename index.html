@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>제주 여행 스탬프북 — 관광지·맛집·카페·소품샵·술집·호텔 237선</title>
+<title>제주 여행 스탬프북 — 관광지·맛집·카페·소품샵·술집·호텔·마사지 263선</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
@@ -305,6 +305,7 @@
   .v-bar{background:linear-gradient(135deg,#F6D9A8,#C98A2E);}
   .v-hotel{background:linear-gradient(135deg,#C6D6EF,#5B7DB1);}
   .b-shop{background:#B4407A;} .b-bar{background:#A8701C;} .b-hotel{background:#3F6199;}
+  .b-spa{background:#2E7D6B;}
   .tab.tab-eat{background:linear-gradient(135deg,#9F1239,#E11D48);color:#fff;border-color:transparent;font-weight:800;}
   .tab.tab-eat.active{background:linear-gradient(135deg,#881337,#BE123C);}
   /* 주차 */
@@ -330,6 +331,7 @@
   .th-shop{background:linear-gradient(135deg,#831843,#DB2777);}
   .th-bar{background:linear-gradient(135deg,#7C2D12,#EA580C);}
   .th-hotel{background:linear-gradient(135deg,#1E3A8A,#3B82F6);}
+  .th-spa{background:linear-gradient(135deg,#065F46,#10B981);}
   .tier-star{position:absolute;left:10px;bottom:10px;color:#fff;font-size:11px;font-weight:800;
     padding:3px 9px;border-radius:999px;box-shadow:0 2px 6px rgba(0,0,0,.22);letter-spacing:-.2px;}
   .ts-shop{background:linear-gradient(135deg,#831843,#DB2777);}
@@ -356,11 +358,11 @@
 
 <header>
   <div style="max-width:1080px;margin:0 auto;">
-    <div class="h-eyebrow">JEJU STAMP BOOK · 237 PLACES</div>
+    <div class="h-eyebrow">JEJU STAMP BOOK · 263 PLACES</div>
     <h1>제주 여행 스탬프북<span class="dot">.</span></h1>
     <p class="h-sub">감성 포토스팟부터 액티비티, 자연 명소, 노포 맛집까지 —
-    20대부터 40대까지 모두를 위한 237곳. 모든 곳을 <b>덜 힘든 순서(실내 → 시원한 야외 → 차로 → 야외 → 걷기 → 등산)</b>로 나눠뒀고,
-    맛집·소품샵·술집·호텔은 <b>꼭 가야 할 곳</b>을 맨 위에 올렸고, 카드마다 <b>주차 정보</b>와 <b>주소 복사</b> 버튼이 있어요. 다녀온 곳은 <b>[갔다왔음]</b>을 눌러 도장을 찍어보세요. 도장 찍은 곳은 목록에서 사라지고 <b>[🔴 갔다온 곳]</b> 탭에 모입니다.</p>
+    20대부터 40대까지 모두를 위한 263곳. 모든 곳을 <b>덜 힘든 순서(실내 → 시원한 야외 → 차로 → 야외 → 걷기 → 등산)</b>로 나눠뒀고,
+    맛집·소품샵·술집·호텔·마사지는 <b>꼭 가야 할 곳</b>을 맨 위에 올렸고, 카드마다 <b>주차 정보</b>와 <b>주소 복사</b> 버튼이 있어요. 다녀온 곳은 <b>[갔다왔음]</b>을 눌러 도장을 찍어보세요. 도장 찍은 곳은 목록에서 사라지고 <b>[🔴 갔다온 곳]</b> 탭에 모입니다.</p>
     <div class="progress-wrap"><div class="progress-bar" id="pbar"></div></div>
     <div class="progress-label" id="plabel"></div>
     <div style="text-align:center;margin-top:12px;">
@@ -378,6 +380,7 @@
   <button class="tab" data-filter="shop">🛍 소품샵</button>
   <button class="tab" data-filter="bar">🍻 술집·안주</button>
   <button class="tab" data-filter="hotel">🏨 호텔</button>
+  <button class="tab" data-filter="spa">💆 마사지</button>
   <button class="tab" data-filter="visited">🔴 갔다온 곳</button>
 </nav>
 
@@ -1466,9 +1469,139 @@ const PLACES = [
   desc:"서귀포 올레시장까지 걸어갈 수 있는 가성비 호텔. 로비에 편의점이 있고 복층 주차장이 있지만 늦게 들어오면 자리가 빠듯합니다. 객실은 넓은 편이나 방음은 보통입니다.",
   addr:"서귀포시 명동로 46",time:"체크인 15:00 / 체크아웃 11:00 · 24시간 프런트",
   links:[["네이버지도",NM("더퍼스트70 호텔")],["예약 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("더퍼스트70 호텔 예약")]]},
+
+ // ================= 마사지·테라피 (25) =================
+ {id:"ulrim",cat:"spa",emoji:"🌿",region:"제주시 노형",name:"울림아로마테라피",tag:"오일·스포츠 · 구글 4.9",hash:"#오일테라피 #스포츠마사지 #가성비 #심야",
+  desc:"원장이 직접 시술하는 곳으로, 아픈 곳을 손으로 짚어낸다는 후기가 유난히 많습니다. 스포츠 70분 7만원·발 50분 5만원 선으로 제주 시세보다 저렴한 편이에요. 메뉴에 있는 구성이 그날 안 될 수도 있으니 예약할 때 코스와 금액을 먼저 확정하세요.",
+  addr:"제주시 원노형6길 12 2층",time:"매일 10:00~02:00 · 예약 권장",
+  links:[["네이버지도",NM("제주 울림아로마테라피")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("제주 울림아로마테라피 후기")]]},
+ {id:"cheongan",cat:"spa",emoji:"🌿",region:"제주시 노형",name:"청안스파",tag:"오일 아로마 · 구글 4.9(42)",hash:"#오일테라피 #청결 #응대좋음",
+  desc:"시설 청결과 응대 칭찬이 후기 전반에 깔려 있는 곳. 시술 중간중간 압을 물어봐서 부담 없이 받을 수 있다는 평이 많습니다. 노형 상권 안이라 공항에서 15분이면 닿아요.",
+  addr:"제주시 원노형2길 19-2 2층",time:"매일 11:00~24:00 · 예약 권장",
+  links:[["네이버지도",NM("제주 청안스파")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("제주 청안스파 마사지 후기")]]},
+ {id:"goldhands",cat:"spa",emoji:"🌿",region:"제주시 연동",name:"제주황금손아로마",tag:"오일 아로마 · 후기 170개",hash:"#오일테라피 #후기많음 #연동",
+  desc:"제주 마사지샵 중 구글 후기 수가 가장 많은 편(170개·4.8). 경력 오래된 관리사가 많다는 평입니다. 90분 11만원 선으로 시세 수준이고, 온라인 할인 시간대가 따로 있으니 예약 시 적용 여부를 확인하세요.",
+  addr:"제주시 연동 252-16",time:"매일 11:00~23:30 · 예약 권장",
+  links:[["네이버지도",NM("제주황금손아로마")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("제주황금손아로마 후기")]]},
+ {id:"healingzone",cat:"spa",emoji:"🌿",region:"제주시 연동",name:"연동 힐링존아로마",tag:"가격 공개 · 스포츠 60분 6만",hash:"#오일테라피 #가격공개 #가성비",
+  desc:"후기에 요금표가 그대로 올라와 있어 가격을 미리 알고 갈 수 있는 곳입니다. 아로마 60분 8만·90분 12만, 스포츠 60분 6만·90분 8만, 발관리 60분 5만 선이에요. 밤 10시 이후에는 1만원이 추가됩니다.",
+  addr:"제주시 신광로10길 2 2층",time:"매일 10:00~24:00 · 22시 이후 심야 할증",
+  links:[["네이버지도",NM("제주 연동 힐링존아로마")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("제주 연동 힐링존아로마")]]},
+ {id:"selpa",cat:"spa",emoji:"🌿",region:"제주시 연동",name:"셀파",tag:"정찰제 아로마 · 구글 5.0",hash:"#오일테라피 #정찰제 #남녀모두",
+  desc:"금액을 정찰제로 운영해 흥정이나 추가 결제 부담이 없다는 후기가 많습니다. 70분 아로마 기준으로 압이 세다는 평. 남녀 모두 편하게 갈 수 있는 분위기라는 외국인 후기도 있어요.",
+  addr:"제주시 신광로 38 2층",time:"24시간 · 예약 권장",
+  links:[["네이버지도",NM("제주 셀파 마사지 신광로")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("제주 셀파 아로마 신광로")]]},
+ {id:"haruaroma",cat:"spa",emoji:"🌿",region:"제주시 노형",name:"하루아로마",tag:"어깨·목 집중 · 구글 4.8",hash:"#오일테라피 #어깨목 #심야",
+  desc:"어깨·목·허리를 집중해서 풀어준다는 후기가 반복적으로 나오는 곳입니다. 새벽 2시까지 열어 일정이 늦게 끝난 날에도 갈 수 있어요. 규모가 작아 예약 없이 가면 대기가 생길 수 있습니다.",
+  addr:"제주시 원노형3길 13",time:"매일 09:00~02:00 · 예약 권장",
+  links:[["네이버지도",NM("제주 하루아로마")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("제주 하루아로마 후기")]]},
+ {id:"chaeum",cat:"spa",emoji:"🌿",region:"제주시 연동",name:"채움 아로마 테라피",tag:"공항 근처 · 마지막날 코스",hash:"#오일테라피 #공항근처 #부모님동반",
+  desc:"공항에서 가까워 짐 맡기고 비행기 타기 전에 들르기 좋은 곳. 네이버 예약으로 미리 잡으면 더 저렴하게 받을 수 있다는 후기가 여럿입니다. 부모님과 같이 갔는데도 만족했다는 평이 많아요.",
+  addr:"제주시 연북로 29",time:"매일 11:00~22:00 · 네이버 예약 권장",
+  links:[["네이버지도",NM("제주 채움 아로마 테라피 연북로")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("제주 채움아로마테라피")]]},
+ {id:"aewolbada",cat:"spa",emoji:"🌿",region:"애월 고내",name:"애월바다테라피",tag:"오일 아로마 · 구글 4.7(58)",hash:"#오일테라피 #애월 #네이버예약",
+  desc:"애월 해안도로 쪽 아로마 전문샵으로, 압을 사람마다 맞춰준다는 후기가 많습니다. 네이버 예약이 편하고 가격도 합리적이라는 평. 동남아 관광지 마사지와는 결이 다르다는 후기가 인상적이에요.",
+  addr:"제주시 애월읍 고내리 1231-4",time:"매일 09:00~23:00 · 네이버 예약 권장",
+  links:[["네이버지도",NM("애월바다테라피")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("애월바다테라피 후기")]]},
+ {id:"aewolkkum",cat:"spa",emoji:"🌿",region:"애월 신엄",name:"애월꿈아로마",tag:"목·어깨 · 가격 대비 만족",hash:"#오일테라피 #애월 #가성비",
+  desc:"목과 어깨가 굳은 채로 갔다가 확실히 풀렸다는 후기가 많은 곳입니다. 가격 대비 만족도가 높다는 평이 반복돼요. 규모가 크지 않아 미리 전화해두는 편이 안전합니다.",
+  addr:"제주시 애월읍 신엄리 2734-1",time:"매일 10:00~23:00 · 예약 권장",
+  links:[["네이버지도",NM("애월꿈아로마")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("애월꿈아로마 후기")]]},
+ {id:"lebnia",cat:"spa",emoji:"🌿",region:"애월 일주서로",name:"르브니아로마",tag:"바다 보며 족욕 · 구글 5.0",hash:"#오일테라피 #오션뷰 #족욕",
+  desc:"바다가 바로 앞이라 족욕을 하면서 창밖을 볼 수 있는 곳. 예약 없이 갔는데도 친절하게 받아줬다는 후기가 여럿이고, 가격이 좋다는 평이 함께 붙습니다. 시술 후 따뜻한 차를 내줘요.",
+  addr:"제주시 애월읍 일주서로 6663",time:"매일 11:00~22:00 · 예약 권장",
+  links:[["네이버지도",NM("르브니아로마 애월")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("르브니아로마 애월")]]},
+ {id:"mintaewol",cat:"spa",emoji:"🌿",region:"애월 하귀",name:"애월 민트마사지",tag:"경력 40년 원장 · 오션뷰",hash:"#오일테라피 #가성비 #오션뷰 #커플",
+  desc:"경력 40년 원장이 직접 봐준다는 후기가 있는 가족 운영 샵. 가격이 합리적이라는 평이 많고 한 방에서 같이 받을 수 있어 커플·부모님 동반에 좋습니다. 아래층에 코인세탁방이 있어 세탁 돌려놓고 받기 좋아요.",
+  addr:"제주시 애월읍 하귀2리 2800-5",time:"매일 10:00~22:00 · 예약 권장",
+  links:[["네이버지도",NM("제주 애월 민트마사지 하귀")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("제주 애월 민트마사지")]]},
+ {id:"hamdeoktherapy",cat:"spa",emoji:"🌿",region:"조천·함덕",name:"함덕테라피",tag:"제주 토박이 원장 · 구글 5.0",hash:"#오일테라피 #함덕 #체형분석",
+  desc:"제주에서 나고 자란 원장이 운영하는 작은 샵. 체형을 봐주고 생활 습관까지 짚어준다는 후기가 많습니다. 함덕 해수욕장 놀고 나서 들르기 좋은 위치예요.",
+  addr:"제주시 조천읍 신북로 481-3 3층",time:"매일 11:00~24:00 · 예약 권장",
+  links:[["네이버지도",NM("함덕테라피")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("함덕테라피 마사지 후기")]]},
+ {id:"aromahands",cat:"spa",emoji:"🌿",region:"조천·함덕",name:"아로마핸즈",tag:"함덕 입구 · 족욕 포함",hash:"#오일테라피 #함덕 #족욕 #뷰",
+  desc:"함덕해수욕장 입구 건물 4층이라 뷰가 좋고 시설이 깨끗합니다. 70분 전신 아로마에 족욕 10분이 붙는 구성이에요. 후기 중에 앞면은 오일을 덜 쓴다는 지적이 있으니 원하는 부위를 먼저 말해두세요.",
+  addr:"제주시 조천읍 조함해안로 526 4층",time:"매일 11:00~24:00 · 예약 권장",
+  links:[["네이버지도",NM("제주 아로마핸즈 함덕")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("제주 아로마핸즈 함덕")]]},
+ {id:"youngearoma",cat:"spa",emoji:"🌿",region:"서귀포시내",name:"영이아로마",tag:"픽업 서비스 · 구글 4.9(67)",hash:"#오일테라피 #픽업 #서귀포",
+  desc:"숙소까지 픽업·드롭을 해준다는 후기가 많아 차 없이 움직일 때 유용합니다. 압이 센 편이라 시원한 걸 좋아하면 잘 맞아요. 다만 표기된 시간보다 일찍 끝났다는 후기도 있으니 시작 전에 코스 시간을 확인하세요.",
+  addr:"서귀포시 서문로 49",time:"매일 10:00~23:30 · 예약 권장",
+  links:[["네이버지도",NM("서귀포 영이아로마")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("서귀포 영이아로마 후기")]]},
+ {id:"onuelbody",cat:"spa",emoji:"🌿",region:"서귀포시내",name:"오늘도 바디케어 서귀포본점",tag:"후기 137개 · 이중섭거리",hash:"#오일테라피 #후기많음 #올레시장",
+  desc:"서귀포에서 구글 후기가 가장 많이 쌓인 곳 중 하나(137개·4.9). 이중섭거리·올레시장과 붙어 있어 시장 구경 끝나고 들르기 좋습니다. 관리사에 따라 편차가 있다는 후기가 있으니 예약 시 지명이 가능한지 물어보세요.",
+  addr:"서귀포시 태평로371번길 30 1층 101호",time:"매일 10:00~23:30 · 예약 권장",
+  links:[["네이버지도",NM("오늘도 바디케어 서귀포")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("서귀포 오늘도 바디케어 후기")]]},
+ {id:"seogwiheal",cat:"spa",emoji:"🌿",region:"서귀포시내",name:"서귀동 힐링아로마",tag:"현금가 저렴 · 워크인 가능",hash:"#오일테라피 #가성비 #예약없이 #커플룸",
+  desc:"예약 없이 들어가도 받을 수 있다는 후기가 많아 즉흥 일정에 잘 맞습니다. 현금 결제 시 할인이 있어 바디+발 조합을 6만원대에 받았다는 후기도 있어요. 커플룸과 족욕이 따로 있습니다.",
+  addr:"서귀포시 솔동산로 26 2층",time:"매일 10:00~02:00 · 현금 할인 있음",
+  links:[["네이버지도",NM("서귀동 힐링아로마")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("서귀동 힐링아로마 후기")]]},
+ {id:"wooriaroma",cat:"spa",emoji:"🌿",region:"중문",name:"우리같이아로마",tag:"1인 집중 케어 · 구글 4.9",hash:"#오일테라피 #중문 #족욕 #일요일휴무",
+  desc:"큰 샵처럼 줄줄이 돌리는 느낌이 없고 한 사람에게 시간을 다 쓴다는 후기가 많습니다. 족욕과 차를 먼저 내주고 시작해요. 일요일은 쉬니 중문 일정 잡을 때 요일을 확인하세요.",
+  addr:"서귀포시 중문관광로 285",time:"10:00~22:00 · 일요일 휴무",
+  links:[["네이버지도",NM("우리같이아로마 중문")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("중문 우리같이아로마")]]},
+ {id:"hyogyeong",cat:"spa",emoji:"🌿",region:"동부·성산",name:"효경에스테틱",tag:"하체 40분 5만 · 성산일출봉 근처",hash:"#오일테라피 #가성비 #성산 #하체",
+  desc:"성산일출봉 근처에서 다리·발만 짧게 풀고 싶을 때 좋은 곳. 하체 40분 5만원 선이라 부담이 적습니다. 규모가 아주 작아 반드시 전화 예약을 하고 가세요.",
+  addr:"서귀포시 성산읍 고성리 298-53",time:"매일 10:00~22:00 · 전화 예약 필수",
+  links:[["네이버지도",NM("성산 효경에스테틱")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("성산 효경에스테틱")]]},
+ {id:"couplearoma",cat:"spa",emoji:"👐",region:"중문",name:"중문 커플아로마 본점",tag:"타이·중국식 계열 · 스포츠 70분 8만",hash:"#중국식 #지압 #한라산하산 #커플",
+  desc:"타이·중국식 계열 지압을 아로마 분위기에서 받을 수 있는 곳으로 소개되는 샵입니다. 지압점 위주에 스트레칭이 섞인 스포츠 70분이 8만원 선. 한라산 내려온 날 다리 풀기에 좋다는 후기가 많아요. 동시에 2~4명까지만 가능해 전화 예약이 안전합니다.",
+  addr:"서귀포시 천제연로 214 2층",time:"매일 09:00~23:30 · 전화 예약 권장",
+  links:[["네이버지도",NM("서귀포 중문 커플아로마")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("중문 커플아로마 후기")]]},
+ {id:"familyaroma",cat:"spa",emoji:"👐",region:"서귀포시내",name:"패밀리아로마",tag:"발마사지 60분 6만 · 가족 운영",hash:"#중국식 #발마사지 #가성비 #부모님",
+  desc:"가족이 운영하는 곳으로 응대가 편하다는 후기가 많습니다. 발관리 60분 6만원 선, 할인 기간엔 4만원대에 받았다는 후기도 있어요. 목·뒤통수까지 촘촘히 짚어준다는 평이 인상적입니다.",
+  addr:"서귀포시 서문로41번길 15-1 2층",time:"매일 10:00~02:00 · 예약 권장",
+  links:[["네이버지도",NM("서귀포 패밀리아로마")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("서귀포 패밀리아로마")]]},
+ {id:"gwijok",cat:"spa",emoji:"👐",region:"제주시 탑동",name:"제주 귀족테라피",tag:"발관리 중심 · 90분 7만",hash:"#중국식 #발마사지 #가성비 #탑동",
+  desc:"발관리 중심으로 운영되는 곳으로, 90분 7만원에 받았다는 후기가 있을 만큼 가격이 저렴한 편입니다. 예약 없이 바로 받았다는 후기도 있어요. 평점이 4.3으로 위 샵들보단 낮으니 기대치는 가격에 맞춰 잡으세요.",
+  addr:"제주시 탑동로 59",time:"매일 10:00~22:00",
+  links:[["네이버지도",NM("제주 귀족테라피 탑동")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("제주 귀족테라피 후기")]]},
+ {id:"balpyeon",cat:"spa",emoji:"👐",region:"중문",name:"중문 발편한세상",tag:"발·어깨 위주 · 가격 저렴",hash:"#중국식 #발마사지 #가성비 #커플",
+  desc:"어깨와 발을 위주로 풀어주는 곳으로, 가격이 부담 없다는 후기가 반복됩니다. 커플로 같이 받았다는 후기가 많아요. 새벽 1시까지 열어 늦은 일정에도 갈 수 있습니다.",
+  addr:"서귀포시 색달동 2481-7",time:"매일 10:00~01:00 · 예약 권장",
+  links:[["네이버지도",NM("중문 발편한세상")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("중문 발편한세상")]]},
+ {id:"jungmunthai",cat:"spa",emoji:"🇹🇭",region:"중문",name:"중문 더타이",tag:"타이마사지 · 구글 5.0(62)",hash:"#타이마사지 #중문 #핫스톤 #커플",
+  desc:"이름 그대로 태국식으로 운영되는 곳으로, 구글 평점 5.0에 후기 62개가 쌓여 있습니다. 웰컴티부터 분위기가 태국 현지 같다는 평이 많아요. 핫스톤과 딥티슈 후기가 특히 좋습니다.",
+  addr:"서귀포시 중문관광로 323",time:"매일 10:00~01:00 · 예약 권장",
+  links:[["네이버지도",NM("중문 더타이 마사지")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("중문 더타이 마사지 후기")]]},
+ {id:"deoulthai",cat:"spa",emoji:"🇹🇭",region:"중문",name:"중문마사지 더울아로마",tag:"타이+아로마+발 · 픽업 있음",hash:"#타이마사지 #중문 #픽업 #족욕",
+  desc:"타이·아로마·발마사지를 함께 하는 곳으로 구글 평점 5.0입니다. 무료 픽업 서비스가 있다는 후기가 여럿 있어 차 없이 움직일 때 편해요. 족욕으로 시작해서 압을 계속 물어봐 준다는 평입니다.",
+  addr:"서귀포시 천제연로 144 더울테라스 204호",time:"매일 09:00~23:00 · 예약 권장",
+  links:[["네이버지도",NM("중문마사지 더울아로마")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("중문 더울아로마 마사지")]]},
+ {id:"aewolthai",cat:"spa",emoji:"🇹🇭",region:"애월 해안도로",name:"애월테라피",tag:"타이·헤드스파 · 현금가 저렴",hash:"#타이마사지 #애월 #헤드스파 #현금할인",
+  desc:"애월 해안도로를 타고 가는 길 자체가 좋은 곳으로, 들어서면 동남아 리조트 분위기가 납니다. 카드보다 현금이 저렴하니 현금을 챙겨가세요. 헤드스파 후기가 특히 좋고, 관리사에 따라 편차가 있다는 후기도 있습니다.",
+  addr:"제주시 애월읍 애월해안로 454-5",time:"매일 09:00~23:00 · 현금 결제가 저렴",
+  links:[["네이버지도",NM("애월테라피 제주애월점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("애월테라피 애월해안로 후기")]]},
+ {id:"nobleaewol",cat:"spa",emoji:"🇹🇭",region:"애월 곽지",name:"노블아로마 애월점",tag:"타이 100분 커플 · 곽지해변 앞",hash:"#타이마사지 #애월 #커플 #곽지",
+  desc:"곽지해수욕장이 보이는 위치라 시술 전후 뷰가 좋습니다. 타이 100분 커플 코스를 받았다는 후기가 여럿이고, 한국인 관리사가 지압점을 잘 짚는다는 평이 많아요. 시설이 깨끗하다는 후기가 꾸준합니다.",
+  addr:"제주시 애월읍 곽지3길 19",time:"매일 11:00~23:00 · 예약 권장",
+  links:[["네이버지도",NM("노블아로마 애월점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("노블아로마 애월점 후기")]]},
 ];
 
 const TEL={
+ ulrim:"0507-1321-2533",
+ cheongan:"010-5037-2700",
+ goldhands:"010-3232-6710",
+ healingzone:"0507-1459-1969",
+ selpa:"064-900-5287",
+ haruaroma:"010-3849-8211",
+ aewolbada:"0507-1370-1790",
+ aewolkkum:"010-8382-4322",
+ lebnia:"010-7761-1893",
+ hamdeoktherapy:"010-5710-1278",
+ aromahands:"064-901-2226",
+ youngearoma:"010-9981-7395",
+ onuelbody:"010-9732-8856",
+ seogwiheal:"064-738-3111",
+ wooriaroma:"064-738-6140",
+ hyogyeong:"010-6557-2839",
+ couplearoma:"010-4843-9218",
+ familyaroma:"010-3567-9085",
+ gwijok:"064-759-7177",
+ balpyeon:"064-738-3033",
+ jungmunthai:"010-7320-4235",
+ deoulthai:"010-8549-0706",
+ aewolthai:"064-799-5775",
+ nobleaewol:"064-799-8873",
  islander:"070-8811-9562",
  jongjong:"0507-1441-1891",
  jestory:"064-738-1134",
@@ -1691,6 +1824,23 @@ const PKT = [
 const PK_ORDER = PKT.map(x=>x.key);
 const PK_OF = PKT.reduce((o,x)=>(o[x.key]=x,o),{});
 const PK = {
+ ulrim:"public",
+ cheongan:"public",
+ goldhands:"public",
+ healingzone:"public",
+ selpa:"public",
+ haruaroma:"public",
+ chaeum:"public",
+ youngearoma:"public",
+ onuelbody:"public",
+ seogwiheal:"public",
+ wooriaroma:"public",
+ gwijok:"public",
+ familyaroma:"public",
+ couplearoma:"public",
+ balpyeon:"public",
+ jungmunthai:"public",
+ deoulthai:"public",
  seongsan:"free",
  udo:"free",
  hyeopjae:"free",
@@ -1975,9 +2125,29 @@ const HOTEL_T = [
  {t:2,emoji:"🏨",label:"그 밖의 3~5성급"},
 ];
 const STARS = {grandhyatt:5,parnas:5,jwmarriott:5,shilla:5,lottehotel:5,haevichi:5,shinhwamr:5,lotteart:5,maisonglad:5,ventimo:4,sirius:4,shillastay:4,lottecity:4,bestwestern:4,first70:3};
+const MUSTSPA = {
+ ulrim:"원장이 직접 짚어주고 스포츠 70분 7만원 선. 시세보다 싸면서 실력 평이 가장 안정적이에요.",
+ cheongan:"청결·응대 칭찬이 후기 전반에 깔려 있어요. 처음 가는 사람에게 가장 무난한 선택.",
+ goldhands:"후기 170개에 4.8. 표본이 많다는 건 그만큼 편차가 적다는 뜻이에요.",
+ healingzone:"요금표가 공개돼 있어 계산이 명확해요. 스포츠 60분 6만원이면 제주에서 싼 편입니다.",
+ seogwiheal:"예약 없이 들어가도 받을 수 있고 현금가가 싸요. 서귀포 즉흥 일정의 정답.",
+};
+const SPATIER = {
+ ulrim:1,cheongan:1,goldhands:1,healingzone:1,selpa:1,haruaroma:1,chaeum:1,
+ aewolbada:1,aewolkkum:1,lebnia:1,mintaewol:1,hamdeoktherapy:1,aromahands:1,
+ youngearoma:1,onuelbody:1,seogwiheal:1,wooriaroma:1,hyogyeong:1,
+ couplearoma:2,familyaroma:2,gwijok:2,balpyeon:2,
+ jungmunthai:3,deoulthai:3,aewolthai:3,nobleaewol:3,
+};
+const SPA_T = [
+ {t:1,emoji:"🌿",label:"오일·아로마 테라피 (1순위)"},
+ {t:2,emoji:"👐",label:"중국식 계열 · 발마사지·지압 (2순위)"},
+ {t:3,emoji:"🇹🇭",label:"타이마사지 (3순위)"},
+];
 const TIERMAP = {shop:{tier:SHOPTIER,defs:SHOP_T,must:MUSTSHOP,cls:"shop",why:"여기는 꼭"},
                  bar:{tier:BARTIER,defs:BAR_T,must:MUSTBAR,cls:"bar",why:"이 집을 꼽는 이유"},
-                 hotel:{tier:HOTELTIER,defs:HOTEL_T,must:MUSTHOTEL,cls:"hotel",why:"이 호텔을 꼽는 이유"}};
+                 hotel:{tier:HOTELTIER,defs:HOTEL_T,must:MUSTHOTEL,cls:"hotel",why:"이 호텔을 꼽는 이유"},
+                 spa:{tier:SPATIER,defs:SPA_T,must:MUSTSPA,cls:"spa",why:"이 샵을 꼽는 이유"}};
 
 // ===== 활동 강도: 실내 → 시원한 야외 → 차로 → 야외 → 걷기 → 약간의 등산 =====
 const EFF = [
@@ -1992,6 +2162,32 @@ const EFF = [
 const EFF_ORDER = EFF.map(e=>e.key);
 const EFF_OF = EFF.reduce((o,e)=>(o[e.key]=e,o),{});
 const EFFORT = {
+ ulrim:"in",
+ cheongan:"in",
+ goldhands:"in",
+ healingzone:"in",
+ selpa:"in",
+ haruaroma:"in",
+ chaeum:"in",
+ aewolbada:"in",
+ aewolkkum:"in",
+ lebnia:"in",
+ mintaewol:"in",
+ hamdeoktherapy:"in",
+ aromahands:"in",
+ youngearoma:"in",
+ onuelbody:"in",
+ seogwiheal:"in",
+ wooriaroma:"in",
+ hyogyeong:"in",
+ couplearoma:"in",
+ familyaroma:"in",
+ gwijok:"in",
+ balpyeon:"in",
+ jungmunthai:"in",
+ deoulthai:"in",
+ aewolthai:"in",
+ nobleaewol:"in",
  islander:"in",
  jongjong:"in",
  jestory:"in",
@@ -2418,9 +2614,9 @@ function glossify(t){
 
 // 대표 사진 보기 (네이버 이미지 검색 — 항상 최신 사진이 뜸)
 const PHOTO = n => "https://search.naver.com/search.naver?where=image&query=" + encodeURIComponent("제주 " + n);
-const CAT = {spot:{label:"관광지"},food:{label:"맛집"},cafe:{label:"카페"},shop:{label:"소품샵"},bar:{label:"술집·안주"},hotel:{label:"호텔"}};
-const CATS = ["spot","food","cafe","shop","bar","hotel"];
-const CAT_EMOJI = {spot:"🏝 ",food:"🍽 ",cafe:"☕ ",shop:"🛍 ",bar:"🍻 ",hotel:"🏨 "};
+const CAT = {spot:{label:"관광지"},food:{label:"맛집"},cafe:{label:"카페"},shop:{label:"소품샵"},bar:{label:"술집·안주"},hotel:{label:"호텔"},spa:{label:"마사지"}};
+const CATS = ["spot","food","cafe","shop","bar","hotel","spa"];
+const CAT_EMOJI = {spot:"🏝 ",food:"🍽 ",cafe:"☕ ",shop:"🛍 ",bar:"🍻 ",hotel:"🏨 ",spa:"💆 "};
 
 // ===== 저장 구조: {v: 방문 도장, c: 직접 추가한 장소} — 두 사람이 자동 공유 =====
 const COUPLE_KEY = "jejustamp_3c5491d5379e4abce2a377bae7987b6c";
@@ -2584,6 +2780,7 @@ const CHIPS=[
  {label:"🍙 김밥·분식·치킨",cats:["food","bar"],ft:["snack"],keys:["김밥","분식","떡볶이","치킨","통닭","순대","튀김","만두"]},
  {label:"🍞 빵·디저트",cats:["cafe","food"],keys:["베이커리","빵","도넛","떡","푸딩","케이크","제과","디저트","타르트","젤라또","아이스크림","카이막","젤루","크로플","크로칸슈","마카롱","소금빵"]},
  {label:"🌅 오션뷰 카페",cats:["cafe"],keys:["오션뷰","바다뷰","바다 뷰","해안","바다가","바다를","해변"]},
+ {label:"💆 마사지·테라피",cats:["spa"],keys:["마사지","아로마","테라피","오일","타이","발관리","지압","스포츠"]},
  {label:"🌸 정원·꽃",cats:["spot","cafe"],keys:["정원","꽃","수국","동백","핑크뮬리","억새","귤밭","유채","벚꽃","포토존"]},
 ];
 // 칩 하나가 이 장소를 포함하는지 (카테고리 + 맛집 종류 + 키워드 3중 판정)
@@ -2609,6 +2806,32 @@ const ZONES=[
  {key:"daejeong",emoji:"⛰",name:"대정·안덕",full:"서귀포시 대정읍·안덕면"},
 ];
 const ZONE_OF={
+ ulrim:"jsi",
+ cheongan:"jsi",
+ goldhands:"jsi",
+ healingzone:"jsi",
+ selpa:"jsi",
+ haruaroma:"jsi",
+ chaeum:"jsi",
+ gwijok:"jsi",
+ aewolbada:"aewol",
+ aewolkkum:"aewol",
+ lebnia:"aewol",
+ mintaewol:"aewol",
+ aewolthai:"aewol",
+ nobleaewol:"aewol",
+ hamdeoktherapy:"jocheon",
+ aromahands:"jocheon",
+ youngearoma:"sgp",
+ onuelbody:"sgp",
+ seogwiheal:"sgp",
+ familyaroma:"sgp",
+ wooriaroma:"jungmun",
+ couplearoma:"jungmun",
+ balpyeon:"jungmun",
+ jungmunthai:"jungmun",
+ deoulthai:"jungmun",
+ hyogyeong:"seongsan",
  islander:"jsi",
  jongjong:"jocheon",
  jestory:"sgp",
@@ -2759,6 +2982,32 @@ function renderEffMenu(){
 
 // 장소 좌표 (지도 데이터 검증)
 const LL={
+ ulrim:[33.4850946,126.4826956],
+ cheongan:[33.4844062,126.4814019],
+ goldhands:[33.4861174,126.4871073],
+ healingzone:[33.4839779,126.4893395],
+ selpa:[33.4887699,126.4898453],
+ haruaroma:[33.4864363,126.4844124],
+ chaeum:[33.4831536,126.4920128],
+ gwijok:[33.5180133,126.5186772],
+ aewolbada:[33.4677759,126.332037],
+ aewolkkum:[33.4776427,126.3629501],
+ lebnia:[33.4704071,126.364346],
+ mintaewol:[33.4879954,126.3899487],
+ aewolthai:[33.47674,126.3539528],
+ nobleaewol:[33.448843,126.3050634],
+ hamdeoktherapy:[33.5435607,126.6618578],
+ aromahands:[33.5425321,126.6690295],
+ youngearoma:[33.2488062,126.5575997],
+ onuelbody:[33.2457038,126.5637634],
+ seogwiheal:[33.2427077,126.5634514],
+ familyaroma:[33.2491559,126.5594672],
+ wooriaroma:[33.2460285,126.4288415],
+ couplearoma:[33.2514153,126.4275476],
+ balpyeon:[33.2814107,126.4111118],
+ jungmunthai:[33.2492204,126.4301783],
+ deoulthai:[33.2529548,126.4203892],
+ hyogyeong:[33.4501518,126.9166715],
  islander:[33.5123869,126.5214218],
  jongjong:[33.4878473,126.7124147],
  jestory:[33.2360926,126.5149193],
@@ -3097,7 +3346,8 @@ function addTierGroups(cat, items){
       h.className = "tier-head th-"+M.cls;
       h.innerHTML = d.emoji+" "+d.label+" "+arr.length+"곳"+
         '<div class="th-sub">'+(near?"내 위치에서 가까운 순입니다. ":"")+
-        (cat==="hotel"?"청소 상태와 직원 응대 후기가 꾸준히 좋은 곳만 골랐어요."
+        (cat==="spa"?"마사지만 하는 건전한 샵 중 후기가 좋고 시세보다 싸거나 비슷한 곳만 골랐어요."
+         :cat==="hotel"?"청소 상태와 직원 응대 후기가 꾸준히 좋은 곳만 골랐어요."
          :cat==="bar"?"제주가 아니면 이 안주를 이렇게 못 먹습니다."
          :"기념품샵을 딱 한 군데만 간다면 이 안에서 고르세요.")+'</div>';
       list.appendChild(h);
