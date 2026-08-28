@@ -38,7 +38,7 @@
     transition:all .18s;font-family:inherit;}
   .tab:hover{border-color:var(--sea);}
   .tab.active{background:var(--basalt);color:#fff;border-color:var(--basalt);}
-  #searchWrap{max-width:1080px;margin:10px auto 0;padding:0 16px;}
+  #searchWrap{max-width:1080px;margin:10px auto 0;padding:0 16px;position:relative;z-index:12;}
   #searchBox{position:relative;}
   #searchInput{width:100%;box-sizing:border-box;padding:13px 42px 13px 42px;
     border:1.5px solid var(--line);border-radius:14px;background:#fff;
@@ -54,6 +54,15 @@
   .chip{flex:0 0 auto;border:1.5px solid var(--line);background:#fff;color:var(--basalt);
     padding:8px 13px;border-radius:999px;font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;}
   .chip.active{background:var(--sea);border-color:var(--sea);color:#fff;}
+  .chip:active{transform:scale(.95);}
+  #filterBar{display:none;flex-wrap:wrap;align-items:center;gap:6px;margin-top:8px;}
+  #filterBar .fb-lab{font-size:11.5px;font-weight:900;color:#8A9490;}
+  #filterBar .fb-tag{border:1.5px solid var(--sea);background:#E8F4F3;color:#0F5A56;
+    border-radius:999px;padding:5px 10px;font-family:inherit;font-size:11.5px;font-weight:800;cursor:pointer;}
+  #filterBar .fb-tag .x{opacity:.6;margin-left:2px;}
+  #filterBar .fb-clear{border:none;background:#5C6664;color:#fff;border-radius:999px;
+    padding:5px 11px;font-family:inherit;font-size:11.5px;font-weight:800;cursor:pointer;}
+  #filterBar .fb-cnt{font-size:11.5px;font-weight:900;color:var(--sea);}
   .no-result{text-align:center;color:#8A9490;padding:48px 16px;font-size:14px;line-height:1.7;}
   #zoneWrap{max-width:1080px;margin:14px auto 0;padding:0 16px;}
   #zoneTitle{font-size:15px;font-weight:900;color:var(--basalt);margin:0 0 8px;display:flex;align-items:center;gap:6px;}
@@ -351,6 +360,7 @@
     <button id="searchClear">✕</button>
   </div>
   <div id="chips"></div>
+  <div id="filterBar"></div>
   <button id="aiAskBtn">🤖 모르는 말이 있나요? 눌러서 바로 찾아보기</button>
 </div>
 
@@ -2518,19 +2528,31 @@ const CHO_LIST=["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ
 function toCho(s){let r="";for(const ch of s){const c=ch.charCodeAt(0);
   if(c>=0xAC00&&c<=0xD7A3)r+=CHO_LIST[Math.floor((c-0xAC00)/588)];else r+=ch;}return r;}
 const CHIPS=[
- {label:"🏛 박물관·전시",keys:["박물관","미술관","전시","갤러리","아쿠아","민속촌","실내","비오는날","온천"]},
- {label:"🌊 해변·바다",keys:["해수욕장","해변","해안","바다","포구","항 ","등대","우도","섬 "]},
- {label:"⛰ 오름·트레킹",keys:["오름","한라산","등반","숲길","둘레길","곶자왈","산책로","트레킹","휴양림","생태숲"]},
- {label:"🌄 경치·전망",keys:["뷰","경치","절경","전망","일출","일몰","풍경","폭포","주상절리"]},
- {label:"🎡 테마파크·체험",keys:["테마파크","체험","카트","루지","승마","놀이","레일","공원","목장","동물"]},
- {label:"🛍 시장·거리",keys:["시장","거리","골목","원도심","상점","쇼핑"]},
- {label:"🍜 국수·국밥",keys:["국수","국밥","해장국","칼국수","몸국","밀면","우동","라면"]},
- {label:"🐟 해산물",keys:["해산물","해물","전복","갈치","물회","고등어","보말","횟집","회센타","성게","문어","김밥"]},
- {label:"🥩 고기·치킨",keys:["흑돼지","돼지","고기","돔베","두루치기","치킨","통닭","버거","수육","돈까스","돈가스","커틀렛"]},
- {label:"🍞 빵·디저트",keys:["베이커리","빵","도넛","떡","푸딩","케이크","제과","분식","디저트","타르트","젤라또","아이스크림","카이막","젤루"]},
- {label:"🌅 오션뷰 카페",keys:["오션뷰","바다뷰","바다 뷰","해안"]},
- {label:"🌸 정원·꽃",keys:["정원","꽃","수국","동백","핑크뮬리","억새","귤밭","유채"]},
+ {label:"🏛 박물관·전시",cats:["spot"],keys:["박물관","미술관","전시","갤러리","아쿠아","민속촌","실내","비오는날","온천","테마관"]},
+ {label:"🌊 해변·바다",cats:["spot","cafe"],keys:["해수욕장","해변","해안","바다","포구","등대","우도","백사장","오션"]},
+ {label:"⛰ 오름·트레킹",cats:["spot"],keys:["오름","한라산","등반","숲길","둘레길","곶자왈","산책로","트레킹","휴양림","생태숲","수목원"]},
+ {label:"🌄 경치·전망",cats:["spot","cafe"],keys:["뷰","경치","절경","전망","일출","일몰","풍경","폭포","주상절리"]},
+ {label:"🎡 테마파크·체험",cats:["spot"],keys:["테마파크","체험","카트","루지","승마","놀이","레일","공원","목장","동물","미로"]},
+ {label:"🛍 시장·거리",cats:["spot","shop"],keys:["시장","거리","골목","원도심","상점","쇼핑","야시장","올레시장","동문"]},
+ {label:"🍜 국수·국밥",cats:["food"],ft:["noodle","haejang"],keys:["국수","국밥","해장국","칼국수","몸국","밀면","우동","라면","고기국수"]},
+ {label:"🐟 해산물·회",cats:["food","bar"],ft:["sea"],keys:["해산물","해물","전복","갈치","물회","고등어","보말","횟집","회센타","성게","문어","오징어","한치","딱새우"]},
+ {label:"🥩 흑돼지·고기",cats:["food","bar"],ft:["meat"],keys:["흑돼지","돼지","고기","돔베","두루치기","수육","근고기","갈비","오겹살","족발"]},
+ {label:"🍱 돈까스·버거",cats:["food"],ft:["katsu","burger"],keys:["돈까스","돈가스","커틀렛","카츠","버거","햄버거","수제버거","피자","파스타"]},
+ {label:"🍙 김밥·분식·치킨",cats:["food","bar"],ft:["snack"],keys:["김밥","분식","떡볶이","치킨","통닭","순대","튀김","만두"]},
+ {label:"🍞 빵·디저트",cats:["cafe","food"],keys:["베이커리","빵","도넛","떡","푸딩","케이크","제과","디저트","타르트","젤라또","아이스크림","카이막","젤루","크로플","크로칸슈","마카롱","소금빵"]},
+ {label:"🌅 오션뷰 카페",cats:["cafe"],keys:["오션뷰","바다뷰","바다 뷰","해안","바다가","바다를","해변"]},
+ {label:"🌸 정원·꽃",cats:["spot","cafe"],keys:["정원","꽃","수국","동백","핑크뮬리","억새","귤밭","유채","벚꽃","포토존"]},
 ];
+// 칩 하나가 이 장소를 포함하는지 (카테고리 + 맛집 종류 + 키워드 3중 판정)
+function chipMatch(c,p){
+  if(c.cats && c.cats.length && !c.cats.includes(p.cat)) return false;
+  if(c.ft && p.cat==="food"){
+    const f = ftOf(p);
+    if(f!=="etc") return c.ft.includes(f);
+  }
+  const t = placeText(p);
+  return (c.keys||[]).some(k=>t.includes(k));
+}
 const ZONES=[
  {key:"jsi",emoji:"🏙",name:"제주 시내",full:"제주시 시내(동지역)"},
  {key:"aewol",emoji:"🌅",name:"애월",full:"제주시 애월읍"},
@@ -2823,6 +2845,7 @@ nearbyBtn.addEventListener("click",()=>{
     render(); return;
   }
   if(!navigator.geolocation){ alert("이 브라우저는 위치 기능을 지원하지 않아요."); return; }
+  if(currentFilter==="must") setTab("all"); // 꼭 가볼 곳 탭은 거리 무시라 전체 탭으로 옮겨서 보여준다
   nearbyBtn.textContent="📡 내 위치 찾는 중…";
   navigator.geolocation.getCurrentPosition(pos=>{
     myPos={lat:pos.coords.latitude, lng:pos.coords.longitude};
@@ -2865,10 +2888,7 @@ function placeText(p){
 }
 function matchesSearch(p){
   if(activeZone!==null && zoneOf(p)!==activeZone) return false;
-  if(activeChip>=0){
-    const t = placeText(p);
-    if(!CHIPS[activeChip].keys.some(k=>t.includes(k))) return false;
-  }
+  if(activeChip>=0 && !chipMatch(CHIPS[activeChip],p)) return false;
   if(!searchQ) return true;
   const q = searchQ.replace(/\s/g,"").toLowerCase();
   if(/^[ㄱ-ㅎ]+$/.test(q)){
@@ -2879,16 +2899,75 @@ function matchesSearch(p){
   return hay.includes(q) || hay.replace(/\s/g,"").includes(q);
 }
 const chipsEl = document.getElementById("chips");
+function syncChips(){
+  [...chipsEl.children].forEach((el,j)=>el.classList.toggle("active", j===activeChip));
+}
+function visibleCount(){ return allPlaces().filter(passes).length; }
+function clearNearby(){
+  nearbyOn=false; barNear=false; distMap=null;
+  if(nearbyBtn){ nearbyBtn.classList.remove("on"); nearbyBtn.textContent="📍 내 주변 "+NEAR_LIMIT_KM+"km 이내 보기"; }
+}
+function setTab(f){
+  currentFilter=f;
+  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active", t.dataset.filter===f));
+}
+function scrollToList(){
+  const el=document.getElementById("list");
+  if(!el) return;
+  const y=el.getBoundingClientRect().top + window.pageYOffset - 150;
+  window.scrollTo({top:Math.max(0,y), behavior:"smooth"});
+}
 CHIPS.forEach((c,i)=>{
   const b = document.createElement("button");
   b.className="chip"; b.textContent=c.label;
   b.addEventListener("click",()=>{
     activeChip = (activeChip===i? -1 : i);
-    [...chipsEl.children].forEach((el,j)=>el.classList.toggle("active", j===activeChip));
+    syncChips();
+    if(activeChip>=0){
+      // 지금 탭·지역·강도·내 주변 때문에 결과가 0이면 하나씩 자동으로 풀어서 꼭 보이게 한다
+      if(visibleCount()===0){ clearNearby(); }
+      if(visibleCount()===0){ activeEff=null; }
+      if(visibleCount()===0){ activeZone=null; }
+      if(visibleCount()===0 && currentFilter!=="all"){ setTab("all"); }
+      if(visibleCount()===0 && searchQ){
+        searchInput.value=""; searchQ=""; searchClear.classList.remove("show");
+      }
+    }
     render();
+    scrollToList();
   });
   chipsEl.appendChild(b);
 });
+// 지금 걸려 있는 필터를 한눈에 보여주고 바로 풀 수 있게
+function renderFilterBar(){
+  const bar = document.getElementById("filterBar");
+  if(!bar) return;
+  const on = [];
+  if(activeChip>=0) on.push({t:CHIPS[activeChip].label, f:()=>{ activeChip=-1; syncChips(); }});
+  if(activeZone!==null){ const z=ZONES.find(x=>x.key===activeZone);
+    on.push({t:"📍 "+(z?z.name:activeZone), f:()=>{ activeZone=null; }}); }
+  if(activeEff!==null){ const e=EFF_OF[activeEff];
+    on.push({t:(e?e.emoji+" "+e.name:activeEff), f:()=>{ activeEff=null; }}); }
+  if(searchQ) on.push({t:"🔍 "+searchQ, f:()=>{ searchInput.value=""; searchQ=""; searchClear.classList.remove("show"); }});
+  if(nearbyOn) on.push({t:"📍 내 주변 "+NEAR_LIMIT_KM+"km", f:clearNearby});
+  bar.innerHTML="";
+  if(!on.length){ bar.style.display="none"; return; }
+  bar.style.display="flex";
+  const lab=document.createElement("span"); lab.className="fb-lab"; lab.textContent="지금 필터";
+  bar.appendChild(lab);
+  on.forEach(o=>{
+    const t=document.createElement("button"); t.className="fb-tag";
+    t.innerHTML=o.t+' <span class="x">✕</span>';
+    t.addEventListener("click",()=>{ o.f(); render(); });
+    bar.appendChild(t);
+  });
+  const cnt=document.createElement("span"); cnt.className="fb-cnt";
+  cnt.textContent=visibleCount()+"곳";
+  bar.appendChild(cnt);
+  const all=document.createElement("button"); all.className="fb-clear"; all.textContent="전체 해제";
+  all.addEventListener("click",()=>{ on.forEach(o=>o.f()); render(); });
+  bar.appendChild(all);
+}
 const searchInput = document.getElementById("searchInput");
 const searchClear = document.getElementById("searchClear");
 searchInput.addEventListener("input",()=>{
@@ -2990,10 +3069,12 @@ function addTierGroups(cat, items){
 function render(){
   renderZoneMenu();
   renderEffMenu();
+  renderFilterBar();
   list.innerHTML = "";
   const pool = allPlaces();
 
-  if(nearbyOn && distMap){
+  // ⭐ 꼭 가볼 곳 탭은 거리와 무관하게 항상 전체를 보여준다
+  if(nearbyOn && distMap && currentFilter!=="must"){
     const items = pool.filter(passes)
       .filter(p=>distMap[p.id]!==undefined && distMap[p.id]<=NEAR_LIMIT_KM)
       .sort((a,b)=>distMap[a.id]-distMap[b.id])
@@ -3017,7 +3098,7 @@ function render(){
     const doneN = ids.filter(id=>visited[id]).length;
     const h = document.createElement("div");
     h.className = "must-head";
-    h.innerHTML = `⭐ 제주 필수 코스 ${ids.length}곳<div class="must-sub">덜 힘든 순서(실내 → 시원한 야외 → 차로 → 야외 → 걷기 → 등산)로 정리했어요. 지금까지 <b>${doneN}곳</b> 완료했어요.</div>`;
+    h.innerHTML = `⭐ 제주 필수 코스 ${ids.length}곳<div class="must-sub">이 탭은 <b>거리와 상관없이 섬 전체</b>를 다 보여줍니다. 내 주변·지역·강도 필터는 자동으로 풀려요.<br>덜 힘든 순서(실내 → 시원한 야외 → 차로 → 야외 → 걷기 → 등산)로 정리했어요. 지금까지 <b>${doneN}곳</b> 완료했어요.</div>`;
     list.appendChild(h);
     const items = pool.filter(passes);
     if(items.length) addEffGroups(items, true);
@@ -3141,6 +3222,15 @@ document.getElementById("tabs").addEventListener("click",e=>{
   document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
   btn.classList.add("active");
   currentFilter = btn.dataset.filter;
+  // ⭐ 꼭 가볼 곳: 누르는 순간 거리·지역·강도·키워드 필터를 모두 풀고 전체를 추천한다
+  if(currentFilter==="must"){
+    clearNearby();
+    activeZone = null;
+    activeEff = null;
+    activeChip = -1;
+    syncChips();
+    if(searchInput){ searchInput.value=""; searchQ=""; searchClear.classList.remove("show"); }
+  }
   render();
 });
 
