@@ -335,9 +335,15 @@
   .lt-row:last-child{border-bottom:none;}
   .lt-nm{font-size:14px;font-weight:700;color:#26302E;}
   .lt-rg{display:block;font-size:11.5px;color:#7C8684;font-weight:600;margin-top:2px;}
-  .lt-rate{flex:none;font-size:12.5px;font-weight:800;color:#C2410C;background:#FFF1E6;
-    border-radius:999px;padding:5px 10px;white-space:nowrap;}
-  .lt-rate.unk{color:#6B7280;background:#F1F4F3;}
+  .lt-l{flex:1;min-width:0;}
+  .lt-in{flex:none;width:104px;padding:7px 9px;border-radius:9px;border:1.5px solid #FFD3B0;
+    background:#FFF9F4;font-size:13px;font-weight:800;color:#C2410C;text-align:center;}
+  .lt-in::placeholder{color:#B9A99C;font-weight:600;}
+  .lotte-edit{margin-top:7px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+  .lotte-edit b{font-size:12px;}
+  .lotte-in{width:96px;padding:6px 8px;border-radius:8px;border:1.5px solid #FFD3B0;
+    background:#fff;font-size:13px;font-weight:800;color:#C2410C;text-align:center;}
+  .li-tip{font-size:11px;color:#A9743F;font-weight:600;}
   .lt-have{display:inline-block;margin-left:6px;font-size:10.5px;font-weight:800;color:#fff;
     background:#2E7D6B;border-radius:999px;padding:2px 7px;vertical-align:middle;}
   .tab.tab-eat{background:linear-gradient(135deg,#9F1239,#E11D48);color:#fff;border-color:transparent;font-weight:800;}
@@ -2722,17 +2728,19 @@ const KEY = "jeju_data_v2";
 let visited = {};
 let customPlaces = [];
 let wish = {};   // {장소id: "YYYY-MM-DD" 또는 ""}  — 가보고 싶은 곳 + 예정 날짜
+let rates = {};  // {제휴처이름: "20%"}  — 쿠폰팩에서 본 할인율을 직접 적어두는 칸 (두 사람 공유)
 let online = false;
 
 function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
 function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
 
 function normalize(data){
-  if(!data || typeof data !== "object") return {v:{}, c:[], w:{}};
-  if(data.v || data.c || data.w) return {v: data.v || {},
+  if(!data || typeof data !== "object") return {v:{}, c:[], w:{}, r:{}};
+  if(data.v || data.c || data.w || data.r) return {v: data.v || {},
                                          c: Array.isArray(data.c) ? data.c : [],
-                                         w: (data.w && typeof data.w==="object") ? data.w : {}};
-  return {v: data, c: [], w: {}}; // 예전 형식(도장만 있던 시절) 자동 변환
+                                         w: (data.w && typeof data.w==="object") ? data.w : {},
+                                         r: (data.r && typeof data.r==="object") ? data.r : {}};
+  return {v: data, c: [], w: {}, r: {}}; // 예전 형식(도장만 있던 시절) 자동 변환
 }
 function mergeCustom(a, b){ // 직접 추가한 장소 합치기 (중복 제거)
   const seen = {}; const out = [];
@@ -2745,12 +2753,12 @@ function mergeCustom(a, b){ // 직접 추가한 장소 합치기 (중복 제거)
 async function fetchRemote(){
   const res = await fetch(READ_URL + "?t=" + Date.now(), {cache:"no-store"});
   const txt = await res.text();
-  if(!txt || !txt.trim()) return {v:{}, c:[], w:{}};
-  try{ return normalize(JSON.parse(txt)); }catch(e){ return {v:{}, c:[], w:{}}; }
+  if(!txt || !txt.trim()) return {v:{}, c:[], w:{}, r:{}};
+  try{ return normalize(JSON.parse(txt)); }catch(e){ return {v:{}, c:[], w:{}, r:{}}; }
 }
 async function pushRemote(){
   const body = "key=" + encodeURIComponent(COUPLE_KEY) +
-               "&value=" + encodeURIComponent(JSON.stringify({v:visited, c:customPlaces, w:wish}));
+               "&value=" + encodeURIComponent(JSON.stringify({v:visited, c:customPlaces, w:wish, r:rates}));
   const res = await fetch(WRITE_URL, {
     method:"POST",
     headers:{"Content-Type":"application/x-www-form-urlencoded"},
@@ -2758,7 +2766,7 @@ async function pushRemote(){
   });
   if(!res.ok) throw new Error("save fail");
 }
-function saveLocal(){ lsSet(KEY, JSON.stringify({v:visited, c:customPlaces, w:wish})); }
+function saveLocal(){ lsSet(KEY, JSON.stringify({v:visited, c:customPlaces, w:wish, r:rates})); }
 
 function updateSyncLabel(){
   const el = document.getElementById("syncstate");
@@ -2780,6 +2788,7 @@ async function toggleVisit(id){
     visited = latest.v;
     customPlaces = mergeCustom(latest.c, customPlaces);
     wish = Object.assign({}, latest.w||{}, wish);
+    rates = Object.assign({}, latest.r||{}, rates);
     await pushRemote();
     saveLocal(); online = true;
     render(); updateSyncLabel();
@@ -2803,6 +2812,28 @@ async function saveWish(id, val, remove){
     render(); updateSyncLabel();
   }catch(e){ online = false; saveLocal(); updateSyncLabel(); }
 }
+// 🎟 쿠폰팩에서 본 할인율을 직접 적어두기 (두 사람 공유)
+async function saveRate(nm, val){
+  if(val) rates[nm] = val; else delete rates[nm];
+  render(); drawLotte();
+  try{
+    let latest = {v:visited, c:customPlaces, w:wish, r:rates};
+    try{ latest = await fetchRemote(); }catch(e){}
+    latest.r = latest.r || {};
+    if(val) latest.r[nm] = val; else delete latest.r[nm];
+    visited = Object.assign({}, latest.v, visited);
+    customPlaces = mergeCustom(latest.c, customPlaces);
+    wish = Object.assign({}, latest.w||{}, wish);
+    rates = latest.r;
+    await pushRemote();
+    saveLocal(); online = true;
+    render(); drawLotte(); updateSyncLabel();
+  }catch(e){ online = false; saveLocal(); updateSyncLabel(); }
+}
+// 우선순위: 우리가 직접 적어둔 값 > 기사로 확인된 값 > 없음
+function rateOf(x){ return rates[x.name] || x.rate || null; }
+function rateSrc(x){ return rates[x.name] ? "mine" : x.rate ? "news" : null; }
+
 function isWished(id){ return Object.prototype.hasOwnProperty.call(wish, id); }
 function toggleWish(id){ saveWish(id, "", isWished(id)); }
 function setWishDate(id, d){ saveWish(id, d || "", false); }
@@ -2817,6 +2848,7 @@ async function addCustomPlace(p){
     visited = Object.assign({}, latest.v, visited);
     customPlaces = mergeCustom(latest.c, customPlaces);
     wish = Object.assign({}, latest.w||{}, wish);
+    rates = Object.assign({}, latest.r||{}, rates);
     await pushRemote();
     saveLocal(); online = true;
     render(); updateSyncLabel();
@@ -2837,6 +2869,7 @@ async function deleteCustomPlace(id){
     if(latest.w) delete latest.w[id];
     delete wish[id];
     wish = Object.assign({}, latest.w||{}, wish);
+    rates = Object.assign({}, latest.r||{}, rates);
     visited = latest.v;
     customPlaces = mergeCustom(latest.c, customPlaces.filter(p=>p.id!==id));
     await pushRemote();
@@ -2850,12 +2883,13 @@ async function autoSync(){
   try{
     const latest = await fetchRemote();
     online = true;
-    const now = JSON.stringify({v:visited, c:customPlaces, w:wish});
-    const remote = JSON.stringify({v:latest.v, c:latest.c, w:latest.w||{}});
+    const now = JSON.stringify({v:visited, c:customPlaces, w:wish, r:rates});
+    const remote = JSON.stringify({v:latest.v, c:latest.c, w:latest.w||{}, r:latest.r||{}});
     if(remote !== now){
       visited = latest.v;
       customPlaces = latest.c;
       wish = latest.w || {};
+      rates = latest.r || {};
       saveLocal();
       render();
     }
@@ -3626,7 +3660,7 @@ function makeCard(p){
         if(MUSTEAT[p.id]) return '<span class="musteat-star">🔥 죽어도 맛봐야 할 집</span>';
         if(MUST[p.id]) return '<span class="must-star">⭐ 꼭 가볼 곳</span>';
         return "";})()}
-      ${LOTTE[p.id]?`<span class="lotte-badge">🎟 롯데렌터카 ${LOTTE[p.id].rate?LOTTE[p.id].rate:"쿠폰 할인"}</span>`:""}
+      ${LOTTE[p.id]?`<span class="lotte-badge">🎟 롯데렌터카 ${rateOf(LOTTE[p.id])||"쿠폰 할인"}</span>`:""}
     </div>
     <div class="stamp"><span class="chk">✔</span>방문완료</div>
     <div class="body">
@@ -3657,10 +3691,14 @@ function makeCard(p){
         <a class="photo-link" href="${PHOTO(p.name)}" target="_blank" rel="noopener">📷 대표 사진 보기 ↗</a>
         ${p.links.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${l[0]} ↗</a>`).join("")}
       </div>
-      ${LOTTE[p.id]?`<div class="lotte-line">🎟 <b>롯데렌터카 제주 웰컴 쿠폰팩 제휴처</b>
-        ${LOTTE[p.id].rate?("· 할인율 <b>"+LOTTE[p.id].rate+"</b>"):"· 할인율은 쿠폰팩 화면에서 확인하세요"}
+      ${LOTTE[p.id]?(()=>{const x=LOTTE[p.id],r=rateOf(x),sc=rateSrc(x);
+        return `<div class="lotte-line">🎟 <b>롯데렌터카 제주 웰컴 쿠폰팩 제휴처</b>
+        ${r?("· 할인율 <b>"+r+"</b>"+(sc==="mine"?" (직접 적어둔 값)":" (기사 확인분)")):"· 할인율 미확인"}
         <br>단기렌터카 예약 고객이면 현장에서 모바일 쿠폰만 보여주면 됩니다.
-        <a href="${LOTTE_URL}" target="_blank" rel="noopener">쿠폰팩 열기 ↗</a></div>`:""}
+        <div class="lotte-edit"><b>할인율 적어두기</b>
+          <input class="lotte-in" data-nm="${x.name}" value="${rates[x.name]||""}" placeholder="예: 20%">
+          <span class="li-tip">앱에서 본 숫자를 적으면 두 사람 카드에 같이 뜹니다</span></div>
+        <a href="${LOTTE_URL}" target="_blank" rel="noopener">쿠폰팩 열기 ↗</a></div>`;})():""}
       <button class="wish-btn${isWished(p.id)?" on":""}" aria-pressed="${isWished(p.id)}">
         ${isWished(p.id)?"⭐ 가보고 싶은 곳에 담김 (누르면 빼기)":"☆ 가보고 싶어요"}
       </button>
@@ -3679,6 +3717,8 @@ function makeCard(p){
   if(wb) wb.addEventListener("click",()=>{ toggleWish(p.id); });
   const wd = c.querySelector(".wish-date");
   if(wd) wd.addEventListener("change",()=>{ setWishDate(p.id, wd.value); });
+  const li = c.querySelector(".lotte-in");
+  if(li) li.addEventListener("change",()=>{ saveRate(li.dataset.nm, li.value.trim()); });
   const wc = c.querySelector(".wish-clear");
   if(wc) wc.addEventListener("click",()=>{ setWishDate(p.id, ""); });
   const cp = c.querySelector(".copy-link");
@@ -3743,21 +3783,34 @@ modal.addEventListener("click",e=>{ if(e.target===modal) modal.classList.remove(
 
 // ===== 🎟 롯데렌터카 쿠폰팩 =====
 const lotteModal = document.getElementById("lotteModal");
+function drawLotte(){
+  const head = document.getElementById("lotteHead");
+  if(!head || !lotteModal.classList.contains("open")) return;
+  const have = LOTTE_ALL.filter(x=>x.id).length;
+  const filled = LOTTE_ALL.filter(x=>rateOf(x)).length;
+  head.innerHTML =
+    `롯데렌터카로 <b>제주 단기렌터카</b>를 빌리면 아래 <b>${LOTTE_ALL.length}곳</b>을 할인가에 이용할 수 있어요. ` +
+    `미리 티켓을 살 필요 없이 현장에서 모바일 쿠폰만 보여주면 됩니다. 반납 후 1주일까지 쓸 수 있어요. ` +
+    `이 중 <b>${have}곳</b>은 이 스탬프북에도 있어서 카드에 🎟 표시가 붙습니다.` +
+    `<br><br>⚠️ 롯데렌터카가 할인율을 홈페이지에 <b>그림으로만</b> 올려둬서 자동으로 못 읽어옵니다. ` +
+    `그래서 <b>직접 적어두는 칸</b>을 만들었어요. 앱에서 쿠폰팩을 한 번 열어 보고 아래에 숫자만 적으면 ` +
+    `<b>두 사람 카드에 영구히 저장</b>됩니다. 지금 <b>${filled}/${LOTTE_ALL.length}곳</b> 채워져 있어요.`;
+  document.getElementById("lotteBody").innerHTML = LOTTE_ALL.map(x=>{
+    const r = rateOf(x), sc = rateSrc(x);
+    return '<div class="lt-row"><div class="lt-l"><span class="lt-nm">'+x.name+
+    (x.id?'<span class="lt-have">스탬프북에 있음</span>':"")+
+    '</span><span class="lt-rg">'+x.rg+
+    (sc==="news"?' · 기사 확인분':sc==="mine"?' · 직접 적어둠':'')+'</span></div>'+
+    '<input class="lt-in" data-nm="'+x.name+'" value="'+(rates[x.name]||"")+'" placeholder="'+
+    (r?r:"미입력")+'"></div>';
+  }).join("");
+  document.querySelectorAll("#lotteBody .lt-in").forEach(el=>{
+    el.addEventListener("change",()=>saveRate(el.dataset.nm, el.value.trim()));
+  });
+}
 document.getElementById("lotteBtn").addEventListener("click",()=>{
   lotteModal.classList.add("open");
-  const have = LOTTE_ALL.filter(x=>x.id).length;
-  const known = LOTTE_ALL.filter(x=>x.rate).length;
-  document.getElementById("lotteHead").innerHTML =
-    `롯데렌터카로 <b>제주 단기렌터카</b>를 빌리면 아래 <b>${LOTTE_ALL.length}곳</b>을 할인가에 이용할 수 있어요. ` +
-    `미리 티켓을 살 필요 없이 현장에서 모바일 쿠폰만 보여주면 됩니다. 반납 후 1주일까지 쓸 수 있어요.` +
-    `<br><br>이 중 <b>${have}곳</b>은 이 스탬프북에도 들어 있어서 카드에 🎟 표시가 붙습니다. ` +
-    `할인율은 롯데렌터카가 공식 홈페이지에 <b>이미지로만</b> 올려둬서 자동으로 읽어올 수 없었어요. ` +
-    `확인된 <b>${known}곳</b>만 %를 적어뒀고, 나머지는 아래 버튼으로 쿠폰팩을 열어 확인하세요. 행사 기간마다 할인율이 바뀝니다.`;
-  document.getElementById("lotteBody").innerHTML = LOTTE_ALL.map(x=>
-    '<div class="lt-row"><div><span class="lt-nm">'+x.name+
-    (x.id?'<span class="lt-have">스탬프북에 있음</span>':"")+
-    '</span><span class="lt-rg">'+x.rg+'</span></div>'+
-    '<span class="lt-rate'+(x.rate?"":" unk")+'">'+(x.rate||"쿠폰팩에서 확인")+'</span></div>').join("");
+  drawLotte();
 });
 document.getElementById("lt_close").addEventListener("click",()=>lotteModal.classList.remove("open"));
 document.getElementById("lt_open").addEventListener("click",()=>window.open(LOTTE_URL,"_blank","noopener"));
@@ -4031,7 +4084,7 @@ selBtn.addEventListener("click", ()=>{
 
 (async function init(){
   const raw = lsGet(KEY) || lsGet("jeju_visited"); // 예전 저장분도 인식
-  if(raw){ try{ const d = normalize(JSON.parse(raw)); visited=d.v; customPlaces=d.c; wish=d.w||{}; }catch(e){} }
+  if(raw){ try{ const d = normalize(JSON.parse(raw)); visited=d.v; customPlaces=d.c; wish=d.w||{}; rates=d.r||{}; }catch(e){} }
   render();
   await autoSync();  // 열자마자 최신 공유 기록 반영
   markUpdBtn();      // 새로 올라온 곳 개수를 버튼에 표시
