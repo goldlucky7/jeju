@@ -55,6 +55,19 @@
     padding:8px 13px;border-radius:999px;font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;}
   .chip.active{background:var(--sea);border-color:var(--sea);color:#fff;}
   .no-result{text-align:center;color:#8A9490;padding:48px 16px;font-size:14px;line-height:1.7;}
+  #zoneWrap{max-width:1080px;margin:14px auto 0;padding:0 16px;}
+  #zoneTitle{font-size:15px;font-weight:900;color:var(--basalt);margin:0 0 8px;display:flex;align-items:center;gap:6px;}
+  #zoneGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px;}
+  .zone-btn{border:1.5px solid var(--line);background:#fff;border-radius:14px;
+    padding:10px 6px;font-family:inherit;cursor:pointer;text-align:center;line-height:1.35;}
+  .zone-btn .z-emoji{display:block;font-size:20px;margin-bottom:3px;}
+  .zone-btn .z-name{display:block;font-size:12.5px;font-weight:900;color:var(--basalt);}
+  .zone-btn .z-cnt{display:block;font-size:10.5px;color:#8A9490;margin-top:1px;}
+  .zone-btn.active{background:var(--tangerine);border-color:var(--tangerine);}
+  .zone-btn.active .z-name,.zone-btn.active .z-cnt{color:#fff;}
+  .zone-badge{display:inline-block;background:#FFF4EC;color:var(--tangerine);
+    border:1px solid #FFDCC2;border-radius:8px;padding:2px 7px;
+    font-size:10.5px;font-weight:900;margin-bottom:5px;}
   main{max-width:1080px;margin:0 auto;padding:18px 16px 60px;}
   .section-title{font-family:'Gowun Batang',serif;font-size:22px;margin:26px 4px 12px;
     display:flex;align-items:center;gap:10px;}
@@ -181,6 +194,11 @@
     <button id="searchClear">✕</button>
   </div>
   <div id="chips"></div>
+</div>
+
+<div id="zoneWrap">
+  <p id="zoneTitle">📍 지역별로 보기</p>
+  <div id="zoneGrid"></div>
 </div>
 
 <main id="list"></main>
@@ -755,11 +773,74 @@ const CHIPS=[
  {label:"🌅 오션뷰 카페",keys:["오션뷰","바다뷰","바다 뷰","해안"]},
  {label:"🌸 정원·꽃",keys:["정원","꽃","수국","동백","핑크뮬리","억새","귤밭","유채"]},
 ];
+const ZONES=[
+ {key:"jsi",emoji:"🏙",name:"제주 시내",full:"제주시 시내(동지역)"},
+ {key:"aewol",emoji:"🌅",name:"애월",full:"제주시 애월읍"},
+ {key:"hallim",emoji:"🏖",name:"한림·한경",full:"제주시 한림읍·한경면"},
+ {key:"jocheon",emoji:"🌊",name:"조천·함덕",full:"제주시 조천읍"},
+ {key:"gujwa",emoji:"🌾",name:"구좌·우도",full:"제주시 구좌읍·우도면"},
+ {key:"seongsan",emoji:"🌋",name:"성산",full:"서귀포시 성산읍"},
+ {key:"pyoseon",emoji:"🌳",name:"표선·남원",full:"서귀포시 표선면·남원읍"},
+ {key:"sgp",emoji:"🍊",name:"서귀포 시내",full:"서귀포시 시내(동지역)"},
+ {key:"jungmun",emoji:"🌴",name:"중문",full:"서귀포시 중문(색달·예래)"},
+ {key:"daejeong",emoji:"⛰",name:"대정·안덕",full:"서귀포시 대정읍·안덕면"},
+];
+const ZONE_OF={
+ iho:"jsi",dongmun:"jsi",brickcampus:"jsi",donsadon:"jsi",sukseongdo:"jsi",ollae:"jsi",jamae:"jsi",ujin:"jsi",
+ eunhee:"jsi",dodu:"jsi",sinseol:"jsi",abebe:"jsi",antoinette:"jsi",soona:"jsi",oedo:"jsi",
+ saebyeol:"aewol",arte:"aewol",park981:"aewol",teseum:"aewol",leechunok:"aewol",hanmo:"aewol",
+ monsant:"aewol",bomnal:"aewol",randys:"aewol",handam:"aewol",saebil:"aewol",
+ hyeopjae:"hallim",suudong:"hallim",umu:"hallim",kleinblue:"hallim",myeongwol:"hallim",
+ hamdeok:"jocheon",saryeoni:"jocheon",ecoland:"jocheon",mooger:"jocheon",delmoondo:"jocheon",
+ woljeong:"gujwa",bijarim:"gujwa",manjang:"gujwa",snoopy:"gujwa",myeongjin:"gujwa",gongbech:"gujwa",
+ poonglim:"gujwa",moalboal:"gujwa",hallasan:"gujwa",glencoe:"gujwa",udo:"gujwa",blanc:"gujwa",
+ seongsan:"seongsan",bunker:"seongsan",matna:"seongsan",kyungmi:"seongsan",orrrn:"seongsan",delekoomda:"seongsan",
+ gasi:"pyoseon",chunja:"pyoseon",seoyeun:"pyoseon",
+ cheonjiyeon:"sgp",soesokkak:"sgp",ollemarket:"sgp",jeongbang:"sgp",leejungseop:"sgp",saeyeongyo:"sgp",
+ oneunjeong:"sgp",manong:"sgp",saerona:"sgp",woojung:"sgp",grandma:"sgp",negeori:"sgp",cheonjitgol:"sgp",
+ honeymoon:"sgp",terarosa:"sgp",
+ jusangjeolli:"jungmun",teddybear:"jungmun",joanne:"jungmun",sekdal:"jungmun",suduri:"jungmun",
+ camellia:"daejeong",yongmeori:"daejeong",osulloc:"daejeong",figuremuseum:"daejeong",hellokitty:"daejeong",
+ miyoung:"daejeong",sanbang:"daejeong",okdom:"daejeong",oneandonly:"daejeong",insmill:"daejeong",
+ manor:"daejeong",mippeun:"daejeong",
+};
+const ZONE_KW={jsi:["제주시","연동","노형","이도","일도","용담","도두","외도","이호","원도심","공항"],
+ aewol:["애월","하귀","한담","곽지","새별"],hallim:["한림","한경","협재","금능","명월","판포"],
+ jocheon:["조천","함덕","교래","선흘"],gujwa:["구좌","김녕","월정","세화","평대","송당","하도","종달","우도"],
+ seongsan:["성산","섭지","고성","오조","온평"],pyoseon:["표선","남원","위미","가시"],
+ sgp:["서귀포","서홍","중앙","칠십리","하효","보목","올레시장"],jungmun:["중문","색달","예래","천제연","대포"],
+ daejeong:["대정","안덕","모슬포","사계","산방","화순","신도"]};
+function zoneOf(p){
+  if(ZONE_OF[p.id]) return ZONE_OF[p.id];
+  const t = (p.region||"")+" "+(p.addr||"");
+  for(const z of ZONES){ if(ZONE_KW[z.key].some(k=>t.includes(k))) return z.key; }
+  return null;
+}
+let activeZone = null;
+const zoneGrid = document.getElementById("zoneGrid");
+function renderZoneMenu(){
+  const pool = allPlaces();
+  zoneGrid.innerHTML = "";
+  const allBtn = document.createElement("button");
+  allBtn.className = "zone-btn"+(activeZone===null?" active":"");
+  allBtn.innerHTML = `<span class="z-emoji">🗺</span><span class="z-name">전체</span><span class="z-cnt">${pool.length}곳</span>`;
+  allBtn.addEventListener("click",()=>{ activeZone=null; renderZoneMenu(); render(); });
+  zoneGrid.appendChild(allBtn);
+  ZONES.forEach(z=>{
+    const cnt = pool.filter(p=>zoneOf(p)===z.key).length;
+    const b = document.createElement("button");
+    b.className = "zone-btn"+(activeZone===z.key?" active":"");
+    b.innerHTML = `<span class="z-emoji">${z.emoji}</span><span class="z-name">${z.name}</span><span class="z-cnt">${cnt}곳</span>`;
+    b.addEventListener("click",()=>{ activeZone=(activeZone===z.key?null:z.key); renderZoneMenu(); render(); });
+    zoneGrid.appendChild(b);
+  });
+}
 let searchQ = "", activeChip = -1;
 function placeText(p){
   return [(p.name||""),(p.region||""),(p.tag||""),(p.hash||""),(p.desc||""),(p.memo||""),(p.addr||"")].join(" ");
 }
 function matchesSearch(p){
+  if(activeZone!==null && zoneOf(p)!==activeZone) return false;
   if(activeChip>=0){
     const t = placeText(p);
     if(!CHIPS[activeChip].keys.some(k=>t.includes(k))) return false;
@@ -798,6 +879,7 @@ searchClear.addEventListener("click",()=>{
 });
 
 function render(){
+  renderZoneMenu();
   list.innerHTML = "";
   const pool = allPlaces();
   ["spot","food","cafe"].forEach(cat=>{
@@ -817,7 +899,7 @@ function render(){
     items.forEach(p=>grid.appendChild(makeCard(p)));
     list.appendChild(grid);
   });
-  if(!list.hasChildNodes() && (searchQ || activeChip>=0)){
+  if(!list.hasChildNodes() && (searchQ || activeChip>=0 || activeZone!==null)){
     const d = document.createElement("div");
     d.className="no-result";
     d.innerHTML="🔍 검색 결과가 없어요.<br>다른 검색어나 카테고리를 눌러보세요.";
@@ -840,6 +922,7 @@ function makeCard(p){
     </div>
     <div class="stamp"><span class="chk">✔</span>방문완료</div>
     <div class="body">
+      ${(()=>{const z=ZONES.find(x=>x.key===zoneOf(p));return z?`<span class="zone-badge">📍 ${z.full}</span>`:"";})()}
       <div class="name">${p.name}</div>
       <div class="tagline">${p.tag}</div>
       <div class="hash">${p.hash}</div>
