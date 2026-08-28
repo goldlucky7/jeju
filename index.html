@@ -194,6 +194,74 @@
     padding:16px 18px;margin:6px 0 14px;font-size:17px;font-weight:800;}
   .must-head .must-sub{font-size:13px;font-weight:500;opacity:.95;margin-top:5px;line-height:1.5;}
   .must-head .must-sub b{font-weight:800;}
+
+  /* ===== 활동 강도 (실내 → 등산) ===== */
+  #effWrap{max-width:1080px;margin:16px auto 0;padding:0 16px;}
+  #effTitle{font-size:15px;font-weight:900;color:var(--basalt);margin:0 0 3px;}
+  #effSub{font-size:11.5px;color:#8A9490;margin:0 0 8px;line-height:1.5;}
+  #effGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(98px,1fr));gap:8px;}
+  .eff-btn{border:1.5px solid var(--line);background:#fff;border-radius:14px;
+    padding:9px 5px;font-family:inherit;cursor:pointer;text-align:center;line-height:1.3;}
+  .eff-btn .e-emoji{display:block;font-size:19px;margin-bottom:2px;}
+  .eff-btn .e-name{display:block;font-size:12px;font-weight:900;color:var(--basalt);}
+  .eff-btn .e-cnt{display:block;font-size:10.5px;color:#8A9490;margin-top:1px;}
+  .eff-btn.active{background:var(--sea);border-color:var(--sea);}
+  .eff-btn.active .e-name,.eff-btn.active .e-cnt{color:#fff;}
+  .eff-badge{display:inline-block;border-radius:8px;padding:2px 7px;
+    font-size:10.5px;font-weight:900;margin-bottom:5px;margin-right:4px;border:1px solid;}
+  .e-in{background:#EFF6FF;color:#1D4ED8;border-color:#BFDBFE;}
+  .e-cool{background:#ECFDF5;color:#047857;border-color:#A7F3D0;}
+  .e-car{background:#F5F3FF;color:#6D28D9;border-color:#DDD6FE;}
+  .e-out{background:#FEFCE8;color:#A16207;border-color:#FDE68A;}
+  .e-walk{background:#FFF7ED;color:#C2410C;border-color:#FED7AA;}
+  .e-hike{background:#FEF2F2;color:#B91C1C;border-color:#FECACA;}
+  .e-etc{background:#F3F4F6;color:#4B5563;border-color:#E5E7EB;}
+  /* 소제목 (활동 강도별 / 음식 종류별) */
+  .sub-head{display:flex;align-items:center;gap:8px;margin:20px 4px 10px;
+    font-size:15px;font-weight:900;color:var(--basalt);}
+  .sub-head .sh-tip{font-size:11.5px;font-weight:500;color:#8A9490;}
+  .sub-head::after{content:"";flex:1;height:1px;background:var(--line);}
+  /* 죽어도 맛봐야 할 집 */
+  .me-head{background:linear-gradient(135deg,#9F1239,#E11D48);color:#fff;border-radius:14px;
+    padding:14px 16px;margin:18px 0 12px;font-size:16px;font-weight:900;}
+  .me-head .me-sub{font-size:12.5px;font-weight:500;opacity:.95;margin-top:4px;line-height:1.5;}
+  .musteat-star{position:absolute;left:10px;bottom:10px;background:linear-gradient(135deg,#9F1239,#E11D48);
+    color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:999px;
+    box-shadow:0 2px 6px rgba(0,0,0,.22);letter-spacing:-.2px;}
+  .musteat-why{background:#FFF1F2;border:1px solid #FECDD3;border-left:4px solid #E11D48;
+    border-radius:10px;padding:9px 11px;margin:8px 0 10px;font-size:13px;line-height:1.55;color:#881337;}
+  .musteat-why b{color:#9F1239;margin-right:4px;}
+  /* 모르는 말 찾기 */
+  .gterm{border-bottom:1.5px dotted var(--sea);cursor:pointer;color:var(--sea-deep);font-weight:500;}
+  .gterm:active{background:#E6F7FA;}
+  #aiAskBtn{width:100%;margin-top:10px;border:1.5px solid var(--line);border-radius:12px;
+    background:#fff;color:var(--sea-deep);padding:11px;font-family:inherit;
+    font-size:13.5px;font-weight:800;cursor:pointer;}
+  #aiAskBtn:hover{border-color:var(--sea);background:var(--sea);color:#fff;}
+  #gloModal{position:fixed;inset:0;background:rgba(20,30,28,.55);z-index:70;
+    display:none;align-items:center;justify-content:center;padding:20px;}
+  #gloModal.open{display:flex;}
+  #gloModal .modal-box{max-width:440px;max-height:86vh;display:flex;flex-direction:column;}
+  #gloScroll{overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch;}
+  #gloWord{font-family:'Gowun Batang',serif;font-size:22px;font-weight:700;color:var(--sea-deep);
+    margin:4px 0 6px;}
+  #gloDef{font-size:14px;line-height:1.75;color:#3F4A48;background:#F4F9F9;
+    border:1px solid #DCE9E8;border-radius:12px;padding:12px 14px;}
+  .glo-empty{font-size:13px;color:#8A9490;line-height:1.7;padding:6px 2px;}
+  .glo-sug{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
+  .glo-sug button{border:1.5px solid var(--line);background:#fff;border-radius:999px;
+    padding:6px 12px;font-family:inherit;font-size:12.5px;font-weight:700;
+    color:var(--basalt);cursor:pointer;}
+  .glo-sug button:hover{border-color:var(--sea);color:var(--sea-deep);}
+  .glo-ai{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;}
+  .glo-ai a{flex:1 1 auto;text-align:center;font-size:12.5px;font-weight:800;text-decoration:none;
+    padding:9px 10px;border-radius:10px;border:1.5px solid var(--line);color:var(--sea-deep);}
+  .glo-ai a#gloPplx{background:linear-gradient(135deg,#0E7490,#0891B2);color:#fff;border-color:transparent;}
+  .glo-note{font-size:11px;color:#9AA3A1;margin-top:9px;line-height:1.6;}
+  #selBtn{position:absolute;z-index:80;display:none;border:none;border-radius:999px;
+    background:var(--basalt);color:#fff;font-family:inherit;font-size:12.5px;font-weight:800;
+    padding:8px 14px;box-shadow:0 4px 14px rgba(0,0,0,.28);cursor:pointer;}
+  #selBtn.show{display:block;}
 </style>
 </head>
 <body>
@@ -203,7 +271,8 @@
     <div class="h-eyebrow">JEJU STAMP BOOK · 195 PLACES</div>
     <h1>제주 여행 스탬프북<span class="dot">.</span></h1>
     <p class="h-sub">감성 포토스팟부터 액티비티, 자연 명소, 노포 맛집까지 —
-    20대부터 40대까지 모두를 위한 195곳. 다녀온 곳은 <b>[갔다왔음]</b>을 눌러 도장을 찍어보세요. 도장 찍은 곳은 목록에서 사라지고 <b>[🔴 갔다온 곳]</b> 탭에 모입니다.</p>
+    20대부터 40대까지 모두를 위한 195곳. 모든 곳을 <b>덜 힘든 순서(실내 → 시원한 야외 → 차로 → 야외 → 걷기 → 등산)</b>로 나눠뒀고,
+    맛집은 종류별로 묶되 <b>죽어도 맛봐야 할 집</b>을 맨 위에 올렸어요. 다녀온 곳은 <b>[갔다왔음]</b>을 눌러 도장을 찍어보세요. 도장 찍은 곳은 목록에서 사라지고 <b>[🔴 갔다온 곳]</b> 탭에 모입니다.</p>
     <div class="progress-wrap"><div class="progress-bar" id="pbar"></div></div>
     <div class="progress-label" id="plabel"></div>
     <div style="text-align:center;margin-top:12px;">
@@ -228,6 +297,13 @@
     <button id="searchClear">✕</button>
   </div>
   <div id="chips"></div>
+  <button id="aiAskBtn">🤖 모르는 말이 있나요? 눌러서 바로 찾아보기</button>
+</div>
+
+<div id="effWrap">
+  <p id="effTitle">🧭 얼마나 움직여야 하나요?</p>
+  <p id="effSub">덜 힘든 순서로 정리했어요. 더운 날·비 오는 날엔 왼쪽 위부터 고르시면 됩니다.</p>
+  <div id="effGrid"></div>
 </div>
 
 <div id="zoneWrap">
@@ -253,6 +329,14 @@
     </select>
     <input id="np_region" placeholder="지역 (선택) 예: 서부·애월">
     <input id="np_addr" placeholder="주소 (선택)">
+    <select id="np_eff">
+      <option value="in">🏠 실내</option>
+      <option value="cool">🌲 야외지만 시원한 곳</option>
+      <option value="car">🚗 차로 가서 바로 보는 곳</option>
+      <option value="out">🌤 야외</option>
+      <option value="walk">🚶 걸어야 하는 곳</option>
+      <option value="hike">⛰ 약간의 등산</option>
+    </select>
     <input id="np_memo" placeholder="메모 (선택) 예: 인스타에서 봄, 웨이팅 있음">
     <div class="modal-actions">
       <button id="np_cancel">취소</button>
@@ -267,6 +351,30 @@
     <div id="hoursTableWrap"></div>
     <div class="modal-actions">
       <button id="hm_close" style="background:#F1F4F3;border:1.5px solid var(--line);color:#5C6664;">닫기</button>
+    </div>
+  </div>
+</div>
+
+<button id="selBtn">🤖 이 말 뜻 찾기</button>
+
+<div id="gloModal">
+  <div class="modal-box">
+    <h3>🤖 모르는 말 바로 찾기</h3>
+    <input id="gloInput" type="search" placeholder="궁금한 말을 적어보세요 (예: 곶자왈, 몸국, 물때)" autocomplete="off">
+    <div id="gloScroll">
+      <div id="gloWord"></div>
+      <div id="gloDef"></div>
+      <div class="glo-sug" id="gloSug"></div>
+      <div class="glo-ai">
+        <a id="gloPplx" target="_blank" rel="noopener">🤖 AI에게 물어보기</a>
+        <a id="gloNaver" target="_blank" rel="noopener">🔎 검색</a>
+        <a id="gloImg" target="_blank" rel="noopener">📷 사진</a>
+      </div>
+      <p class="glo-note">💡 카드 설명에서 <b>점선 밑줄</b>이 그어진 말을 누르면 바로 뜻이 나와요.
+      사전에 없는 말은 아무 글자나 길게 눌러 선택한 뒤 <b>[🤖 이 말 뜻 찾기]</b>를 누르면 AI가 답해줍니다.</p>
+    </div>
+    <div class="modal-actions">
+      <button id="glo_close" style="background:#F1F4F3;border:1.5px solid var(--line);color:#5C6664;">닫기</button>
     </div>
   </div>
 </div>
@@ -1241,6 +1349,400 @@ const MUST = {
  daehanmokjang:"70년 만에 개방된 대나무 숲 목장. 지금 제주에서 가장 뜨거운 곳.",
  oneandonly:"산방산과 바다를 한 프레임에. 제주 오션뷰 카페의 정석입니다.",
 };
+
+// ===== 활동 강도: 실내 → 시원한 야외 → 차로 → 야외 → 걷기 → 약간의 등산 =====
+const EFF = [
+ {key:"in",  emoji:"🏠",name:"실내",     full:"실내 (에어컨·비와도 OK)",   tip:"덥거나 비 오는 날 1순위"},
+ {key:"cool",emoji:"🌲",name:"시원한 야외",full:"야외지만 시원한 곳",       tip:"동굴·숲그늘·폭포·계곡"},
+ {key:"car", emoji:"🚗",name:"차로 바로", full:"차로 가서 바로 보는 곳",    tip:"주차하고 몇 걸음이면 끝"},
+ {key:"out", emoji:"🌤",name:"야외",     full:"야외 (평지·햇볕)",          tip:"해변·꽃밭·야외 테마파크"},
+ {key:"walk",emoji:"🚶",name:"걷는 곳",  full:"걸어야 하는 곳",            tip:"20분~1시간 산책 코스"},
+ {key:"hike",emoji:"⛰",name:"약간 등산", full:"약간의 등산이 필요한 곳",   tip:"오르막·계단이 있어요"},
+ {key:"etc", emoji:"📌",name:"미분류",   full:"직접 추가한 곳",            tip:""},
+];
+const EFF_ORDER = EFF.map(e=>e.key);
+const EFF_OF = EFF.reduce((o,e)=>(o[e.key]=e,o),{});
+const EFFORT = {
+ seongsan:"hike",
+ udo:"walk",
+ hyeopjae:"out",
+ woljeong:"out",
+ hamdeok:"out",
+ iho:"car",
+ saryeoni:"cool",
+ bijarim:"cool",
+ saebyeol:"hike",
+ manjang:"cool",
+ camellia:"walk",
+ cheonjiyeon:"cool",
+ jusangjeolli:"out",
+ yongmeori:"walk",
+ soesokkak:"cool",
+ osulloc:"in",
+ arte:"in",
+ park981:"out",
+ snoopy:"walk",
+ bunker:"in",
+ ecoland:"cool",
+ dongmun:"in",
+ ollemarket:"in",
+ jeongbang:"cool",
+ leejungseop:"out",
+ saeyeongyo:"walk",
+ teddybear:"in",
+ teseum:"in",
+ joanne:"in",
+ figuremuseum:"in",
+ hellokitty:"in",
+ brickcampus:"in",
+ seopjikoji:"walk",
+ gwangchigi:"out",
+ aquaplanet:"in",
+ sangumburi:"out",
+ stonepark:"walk",
+ jeolmul:"cool",
+ hallaarbo:"cool",
+ yongduam:"car",
+ samseonghyeol:"cool",
+ dodubong:"hike",
+ sanbanggulsa:"hike",
+ cheonjeyeon:"cool",
+ oedolgae:"walk",
+ jungmunbeach:"out",
+ geumneung:"out",
+ hallimpark:"walk",
+ isidore:"car",
+ gwakji:"out",
+ yongnuni:"hike",
+ gimnyeongmaze:"out",
+ folkvillage:"walk",
+ hueree:"walk",
+ boreumwat:"out",
+ songaksan:"walk",
+ suwolbong:"walk",
+ sinchang:"car",
+ keuneong:"walk",
+ bonte:"in",
+ chilsimni:"out",
+ yeongsil:"hike",
+ marado:"walk",
+ sehwa:"out",
+ geumoreum:"hike",
+ darangshi:"hike",
+ peacepark:"in",
+ hwansang:"cool",
+ nohyungmarket:"in",
+ gotjawalpark:"cool",
+ geomunoreum:"hike",
+ tansanspa:"in",
+ mocajeju:"in",
+ yumin:"in",
+ nexon:"in",
+ aerospace:"in",
+ carpiano:"in",
+ glasscastle:"out",
+ soingook:"out",
+ gimnyeongbeach:"out",
+ pyoseonbeach:"out",
+ herbdongsan:"walk",
+ letsrun:"out",
+ folknature:"in",
+ mokgwana:"out",
+ sarabong:"hike",
+ abu:"hike",
+ baekyaki:"hike",
+ ttarabi:"hike",
+ mulyeongari:"hike",
+ bulgeun:"cool",
+ sgpforest:"cool",
+ hallaeco:"cool",
+ bangmokji:"car",
+ eongtto:"cool",
+ hwanguji:"walk",
+ biyangdo:"walk",
+ gapado:"walk",
+ oradong:"out",
+ donsadon:"in",
+ sukseongdo:"in",
+ ollae:"in",
+ jamae:"in",
+ ujin:"in",
+ matna:"in",
+ myeongjin:"in",
+ leechunok:"in",
+ miyoung:"in",
+ oneunjeong:"in",
+ manong:"in",
+ saerona:"in",
+ woojung:"in",
+ grandma:"in",
+ eunhee:"in",
+ dodu:"in",
+ sinseol:"in",
+ mooger:"in",
+ kyungmi:"in",
+ gasi:"in",
+ chunja:"in",
+ negeori:"in",
+ cheonjitgol:"in",
+ sekdal:"in",
+ suduri:"in",
+ sanbang:"in",
+ okdom:"in",
+ suudong:"in",
+ hanmo:"in",
+ yeondon:"in",
+ onoff:"out",
+ eunsikdang:"in",
+ halladon:"in",
+ hahahoho:"out",
+ yangga:"in",
+ welcomeburger:"in",
+ burgeri:"out",
+ fantasticburger:"in",
+ samdae:"in",
+ golmak:"in",
+ apbaengdi:"in",
+ gwenegi:"in",
+ gozip:"in",
+ sunok:"in",
+ myeongridong:"in",
+ lambs:"in",
+ budu:"in",
+ guksitmeong:"in",
+ dajeong:"in",
+ manseon:"in",
+ jeongseong:"in",
+ hareubang:"in",
+ haenyeohouse:"walk",
+ childon:"in",
+ hwaseong:"in",
+ delmoondo:"in",
+ monsant:"in",
+ bomnal:"in",
+ randys:"in",
+ oneandonly:"in",
+ insmill:"in",
+ manor:"out",
+ kleinblue:"in",
+ umu:"in",
+ abebe:"in",
+ orrrn:"in",
+ blanc:"out",
+ handam:"walk",
+ gongbech:"in",
+ poonglim:"in",
+ moalboal:"in",
+ hallasan:"in",
+ glencoe:"out",
+ delekoomda:"in",
+ saebil:"in",
+ antoinette:"in",
+ soona:"in",
+ oedo:"in",
+ myeongwol:"in",
+ mippeun:"in",
+ honeymoon:"in",
+ terarosa:"in",
+ seoyeun:"in",
+ hugely:"in",
+ sisokaymak:"in",
+ wayview:"in",
+ sumtarr:"in",
+ lazypump:"in",
+ jinjungsung:"in",
+ daehanmokjang:"walk",
+ azulejo:"in",
+ boromchango:"in",
+ coji:"in",
+ audrant:"in",
+ easterly:"in",
+ yuji:"in",
+};
+function effOf(p){ return (p.eff && EFF_OF[p.eff]) ? p.eff : (EFFORT[p.id] || "etc"); }
+function byEff(a,b){ return EFF_ORDER.indexOf(effOf(a)) - EFF_ORDER.indexOf(effOf(b)); }
+
+// ===== 맛집 세부 종류 =====
+const FT = [
+ {key:"sea",   emoji:"🐟",label:"해산물 · 회 · 물회"},
+ {key:"haejang",emoji:"🍲",label:"해장국 · 국밥 · 향토국"},
+ {key:"noodle",emoji:"🍜",label:"국수 · 칼국수 · 밀면"},
+ {key:"meat",  emoji:"🥩",label:"흑돼지 · 고기"},
+ {key:"katsu", emoji:"🍱",label:"돈까스"},
+ {key:"burger",emoji:"🍔",label:"수제버거"},
+ {key:"snack", emoji:"🍙",label:"김밥 · 분식 · 치킨 · 떡"},
+ {key:"etc",   emoji:"🍽",label:"그 외 별미"},
+];
+const FTYPE = {
+ matna:"sea",
+ myeongjin:"sea",
+ leechunok:"sea",
+ miyoung:"sea",
+ woojung:"sea",
+ dodu:"sea",
+ kyungmi:"sea",
+ negeori:"sea",
+ sekdal:"sea",
+ gozip:"sea",
+ sunok:"sea",
+ budu:"sea",
+ manseon:"sea",
+ haenyeohouse:"sea",
+ ujin:"haejang",
+ eunhee:"haejang",
+ sinseol:"haejang",
+ apbaengdi:"haejang",
+ hwaseong:"haejang",
+ jeongseong:"haejang",
+ ollae:"noodle",
+ jamae:"noodle",
+ chunja:"noodle",
+ suduri:"noodle",
+ sanbang:"noodle",
+ okdom:"noodle",
+ suudong:"noodle",
+ samdae:"noodle",
+ golmak:"noodle",
+ guksitmeong:"noodle",
+ hareubang:"noodle",
+ donsadon:"meat",
+ sukseongdo:"meat",
+ cheonjitgol:"meat",
+ gwenegi:"meat",
+ myeongridong:"meat",
+ lambs:"meat",
+ childon:"meat",
+ gasi:"meat",
+ yeondon:"katsu",
+ onoff:"katsu",
+ eunsikdang:"katsu",
+ halladon:"katsu",
+ mooger:"burger",
+ hahahoho:"burger",
+ yangga:"burger",
+ welcomeburger:"burger",
+ burgeri:"burger",
+ fantasticburger:"burger",
+ oneunjeong:"snack",
+ manong:"snack",
+ saerona:"snack",
+ grandma:"snack",
+ dajeong:"snack",
+ hanmo:"etc",
+};
+function ftOf(p){ return FTYPE[p.id] || "etc"; }
+
+// ===== 제주 오면 죽어도 맛봐야 하는 집 (맛집 최상단 우선 추천) =====
+const MUSTEAT = {
+ donsadon:"연탄불에 구운 흑돼지를 멜젓에 찍어 먹는 맛. 이건 제주에서만 됩니다.",
+ ollae:"제주에만 있는 고기국수. 메뉴가 하나뿐이라 실패할 일이 없어요.",
+ ujin:"고사리를 갈아 걸쭉하게 끓인 육개장. 육지 어디에도 이 맛은 없습니다.",
+ sinseol:"돼지 육수에 모자반을 푼 몸국. 제주 사람들의 진짜 소울푸드예요.",
+ suduri:"보말을 통째로 갈아 넣은 초록빛 칼국수. 아침에 딱 한 그릇.",
+ miyoung:"모슬포 고등어회. 비린내가 없어서 회 못 먹던 사람도 놀랍니다.",
+ myeongjin:"바다 보며 먹는 전복 돌솥밥. 제주 전복은 여기서 한 번 제대로.",
+ oneunjeong:"제주 김밥의 대명사. 전화 예약이 사실상 필수인 전설의 포장 김밥.",
+ cheonjitgol:"도마째 나오는 흑돼지 돔베고기. 소금과 멜젓만으로 완성됩니다.",
+ gasi:"돼지 두루치기·순대·몸국이 한자리에. 중산간 향토 노포의 표본이에요.",
+};
+// ===== 모르는 말 바로 찾기: 제주 용어 사전 =====
+const GLOSSARY = {
+  // --- 자연·지형 ---
+  "오름":"한라산 기슭에 흩어져 있는 작은 화산체예요. 제주에만 360여 개가 있고, 대부분 20~40분이면 정상에 오를 수 있습니다.",
+  "곶자왈":"용암이 굳은 돌밭 위에 저절로 숲이 자란 제주만의 원시림이에요. 바위 틈에서 공기가 나와 여름엔 시원하고 겨울엔 따뜻합니다.",
+  "주상절리":"뜨거운 용암이 식으면서 육각형 기둥 모양으로 쩍쩍 갈라진 절벽이에요. 사람이 깎은 것처럼 보이지만 자연이 만든 겁니다.",
+  "용암동굴":"흐르던 용암의 겉면만 굳고 속의 용암이 빠져나가면서 생긴 굴이에요. 한여름에도 안은 13~15도로 서늘합니다.",
+  "분화구":"화산이 터진 자리에 남은 움푹한 그릇 모양 지형이에요. 제주 말로는 '굼부리'라고 합니다.",
+  "굼부리":"분화구를 뜻하는 제주말이에요. 산굼부리는 '산에 있는 분화구'라는 뜻입니다.",
+  "용천수":"땅속을 흐르던 물이 해안가 바위 틈에서 솟아나는 물이에요. 한여름에도 얼음처럼 차가워서 예부터 노천탕으로 썼습니다.",
+  "테우":"통나무 여러 개를 엮어 만든 제주 전통 뗏목이에요. 쇠소깍에서 직접 타볼 수 있습니다.",
+  "도항선":"섬과 육지를 오가는 여객선이에요. 우도·마라도·비양도는 모두 이 배를 타고 들어갑니다.",
+  "물때":"밀물과 썰물이 드나드는 시간표예요. 용머리해안처럼 물이 차면 아예 출입이 막히는 곳은 반드시 확인하고 가야 합니다.",
+  "썰물":"바닷물이 빠져나가 바닥이 드러나는 때예요. 광치기해변·세화해변은 이때 풍경이 완전히 달라집니다.",
+  "밀물":"바닷물이 밀려 들어와 수위가 높아지는 때예요.",
+  "억새":"가을에 은빛·금빛으로 물드는 키 큰 풀이에요. 제주는 9월 말~11월 초가 절정입니다.",
+  "핑크뮬리":"분홍빛 솜사탕처럼 보이는 관상용 풀이에요. 9~10월에만 볼 수 있습니다.",
+  "수국":"6~7월 제주를 파랑·보라로 뒤덮는 탐스러운 꽃이에요. 흙 성분에 따라 색이 달라집니다.",
+  "유채꽃":"3~4월에 피는 샛노란 꽃이에요. 성산일출봉 앞 유채밭이 대표적입니다.",
+  "메밀꽃":"하얀 소금을 뿌린 듯 피는 꽃이에요. 제주는 5월과 9월 두 번 볼 수 있습니다.",
+  "동백":"11월부터 2월까지 피는 붉은 겨울 꽃이에요. 통째로 툭 떨어지는 게 특징입니다.",
+  "청보리":"아직 익지 않아 초록빛인 보리예요. 가파도 청보리밭은 4~5월이 절정입니다.",
+  "테쉬폰":"이라크의 아치형 건축을 본떠 지은 반원통 모양 건물이에요. 성이시돌목장의 그 독특한 건물이 바로 이겁니다.",
+  "돌하르방":"현무암을 깎아 만든 제주의 수호 석상이에요. '돌 할아버지'라는 뜻입니다.",
+  "현무암":"용암이 굳어 만들어진, 구멍이 숭숭 뚫린 검은 돌이에요. 제주의 돌담·돌하르방이 모두 이 돌입니다.",
+  "설문대할망":"제주를 만들었다는 거인 여신 설화예요. 치마폭에 흙을 담아 한라산을 쌓았다고 전해집니다.",
+  "삼신인":"삼성혈에서 솟아나 제주를 열었다는 세 시조(고을나·양을나·부을나)예요.",
+  "올레길":"제주 해안을 따라 이어진 도보 여행길이에요. 총 27개 코스로 섬을 한 바퀴 돕니다. '올레'는 큰길에서 집으로 들어가는 좁은 골목을 뜻하는 제주말입니다.",
+  "해녀":"산소통 없이 숨을 참고 잠수해 해산물을 캐는 제주 여성들이에요. 유네스코 인류무형문화유산으로 등재돼 있습니다.",
+  "물질":"해녀가 바다에 들어가 해산물을 캐는 일을 뜻하는 말이에요.",
+  "중산간":"해안 마을과 한라산 사이에 있는 중간 높이 지대예요. 목장과 오름이 많고 안개가 자주 낍니다.",
+  "람사르":"국제적으로 보전 가치를 인정받은 습지를 등록하는 국제 협약이에요. 물영아리오름이 여기에 등재돼 있습니다.",
+  "유네스코":"유엔 산하 교육·과학·문화 기구예요. 성산일출봉·만장굴·거문오름은 세계자연유산으로 지정돼 있습니다.",
+  "곶자왈공원":"곶자왈 원시림을 코스별로 걸을 수 있게 정비한 공원이에요.",
+  "적산가옥":"일제강점기에 일본인이 짓고 광복 후 남겨진 일본식 집이에요.",
+  "키세스존":"나무 그늘이 키세스 초콜릿 모양으로 뚫려 보이는 포토존이에요. 도두봉 정상 근처가 유명합니다.",
+  "피톤치드":"나무가 스스로를 지키려고 내뿜는 항균 물질이에요. 숲에서 상쾌한 기분이 드는 이유입니다.",
+  "족욕":"무릎 아래 발만 따뜻한 물에 담그는 것이에요. 제주 허브동산·환상숲에 무료 족욕대가 있습니다.",
+  "탄산온천":"이산화탄소가 녹아 있어 몸에 자잘한 기포가 달라붙는 온천이에요. 국내에는 몇 곳 없습니다.",
+  "4·3":"1948년부터 제주에서 벌어진 민간인 희생 사건이에요. 제주 현대사에서 가장 아픈 부분입니다.",
+
+  // --- 제주 음식 ---
+  "고기국수":"돼지뼈를 우린 뽀얀 국물에 중면과 수육을 얹은 제주 대표 국수예요. 잔칫날 손님에게 내던 음식에서 시작됐습니다.",
+  "몸국":"돼지 삶은 국물에 '몸(모자반)'이라는 해조류를 넣고 끓인 제주 향토국이에요. 걸쭉하고 구수합니다.",
+  "모자반":"제주 바다에서 나는 갈색 해조류예요. 제주말로 '몸'이라고 하고, 몸국의 주재료입니다.",
+  "고사리육개장":"고사리를 푹 삶아 으깨서 걸쭉하게 끓인 제주식 육개장이에요. 육지 육개장과 달리 맵지 않고 죽처럼 부드럽습니다.",
+  "멜젓":"멸치로 담근 젓갈이에요. 제주에서는 흑돼지 구이를 이 멜젓에 찍어 먹는 게 정석입니다.",
+  "돔베고기":"'돔베'는 도마를 뜻하는 제주말이에요. 삶은 돼지고기를 도마째 썰어 내는 수육입니다.",
+  "근고기":"600g(한 근) 단위로 두툼하게 썰어 파는 제주식 돼지고기예요. 직원이 구워주는 집이 많습니다.",
+  "흑돼지":"제주 토종 검은 돼지예요. 껍질째 구워 쫄깃한 식감이 특징입니다.",
+  "접짝뼈국":"돼지 등뼈와 앞다리뼈를 푹 고아 메밀가루로 걸쭉하게 만든 제주 향토국이에요. 제주 밖에서는 보기 힘듭니다.",
+  "각재기국":"전갱이(제주말로 '각재기')와 배추를 넣고 맑게 끓인 국이에요. 해장으로 최고로 칩니다.",
+  "멜국":"멸치(제주말로 '멜')를 통째로 넣고 끓인 시원한 국이에요.",
+  "보말":"제주 갯바위에 붙어사는 작은 고둥이에요. 살과 내장을 함께 써서 국물이 초록빛을 띱니다.",
+  "보말칼국수":"보말 살과 내장을 풀어 끓인 초록빛 칼국수예요. 미역이 들어가 바다 향이 진합니다.",
+  "오메기떡":"차조로 만든 떡에 팥고물을 두툼하게 묻힌 제주 대표 떡이에요. 선물용으로 가장 많이 사갑니다.",
+  "빙떡":"메밀 전병에 무채를 넣어 돌돌 만 제주 떡이에요. 심심한 맛이라 호불호가 갈립니다.",
+  "우뭇가사리":"제주 바다의 붉은 해조류예요. 이걸 고아 굳히면 우무(한천)가 되고, 우무 푸딩의 재료가 됩니다.",
+  "한치":"오징어보다 작고 다리가 짧은 제주 여름 별미예요. 회·물회로 많이 먹습니다.",
+  "물회":"찬 육수에 회와 채소를 넣어 시원하게 말아 먹는 여름 음식이에요.",
+  "옥돔":"제주를 대표하는 고급 생선이에요. 살이 담백해서 구이와 맑은 국에 씁니다.",
+  "지리":"고춧가루 없이 맑게 끓인 생선탕이에요. 매운탕의 반대말이라고 보면 됩니다.",
+  "자리돔":"손바닥만 한 제주 여름 생선이에요. 물회와 구이로 먹습니다.",
+  "성게":"제주말로 '구살'이라고 해요. 6~8월이 제철이고 미역국에 넣으면 진한 단맛이 납니다.",
+  "모닥치기":"떡볶이·순대·튀김·김밥을 한 접시에 모아 담아 주는 제주식 분식이에요. '모아서 친다'는 뜻입니다.",
+  "밀면":"메밀 대신 밀가루로 뽑은 면을 쓴 냉면이에요. 산방식당이 제주식 밀면의 원조로 꼽힙니다.",
+  "두루치기":"고기와 채소를 양념해 한 냄비에 볶아 내는 요리예요. 제주에서는 돼지고기로 만듭니다.",
+  "드라이에이징":"고기를 찬 바람에 일정 기간 말리듯 숙성시키는 방식이에요. 감칠맛이 진해집니다.",
+  "카이막":"물소 젖의 지방층을 걷어 만든 터키식 크림이에요. 꿀과 빵에 곁들여 먹습니다.",
+  "스매시버거":"패티를 철판에 눌러 구워 겉을 바삭하게 만든 버거예요.",
+  "개역":"볶은 보리를 곱게 간 가루예요. 제주식 미숫가루로, 인스밀의 '보리개역'이 여기서 나온 말입니다.",
+  "젤라또":"우유 비중이 높고 공기가 적게 들어간 이탈리아식 아이스크림이에요. 더 쫀득합니다.",
+  "에그타르트":"바삭한 파이 껍질에 달걀 커스터드를 채워 구운 포르투갈 디저트예요.",
+  "소금빵":"버터를 말아 넣고 위에 굵은 소금을 뿌려 구운 빵이에요.",
+  "브뤠베":"우유와 커피를 층으로 쌓아 만든 음료예요. 풍림다방의 '풍림브뤠베'가 대표적입니다.",
+
+  // --- 여행 실전 ---
+  "오픈런":"문 여는 시간에 맞춰 미리 가서 줄을 서는 것이에요. 제주 인기 맛집은 이게 사실상 필수입니다.",
+  "웨이팅":"자리가 날 때까지 기다리는 대기를 말해요.",
+  "브레이크타임":"점심과 저녁 사이에 잠시 문을 닫고 쉬는 시간이에요. 보통 오후 3~5시쯤입니다.",
+  "원격줄서기":"현장에 가지 않고 앱(테이블링·캐치테이블 등)으로 미리 대기를 걸어두는 것이에요.",
+  "미디어아트":"빛·영상·소리로 공간 전체를 채우는 몰입형 전시예요. 아르떼뮤지엄·빛의 벙커가 대표적입니다.",
+  "노출콘크리트":"콘크리트를 마감재로 덮지 않고 그대로 드러낸 건축 방식이에요.",
+  "안도 다다오":"노출콘크리트와 빛을 다루는 것으로 유명한 일본 건축가예요. 본태박물관·유민미술관을 설계했습니다.",
+  "쿠사마 야요이":"물방울무늬와 호박 조각으로 유명한 일본 현대미술가예요.",
+  "아르누보":"19세기 말~20세기 초에 유행한, 식물 덩굴 같은 곡선 장식 예술 양식이에요.",
+  "곤돌라":"공중에 매달려 이동하는 케이블 탑승칸이에요.",
+  "일주도로":"제주 해안을 따라 섬을 한 바퀴 도는 국도예요.",
+  "렌터카 반입":"우도는 환경 보호를 위해 일부 예외(숙박·장애인 등)를 빼고 렌터카를 들일 수 없어요. 섬 안에서는 전기바이크나 순환버스를 씁니다.",
+};
+
+const GLO_KEYS = Object.keys(GLOSSARY).sort((a,b)=>b.length-a.length);
+const GLO_RE = new RegExp("("+GLO_KEYS.map(k=>k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("|")+")","g");
+function escHtml(t){ return String(t==null?"":t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function glossify(t){
+  return escHtml(t).replace(GLO_RE, m=>'<span class="gterm" data-t="'+m+'">'+m+'</span>');
+}
+
 // 대표 사진 보기 (네이버 이미지 검색 — 항상 최신 사진이 뜸)
 const PHOTO = n => "https://search.naver.com/search.naver?where=image&query=" + encodeURIComponent("제주 " + n);
 const CAT = {spot:{label:"관광지"},food:{label:"맛집"},cafe:{label:"카페"}};
@@ -1378,6 +1880,7 @@ function customToCard(p){
     addr: p.addr || "주소 미입력",
     time: "방문 전 운영시간 확인",
     links: [["네이버지도", NM(p.name)]],
+    eff: p.eff || (p.cat === "spot" ? "out" : "in"),
     custom: true
   };
 }
@@ -1496,6 +1999,30 @@ function renderZoneMenu(){
     zoneGrid.appendChild(b);
   });
 }
+// ===== 활동 강도 메뉴 =====
+let activeEff = null;
+const effGrid = document.getElementById("effGrid");
+function matchesEff(p){ return activeEff===null || effOf(p)===activeEff; }
+function renderEffMenu(){
+  const pool = allPlaces();
+  effGrid.innerHTML = "";
+  const allBtn = document.createElement("button");
+  allBtn.className = "eff-btn"+(activeEff===null?" active":"");
+  allBtn.innerHTML = '<span class="e-emoji">🗺</span><span class="e-name">전체</span><span class="e-cnt">'+pool.length+'곳</span>';
+  allBtn.addEventListener("click",()=>{ activeEff=null; render(); });
+  effGrid.appendChild(allBtn);
+  EFF.forEach(e=>{
+    const cnt = pool.filter(p=>effOf(p)===e.key).length;
+    if(e.key==="etc" && cnt===0) return;
+    const b = document.createElement("button");
+    b.className = "eff-btn"+(activeEff===e.key?" active":"");
+    b.title = e.tip;
+    b.innerHTML = '<span class="e-emoji">'+e.emoji+'</span><span class="e-name">'+e.name+'</span><span class="e-cnt">'+cnt+'곳</span>';
+    b.addEventListener("click",()=>{ activeEff=(activeEff===e.key?null:e.key); render(); });
+    effGrid.appendChild(b);
+  });
+}
+
 // 장소 좌표 (지도 데이터 검증)
 const LL={
  seongsan:[33.458056,126.9425],udo:[33.5023255,126.9432712],hyeopjae:[33.3942945,126.2398813],
@@ -1642,29 +2169,71 @@ searchClear.addEventListener("click",()=>{
   render(); searchInput.focus();
 });
 
+function passes(p){
+  if(!matchesSearch(p)) return false;
+  if(!matchesEff(p)) return false;
+  if(currentFilter==="visited") return !!visited[p.id];
+  if(visited[p.id]) return false;
+  if(currentFilter==="must") return !!MUST[p.id];
+  if(currentFilter==="all") return true;
+  return p.cat===currentFilter;
+}
+function addGrid(items){
+  const g = document.createElement("div");
+  g.className = "grid";
+  items.forEach(p=>g.appendChild(makeCard(p)));
+  list.appendChild(g);
+}
+function addSubHead(text, tip){
+  const h = document.createElement("div");
+  h.className = "sub-head";
+  h.innerHTML = text + (tip?' <span class="sh-tip">'+tip+'</span>':"");
+  list.appendChild(h);
+}
+// 활동 강도(실내 → 등산) 순서로 묶어서 출력
+function addEffGroups(items, always){
+  const groups = EFF.map(e=>({e:e, arr:items.filter(p=>effOf(p)===e.key)})).filter(g=>g.arr.length);
+  if(groups.length<=1 && !always){ addGrid(items.slice().sort(byEff)); return; }
+  groups.forEach(g=>{
+    addSubHead(g.e.emoji+" "+g.e.full+" ("+g.arr.length+")", g.e.tip);
+    addGrid(g.arr);
+  });
+}
+// 맛집: 죽어도 맛봐야 할 집 먼저 → 그다음 종류별
+function addFoodGroups(items){
+  const must = items.filter(p=>MUSTEAT[p.id]);
+  const rest = items.filter(p=>!MUSTEAT[p.id]);
+  if(must.length){
+    const h = document.createElement("div");
+    h.className = "me-head";
+    h.innerHTML = '🔥 제주 오면 죽어도 맛봐야 할 집 '+must.length+'곳'+
+      '<div class="me-sub">다른 지역엔 아예 없거나, 여기서 먹는 게 완전히 다른 음식들이에요. 딱 한 끼만 남았다면 이 안에서 고르세요.</div>';
+    list.appendChild(h);
+    addGrid(must.slice().sort(byEff));
+  }
+  const groups = FT.map(f=>({f:f, arr:rest.filter(p=>ftOf(p)===f.key)})).filter(g=>g.arr.length);
+  groups.forEach(g=>{
+    addSubHead(g.f.emoji+" "+g.f.label+" ("+g.arr.length+")");
+    addGrid(g.arr.slice().sort(byEff));
+  });
+}
+
 function render(){
   renderZoneMenu();
+  renderEffMenu();
   list.innerHTML = "";
   const pool = allPlaces();
+
   if(nearbyOn && distMap){
-    const items = pool.filter(p=>{
-      if(!matchesSearch(p)) return false;
-      if(currentFilter==="visited") return visited[p.id];
-      if(visited[p.id]) return false;
-      if(currentFilter==="must") return !!MUST[p.id];
-      if(currentFilter!=="all") return p.cat===currentFilter;
-      return true;
-    }).filter(p=>distMap[p.id]!==undefined && distMap[p.id]<=NEAR_LIMIT_KM)
+    const items = pool.filter(passes)
+      .filter(p=>distMap[p.id]!==undefined && distMap[p.id]<=NEAR_LIMIT_KM)
       .sort((a,b)=>distMap[a.id]-distMap[b.id])
       .slice(0,30);
     const head = document.createElement("div");
     head.className="nearby-head";
     head.innerHTML=`📍 내 위치에서 ${NEAR_LIMIT_KM}km 이내 ${items.length}곳<div class="nearby-sub">가까운 순 · 직선거리 기준이에요. 필터·검색과 함께 쓸 수 있어요.</div>`;
     list.appendChild(head);
-    const grid = document.createElement("div");
-    grid.className="grid";
-    items.forEach(p=>grid.appendChild(makeCard(p)));
-    list.appendChild(grid);
+    addGrid(items);
     if(!items.length){
       const d=document.createElement("div"); d.className="no-result";
       d.innerHTML=`🔍 ${NEAR_LIMIT_KM}km 안에 조건에 맞는 곳이 없어요.<br>필터나 검색어를 풀어보세요.`;
@@ -1673,37 +2242,33 @@ function render(){
     updateProgress();
     return;
   }
+
   if(currentFilter==="must"){
     const ids = Object.keys(MUST);
     const doneN = ids.filter(id=>visited[id]).length;
     const h = document.createElement("div");
     h.className = "must-head";
-    h.innerHTML = `⭐ 제주 필수 코스 ${ids.length}곳<div class="must-sub">처음 왔거나 일정이 짧다면 여기부터. 지금까지 <b>${doneN}곳</b> 완료했어요.</div>`;
+    h.innerHTML = `⭐ 제주 필수 코스 ${ids.length}곳<div class="must-sub">덜 힘든 순서(실내 → 시원한 야외 → 차로 → 야외 → 걷기 → 등산)로 정리했어요. 지금까지 <b>${doneN}곳</b> 완료했어요.</div>`;
     list.appendChild(h);
-  }
-  ["spot","food","cafe"].forEach(cat=>{
-    const items = pool.filter(p=>{
-      if(!matchesSearch(p)) return false;
-      if(currentFilter==="visited") return p.cat===cat && visited[p.id];
-      if(visited[p.id]) return false;
-      if(currentFilter==="must") return p.cat===cat && !!MUST[p.id];
-      if(currentFilter!=="all" && currentFilter!==cat) return false;
-      return p.cat===cat;
+    const items = pool.filter(passes);
+    if(items.length) addEffGroups(items, true);
+  } else {
+    ["spot","food","cafe"].forEach(cat=>{
+      const items = pool.filter(p=>p.cat===cat && passes(p));
+      if(items.length===0) return;
+      const title = document.createElement("h2");
+      title.className="section-title";
+      title.textContent = (cat==="spot"?"🏝 ":cat==="food"?"🍽 ":"☕ ")+CAT[cat].label+" ("+items.length+")";
+      list.appendChild(title);
+      if(cat==="food") addFoodGroups(items);
+      else addEffGroups(items, cat==="spot");
     });
-    if(items.length===0) return;
-    const title = document.createElement("h2");
-    title.className="section-title";
-    title.textContent = (cat==="spot"?"🏝 ":cat==="food"?"🍽 ":"☕ ")+CAT[cat].label+" ("+items.length+")";
-    list.appendChild(title);
-    const grid = document.createElement("div");
-    grid.className="grid";
-    items.forEach(p=>grid.appendChild(makeCard(p)));
-    list.appendChild(grid);
-  });
-  if(!list.hasChildNodes() && (searchQ || activeChip>=0 || activeZone!==null)){
+  }
+
+  if(!list.hasChildNodes() && (searchQ || activeChip>=0 || activeZone!==null || activeEff!==null)){
     const d = document.createElement("div");
     d.className="no-result";
-    d.innerHTML="🔍 검색 결과가 없어요.<br>다른 검색어나 카테고리를 눌러보세요.";
+    d.innerHTML="🔍 조건에 맞는 곳이 없어요.<br>검색어·카테고리·활동 강도를 하나씩 풀어보세요.";
     list.appendChild(d);
   }
   if(currentFilter==="visited" && !pool.some(p=>visited[p.id])){
@@ -1727,16 +2292,17 @@ function makeCard(p){
       <span>${p.emoji}</span>
       <span class="badge b-${p.cat}">${CAT[p.cat].label}</span>
       <span class="region">${p.region}</span>
-      ${MUST[p.id]?'<span class="must-star">⭐ 꼭 가볼 곳</span>':""}
+      ${MUSTEAT[p.id]?'<span class="musteat-star">🔥 죽어도 맛봐야 할 집</span>':(MUST[p.id]?'<span class="must-star">⭐ 꼭 가볼 곳</span>':"")}
     </div>
     <div class="stamp"><span class="chk">✔</span>방문완료</div>
     <div class="body">
-      ${(()=>{const z=ZONES.find(x=>x.key===zoneOf(p));return z?`<span class="zone-badge">📍 ${z.full}</span>`:"";})()}${nearbyOn&&distMap&&distMap[p.id]!==undefined?`<span class="dist-badge">🧭 ${fmtDist(distMap[p.id])}</span>`:""}
+      ${(()=>{const e=EFF_OF[effOf(p)];return e?`<span class="eff-badge e-${e.key}">${e.emoji} ${e.full}</span>`:"";})()}${(()=>{const z=ZONES.find(x=>x.key===zoneOf(p));return z?`<span class="zone-badge">📍 ${z.full}</span>`:"";})()}${nearbyOn&&distMap&&distMap[p.id]!==undefined?`<span class="dist-badge">🧭 ${fmtDist(distMap[p.id])}</span>`:""}
       <div class="name">${p.name}</div>
       <div class="tagline">${p.tag}</div>
       <div class="hash">${p.hash}</div>
-      ${MUST[p.id]?`<div class="must-why"><b>왜 꼭 가야 하냐면</b> ${MUST[p.id]}</div>`:""}
-      <p class="desc">${p.desc}</p>
+      ${MUSTEAT[p.id]?`<div class="musteat-why"><b>이건 제주에서만</b> ${MUSTEAT[p.id]}</div>`
+        :(MUST[p.id]?`<div class="must-why"><b>왜 꼭 가야 하냐면</b> ${MUST[p.id]}</div>`:"")}
+      <p class="desc">${glossify(p.desc)}</p>
       <div class="meta">
         <div><span class="ico">📍</span><span>${p.addr}</span></div>
         ${p.open!==undefined?`
@@ -1825,6 +2391,7 @@ document.getElementById("np_save").addEventListener("click",()=>{
     cat: document.getElementById("np_cat").value,
     region: document.getElementById("np_region").value.trim(),
     addr: document.getElementById("np_addr").value.trim(),
+    eff: document.getElementById("np_eff").value,
     memo: document.getElementById("np_memo").value.trim()
   };
   ["np_name","np_region","np_addr","np_memo"].forEach(i=>document.getElementById(i).value="");
@@ -1871,6 +2438,90 @@ document.getElementById("resetBtn").addEventListener("click",async ()=>{
     try{ await pushRemote(); }catch(e){}
     render();
   }
+});
+
+
+// ===== 모르는 말 바로 찾기 (사전 + AI 검색) =====
+const gloModal = document.getElementById("gloModal");
+const gloInput = document.getElementById("gloInput");
+const gloWord  = document.getElementById("gloWord");
+const gloDef   = document.getElementById("gloDef");
+const gloSug   = document.getElementById("gloSug");
+const selBtn   = document.getElementById("selBtn");
+
+function setAiLinks(q){
+  const w = q || "제주 여행";
+  document.getElementById("gloPplx").href =
+    "https://www.perplexity.ai/search?q=" +
+    encodeURIComponent("제주도 여행 중이야. '" + w + "'가 무슨 뜻인지 초보자도 알기 쉽게 3줄로 설명해줘.");
+  document.getElementById("gloNaver").href =
+    "https://search.naver.com/search.naver?query=" + encodeURIComponent(q ? ("제주 " + w) : "제주 여행");
+  document.getElementById("gloImg").href =
+    "https://search.naver.com/search.naver?where=image&query=" + encodeURIComponent(w);
+}
+function showGlo(q){
+  q = (q||"").trim();
+  setAiLinks(q);
+  gloSug.innerHTML = "";
+  if(!q){
+    gloWord.textContent = "";
+    gloDef.innerHTML = '<span class="glo-empty">궁금한 말을 위에 적거나, 카드 설명에서 <b>점선 밑줄</b>이 그어진 말을 눌러보세요.<br>사전에 없는 말도 아래 <b>[🤖 AI에게 물어보기]</b>로 바로 확인할 수 있어요.</span>';
+    return;
+  }
+  gloWord.textContent = q;
+  let key = GLOSSARY[q] ? q : GLO_KEYS.find(k=>q.indexOf(k)>=0 || k.indexOf(q)>=0);
+  if(key && GLOSSARY[key]){
+    gloWord.textContent = key;
+    gloDef.textContent = GLOSSARY[key];
+  }else{
+    gloDef.innerHTML = '<span class="glo-empty">사전에 없는 말이에요. 아래 <b>[🤖 AI에게 물어보기]</b>를 누르면 바로 설명해줍니다.</span>';
+  }
+  const near = GLO_KEYS.filter(k=>k!==key && (k.indexOf(q)>=0 || q.indexOf(k)>=0)).slice(0,6);
+  near.forEach(k=>{
+    const b=document.createElement("button");
+    b.textContent=k;
+    b.addEventListener("click",()=>{ gloInput.value=k; showGlo(k); });
+    gloSug.appendChild(b);
+  });
+}
+function openGlo(term){
+  gloModal.classList.add("open");
+  gloInput.value = term || "";
+  showGlo(term || "");
+  if(!term) setTimeout(()=>gloInput.focus(),50);
+}
+document.getElementById("aiAskBtn").addEventListener("click",()=>openGlo(""));
+document.getElementById("glo_close").addEventListener("click",()=>gloModal.classList.remove("open"));
+gloModal.addEventListener("click",e=>{ if(e.target===gloModal) gloModal.classList.remove("open"); });
+gloInput.addEventListener("input",()=>showGlo(gloInput.value));
+list.addEventListener("click",e=>{
+  const t = e.target.closest(".gterm");
+  if(t) openGlo(t.dataset.t);
+});
+// 아무 글자나 선택하면 뜻 찾기 버튼이 뜸
+function onSelEnd(){
+  setTimeout(()=>{
+    const sel = window.getSelection();
+    const txt = sel ? sel.toString().trim() : "";
+    if(txt && txt.length<=25 && /[가-힣A-Za-z]/.test(txt) && sel.rangeCount){
+      const r = sel.getRangeAt(0).getBoundingClientRect();
+      if(!r.width && !r.height){ selBtn.classList.remove("show"); return; }
+      selBtn.dataset.t = txt;
+      selBtn.style.top  = (window.scrollY + r.bottom + 8) + "px";
+      selBtn.style.left = Math.max(10, Math.min(window.innerWidth-150, window.scrollX + r.left)) + "px";
+      selBtn.classList.add("show");
+    }else{
+      selBtn.classList.remove("show");
+    }
+  }, 10);
+}
+document.addEventListener("mouseup", onSelEnd);
+document.addEventListener("touchend", onSelEnd);
+selBtn.addEventListener("mousedown", e=>e.preventDefault());
+selBtn.addEventListener("click", ()=>{
+  openGlo(selBtn.dataset.t);
+  selBtn.classList.remove("show");
+  const sel=window.getSelection(); if(sel) sel.removeAllRanges();
 });
 
 (async function init(){
