@@ -173,6 +173,14 @@
   .hours-table .sub{color:#8A9490;font-size:11px;font-weight:400;}
   .del-link{font-size:11.5px;color:#B8514A;text-decoration:underline;background:none;
     border:none;cursor:pointer;font-family:inherit;margin-top:6px;}
+
+  .links a.photo-link{
+    background:linear-gradient(135deg,#0E7490,#0891B2);color:#fff;border-color:transparent;
+    font-weight:700;
+  }
+  .links a.photo-link:hover{filter:brightness(1.08);}
+  .meta a.tel-link{color:#0E7490;font-weight:700;text-decoration:none;}
+  .meta a.tel-link:active{opacity:.6;}
 </style>
 </head>
 <body>
@@ -837,6 +845,121 @@ const PLACES = [
   links:[["네이버지도",NM("카페 진정성 제주")],["비짓제주",VJ]]},
 ];
 
+const TEL={
+ hamdeok:"064-728-3989",
+ bijarim:"064-710-7912",
+ manjang:"064-710-7903",
+ jusangjeolli:"064-738-1521",
+ yongmeori:"064-760-6322",
+ soesokkak:"064-732-1562",
+ osulloc:"064-794-5312",
+ arte:"1899-5008",
+ park981:"1833-9810",
+ snoopy:"064-805-1118",
+ ecoland:"064-802-8020",
+ ollemarket:"064-762-1949",
+ jeongbang:"064-733-1530",
+ leejungseop:"064-760-3567",
+ saeyeongyo:"064-760-3471",
+ teddybear:"064-738-7600",
+ teseum:"064-799-4820",
+ joanne:"064-739-1024",
+ figuremuseum:"064-792-2244",
+ hellokitty:"064-792-6114",
+ brickcampus:"064-712-1258",
+ seopjikoji:"064-782-0080",
+ aquaplanet:"1833-7001",
+ sangumburi:"064-783-9900",
+ stonepark:"064-710-7764",
+ jeolmul:"064-728-1510",
+ hallaarbo:"064-710-7575",
+ yongduam:"064-728-3918",
+ samseonghyeol:"064-722-3315",
+ sanbanggulsa:"064-794-2940",
+ cheonjeyeon:"064-760-6331",
+ oedolgae:"064-760-3192",
+ hallimpark:"064-796-0001",
+ gimnyeongmaze:"064-782-9266",
+ folkvillage:"064-787-4501",
+ hueree:"064-732-2114",
+ boreumwat:"064-742-8181",
+ suwolbong:"064-471-0580",
+ bonte:"064-792-8108",
+ yeongsil:"064-747-9950",
+ marado:"064-794-6661",
+ geumoreum:"064-740-6000",
+ peacepark:"064-723-4344",
+ hwansang:"064-772-2488",
+ nohyungmarket:"064-713-1888",
+ donsadon:"064-746-8989",
+ sukseongdo:"064-743-8877",
+ ollae:"064-742-7355",
+ jamae:"064-746-2222",
+ ujin:"064-757-3393",
+ matna:"064-782-4771",
+ myeongjin:"064-782-9944",
+ leechunok:"064-799-9914",
+ miyoung:"064-792-0077",
+ oneunjeong:"064-762-8927",
+ manong:"064-733-3521",
+ saerona:"064-762-3657",
+ grandma:"064-732-6210",
+ eunhee:"064-726-5622",
+ sinseol:"064-758-0143",
+ mooger:"010-9501-2324",
+ kyungmi:"064-782-2671",
+ gasi:"064-787-1035",
+ chunja:"064-787-3124",
+ negeori:"064-762-5513",
+ cheonjitgol:"064-763-0399",
+ sekdal:"064-738-1741",
+ suduri:"064-739-1070",
+ sanbang:"064-794-2165",
+ okdom:"064-794-8833",
+ suudong:"064-796-5830",
+ hanmo:"064-712-9642",
+ yeondon:"0507-1386-7060",
+ onoff:"0507-1346-9807",
+ eunsikdang:"064-794-5789",
+ halladon:"064-723-2697",
+ hahahoho:"010-2899-1365",
+ yangga:"010-4938-5455",
+ welcomeburger:"070-7834-5054",
+ burgeri:"0507-1421-0582",
+ fantasticburger:"0507-1339-6990",
+ delmoondo:"064-702-0007",
+ monsant:"064-799-8900",
+ bomnal:"0507-1494-4999",
+ randys:"064-799-0610",
+ oneandonly:"064-794-0117",
+ insmill:"0507-1352-5661",
+ manor:"064-794-0999",
+ kleinblue:"010-8720-5338",
+ umu:"010-6705-0064",
+ abebe:"010-8857-0750",
+ orrrn:"064-783-1559",
+ blanc:"064-784-0045",
+ gongbech:"064-783-0015",
+ poonglim:"0507-1420-6029",
+ moalboal:"010-8888-1496",
+ hallasan:"064-783-1522",
+ glencoe:"010-9587-3555",
+ delekoomda:"064-901-2197",
+ saebil:"064-794-0073",
+ soona:"010-3692-5342",
+ myeongwol:"070-8803-1955",
+ mippeun:"070-8822-9212",
+ honeymoon:"070-4277-9922",
+ terarosa:"064-738-4478",
+ seoyeun:"064-764-7894",
+ hugely:"064-711-9774",
+ sisokaymak:"064-799-0865",
+ wayview:"0507-1312-8767",
+ lazypump:"010-2392-8732",
+ jinjungsung:"064-747-7674",
+};
+// 대표 사진 보기 (네이버 이미지 검색 — 항상 최신 사진이 뜸)
+const PHOTO = n => "https://search.naver.com/search.naver?where=image&query=" + encodeURIComponent("제주 " + n);
 const CAT = {spot:{label:"관광지"},food:{label:"맛집"},cafe:{label:"카페"}};
 
 // ===== 저장 구조: {v: 방문 도장, c: 직접 추가한 장소} — 두 사람이 자동 공유 =====
@@ -1289,8 +1412,10 @@ function makeCard(p){
         <div><span class="ico">⏸️</span><span><b>브레이크타임</b> ${p.brk}</span></div>
         <div><span class="ico">📅</span><span><b>휴무일</b> ${p.closed}</span></div>`
         :`<div><span class="ico">🕐</span><span>${p.time}</span></div>`}
+        ${TEL[p.id]?`<div><span class="ico">📞</span><span><a class="tel-link" href="tel:${TEL[p.id].replace(/-/g,"")}">${TEL[p.id]}</a></span></div>`:""}
       </div>
       <div class="links">
+        <a class="photo-link" href="${PHOTO(p.name)}" target="_blank" rel="noopener">📷 대표 사진 보기 ↗</a>
         ${p.links.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${l[0]} ↗</a>`).join("")}
       </div>
       <button class="visit-btn" aria-pressed="${!!visited[p.id]}">
