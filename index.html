@@ -196,7 +196,7 @@
     background:var(--sea);color:#fff;border:none;border-radius:999px;
     padding:14px 18px;font-family:inherit;font-size:14px;font-weight:900;
     box-shadow:0 6px 18px rgba(14,116,144,.4);cursor:pointer;}
-  #hoursModal{position:fixed;inset:0;background:rgba(20,30,28,.55);z-index:60;
+  #lotteModal,#hoursModal{position:fixed;inset:0;background:rgba(20,30,28,.55);z-index:60;
     display:none;align-items:center;justify-content:center;padding:20px;}
   #hoursModal.open{display:flex;}
   #hoursModal .modal-box{max-width:540px;max-height:84vh;display:flex;flex-direction:column;}
@@ -306,6 +306,40 @@
   .v-hotel{background:linear-gradient(135deg,#C6D6EF,#5B7DB1);}
   .b-shop{background:#B4407A;} .b-bar{background:#A8701C;} .b-hotel{background:#3F6199;}
   .b-spa{background:#2E7D6B;}
+  .lotte-badge{position:absolute;left:10px;bottom:10px;background:linear-gradient(135deg,#D32F2F,#F57C00);
+    color:#fff;font-size:11px;font-weight:800;padding:4px 9px;border-radius:999px;letter-spacing:-.2px;}
+  .lotte-line{margin:8px 0 0;padding:9px 11px;border-radius:10px;background:#FFF4EC;
+    border:1.5px solid #FFD3B0;color:#8A4B18;font-size:12.5px;line-height:1.55;font-weight:700;}
+  .wish-btn{width:100%;margin-top:8px;padding:11px;border-radius:12px;border:1.5px solid #F0C64A;
+    background:#FFFBEB;color:#8A6A08;font-size:14px;font-weight:800;cursor:pointer;}
+  .wish-btn.on{background:linear-gradient(135deg,#F59E0B,#F0C64A);border-color:#F59E0B;color:#fff;}
+  .wish-date-wrap{margin-top:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+    background:#FFFBEB;border:1.5px solid #F5E1A4;border-radius:12px;padding:9px 11px;}
+  .wish-date-wrap b{font-size:12.5px;color:#8A6A08;}
+  .wish-date{flex:1;min-width:130px;padding:8px 10px;border-radius:9px;border:1.5px solid #E6D08A;
+    font-size:14px;background:#fff;color:#4A4A2E;}
+  .wish-clear{border:none;background:#F1E3B8;color:#7A5E08;border-radius:9px;padding:8px 11px;
+    font-size:12.5px;font-weight:700;cursor:pointer;}
+  .plan-head{margin:6px 0 14px;padding:16px;border-radius:16px;color:#fff;
+    background:linear-gradient(135deg,#B45309,#F59E0B);box-shadow:0 6px 18px rgba(245,158,11,.28);}
+  .plan-sub{margin-top:6px;font-size:12.5px;line-height:1.6;opacity:.95;font-weight:600;}
+  .day-head{margin:22px 0 10px;padding:12px 14px;border-radius:13px;font-size:15px;font-weight:800;
+    background:linear-gradient(135deg,#92400E,#D97706);color:#fff;}
+  .day-head .dh-sub{display:block;margin-top:3px;font-size:11.5px;font-weight:600;opacity:.9;}
+  #lotteBtn{display:block;width:100%;margin:10px 0 0;padding:14px;border-radius:14px;border:none;
+    background:linear-gradient(135deg,#D32F2F,#F57C00);color:#fff;font-size:15px;font-weight:800;cursor:pointer;
+    box-shadow:0 6px 18px rgba(211,47,47,.26);position:relative;z-index:11;}
+  #lotteBtn .l-sub{display:block;margin-top:4px;font-size:11.5px;font-weight:600;opacity:.92;}
+  .lt-row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;
+    padding:11px 12px;border-bottom:1px solid var(--line);}
+  .lt-row:last-child{border-bottom:none;}
+  .lt-nm{font-size:14px;font-weight:700;color:#26302E;}
+  .lt-rg{display:block;font-size:11.5px;color:#7C8684;font-weight:600;margin-top:2px;}
+  .lt-rate{flex:none;font-size:12.5px;font-weight:800;color:#C2410C;background:#FFF1E6;
+    border-radius:999px;padding:5px 10px;white-space:nowrap;}
+  .lt-rate.unk{color:#6B7280;background:#F1F4F3;}
+  .lt-have{display:inline-block;margin-left:6px;font-size:10.5px;font-weight:800;color:#fff;
+    background:#2E7D6B;border-radius:999px;padding:2px 7px;vertical-align:middle;}
   .tab.tab-eat{background:linear-gradient(135deg,#9F1239,#E11D48);color:#fff;border-color:transparent;font-weight:800;}
   .tab.tab-eat.active{background:linear-gradient(135deg,#881337,#BE123C);}
   /* 주차 */
@@ -362,7 +396,7 @@
     <h1>제주 여행 스탬프북<span class="dot">.</span></h1>
     <p class="h-sub">감성 포토스팟부터 액티비티, 자연 명소, 노포 맛집까지 —
     20대부터 40대까지 모두를 위한 263곳. 모든 곳을 <b>덜 힘든 순서(실내 → 시원한 야외 → 차로 → 야외 → 걷기 → 등산)</b>로 나눠뒀고,
-    맛집·소품샵·술집·호텔·마사지는 <b>꼭 가야 할 곳</b>을 맨 위에 올렸고, 카드마다 <b>주차 정보</b>와 <b>주소 복사</b> 버튼이 있어요. 다녀온 곳은 <b>[갔다왔음]</b>을 눌러 도장을 찍어보세요. 도장 찍은 곳은 목록에서 사라지고 <b>[🔴 갔다온 곳]</b> 탭에 모입니다.</p>
+    맛집·소품샵·술집·호텔·마사지는 <b>꼭 가야 할 곳</b>을 맨 위에 올렸고, 카드마다 <b>주차 정보</b>와 <b>주소 복사</b> 버튼이 있어요. 가보고 싶은 곳은 <b>[☆ 가보고 싶어요]</b>로 담고 날짜를 정하면 <b>[⭐ 내 일정]</b> 탭에 날짜별로 정리됩니다. 다녀온 곳은 <b>[갔다왔음]</b>을 눌러 도장을 찍어보세요. 도장 찍은 곳은 목록에서 사라지고 <b>[🔴 갔다온 곳]</b> 탭에 모입니다.</p>
     <div class="progress-wrap"><div class="progress-bar" id="pbar"></div></div>
     <div class="progress-label" id="plabel"></div>
     <div style="text-align:center;margin-top:12px;">
@@ -381,6 +415,7 @@
   <button class="tab" data-filter="bar">🍻 술집·안주</button>
   <button class="tab" data-filter="hotel">🏨 호텔</button>
   <button class="tab" data-filter="spa">💆 마사지</button>
+  <button class="tab tab-plan" data-filter="plan">⭐ 내 일정</button>
   <button class="tab" data-filter="visited">🔴 갔다온 곳</button>
 </nav>
 
@@ -406,6 +441,7 @@
   <div id="zoneGrid"></div>
   <button id="nearbyBtn">📍 내 주변 15km 이내 보기</button>
   <button id="updBtn">🆕 요즘 뜨는 곳 업데이트 받기<span class="u-sub">눌러서 새로 올라온 맛집·명소를 확인하세요</span></button>
+  <button id="lotteBtn">🎟 롯데렌터카 할인되는 곳 보기<span class="l-sub">제주 웰컴 쿠폰팩 제휴처 39곳 · 렌터카 예약 고객 무료</span></button>
 </div>
 
 <main id="list"></main>
@@ -452,6 +488,18 @@
     <div class="modal-actions">
       <button id="np_cancel">취소</button>
       <button id="np_save">추가하기</button>
+    </div>
+  </div>
+</div>
+
+<div id="lotteModal">
+  <div class="modal-box">
+    <h3>🎟 롯데렌터카 제주 웰컴 쿠폰팩</h3>
+    <div id="lotteHead"></div>
+    <div id="lotteBody"></div>
+    <div class="modal-actions">
+      <button id="lt_close" style="background:#F1F4F3;border:1.5px solid var(--line);color:#5C6664;">닫기</button>
+      <button id="lt_open">공식 쿠폰팩 열기 ↗</button>
     </div>
   </div>
 </div>
@@ -2615,6 +2663,54 @@ function glossify(t){
 // 대표 사진 보기 (네이버 이미지 검색 — 항상 최신 사진이 뜸)
 const PHOTO = n => "https://search.naver.com/search.naver?where=image&query=" + encodeURIComponent("제주 " + n);
 const CAT = {spot:{label:"관광지"},food:{label:"맛집"},cafe:{label:"카페"},shop:{label:"소품샵"},bar:{label:"술집·안주"},hotel:{label:"호텔"},spa:{label:"마사지"}};
+// ===== 🎟 롯데렌터카 제주 웰컴 쿠폰팩 제휴처 (공식 홈페이지 기준) =====
+// rate: 확인된 할인율만 적음. null이면 쿠폰팩 화면에서 직접 확인해야 하는 곳.
+// id: 이 스탬프북에 이미 들어 있는 장소면 그 id를 적어 카드에 뱃지가 붙게 한다.
+const LOTTE_URL = "https://www.lotterentacar.net/hp/kor/reservation/welcomeCouponpack/jeju.do";
+const LOTTE_ALL = [
+ {id:"park981",     name:"9.81파크",            rg:"제주시 애월",  rate:"최대 54%"},
+ {id:null,          name:"액티브파크",           rg:"제주시",      rate:null},
+ {id:"camellia",    name:"카멜리아힐",           rg:"서귀포 안덕",  rate:"상시 20% (시즌 최대 30%)"},
+ {id:null,          name:"생각하는 정원",         rg:"제주시 한경",  rate:null},
+ {id:null,          name:"청수당 애월",           rg:"제주시 애월",  rate:null},
+ {id:"arte",        name:"아르떼뮤지엄",          rg:"제주시 애월",  rate:null},
+ {id:null,          name:"아르떼키즈파크",        rg:"제주시 애월",  rate:null},
+ {id:"bonte",       name:"본태박물관",           rg:"서귀포 안덕",  rate:null},
+ {id:"hellokitty",  name:"헬로키티 아일랜드",      rg:"서귀포 안덕",  rate:null},
+ {id:null,          name:"ASUM",               rg:"제주시",      rate:null},
+ {id:null,          name:"썬셋클리프",           rg:"제주시 애월",  rate:null},
+ {id:null,          name:"디아넥스 레스토랑",      rg:"서귀포 안덕",  rate:null},
+ {id:null,          name:"비오토피아 레스토랑",     rg:"서귀포 안덕",  rate:null},
+ {id:null,          name:"면공장",              rg:"제주시",      rate:null},
+ {id:null,          name:"테마파크 툰",           rg:"제주시",      rate:null},
+ {id:null,          name:"김택화 미술관",         rg:"제주시 조천",  rate:null},
+ {id:null,          name:"플레이팅",             rg:"제주시",      rate:null},
+ {id:null,          name:"엔제리너스",           rg:"제주 전역",    rate:"제조 음료 15%"},
+ {id:null,          name:"하리보",              rg:"제주시",      rate:null},
+ {id:null,          name:"피커스 제주",           rg:"제주시",      rate:null},
+ {id:"nohyungmarket",name:"노형수퍼마켙",         rg:"제주시 해안동", rate:null},
+ {id:null,          name:"K-아일랜드 제주",        rg:"제주시",      rate:null},
+ {id:null,          name:"학교괴담",             rg:"제주시",      rate:null},
+ {id:null,          name:"감귤카트",             rg:"제주시",      rate:null},
+ {id:null,          name:"런닝맨",              rg:"제주시",      rate:null},
+ {id:null,          name:"포도뮤지엄",           rg:"서귀포 안덕",  rate:null},
+ {id:null,          name:"자롤로뮤지엄",          rg:"서귀포",      rate:null},
+ {id:null,          name:"퍼시픽마리나",          rg:"제주시",      rate:null},
+ {id:null,          name:"제주제트",             rg:"제주시",      rate:null},
+ {id:"lottehotel",  name:"롯데호텔 제주",         rg:"서귀포 중문",  rate:null},
+ {id:null,          name:"롯데호텔 제주 라세느",    rg:"서귀포 중문",  rate:null},
+ {id:null,          name:"더클리프",             rg:"서귀포 중문",  rate:null},
+ {id:null,          name:"우도 잠수함",           rg:"제주시 우도",  rate:null},
+ {id:"aquaplanet",  name:"아쿠아플라넷 제주",      rg:"서귀포 성산",  rate:"상시 20%"},
+ {id:null,          name:"제주레일바이크",         rg:"제주시 구좌",  rate:null},
+ {id:"delekoomda",  name:"목장카페 드르쿰다",      rg:"서귀포 성산",  rate:null},
+ {id:null,          name:"제주라프",             rg:"서귀포",      rate:null},
+ {id:"ecoland",     name:"에코랜드 테마파크",      rg:"제주시 조천",  rate:null},
+ {id:"snoopy",      name:"스누피가든",           rg:"제주시 구좌",  rate:"상시 10% (성수기 20%)"},
+];
+const LOTTE = LOTTE_ALL.reduce((o,x)=>{ if(x.id) o[x.id]=x; return o; },{});
+const LOTTE_IDS = LOTTE_ALL.filter(x=>x.id).map(x=>x.id);
+
 const CATS = ["spot","food","cafe","shop","bar","hotel","spa"];
 const CAT_EMOJI = {spot:"🏝 ",food:"🍽 ",cafe:"☕ ",shop:"🛍 ",bar:"🍻 ",hotel:"🏨 ",spa:"💆 "};
 
@@ -2625,15 +2721,18 @@ const WRITE_URL = "https://textdb.online/update";
 const KEY = "jeju_data_v2";
 let visited = {};
 let customPlaces = [];
+let wish = {};   // {장소id: "YYYY-MM-DD" 또는 ""}  — 가보고 싶은 곳 + 예정 날짜
 let online = false;
 
 function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
 function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
 
 function normalize(data){
-  if(!data || typeof data !== "object") return {v:{}, c:[]};
-  if(data.v || data.c) return {v: data.v || {}, c: Array.isArray(data.c) ? data.c : []};
-  return {v: data, c: []}; // 예전 형식(도장만 있던 시절) 자동 변환
+  if(!data || typeof data !== "object") return {v:{}, c:[], w:{}};
+  if(data.v || data.c || data.w) return {v: data.v || {},
+                                         c: Array.isArray(data.c) ? data.c : [],
+                                         w: (data.w && typeof data.w==="object") ? data.w : {}};
+  return {v: data, c: [], w: {}}; // 예전 형식(도장만 있던 시절) 자동 변환
 }
 function mergeCustom(a, b){ // 직접 추가한 장소 합치기 (중복 제거)
   const seen = {}; const out = [];
@@ -2646,12 +2745,12 @@ function mergeCustom(a, b){ // 직접 추가한 장소 합치기 (중복 제거)
 async function fetchRemote(){
   const res = await fetch(READ_URL + "?t=" + Date.now(), {cache:"no-store"});
   const txt = await res.text();
-  if(!txt || !txt.trim()) return {v:{}, c:[]};
-  try{ return normalize(JSON.parse(txt)); }catch(e){ return {v:{}, c:[]}; }
+  if(!txt || !txt.trim()) return {v:{}, c:[], w:{}};
+  try{ return normalize(JSON.parse(txt)); }catch(e){ return {v:{}, c:[], w:{}}; }
 }
 async function pushRemote(){
   const body = "key=" + encodeURIComponent(COUPLE_KEY) +
-               "&value=" + encodeURIComponent(JSON.stringify({v:visited, c:customPlaces}));
+               "&value=" + encodeURIComponent(JSON.stringify({v:visited, c:customPlaces, w:wish}));
   const res = await fetch(WRITE_URL, {
     method:"POST",
     headers:{"Content-Type":"application/x-www-form-urlencoded"},
@@ -2659,7 +2758,7 @@ async function pushRemote(){
   });
   if(!res.ok) throw new Error("save fail");
 }
-function saveLocal(){ lsSet(KEY, JSON.stringify({v:visited, c:customPlaces})); }
+function saveLocal(){ lsSet(KEY, JSON.stringify({v:visited, c:customPlaces, w:wish})); }
 
 function updateSyncLabel(){
   const el = document.getElementById("syncstate");
@@ -2675,26 +2774,49 @@ async function toggleVisit(id){
   visited[id] = newVal;
   render();
   try{
-    let latest = {v:visited, c:customPlaces};
+    let latest = {v:visited, c:customPlaces, w:wish};
     try{ latest = await fetchRemote(); }catch(e){}
     if(newVal) latest.v[id] = true; else delete latest.v[id];
     visited = latest.v;
     customPlaces = mergeCustom(latest.c, customPlaces);
+    wish = Object.assign({}, latest.w||{}, wish);
     await pushRemote();
     saveLocal(); online = true;
     render(); updateSyncLabel();
   }catch(e){ online = false; saveLocal(); updateSyncLabel(); }
 }
 
+// ⭐ 가보고 싶은 곳 담기/빼기 + 날짜 지정 (두 사람 공유)
+async function saveWish(id, val, remove){
+  if(remove) delete wish[id]; else wish[id] = val;
+  render();
+  try{
+    let latest = {v:visited, c:customPlaces, w:wish};
+    try{ latest = await fetchRemote(); }catch(e){}
+    latest.w = latest.w || {};
+    if(remove) delete latest.w[id]; else latest.w[id] = val;
+    visited = Object.assign({}, latest.v, visited);
+    customPlaces = mergeCustom(latest.c, customPlaces);
+    wish = latest.w;
+    await pushRemote();
+    saveLocal(); online = true;
+    render(); updateSyncLabel();
+  }catch(e){ online = false; saveLocal(); updateSyncLabel(); }
+}
+function isWished(id){ return Object.prototype.hasOwnProperty.call(wish, id); }
+function toggleWish(id){ saveWish(id, "", isWished(id)); }
+function setWishDate(id, d){ saveWish(id, d || "", false); }
+
 // 장소 추가: 두 사람 모두에게 자동 반영
 async function addCustomPlace(p){
   customPlaces = customPlaces.concat([p]);
   render();
   try{
-    let latest = {v:visited, c:[]};
+    let latest = {v:visited, c:[], w:{}};
     try{ latest = await fetchRemote(); }catch(e){}
     visited = Object.assign({}, latest.v, visited);
     customPlaces = mergeCustom(latest.c, customPlaces);
+    wish = Object.assign({}, latest.w||{}, wish);
     await pushRemote();
     saveLocal(); online = true;
     render(); updateSyncLabel();
@@ -2708,10 +2830,13 @@ async function deleteCustomPlace(id){
   delete visited[id];
   render();
   try{
-    let latest = {v:visited, c:customPlaces};
+    let latest = {v:visited, c:customPlaces, w:wish};
     try{ latest = await fetchRemote(); }catch(e){}
     latest.c = latest.c.filter(p=>p.id!==id);
     delete latest.v[id];
+    if(latest.w) delete latest.w[id];
+    delete wish[id];
+    wish = Object.assign({}, latest.w||{}, wish);
     visited = latest.v;
     customPlaces = mergeCustom(latest.c, customPlaces.filter(p=>p.id!==id));
     await pushRemote();
@@ -2725,11 +2850,12 @@ async function autoSync(){
   try{
     const latest = await fetchRemote();
     online = true;
-    const now = JSON.stringify({v:visited, c:customPlaces});
-    const remote = JSON.stringify(latest);
+    const now = JSON.stringify({v:visited, c:customPlaces, w:wish});
+    const remote = JSON.stringify({v:latest.v, c:latest.c, w:latest.w||{}});
     if(remote !== now){
       visited = latest.v;
       customPlaces = latest.c;
+      wish = latest.w || {};
       saveLocal();
       render();
     }
@@ -2780,11 +2906,13 @@ const CHIPS=[
  {label:"🍙 김밥·분식·치킨",cats:["food","bar"],ft:["snack"],keys:["김밥","분식","떡볶이","치킨","통닭","순대","튀김","만두"]},
  {label:"🍞 빵·디저트",cats:["cafe","food"],keys:["베이커리","빵","도넛","떡","푸딩","케이크","제과","디저트","타르트","젤라또","아이스크림","카이막","젤루","크로플","크로칸슈","마카롱","소금빵"]},
  {label:"🌅 오션뷰 카페",cats:["cafe"],keys:["오션뷰","바다뷰","바다 뷰","해안","바다가","바다를","해변"]},
+ {label:"🎟 롯데렌터카 할인",ids:LOTTE_IDS},
  {label:"💆 마사지·테라피",cats:["spa"],keys:["마사지","아로마","테라피","오일","타이","발관리","지압","스포츠"]},
  {label:"🌸 정원·꽃",cats:["spot","cafe"],keys:["정원","꽃","수국","동백","핑크뮬리","억새","귤밭","유채","벚꽃","포토존"]},
 ];
 // 칩 하나가 이 장소를 포함하는지 (카테고리 + 맛집 종류 + 키워드 3중 판정)
 function chipMatch(c,p){
+  if(c.ids) return c.ids.indexOf(p.id) >= 0;
   if(c.cats && c.cats.length && !c.cats.includes(p.cat)) return false;
   if(c.ft && p.cat==="food"){
     const f = ftOf(p);
@@ -3278,6 +3406,7 @@ function passes(p){
   if(!matchesSearch(p)) return false;
   if(!matchesEff(p)) return false;
   if(currentFilter==="visited") return !!visited[p.id];
+  if(currentFilter==="plan") return isWished(p.id);
   if(visited[p.id]) return false;
   if(currentFilter==="must") return !!MUST[p.id];
   if(currentFilter==="all") return true;
@@ -3360,6 +3489,53 @@ function addTierGroups(cat, items){
   if(rest.length){ addSubHead("📌 직접 추가한 곳 ("+rest.length+")"); addGrid(rest); }
 }
 
+// ===== ⭐ 내 일정: 담아둔 곳을 날짜별로 =====
+const DOW = ["일","월","화","수","목","금","토"];
+function fmtDay(d){
+  const t = d.split("-");
+  if(t.length!==3) return d;
+  const dt = new Date(+t[0], +t[1]-1, +t[2]);
+  return `${+t[1]}월 ${+t[2]}일 (${DOW[dt.getDay()]})`;
+}
+function daysAway(d){
+  const t = d.split("-"); if(t.length!==3) return null;
+  const target = new Date(+t[0], +t[1]-1, +t[2]);
+  const now = new Date(); now.setHours(0,0,0,0);
+  const n = Math.round((target-now)/86400000);
+  return n===0 ? "오늘이에요" : n>0 ? ("D-"+n) : ("지난 날짜 · "+(-n)+"일 전");
+}
+function renderPlan(pool){
+  const items = pool.filter(p=>isWished(p.id) && passes(p));
+  const doneN = items.filter(p=>visited[p.id]).length;
+  const dated = items.filter(p=>wish[p.id]).length;
+  const h = document.createElement("div");
+  h.className = "plan-head";
+  h.innerHTML = `⭐ 가보고 싶은 곳 ${items.length}곳` +
+    `<div class="plan-sub">각 카드의 <b>[☆ 가보고 싶어요]</b>를 누르면 여기에 모입니다. 날짜를 정하면 아래처럼 날짜별로 묶여요.` +
+    `<br>날짜 정한 곳 <b>${dated}곳</b> · 이미 다녀온 곳 <b>${doneN}곳</b> · 두 사람에게 똑같이 저장됩니다.</div>`;
+  list.appendChild(h);
+  if(!items.length){
+    const d = document.createElement("div"); d.className="no-result";
+    d.innerHTML = "아직 담아둔 곳이 없어요.<br>다른 탭에서 <b>[☆ 가보고 싶어요]</b>를 눌러보세요!";
+    list.appendChild(d);
+    return;
+  }
+  const byDate = {};
+  items.forEach(p=>{ const k = wish[p.id] || "__none__"; (byDate[k]=byDate[k]||[]).push(p); });
+  const keys = Object.keys(byDate).filter(k=>k!=="__none__").sort();
+  if(byDate.__none__) keys.push("__none__");
+  keys.forEach(k=>{
+    const arr = byDate[k];
+    const hd = document.createElement("div");
+    hd.className = "day-head";
+    hd.innerHTML = (k==="__none__"
+      ? `📌 날짜 미정 (${arr.length}곳)<span class="dh-sub">카드에서 날짜를 고르면 위쪽 날짜별 묶음으로 올라갑니다.</span>`
+      : `📅 ${fmtDay(k)} · ${arr.length}곳<span class="dh-sub">${daysAway(k)}</span>`);
+    list.appendChild(hd);
+    addGrid(arr.slice().sort(byEff));
+  });
+}
+
 function render(){
   renderZoneMenu();
   renderEffMenu();
@@ -3383,6 +3559,13 @@ function render(){
       d.innerHTML=`🔍 ${NEAR_LIMIT_KM}km 안에 조건에 맞는 곳이 없어요.<br>필터나 검색어를 풀어보세요.`;
       list.appendChild(d);
     }
+    updateProgress();
+    return;
+  }
+
+  if(currentFilter==="plan"){
+    renderPlan(pool);
+    updateVisitedTab();
     updateProgress();
     return;
   }
@@ -3422,7 +3605,7 @@ function render(){
   if(currentFilter==="must" && !Object.keys(MUST).some(id=>!visited[id])){
     list.innerHTML = '<p style="text-align:center;padding:60px 20px;color:#7C8684;">필수 코스를 전부 도장 찍으셨어요! 🎉<br>이제 <b>[🏝 관광지]</b> 탭에서 숨은 곳들을 찾아보세요.</p>';
   }
-  if(currentFilter!=="visited" && !list.hasChildNodes()){
+  if(currentFilter!=="visited" && currentFilter!=="plan" && !list.hasChildNodes()){
     list.innerHTML = '<p style="text-align:center;padding:60px 20px;color:#7C8684;">여기 있던 곳은 전부 다녀오셨어요! 🎉<br>아래 <b>[🔴 갔다온 곳]</b> 탭에서 확인할 수 있어요.</p>';
   }
   updateVisitedTab();
@@ -3443,6 +3626,7 @@ function makeCard(p){
         if(MUSTEAT[p.id]) return '<span class="musteat-star">🔥 죽어도 맛봐야 할 집</span>';
         if(MUST[p.id]) return '<span class="must-star">⭐ 꼭 가볼 곳</span>';
         return "";})()}
+      ${LOTTE[p.id]?`<span class="lotte-badge">🎟 롯데렌터카 ${LOTTE[p.id].rate?LOTTE[p.id].rate:"쿠폰 할인"}</span>`:""}
     </div>
     <div class="stamp"><span class="chk">✔</span>방문완료</div>
     <div class="body">
@@ -3473,12 +3657,30 @@ function makeCard(p){
         <a class="photo-link" href="${PHOTO(p.name)}" target="_blank" rel="noopener">📷 대표 사진 보기 ↗</a>
         ${p.links.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${l[0]} ↗</a>`).join("")}
       </div>
+      ${LOTTE[p.id]?`<div class="lotte-line">🎟 <b>롯데렌터카 제주 웰컴 쿠폰팩 제휴처</b>
+        ${LOTTE[p.id].rate?("· 할인율 <b>"+LOTTE[p.id].rate+"</b>"):"· 할인율은 쿠폰팩 화면에서 확인하세요"}
+        <br>단기렌터카 예약 고객이면 현장에서 모바일 쿠폰만 보여주면 됩니다.
+        <a href="${LOTTE_URL}" target="_blank" rel="noopener">쿠폰팩 열기 ↗</a></div>`:""}
+      <button class="wish-btn${isWished(p.id)?" on":""}" aria-pressed="${isWished(p.id)}">
+        ${isWished(p.id)?"⭐ 가보고 싶은 곳에 담김 (누르면 빼기)":"☆ 가보고 싶어요"}
+      </button>
+      ${isWished(p.id)?`<div class="wish-date-wrap">
+        <b>📅 언제 갈까요</b>
+        <input type="date" class="wish-date" value="${wish[p.id]||""}">
+        ${wish[p.id]?'<button class="wish-clear">날짜 지우기</button>':""}
+      </div>`:""}
       <button class="visit-btn" aria-pressed="${!!visited[p.id]}">
         ${visited[p.id]?"✔ 갔다왔음 (다시 누르면 취소)":"갔다왔음 도장 찍기"}
       </button>
       ${p.custom?'<button class="del-link">이 장소 삭제</button>':""}
     </div>`;
   c.querySelector(".visit-btn").addEventListener("click",()=>{ toggleVisit(p.id); });
+  const wb = c.querySelector(".wish-btn");
+  if(wb) wb.addEventListener("click",()=>{ toggleWish(p.id); });
+  const wd = c.querySelector(".wish-date");
+  if(wd) wd.addEventListener("change",()=>{ setWishDate(p.id, wd.value); });
+  const wc = c.querySelector(".wish-clear");
+  if(wc) wc.addEventListener("click",()=>{ setWishDate(p.id, ""); });
   const cp = c.querySelector(".copy-link");
   if(cp) cp.addEventListener("click",()=>copyAddr(p, cp));
   const del = c.querySelector(".del-link");
@@ -3491,6 +3693,11 @@ function updateVisitedTab(){
   if(btn){
     const n = allPlaces().filter(p=>visited[p.id]).length;
     btn.textContent = n ? ("🔴 갔다온 곳 "+n) : "🔴 갔다온 곳";
+  }
+  const pb = document.querySelector('.tab[data-filter="plan"]');
+  if(pb){
+    const n = Object.keys(wish).length;
+    pb.textContent = n ? ("⭐ 내 일정 "+n) : "⭐ 내 일정";
   }
   const mb = document.querySelector('.tab[data-filter="must"]');
   if(mb){
@@ -3517,7 +3724,7 @@ document.getElementById("tabs").addEventListener("click",e=>{
   btn.classList.add("active");
   currentFilter = btn.dataset.filter;
   // ⭐ 꼭 가볼 곳: 누르는 순간 거리·지역·강도·키워드 필터를 모두 풀고 전체를 추천한다
-  if(currentFilter==="must"){
+  if(currentFilter==="must" || currentFilter==="plan"){
     clearNearby();
     activeZone = null;
     activeEff = null;
@@ -3533,6 +3740,28 @@ const modal = document.getElementById("addModal");
 document.getElementById("fabAdd").addEventListener("click",()=>{ modal.classList.add("open"); });
 document.getElementById("np_cancel").addEventListener("click",()=>{ modal.classList.remove("open"); });
 modal.addEventListener("click",e=>{ if(e.target===modal) modal.classList.remove("open"); });
+
+// ===== 🎟 롯데렌터카 쿠폰팩 =====
+const lotteModal = document.getElementById("lotteModal");
+document.getElementById("lotteBtn").addEventListener("click",()=>{
+  lotteModal.classList.add("open");
+  const have = LOTTE_ALL.filter(x=>x.id).length;
+  const known = LOTTE_ALL.filter(x=>x.rate).length;
+  document.getElementById("lotteHead").innerHTML =
+    `롯데렌터카로 <b>제주 단기렌터카</b>를 빌리면 아래 <b>${LOTTE_ALL.length}곳</b>을 할인가에 이용할 수 있어요. ` +
+    `미리 티켓을 살 필요 없이 현장에서 모바일 쿠폰만 보여주면 됩니다. 반납 후 1주일까지 쓸 수 있어요.` +
+    `<br><br>이 중 <b>${have}곳</b>은 이 스탬프북에도 들어 있어서 카드에 🎟 표시가 붙습니다. ` +
+    `할인율은 롯데렌터카가 공식 홈페이지에 <b>이미지로만</b> 올려둬서 자동으로 읽어올 수 없었어요. ` +
+    `확인된 <b>${known}곳</b>만 %를 적어뒀고, 나머지는 아래 버튼으로 쿠폰팩을 열어 확인하세요. 행사 기간마다 할인율이 바뀝니다.`;
+  document.getElementById("lotteBody").innerHTML = LOTTE_ALL.map(x=>
+    '<div class="lt-row"><div><span class="lt-nm">'+x.name+
+    (x.id?'<span class="lt-have">스탬프북에 있음</span>':"")+
+    '</span><span class="lt-rg">'+x.rg+'</span></div>'+
+    '<span class="lt-rate'+(x.rate?"":" unk")+'">'+(x.rate||"쿠폰팩에서 확인")+'</span></div>').join("");
+});
+document.getElementById("lt_close").addEventListener("click",()=>lotteModal.classList.remove("open"));
+document.getElementById("lt_open").addEventListener("click",()=>window.open(LOTTE_URL,"_blank","noopener"));
+lotteModal.addEventListener("click",e=>{ if(e.target===lotteModal) lotteModal.classList.remove("open"); });
 
 // ===== 🆕 요즘 뜨는 곳 업데이트 =====
 const UPD_URL = "updates.json";
@@ -3802,7 +4031,7 @@ selBtn.addEventListener("click", ()=>{
 
 (async function init(){
   const raw = lsGet(KEY) || lsGet("jeju_visited"); // 예전 저장분도 인식
-  if(raw){ try{ const d = normalize(JSON.parse(raw)); visited=d.v; customPlaces=d.c; }catch(e){} }
+  if(raw){ try{ const d = normalize(JSON.parse(raw)); visited=d.v; customPlaces=d.c; wish=d.w||{}; }catch(e){} }
   render();
   await autoSync();  // 열자마자 최신 공유 기록 반영
   markUpdBtn();      // 새로 올라온 곳 개수를 버튼에 표시
