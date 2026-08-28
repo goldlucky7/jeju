@@ -164,6 +164,34 @@
     font-size:14px;font-weight:700;cursor:pointer;}
   #np_cancel{background:#F1F4F3;border:1.5px solid var(--line);color:#5C6664;}
   #np_save{background:var(--tangerine);border:none;color:#fff;}
+  #updBtn{width:100%;margin-top:10px;border:none;border-radius:14px;
+    padding:14px;font-family:inherit;font-size:14.5px;font-weight:900;cursor:pointer;color:#fff;
+    background:linear-gradient(135deg,#7C3AED,#DB2777);box-shadow:0 6px 18px rgba(124,58,237,.32);}
+  #updBtn .u-sub{display:block;font-size:11.5px;font-weight:700;opacity:.9;margin-top:3px;}
+  #updBtn .u-dot{display:inline-block;background:#FDE047;color:#7C3AED;border-radius:999px;
+    padding:1px 7px;font-size:11px;font-weight:900;margin-left:5px;}
+  #updModal{position:fixed;inset:0;background:rgba(20,30,28,.55);z-index:60;
+    display:none;align-items:center;justify-content:center;padding:16px;}
+  #updModal.open{display:flex;}
+  #updModal .modal-box{max-width:560px;max-height:86vh;display:flex;flex-direction:column;}
+  #updHead{font-size:12.5px;color:#7C8684;line-height:1.6;margin-bottom:10px;}
+  #updBody{overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch;margin-bottom:10px;}
+  .upd-card{border:1.5px solid var(--line);border-radius:14px;padding:12px 13px;margin-bottom:9px;}
+  .upd-card.added{background:#F3FAF8;border-color:#9AD9CF;}
+  .upd-top{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:4px;}
+  .upd-cat{background:#F1F4F3;border-radius:8px;padding:2px 7px;font-size:10.5px;font-weight:900;color:#5C6664;}
+  .upd-name{font-size:15.5px;font-weight:900;color:var(--basalt);}
+  .upd-tag{font-size:12.5px;color:#4A5553;line-height:1.55;margin-bottom:5px;}
+  .upd-hot{background:#FFF1F7;border:1px solid #FBCFE8;border-radius:10px;padding:7px 9px;
+    font-size:11.5px;color:#9D174D;line-height:1.55;margin-bottom:6px;}
+  .upd-meta{font-size:11.5px;color:#7C8684;line-height:1.6;margin-bottom:8px;}
+  .upd-btns{display:flex;gap:6px;flex-wrap:wrap;}
+  .upd-btns button,.upd-btns a{border:1.5px solid var(--line);background:#fff;border-radius:999px;
+    padding:7px 12px;font-family:inherit;font-size:11.5px;font-weight:800;cursor:pointer;
+    color:var(--basalt);text-decoration:none;display:inline-block;}
+  .upd-btns .add{background:var(--tangerine);border-color:var(--tangerine);color:#fff;}
+  .upd-btns .add[disabled]{background:#DDE4E2;border-color:#DDE4E2;color:#8A9490;cursor:default;}
+  #updAddAll{background:linear-gradient(135deg,#7C3AED,#DB2777);border:none;color:#fff;}
   #fabHours{position:fixed;left:16px;bottom:20px;z-index:50;
     background:var(--sea);color:#fff;border:none;border-radius:999px;
     padding:14px 18px;font-family:inherit;font-size:14px;font-weight:900;
@@ -374,6 +402,7 @@
   <p id="zoneTitle">📍 지역별로 보기</p>
   <div id="zoneGrid"></div>
   <button id="nearbyBtn">📍 내 주변 15km 이내 보기</button>
+  <button id="updBtn">🆕 요즘 뜨는 곳 업데이트 받기<span class="u-sub">눌러서 새로 올라온 맛집·명소를 확인하세요</span></button>
 </div>
 
 <main id="list"></main>
@@ -381,6 +410,18 @@
 <button id="fabAdd">➕ 장소 추가</button>
 
 <button id="fabHours">🕐 영업시간표</button>
+
+<div id="updModal">
+  <div class="modal-box">
+    <h3>🆕 요즘 뜨는 곳</h3>
+    <div id="updHead"></div>
+    <div id="updBody"></div>
+    <div class="modal-actions">
+      <button id="upd_close">닫기</button>
+      <button id="updAddAll">전부 내 목록에 담기</button>
+    </div>
+  </div>
+</div>
 
 <div id="addModal">
   <div class="modal-box">
@@ -2505,17 +2546,19 @@ let currentFilter = "all";
 
 function customToCard(p){
   return {
-    id: p.id, cat: p.cat || "spot", emoji: "📌",
+    id: p.id, cat: p.cat || "spot", emoji: p.emoji || "📌",
     region: p.region || "직접 추가",
     name: p.name,
-    tag: "우리가 직접 추가한 곳",
-    hash: p.memo ? ("📝 " + p.memo) : "",
-    desc: p.memo || "가보고 싶어서 직접 추가한 장소예요.",
+    tag: p.tag || "우리가 직접 추가한 곳",
+    hash: p.hash || (p.hot ? ("🆕 " + p.hot) : (p.memo ? ("📝 " + p.memo) : "")),
+    desc: p.desc || p.memo || "가보고 싶어서 직접 추가한 장소예요.",
     addr: p.addr || "주소 미입력",
-    time: "방문 전 운영시간 확인",
+    time: p.time || "방문 전 운영시간 확인",
     links: [["네이버지도", NM(p.name)]],
     eff: p.eff || (p.cat === "spot" ? "out" : "in"),
     pk: p.pk || "street",
+    ll: p.ll || null,
+    zone: p.zone || null,
     custom: true
   };
 }
@@ -2665,6 +2708,7 @@ const ZONE_KW={jsi:["제주시","연동","노형","이도","일도","용담","�
  sgp:["서귀포","서홍","중앙","칠십리","하효","보목","올레시장"],jungmun:["중문","색달","예래","천제연","대포"],
  daejeong:["대정","안덕","모슬포","사계","산방","화순","신도"]};
 function zoneOf(p){
+  if(p.zone) return p.zone;
   if(ZONE_OF[p.id]) return ZONE_OF[p.id];
   const t = (p.region||"")+" "+(p.addr||"");
   for(const z of ZONES){ if(ZONE_KW[z.key].some(k=>t.includes(k))) return z.key; }
@@ -2850,7 +2894,7 @@ nearbyBtn.addEventListener("click",()=>{
   navigator.geolocation.getCurrentPosition(pos=>{
     myPos={lat:pos.coords.latitude, lng:pos.coords.longitude};
     distMap={};
-    allPlaces().forEach(p=>{ if(LL[p.id]) distMap[p.id]=distKm(myPos.lat,myPos.lng,LL[p.id][0],LL[p.id][1]); });
+    allPlaces().forEach(p=>{ const c=LL[p.id]||p.ll; if(c) distMap[p.id]=distKm(myPos.lat,myPos.lng,c[0],c[1]); });
     nearbyOn=true;
     nearbyBtn.classList.add("on");
     nearbyBtn.textContent="📍 내 주변 보기 켜짐 · 누르면 해제";
@@ -2874,7 +2918,7 @@ function toggleBarNear(){
   navigator.geolocation.getCurrentPosition(pos=>{
     myPos = {lat:pos.coords.latitude, lng:pos.coords.longitude};
     distMap = distMap || {};
-    allPlaces().forEach(p=>{ if(LL[p.id]) distMap[p.id]=distKm(myPos.lat,myPos.lng,LL[p.id][0],LL[p.id][1]); });
+    allPlaces().forEach(p=>{ const c=LL[p.id]||p.ll; if(c) distMap[p.id]=distKm(myPos.lat,myPos.lng,c[0],c[1]); });
     barNear = true;
     render();
   },err=>{
@@ -3240,6 +3284,102 @@ document.getElementById("fabAdd").addEventListener("click",()=>{ modal.classList
 document.getElementById("np_cancel").addEventListener("click",()=>{ modal.classList.remove("open"); });
 modal.addEventListener("click",e=>{ if(e.target===modal) modal.classList.remove("open"); });
 
+// ===== 🆕 요즘 뜨는 곳 업데이트 =====
+const UPD_URL = "updates.json";
+const UPD_SEEN_KEY = "jeju_upd_seen";
+const updModal = document.getElementById("updModal");
+const updBtn = document.getElementById("updBtn");
+let updFeed = null;
+
+function updSeen(){ return lsGet(UPD_SEEN_KEY) || ""; }
+function hasPlace(id){ return PLACES.some(p=>p.id===id) || customPlaces.some(p=>p.id===id); }
+
+function openUpd(){
+  updModal.classList.add("open");
+  document.getElementById("updHead").textContent = "새 목록을 불러오는 중이에요…";
+  document.getElementById("updBody").innerHTML = "";
+  fetch(UPD_URL + "?t=" + Date.now(), {cache:"no-store"})
+    .then(r=>{ if(!r.ok) throw new Error("no feed"); return r.json(); })
+    .then(d=>{ updFeed = d; lsSet(UPD_SEEN_KEY, d.updated||""); markUpdBtn(); drawUpd(); })
+    .catch(()=>{ updFeed = null; drawUpdFail(); });
+}
+function drawUpdFail(){
+  document.getElementById("updHead").textContent = "새 목록을 불러오지 못했어요. 인터넷 연결을 확인하고 다시 눌러주세요.";
+  document.getElementById("updBody").innerHTML =
+    '<div class="upd-card"><div class="upd-tag">그동안 이렇게 직접 찾아볼 수도 있어요.</div>'+
+    '<div class="upd-btns">'+
+    '<a href="https://www.perplexity.ai/search?q='+encodeURIComponent("요즘 제주도에서 가장 핫한 신상 맛집과 카페 최근 한 달")+'" target="_blank">🤖 AI에게 물어보기</a>'+
+    '<a href="https://search.naver.com/search.naver?query='+encodeURIComponent("제주 신상 맛집")+'" target="_blank">🔎 네이버에서 보기</a>'+
+    '</div></div>';
+}
+function drawUpd(){
+  const d = updFeed || {};
+  const items = Array.isArray(d.items) ? d.items : [];
+  const fresh = items.filter(it=>!hasPlace(it.id));
+  document.getElementById("updHead").innerHTML =
+    "<b>"+(d.title||"새로 올라온 곳")+"</b><br>"+(d.note||"")+
+    "<br>갱신일 "+(d.updated||"-")+" · 전체 "+items.length+"곳 중 <b>"+fresh.length+"곳</b>이 아직 내 목록에 없어요.";
+  const body = document.getElementById("updBody");
+  body.innerHTML = "";
+  if(!items.length){
+    body.innerHTML = '<div class="upd-card"><div class="upd-tag">아직 새로 올라온 곳이 없어요. 클로드에게 <b>"제주 스탬프북 요즘 뜨는 곳 업데이트해줘"</b>라고 하면 목록을 새로 채워드립니다.</div></div>';
+    return;
+  }
+  items.forEach(it=>{
+    const added = hasPlace(it.id);
+    const c = document.createElement("div");
+    c.className = "upd-card" + (added ? " added" : "");
+    c.innerHTML =
+      '<div class="upd-top"><span class="upd-cat">'+(CAT[it.cat]?CAT[it.cat].label:"장소")+'</span>'+
+      '<span class="upd-name">'+(it.emoji||"")+" "+it.name+'</span></div>'+
+      '<div class="upd-tag">'+(it.tag||"")+'</div>'+
+      (it.hot?'<div class="upd-hot">🔥 '+it.hot+'</div>':"")+
+      '<div class="upd-meta">📍 '+(it.addr||"")+'<br>🕐 '+(it.time||"방문 전 확인")+'</div>'+
+      '<div class="upd-btns">'+
+        '<button class="add"'+(added?" disabled":"")+'>'+(added?"이미 담김":"＋ 내 목록에 담기")+'</button>'+
+        '<button class="cp">📋 주소 복사</button>'+
+        '<a href="'+NM(it.name)+'" target="_blank">🗺 네이버지도</a>'+
+      '</div>';
+    const ab = c.querySelector(".add");
+    ab.addEventListener("click",()=>{
+      if(hasPlace(it.id)) return;
+      addCustomPlace(Object.assign({}, it));
+      ab.disabled = true; ab.textContent = "담김 ✓"; c.classList.add("added");
+    });
+    c.querySelector(".cp").addEventListener("click",e=>{
+      copyAddr(it, e.target);
+    });
+    body.appendChild(c);
+  });
+}
+function markUpdBtn(){
+  if(!updBtn) return;
+  fetch(UPD_URL + "?t=" + Date.now(), {cache:"no-store"})
+    .then(r=>r.ok?r.json():null)
+    .then(d=>{
+      if(!d) return;
+      updFeed = d;
+      const n = (d.items||[]).filter(it=>!hasPlace(it.id)).length;
+      updBtn.innerHTML = "🆕 요즘 뜨는 곳 업데이트 받기" +
+        (n ? '<span class="u-dot">새 '+n+'곳</span>' : "") +
+        '<span class="u-sub">' + (n ? "새로 올라온 곳이 "+n+"곳 있어요 · 갱신 "+(d.updated||"") : "지금은 모두 담겨 있어요 · 갱신 "+(d.updated||"")) + '</span>';
+    }).catch(()=>{});
+}
+if(updBtn){
+  updBtn.addEventListener("click", openUpd);
+  document.getElementById("upd_close").addEventListener("click",()=>updModal.classList.remove("open"));
+  updModal.addEventListener("click",e=>{ if(e.target===updModal) updModal.classList.remove("open"); });
+  document.getElementById("updAddAll").addEventListener("click",async ()=>{
+    const items = (updFeed && updFeed.items) || [];
+    const fresh = items.filter(it=>!hasPlace(it.id));
+    if(!fresh.length){ alert("이미 전부 담겨 있어요."); return; }
+    if(!confirm(fresh.length+"곳을 전부 목록에 담을까요? (두 사람 모두에게 반영됩니다)")) return;
+    customPlaces = mergeCustom(customPlaces, fresh.map(it=>Object.assign({}, it)));
+    await addCustomPlace(Object.assign({}, fresh[0]));
+    drawUpd(); markUpdBtn();
+  });
+}
+
 const hoursModal = document.getElementById("hoursModal");
 document.getElementById("fabHours").addEventListener("click",()=>{ renderHoursTable(); hoursModal.classList.add("open"); });
 document.getElementById("hm_close").addEventListener("click",()=>{ hoursModal.classList.remove("open"); });
@@ -3415,6 +3555,7 @@ selBtn.addEventListener("click", ()=>{
   if(raw){ try{ const d = normalize(JSON.parse(raw)); visited=d.v; customPlaces=d.c; }catch(e){} }
   render();
   await autoSync();  // 열자마자 최신 공유 기록 반영
+  markUpdBtn();      // 새로 올라온 곳 개수를 버튼에 표시
   setInterval(autoSync, 10000);
   document.addEventListener("visibilitychange", ()=>{ if(!document.hidden) autoSync(); });
   window.addEventListener("focus", autoSync);
