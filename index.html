@@ -306,6 +306,11 @@
   .v-hotel{background:linear-gradient(135deg,#C6D6EF,#5B7DB1);}
   .b-shop{background:#B4407A;} .b-bar{background:#A8701C;} .b-hotel{background:#3F6199;}
   .b-spa{background:#2E7D6B;}
+  .v-cheap{background:linear-gradient(135deg,#CFE9D6,#4E9B6B);}
+  .b-cheap{background:#2F7A4E;}
+  .cheap-head{background:linear-gradient(135deg,#166534,#3F9E63);color:#fff;border-radius:14px;
+    padding:14px 16px;margin:14px 4px 12px;font-size:15px;font-weight:900;line-height:1.35;}
+  .cheap-head .ch-sub{font-size:12.5px;font-weight:500;opacity:.95;margin-top:4px;line-height:1.55;}
   .lotte-badge{position:absolute;left:10px;bottom:10px;background:linear-gradient(135deg,#D32F2F,#F57C00);
     color:#fff;font-size:11px;font-weight:800;padding:4px 9px;border-radius:999px;letter-spacing:-.2px;}
   .lotte-line{margin:8px 0 0;padding:9px 11px;border-radius:10px;background:#FFF4EC;
@@ -426,6 +431,7 @@
   <button class="tab" data-filter="bar">🍻 술집·안주</button>
   <button class="tab" data-filter="hotel">🏨 호텔</button>
   <button class="tab" data-filter="spa">💆 마사지</button>
+  <button class="tab" data-filter="cheap">💸 가성비 카페</button>
   <button class="tab tab-plan" data-filter="plan">⭐ 내 일정</button>
   <button class="tab" data-filter="visited">🔴 갔다온 곳</button>
 </nav>
@@ -1634,9 +1640,122 @@ const PLACES = [
   desc:"곽지해수욕장이 보이는 위치라 시술 전후 뷰가 좋습니다. 타이 100분 커플 코스를 받았다는 후기가 여럿이고, 한국인 관리사가 지압점을 잘 짚는다는 평이 많아요. 시설이 깨끗하다는 후기가 꾸준합니다.",
   addr:"제주시 애월읍 곽지3길 19",time:"매일 11:00~23:00 · 예약 권장",
   links:[["네이버지도",NM("노블아로마 애월점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("노블아로마 애월점 후기")]]},
+
+// ================= 💸 가성비 카페 (24) =================
+ {id:"cpaikdodu",cat:"cheap",emoji:"🧋",region:"제주시 도두",name:"빽다방 제주도두점",tag:"구글 4.5(1,289) · 2층 통창으로 바다와 비행기",hash:"#빽다방 #오션뷰 #도두동 #무지개해안도로 #공항근처",
+  desc:"가성비 프랜차이즈인데 자리는 오션뷰 카페 값을 하는 곳이에요. 2층 창가에서 바다와 이착륙하는 비행기가 같이 보이는데 음료값은 그대로입니다. 리뷰가 1,200개를 넘고 평점도 4.5로 안정적이에요. 붐빌 때 주차가 빡빡하다는 후기가 반복되니 무지개해안도로 갓길보다 가게 앞자리를 먼저 보세요.",
+  addr:"제주시 서해안로 291-5",time:"매일 10:00~21:00",
+  links:[["네이버지도",NM("빽다방 제주도두점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("빽다방 제주도두점 후기")]]},
+ {id:"cpaikhamdeok",cat:"cheap",emoji:"🧋",region:"조천·함덕",name:"빽다방 제주함덕점",tag:"구글 4.6(158) · 함덕 바다와 서우봉이 한 화면에",hash:"#빽다방 #함덕해수욕장 #오션뷰 #서우봉 #가성비",
+  desc:"함덕해수욕장 바로 앞 여러 층짜리 매장이라 위층으로 올라갈수록 바다가 넓게 보여요. 이 뷰를 이 값에 본다는 게 말이 되냐는 외국인 후기가 여럿입니다. 얼음을 잘게 부숴 주는 방식이라 여름에 특히 시원해요. 빵은 평범하니 음료만 시키는 게 낫습니다.",
+  addr:"제주시 조천읍 조함해안로 450",time:"매일 09:00~20:00",
+  links:[["네이버지도",NM("빽다방 제주함덕점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("빽다방 제주함덕점 후기")]]},
+ {id:"cpaikseongsan",cat:"cheap",emoji:"🧋",region:"성산",name:"빽다방 제주성산일출봉점",tag:"구글 4.1(206) · 일출봉 오르기 전후로 들르는 집",hash:"#빽다방 #성산일출봉 #가성비 #등반전후",
+  desc:"성산일출봉 입구 바로 옆이라 오르기 전 물 대신, 내려와서 당 보충으로 들르기 좋아요. 다만 일출봉 탐방로 안으로는 음료 반입이 안 되니 내려온 뒤에 사는 게 맞습니다. 얼음을 잘게 갈아주는 옵션이 있고 밀크티 평이 좋아요. 성수기엔 응대가 정신없다는 후기도 있습니다.",
+  addr:"서귀포시 성산읍 성산리 130-2",time:"방문 전 확인 · 일출봉 개장시간에 맞춰 운영",
+  links:[["네이버지도",NM("빽다방 제주성산일출봉점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("빽다방 제주성산일출봉점 후기")]]},
+ {id:"cmegasongak",cat:"cheap",emoji:"🥤",region:"대정 송악산",name:"메가커피 형제해안로점",tag:"구글 4.3(35) · 제주에서 드문 2천원대 오션뷰 아메리카노",hash:"#메가커피 #송악산 #형제해안로 #오션뷰 #가성비",
+  desc:"송악산과 형제섬을 보며 2천원대 커피를 마실 수 있는 자리예요. 제주에서 이 조합은 거의 없다는 후기가 반복됩니다. 매장이 넓어 책 보거나 쉬어가기 좋고 현지인 단골도 많아요. 매장에서 마시다 남은 걸 포장하면 컵값이 따로 붙으니 처음부터 정하고 주문하세요.",
+  addr:"서귀포시 대정읍 형제해안로 421-1",time:"매일 08:00~19:00",
+  links:[["네이버지도",NM("메가커피 형제해안로점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("메가커피 형제해안로점 후기")]]},
+ {id:"cmegahamdeok",cat:"cheap",emoji:"🥤",region:"조천·함덕",name:"메가커피 함덕해수욕장점",tag:"구글 3.8(49) · 해변 바로 옆, 큰 사이즈로 싸게",hash:"#메가커피 #함덕 #해변 #가성비 #큰사이즈",
+  desc:"함덕 해변 옆 골목의 매장으로, 주변 카페들보다 용량 대비 값이 확실히 쌉니다. 음료 색이 화려해서 사진용으로도 잘 나가요. 창가 테이크아웃 기계는 카드만 되니 현금만 있으면 안으로 들어가 주문해야 합니다. 단맛이 강한 편이라 시럽 조절을 요청하는 게 낫습니다.",
+  addr:"제주시 조천읍 함덕리 1004-29 1층",time:"매일 10:00~21:30",
+  links:[["네이버지도",NM("메가커피 함덕해수욕장점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("메가커피 함덕해수욕장점 후기")]]},
+ {id:"cmegarainbow",cat:"cheap",emoji:"🥤",region:"제주시 도두",name:"메가커피 제주무지개해안점",tag:"구글 4.3(11) · 무지개해안도로 앞 테이크아웃 전용",hash:"#메가커피 #무지개해안도로 #도두동 #테이크아웃 #산책",
+  desc:"앉는 자리가 없는 포장 전용 매장이에요. 무지개 방파제를 걷다가 음료만 빠르게 받아 나오는 용도로 딱 맞습니다. 회전이 빨라 오래 안 기다려요. 앉아서 쉬려면 근처 도두점으로 가는 게 낫습니다.",
+  addr:"제주시 서해안로 242 B동 1층",time:"매일 09:00~21:00",
+  links:[["네이버지도",NM("메가커피 제주무지개해안점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("메가커피 제주무지개해안점 후기")]]},
+ {id:"cpaikseongeup",cat:"cheap",emoji:"🧋",region:"표선 성읍",name:"빽다방 서귀포성읍마을점",tag:"구글 4.3 · 초가지붕 민속마을 안에 앉은 프랜차이즈",hash:"#빽다방 #성읍민속마을 #초가 #가성비 #포토존",
+  desc:"성읍민속마을 한가운데 있어 외관이 마을 분위기에 맞춰져 있어요. 안은 평범한 프랜차이즈인데 밖에서 보면 제주스러워서 사진을 찍고 가는 사람이 많습니다. 야외 테이블도 있어 마을 구경 중간에 쉬기 좋아요. 근처에서 순대·주물럭을 먹고 커피로 마무리하는 조합이 많습니다.",
+  addr:"서귀포시 표선면 성읍정의현로22번길 9-1",time:"방문 전 확인 · 마을 관람시간 기준",
+  links:[["네이버지도",NM("빽다방 서귀포성읍마을점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("빽다방 서귀포성읍마을점 후기")]]},
+ {id:"cmegajungmun",cat:"cheap",emoji:"🥤",region:"중문",name:"메가커피 중문천제연로점",tag:"구글 3.9(17) · 중문관광단지에서 몇 안 되는 저가 커피",hash:"#메가커피 #중문 #천제연폭포 #가성비 #충전",
+  desc:"중문관광단지 안팎은 음료값이 대체로 비싼데 이 근처에서 값을 아낄 수 있는 몇 안 되는 자리예요. 주차가 되고 충전 콘센트와 만화책까지 있어 오래 앉아 있기 편합니다. 응대 편차가 있다는 후기가 갈리니 바쁜 시간대는 여유를 두세요.",
+  addr:"서귀포시 중문동 천제연로 182",time:"매일 09:00~22:00",
+  links:[["네이버지도",NM("메가커피 중문천제연로점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("메가커피 중문천제연로점 후기")]]},
+ {id:"cpaikpyeonghwa",cat:"cheap",emoji:"🧋",region:"제주시 노형",name:"빽다방 제주평화로SK점",tag:"구글 4.2 · 평화로 위에서 기름과 커피를 한 번에",hash:"#빽다방 #평화로 #주유소 #드라이브 #가성비",
+  desc:"평화로를 타고 서쪽으로 갈 때 쓰는 자리예요. SK 주유소에 붙어 있어서 주유하면서 커피와 김밥까지 해결됩니다. 평화로에는 프랜차이즈 카페 자체가 거의 없어 존재만으로 유용해요. 키오스크 주문이라 안내가 적으니 들어가면 기계부터 찾으면 됩니다. 주말엔 일찍 닫습니다.",
+  addr:"제주시 노형로 121",time:"평일 07:00~19:00 · 일요일 07:30~18:30",
+  links:[["네이버지도",NM("빽다방 제주평화로SK점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("빽다방 제주평화로SK점 후기")]]},
+ {id:"cmegabonggae",cat:"cheap",emoji:"🥤",region:"제주시 봉개",name:"메가커피 제주봉개DT점",tag:"구글 4.4(84) · 동쪽으로 넘어가기 전 드라이브스루",hash:"#메가커피 #드라이브스루 #봉개동 #번영로 #동부코스",
+  desc:"번영로·남조로를 타고 동부로 갈 때 마지막으로 편한 커피 자리예요. 드라이브스루가 있고 주차장도 넓어 차에서 안 내려도 됩니다. 홀도 넓고 깨끗하다는 평이 많아요. 매장과 드라이브스루 주문이 섞이면 조금 늦어지니 급하면 미리 앱 주문을 걸어두세요.",
+  addr:"제주시 봉개동 609-2",time:"방문 전 확인 · 드라이브스루 운영",
+  links:[["네이버지도",NM("메가커피 제주봉개DT점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("메가커피 제주봉개DT점 후기")]]},
+ {id:"cpaik516",cat:"cheap",emoji:"🧋",region:"서귀포 상효",name:"빽다방 서귀포516점",tag:"구글 4.6 · 516도로에서 서귀포 쪽 마지막 커피집",hash:"#빽다방 #516도로 #한라산 #드라이브 #가성비",
+  desc:"서귀포에서 제주시로 516도로를 넘어갈 때 만나는 마지막 카페예요. 산길로 들어서면 한참 아무것도 없으니 여기서 채우고 가는 게 좋습니다. 작지만 아늑하고 조용하다는 평이 많아요.",
+  addr:"서귀포시 상효동 1297-19",time:"방문 전 확인",
+  links:[["네이버지도",NM("빽다방 서귀포516점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("빽다방 서귀포516점 후기")]]},
+ {id:"cmegadonggwang",cat:"cheap",emoji:"🥤",region:"안덕 동광",name:"메가커피 제주동광육거리점",tag:"구글 3.5(10) · 서부 갈림길에서 잠깐 쉬어가는 자리",hash:"#메가커피 #동광육거리 #안덕 #환승정류장 #가성비",
+  desc:"동광육거리는 서부로 갈라지는 길목이라 지나칠 일이 많은 곳이에요. 요거트 스무디가 제주에서 손꼽힌다는 후기가 있습니다. 주차가 가게 앞이 아니라 길가 쪽이라 조금 불편하고, 붐빌 때 응대 편차가 있다는 후기가 있어 여유를 두고 들르세요.",
+  addr:"서귀포시 안덕면 동광리 826-2",time:"방문 전 확인",
+  links:[["네이버지도",NM("메가커피 제주동광육거리점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("메가커피 제주동광육거리점 후기")]]},
+ {id:"ccomposeseogwang",cat:"cheap",emoji:"☕",region:"안덕 서광",name:"컴포즈커피 서귀포서광점",tag:"구글 4.0 · 오설록·신화월드 근처에서 값 아끼는 자리",hash:"#컴포즈커피 #서광리 #오설록 #신화월드 #가성비",
+  desc:"주변이 전부 관광지 가격인 동네에서 값이 정상인 몇 안 되는 카페예요. 가성비가 제일 좋다는 외국인 후기가 그대로 붙어 있습니다. 직원 응대가 빠르고 친절하다는 평이 이어져요. 레몬차에 샷을 추가해 먹는 조합을 추천하는 후기가 있습니다.",
+  addr:"서귀포시 안덕면 서광리 716-7",time:"방문 전 확인",
+  links:[["네이버지도",NM("컴포즈커피 서귀포서광점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("컴포즈커피 서귀포서광점 후기")]]},
+ {id:"cmegaaewol",cat:"cheap",emoji:"🥤",region:"애월항",name:"메가커피 제주애월항점",tag:"애월 해안도로 초입, 새로 생긴 저가 카페",hash:"#메가커피 #애월 #해안도로 #가성비 #아침일찍",
+  desc:"애월 카페거리는 음료값이 대체로 높은데 여기는 프랜차이즈 값 그대로예요. 아침 7시에 열어 해안도로 드라이브 시작할 때 들르기 좋습니다. 비교적 최근에 문을 열어 매장이 깨끗해요.",
+  addr:"제주시 애월읍 애월리 1718-2",time:"매일 07:00~20:30",
+  links:[["네이버지도",NM("메가커피 제주애월항점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("메가커피 제주애월항점 후기")]]},
+ {id:"cmegahyeopjae",cat:"cheap",emoji:"🥤",region:"한림 협재",name:"메가커피 협재해수욕장점",tag:"구글 3.3(4) · 협재에서 값이 정상인 거의 유일한 선택",hash:"#메가커피 #협재해수욕장 #한림 #가성비 #주의",
+  desc:"협재 주변이 전부 개인 카페라 값이 셀 때 대안이 되는 자리예요. 다만 응대가 불친절했다는 후기가 여러 건 있고 현금은 안 받습니다. 컵 보증금이 붙으니 반환 앱을 미리 깔아두면 편해요. 기대치를 낮추고 음료만 빠르게 받아 나오는 용도로 쓰세요.",
+  addr:"제주시 한림읍 한림로 332-1",time:"방문 전 확인 · 카드 결제만 가능",
+  links:[["네이버지도",NM("메가커피 협재해수욕장점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("메가커피 협재해수욕장점 후기")]]},
+ {id:"cpaikwoljeong",cat:"cheap",emoji:"🧋",region:"구좌 월정리",name:"빽다방 제주월정리점",tag:"월정리 해변 상권에서 값이 정상인 자리",hash:"#빽다방 #월정리 #구좌 #가성비 #해변",
+  desc:"월정리 해변 카페들은 음료 한 잔에 8천원을 넘기는 곳이 흔한데 여기는 프랜차이즈 값 그대로예요. 바다를 보려면 해변 쪽 카페로, 값을 아끼려면 여기로 갈리는 자리입니다. 아직 후기가 적은 편이라 영업시간은 가기 전에 확인하세요.",
+  addr:"제주시 구좌읍 월정리 545",time:"방문 전 확인 · 후기 적음",
+  links:[["네이버지도",NM("빽다방 제주월정리점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("빽다방 제주월정리점 후기")]]},
+ {id:"cmegapyoseon",cat:"cheap",emoji:"🥤",region:"표선",name:"메가커피 제주표선점",tag:"구글 4.3(23) · 표선해변 가는 길에 밖에서 바로 주문",hash:"#메가커피 #표선 #가성비 #키오스크 #주차편함",
+  desc:"표선 시내 큰길가라 주차하고 바로 들어가기 편해요. 밖에 키오스크가 있어 차에서 내려 주문하고 받아 가는 식으로 쓸 수 있습니다. 이 지점 아메리카노가 유독 낫다는 현지인 후기가 있어요. 일회용컵 보증금을 따로 안 받는다는 후기도 있습니다.",
+  addr:"서귀포시 표선면 표선동서로 252",time:"방문 전 확인",
+  links:[["네이버지도",NM("메가커피 제주표선점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("메가커피 제주표선점 후기")]]},
+ {id:"cpaikbbang",cat:"cheap",emoji:"🍞",region:"제주시 이도",name:"빽다방 빵연구소 제주점",tag:"구글 4.3(39) · 큼직한 빵을 싸게 사는 빵집형 매장",hash:"#빽다방 #빵연구소 #베이커리 #소금빵 #가성비 #아침",
+  desc:"일반 빽다방이 아니라 빵을 직접 굽는 빵연구소 매장이에요. 빵이 크고 값이 싼데 맛까지 괜찮다는 평이 이어집니다. 소금빵과 프레첼 버터롤이 잘 나가요. 제주도청 옆이라 점심시간엔 줄이 생기니 평일 오전이나 늦은 오후가 편합니다.",
+  addr:"제주시 이도2동 663-12",time:"방문 전 확인 · 점심시간 혼잡",
+  links:[["네이버지도",NM("빽다방 빵연구소 제주점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("빽다방 빵연구소 제주점 후기")]]},
+ {id:"cmegajungang",cat:"cheap",emoji:"🥤",region:"제주시 연동",name:"메가커피 제주중앙중점",tag:"구글 4.8 · 새벽 5시 반에 여는 연동 매장",hash:"#메가커피 #연동 #새벽오픈 #콘센트 #가성비 #혼자",
+  desc:"새벽 5시 반에 열어 이른 비행기나 배 시간 전에 쓰기 좋아요. 자리마다 콘센트가 있어 폰 충전하며 앉아 있기 편합니다. 좌석이 주문대에서 안 보이는 구조라 혼자 있어도 편하다는 후기가 있어요. 초콜릿 파르페 평이 좋습니다.",
+  addr:"제주시 연동 313-47 1층 102호",time:"매일 05:30~21:40",
+  links:[["네이버지도",NM("메가커피 제주중앙중점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("메가커피 제주중앙중점 후기")]]},
+ {id:"cmegadongmun",cat:"cheap",emoji:"🥤",region:"제주시 동문시장",name:"메가커피 제주동문시장점",tag:"구글 4.2(21) · 동문시장 장 보고 나오면서 한 잔",hash:"#메가커피 #동문시장 #가성비 #텀블러 #포장",
+  desc:"동문시장 다이소 맞은편이라 시장 구경 끝나고 나오는 길에 들르기 좋아요. 회나 먹거리를 포장했을 때 같이 담아준다는 후기가 있을 만큼 응대가 좋다는 평이 많습니다. 시장 공영주차장을 쓰면 편해요.",
+  addr:"제주시 일도1동 1476-37",time:"방문 전 확인 · 동문시장 상권",
+  links:[["네이버지도",NM("메가커피 제주동문시장점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("메가커피 제주동문시장점 후기")]]},
+ {id:"cpaikolle",cat:"cheap",emoji:"🧋",region:"서귀포 올레시장",name:"빽다방 서귀포올레시장점",tag:"구글 4.1(21) · 올레시장 먹거리 사이 커피 자리",hash:"#빽다방 #서귀포올레시장 #가성비 #영어가능",
+  desc:"올레시장에서 먹거리를 손에 들고 다니다 목이 막힐 때 들르는 자리예요. 원조커피에 얼음을 큼직하게 넣어 달라는 주문이 인기입니다. 영어가 되는 직원이 있어 외국인 후기 평이 좋아요. 콘센트를 못 쓰게 한다는 후기가 있으니 충전은 기대하지 마세요.",
+  addr:"서귀포시 서귀동 올레시장 인근",time:"방문 전 확인 · 올레시장 상권",
+  links:[["네이버지도",NM("빽다방 서귀포올레시장점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("빽다방 서귀포올레시장점 후기")]]},
+ {id:"ccomposeseoho",cat:"cheap",emoji:"☕",region:"서귀포 서호",name:"컴포즈커피 서귀포서호점",tag:"구글 4.4(96) · 아침 6시에 여는 넓은 매장",hash:"#컴포즈커피 #서호동 #새벽오픈 #주차편함 #가성비",
+  desc:"아침 6시에 열어 일찍 움직이는 날 첫 커피로 쓰기 좋아요. 주차가 편하고 안이 생각보다 넓다는 평이 많습니다. 용량이 넉넉하고 직원이 빨라 줄이 있어도 금방 빠집니다. 치즈케이크 정도만 있고 식사류는 없어요.",
+  addr:"서귀포시 서호동 594",time:"매일 06:00~21:00",
+  links:[["네이버지도",NM("컴포즈커피 서귀포서호점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("컴포즈커피 서귀포서호점 후기")]]},
+ {id:"cmegadonghong",cat:"cheap",emoji:"🥤",region:"서귀포 동홍",name:"메가커피 서귀포동홍점",tag:"구글 4.4(28) · 정방폭포 근처, 아침 먹기도 괜찮은 곳",hash:"#메가커피 #동홍동 #정방폭포 #가성비 #주차",
+  desc:"정방폭포에서 가까워 서귀포 시내 일정 중간에 끼우기 좋아요. 뒤쪽에 주차장이 따로 있어 차 대기가 편합니다. 매장이 생각보다 넓고 직원이 친절하다는 후기가 이어져요. 아침 메뉴 조합이 괜찮다는 평도 있습니다.",
+  addr:"서귀포시 동홍동 511-23",time:"방문 전 확인",
+  links:[["네이버지도",NM("메가커피 서귀포동홍점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("메가커피 서귀포동홍점 후기")]]},
+ {id:"ccomposemoseulpo",cat:"cheap",emoji:"☕",region:"대정 모슬포",name:"컴포즈커피 모슬포하모점",tag:"구글 4.3(27) · 모슬포에서 값 걱정 없이 앉는 자리",hash:"#컴포즈커피 #모슬포 #하모리 #가성비 #아이와함께",
+  desc:"모슬포 시내의 노란 간판 매장으로, 동네 오아시스 같다는 후기가 여럿이에요. 수박주스가 인공적인 맛 없이 진하다는 평이 좋고 아이들용 밀크셰이크도 잘 나갑니다. 주말에도 비교적 한산해서 앉아 쉬기 편해요.",
+  addr:"서귀포시 대정읍 하모리 846-1",time:"방문 전 확인",
+  links:[["네이버지도",NM("컴포즈커피 모슬포하모점")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("컴포즈커피 모슬포하모점 후기")]]},
 ];
 
 const TEL={
+ cpaikdodu:"064-711-0228",
+ cpaikhamdeok:"064-784-8102",
+ cpaikseongsan:"064-782-0303",
+ cmegasongak:"050-71361-2859",
+ cmegahamdeok:"064-782-0647",
+ cmegarainbow:"050-71470-1183",
+ cpaikpyeonghwa:"070-4010-1851",
+ cmegadonggwang:"064-792-4515",
+ cmegaaewol:"064-799-7995",
+ cmegahyeopjae:"064-796-4516",
+ cmegajungang:"064-744-2270",
+ cmegadongmun:"064-753-7539",
+ cpaikolle:"064-733-4780",
+ ccomposeseoho:"070-4548-1904",
+ cmegadonghong:"064-732-4900",
  ulrim:"0507-1321-2533",
  cheongan:"010-5037-2700",
  goldhands:"010-3232-6710",
@@ -1883,6 +2002,30 @@ const PKT = [
 const PK_ORDER = PKT.map(x=>x.key);
 const PK_OF = PKT.reduce((o,x)=>(o[x.key]=x,o),{});
 const PK = {
+ cpaikdodu:"freeS",
+ cpaikhamdeok:"freeS",
+ cpaikseongsan:"public",
+ cmegasongak:"free",
+ cmegahamdeok:"public",
+ cmegarainbow:"street",
+ cpaikseongeup:"free",
+ cmegajungmun:"free",
+ cpaikpyeonghwa:"free",
+ cmegabonggae:"free",
+ cpaik516:"free",
+ cmegadonggwang:"street",
+ ccomposeseogwang:"free",
+ cmegaaewol:"free",
+ cmegahyeopjae:"public",
+ cpaikwoljeong:"street",
+ cmegapyoseon:"free",
+ cpaikbbang:"street",
+ cmegajungang:"street",
+ cmegadongmun:"public",
+ cpaikolle:"public",
+ ccomposeseoho:"free",
+ cmegadonghong:"free",
+ ccomposemoseulpo:"street",
  ulrim:"public",
  cheongan:"public",
  goldhands:"public",
@@ -2221,6 +2364,30 @@ const EFF = [
 const EFF_ORDER = EFF.map(e=>e.key);
 const EFF_OF = EFF.reduce((o,e)=>(o[e.key]=e,o),{});
 const EFFORT = {
+ cpaikdodu:"in",
+ cpaikhamdeok:"in",
+ cpaikseongsan:"in",
+ cmegasongak:"in",
+ cmegahamdeok:"in",
+ cmegarainbow:"in",
+ cpaikseongeup:"in",
+ cmegajungmun:"in",
+ cpaikpyeonghwa:"in",
+ cmegabonggae:"in",
+ cpaik516:"in",
+ cmegadonggwang:"in",
+ ccomposeseogwang:"in",
+ cmegaaewol:"in",
+ cmegahyeopjae:"in",
+ cpaikwoljeong:"in",
+ cmegapyoseon:"in",
+ cpaikbbang:"in",
+ cmegajungang:"in",
+ cmegadongmun:"in",
+ cpaikolle:"in",
+ ccomposeseoho:"in",
+ cmegadonghong:"in",
+ ccomposemoseulpo:"in",
  ulrim:"in",
  cheongan:"in",
  goldhands:"in",
@@ -2673,7 +2840,7 @@ function glossify(t){
 
 // 대표 사진 보기 (네이버 이미지 검색 — 항상 최신 사진이 뜸)
 const PHOTO = n => "https://search.naver.com/search.naver?where=image&query=" + encodeURIComponent("제주 " + n);
-const CAT = {spot:{label:"관광지"},food:{label:"맛집"},cafe:{label:"카페"},shop:{label:"소품샵"},bar:{label:"술집·안주"},hotel:{label:"호텔"},spa:{label:"마사지"}};
+const CAT = {spot:{label:"관광지"},food:{label:"맛집"},cafe:{label:"카페"},shop:{label:"소품샵"},bar:{label:"술집·안주"},hotel:{label:"호텔"},spa:{label:"마사지"},cheap:{label:"가성비 카페"}};
 // ===== 🎟 롯데렌터카 제주 웰컴 쿠폰팩 제휴처 (공식 홈페이지 기준) =====
 // rate: 확인된 할인율만 적음. null이면 쿠폰팩 화면에서 직접 확인해야 하는 곳.
 // id: 이 스탬프북에 이미 들어 있는 장소면 그 id를 적어 카드에 뱃지가 붙게 한다.
@@ -2722,8 +2889,8 @@ const LOTTE_ALL = [
 const LOTTE = LOTTE_ALL.reduce((o,x)=>{ if(x.id) o[x.id]=x; return o; },{});
 const LOTTE_IDS = LOTTE_ALL.filter(x=>x.id).map(x=>x.id);
 
-const CATS = ["spot","food","cafe","shop","bar","hotel","spa"];
-const CAT_EMOJI = {spot:"🏝 ",food:"🍽 ",cafe:"☕ ",shop:"🛍 ",bar:"🍻 ",hotel:"🏨 ",spa:"💆 "};
+const CATS = ["spot","food","cafe","shop","bar","hotel","spa","cheap"];
+const CAT_EMOJI = {spot:"🏝 ",food:"🍽 ",cafe:"☕ ",shop:"🛍 ",bar:"🍻 ",hotel:"🏨 ",spa:"💆 ",cheap:"💸 "};
 
 // ===== 저장 구조: {v: 방문 도장, c: 직접 추가한 장소} — 두 사람이 자동 공유 =====
 const COUPLE_KEY = "jejustamp_3c5491d5379e4abce2a377bae7987b6c";
@@ -2973,6 +3140,30 @@ const ZONES=[
  {key:"daejeong",emoji:"⛰",name:"대정·안덕",full:"서귀포시 대정읍·안덕면"},
 ];
 const ZONE_OF={
+ cpaikdodu:"jsi",
+ cpaikhamdeok:"jocheon",
+ cpaikseongsan:"seongsan",
+ cmegasongak:"daejeong",
+ cmegahamdeok:"jocheon",
+ cmegarainbow:"jsi",
+ cpaikseongeup:"pyoseon",
+ cmegajungmun:"jungmun",
+ cpaikpyeonghwa:"jsi",
+ cmegabonggae:"jsi",
+ cpaik516:"sgp",
+ cmegadonggwang:"daejeong",
+ ccomposeseogwang:"daejeong",
+ cmegaaewol:"aewol",
+ cmegahyeopjae:"hallim",
+ cpaikwoljeong:"gujwa",
+ cmegapyoseon:"pyoseon",
+ cpaikbbang:"jsi",
+ cmegajungang:"jsi",
+ cmegadongmun:"jsi",
+ cpaikolle:"sgp",
+ ccomposeseoho:"sgp",
+ cmegadonghong:"sgp",
+ ccomposemoseulpo:"daejeong",
  ulrim:"jsi",
  cheongan:"jsi",
  goldhands:"jsi",
@@ -3149,6 +3340,30 @@ function renderEffMenu(){
 
 // 장소 좌표 (지도 데이터 검증)
 const LL={
+ cpaikdodu:[33.5092672,126.47675],
+ cpaikhamdeok:[33.5451752,126.662128],
+ cpaikseongsan:[33.4623032,126.934966],
+ cmegasongak:[33.2076789,126.2909243],
+ cmegahamdeok:[33.5425468,126.6693713],
+ cmegarainbow:[33.5088354,126.4717735],
+ cpaikseongeup:[33.3846924,126.8022873],
+ cmegajungmun:[33.2515944,126.4240302],
+ cpaikpyeonghwa:[33.4674157,126.4569759],
+ cmegabonggae:[33.4841456,126.6042396],
+ cpaik516:[33.2912798,126.5950133],
+ cmegadonggwang:[33.3106305,126.3403764],
+ ccomposeseogwang:[33.2891715,126.3223146],
+ cmegaaewol:[33.4644799,126.3205228],
+ cmegahyeopjae:[33.3931071,126.2404006],
+ cpaikwoljeong:[33.5558743,126.7953633],
+ cmegapyoseon:[33.326243,126.8333118],
+ cpaikbbang:[33.4901684,126.5270689],
+ cmegajungang:[33.4858045,126.4984257],
+ cmegadongmun:[33.5132786,126.5263414],
+ cpaikolle:[33.2494971,126.5627228],
+ ccomposeseoho:[33.2613445,126.5217143],
+ cmegadonghong:[33.2488332,126.5709762],
+ ccomposemoseulpo:[33.2210345,126.2536631],
  ulrim:[33.4850946,126.4826956],
  cheongan:[33.4844062,126.4814019],
  goldhands:[33.4861174,126.4871073],
@@ -3473,6 +3688,25 @@ function addEffGroups(items, always){
   });
 }
 // 맛집: 죽어도 맛봐야 할 집 먼저 → 그다음 종류별
+// 💸 가성비 카페: 쓰임새별로 묶어서 보여준다
+const CHEAPG = {cpaikdodu:"view",cpaikhamdeok:"view",cpaikseongsan:"view",cmegasongak:"view",cmegahamdeok:"view",cmegarainbow:"view",cpaikseongeup:"view",cmegajungmun:"view",cpaikpyeonghwa:"route",cmegabonggae:"route",cpaik516:"route",cmegadonggwang:"route",ccomposeseogwang:"route",cmegaaewol:"route",cmegahyeopjae:"route",cpaikwoljeong:"route",cmegapyoseon:"route",cpaikbbang:"town",cmegajungang:"town",cmegadongmun:"town",cpaikolle:"town",ccomposeseoho:"town",cmegadonghong:"town",ccomposemoseulpo:"town"};
+const CHEAP_GROUPS = [{k:"view",label:"🌊 바다·경치가 좋은 지점",tip:"프랜차이즈 값에 오션뷰 카페 자리를 얻는 곳들이에요."},{k:"route",label:"🚗 이동 중에 들르기 좋은 지점",tip:"드라이브스루·도로변·갈림길 등 차로 지나다 채우기 좋은 곳."},{k:"town",label:"🏙 시내·시장 안에서",tip:"숙소 근처나 시장 구경 중에 값 아끼며 한 잔 하기 좋은 곳."}];
+function addCheapGroups(items){
+  const h = document.createElement("div");
+  h.className = "cheap-head";
+  h.innerHTML = '\uD83D\uDCB8 \uAC00\uC131\uBE44 \uCE74\uD398 ' + items.length + '\uACF3' +
+    '<div class="ch-sub">\uBE7D\uB2E4\uBC29\u00B7\uBA54\uAC00\uCEE4\uD53C\u00B7\uCEF4\uD3EC\uC988\uCEE4\uD53C \uC911\uC5D0\uC11C <b>\uC790\uB9AC\uAC00 \uC544\uAE5D\uAC70\uB098 \uC704\uCE58\uAC00 \uC4F8\uBAA8 \uC788\uB294 \uC9C0\uC810</b>\uB9CC \uACE8\uB790\uC5B4\uC694. \uC81C\uC8FC \uAD00\uAD11\uC9C0 \uCE74\uD398\uB294 \uD55C \uC794\uC5D0 7~9\uCC9C\uC6D0\uC774 \uD754\uD55C\uB370, \uC5EC\uAE34 \uC804\uAD6D \uAC19\uC740 \uAC12\uC785\uB2C8\uB2E4.</div>';
+  list.appendChild(h);
+  const rest = items.slice();
+  CHEAP_GROUPS.forEach(g=>{
+    const arr = rest.filter(p=>CHEAPG[p.id]===g.k);
+    if(!arr.length) return;
+    addSubHead(g.label+" ("+arr.length+")", g.tip);
+    addGrid(arr.slice().sort(byEff));
+  });
+  const etc = rest.filter(p=>!CHEAPG[p.id]);
+  if(etc.length){ addSubHead("\u2615 \uadf8 \ubc16\uc758 \uc9c0\uc810 ("+etc.length+")"); addGrid(etc.slice().sort(byEff)); }
+}
 function addFoodGroups(items){
   const must = items.filter(p=>MUSTEAT[p.id]);
   const rest = items.filter(p=>!MUSTEAT[p.id]);
@@ -3664,6 +3898,7 @@ function render(){
       title.textContent = CAT_EMOJI[cat]+CAT[cat].label+" ("+items.length+")";
       list.appendChild(title);
       if(cat==="food") addFoodGroups(items);
+      else if(cat==="cheap") addCheapGroups(items);
       else if(TIERMAP[cat]) addTierGroups(cat, items);
       else addEffGroups(items, cat==="spot");
     });
