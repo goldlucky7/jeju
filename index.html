@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>제주 여행 스탬프북 — 관광지·맛집·카페 104선</title>
+<title>제주 여행 스탬프북 — 관광지·맛집·카페 141선</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
@@ -179,10 +179,10 @@
 
 <header>
   <div style="max-width:1080px;margin:0 auto;">
-    <div class="h-eyebrow">JEJU STAMP BOOK · 104 PLACES</div>
+    <div class="h-eyebrow">JEJU STAMP BOOK · 141 PLACES</div>
     <h1>제주 여행 스탬프북<span class="dot">.</span></h1>
     <p class="h-sub">감성 포토스팟부터 액티비티, 자연 명소, 노포 맛집까지 —
-    20대부터 40대까지 모두를 위한 104곳. 다녀온 곳은 <b>[갔다왔음]</b>을 눌러 빨간 도장을 찍어보세요.</p>
+    20대부터 40대까지 모두를 위한 141곳. 다녀온 곳은 <b>[갔다왔음]</b>을 눌러 도장을 찍어보세요. 도장 찍은 곳은 목록에서 사라지고 <b>[🔴 갔다온 곳]</b> 탭에 모입니다.</p>
     <div class="progress-wrap"><div class="progress-bar" id="pbar"></div></div>
     <div class="progress-label" id="plabel"></div>
     <div style="text-align:center;margin-top:12px;">
@@ -265,7 +265,7 @@
 const VJ = "https://www.visitjeju.net";
 const NM = n => "https://map.naver.com/p/search/"+encodeURIComponent(n);
 const PLACES = [
- // ================= 관광지 (22) =================
+ // ================= 관광지 (69) =================
  {id:"seongsan",cat:"spot",emoji:"🌋",region:"동부·성산",name:"성산일출봉",tag:"유네스코 세계자연유산 · 일출 명소",hash:"#전연령 #일출 #등반30분",
   desc:"바닷속 화산 폭발로 만들어진 분화구가 왕관처럼 솟은 제주의 상징. 정상까지 30분이면 오르며, 꼭대기에서 보는 일출과 바다 전망이 압권입니다.",
   addr:"서귀포시 성산읍 일출로 284-12",time:"연중 개방 (계절별 입장마감 상이) · 유료",
@@ -394,6 +394,154 @@ const PLACES = [
   desc:"국내외 브릭 아티스트들의 작품을 모은 브릭 아트 갤러리. 감상 후 자유롭게 브릭을 조립하는 체험존과 브릭 모양 버거를 파는 카페가 있어 가족·커플 모두 즐깁니다.",
   addr:"제주시 1100로 3047 (노형동)",time:"매장 확인 · 유료",
   links:[["네이버지도",NM("브릭캠퍼스 제주")],["실내명소 추천글","https://kr.trip.com/blog/jeju-indoor-tourist-attractions-on-a-rainy-day/"]]},
+ {id:"seopjikoji",cat:"spot",emoji:"🏇",region:"동부·성산",name:"섭지코지",tag:"성산일출봉 배경 초원 해안 산책로",hash:"#전연령 #산책1시간 #드라마촬영지",
+  desc:"바다로 툭 튀어나온 곶을 따라 초원과 붉은 화산재 절벽이 이어지는 산책 코스. 끝의 하얀 등대와 유리성당(글라스하우스)까지 걷는 데 1시간쯤 걸립니다. 바람이 세니 겉옷 챙기세요.",
+  addr:"서귀포시 성산읍 섭지코지로",time:"09:00~19:00 · 주차 유료",
+  links:[["네이버지도",NM("섭지코지")],["비짓제주",VJ]]},
+ {id:"gwangchigi",cat:"spot",emoji:"🖤",region:"동부·성산",name:"광치기해변",tag:"썰물 때 드러나는 초록 이끼 바위",hash:"#전연령 #일출명소 #갯벌체험",
+  desc:"성산일출봉을 배경으로 사진 찍기 가장 좋은 해변. 썰물이면 초록 이끼가 덮인 용암 바위가 드러나 이국적인 풍경이 됩니다. 소라·게·불가사리도 쉽게 찾을 수 있어 아이와도 좋아요.",
+  addr:"서귀포시 성산읍 고성리 224-33",time:"상시 개방 · 무료 · 물때 확인 추천",
+  links:[["네이버지도",NM("광치기해변")],["비짓제주",VJ]]},
+ {id:"aquaplanet",cat:"spot",emoji:"🐋",region:"동부·성산",name:"아쿠아플라넷 제주",tag:"국내 최대급 아쿠아리움",hash:"#전연령 #비오는날 #아쿠아쇼",
+  desc:"상어·가오리·바다거북이 머리 위로 지나가는 대형 수조와 해녀 공연이 대표. 아쿠아쇼는 하루 몇 차례만 하니 입장 후 시간표부터 확인하세요. 비 오는 날 대안으로 최고입니다.",
+  addr:"서귀포시 성산읍 섭지코지로 95",time:"09:30~18:00 · 유료 (온라인 예매 할인)",
+  links:[["네이버지도",NM("아쿠아플라넷 제주")],["비짓제주",VJ]]},
+ {id:"sangumburi",cat:"spot",emoji:"🌾",region:"동부·조천",name:"산굼부리",tag:"가을 억새로 뒤덮이는 분화구",hash:"#전연령 #억새 #평탄한길",
+  desc:"평지에 움푹 팬 대형 분화구를 둘러보는 곳. 가을이면 은빛 억새가 언덕을 가득 덮어 사진이 정말 잘 나옵니다. 경사가 거의 없어 30~40분이면 여유롭게 한 바퀴 돌 수 있어요.",
+  addr:"제주시 조천읍 비자림로 768",time:"09:00~17:00 · 유료",
+  links:[["네이버지도",NM("산굼부리")],["비짓제주",VJ]]},
+ {id:"stonepark",cat:"spot",emoji:"🗿",region:"동부·조천",name:"제주돌문화공원",tag:"돌하르방과 설문대할망 신화 공원",hash:"#3040 #넓은산책 #월요일휴무",
+  desc:"제주 화산석 문화와 설문대할망 신화를 주제로 한 거대한 야외 공원. 초가 마을 재현 구역과 실내 박물관까지 있어 2~3시간은 잡아야 합니다. 월요일 휴무이니 일정 짤 때 주의하세요.",
+  addr:"제주시 조천읍 남조로 2023",time:"09:00~18:00 · 월요일 휴무 · 유료",
+  links:[["네이버지도",NM("제주돌문화공원")],["비짓제주",VJ]]},
+ {id:"jeolmul",cat:"spot",emoji:"🌲",region:"제주시·봉개",name:"절물자연휴양림",tag:"쭉 뻗은 삼나무 숲 힐링 코스",hash:"#전연령 #피톤치드 #아침7시개장",
+  desc:"곧게 자란 삼나무가 하늘을 가리는 휴양림. 30분짜리 평탄한 데크길부터 3시간 코스까지 있어 체력에 맞춰 고를 수 있습니다. 아침 7시부터 열어 이른 산책으로 좋아요.",
+  addr:"제주시 명림로 584",time:"07:00~18:00 · 유료 (주차 별도)",
+  links:[["네이버지도",NM("절물자연휴양림")],["비짓제주",VJ]]},
+ {id:"hallaarbo",cat:"spot",emoji:"🎍",region:"제주시·연동",name:"한라수목원",tag:"공항 15분, 무료 대나무숲 산책",hash:"#전연령 #무료 #공항근처",
+  desc:"한라산에 자라는 식물을 모아놓은 시립 수목원. 입장료가 없고 대나무 숲길이 특히 예쁩니다. 공항에서 15분이라 마지막 날 시간이 뜰 때 들르기 좋아요.",
+  addr:"제주시 수목원길 72",time:"09:00~18:00 · 무료",
+  links:[["네이버지도",NM("한라수목원")],["비짓제주",VJ]]},
+ {id:"yongduam",cat:"spot",emoji:"🐉",region:"제주시·용담",name:"용두암",tag:"용머리를 닮은 제주시 랜드마크",hash:"#전연령 #공항10분 #야경",
+  desc:"파도에 깎여 용의 머리 모양이 된 화산 바위. 공항에서 10분 거리라 도착 직후나 출발 전 짬을 내 들르기 좋습니다. 바로 옆 용연구름다리까지 이어 걸으면 30분 코스가 돼요.",
+  addr:"제주시 용두암길 15",time:"상시 개방 · 무료",
+  links:[["네이버지도",NM("용두암")],["비짓제주",VJ]]},
+ {id:"samseonghyeol",cat:"spot",emoji:"⛩",region:"제주시·이도",name:"삼성혈",tag:"제주 시조 삼신인이 솟아난 성지",hash:"#3040 #시내한복판 #벚꽃",
+  desc:"제주 사람의 시조 세 신인이 땅에서 솟아났다는 세 개의 구멍이 있는 유적. 시내 한복판인데도 울창한 나무로 조용하고, 봄에는 벚꽃 명소가 됩니다. 40분이면 충분해요.",
+  addr:"제주시 삼성로 22",time:"09:00~18:00 · 유료",
+  links:[["네이버지도",NM("삼성혈")],["비짓제주",VJ]]},
+ {id:"dodubong",cat:"spot",emoji:"✈️",region:"제주시·도두",name:"도두봉",tag:"비행기 이착륙 보이는 10분 오름",hash:"#전연령 #10분등반 #키세스존",
+  desc:"정상까지 10분이면 오르는 작고 쉬운 오름. 공항 활주로가 내려다보여 비행기가 뜨고 내리는 걸 볼 수 있고, 나뭇가지가 하트처럼 뚫린 '키세스 존'이 유명한 포토스팟입니다.",
+  addr:"제주시 도두일동 (도두봉)",time:"상시 개방 · 무료",
+  links:[["네이버지도",NM("도두봉")],["비짓제주",VJ]]},
+ {id:"sanbanggulsa",cat:"spot",emoji:"🛕",region:"서부·안덕",name:"산방산 · 산방굴사",tag:"산 중턱 동굴 법당과 용머리 전망",hash:"#3040 #계단많음 #산방산뷰",
+  desc:"바위산 중턱 자연 동굴에 자리한 법당. 계단이 꽤 많지만 올라서면 용머리해안과 형제섬이 한눈에 들어옵니다. 산방산 자체가 어디서 찍어도 그림이라 주변 카페도 인기예요.",
+  addr:"서귀포시 산방로 218-12",time:"09:00~18:00 (계절별 상이) · 유료",
+  links:[["네이버지도",NM("산방굴사")],["비짓제주",VJ]]},
+ {id:"cheonjeyeon",cat:"spot",emoji:"💧",region:"중문·색달",name:"천제연폭포",tag:"3단 폭포와 선임교 아치다리",hash:"#전연령 #계단많음 #중문코스",
+  desc:"세 개의 폭포가 이어지는 중문 대표 명소. 1폭포는 비가 온 뒤에만 물이 떨어지고, 2폭포가 가장 볼만합니다. 칠선녀가 새겨진 선임교 아치다리도 꼭 건너보세요.",
+  addr:"서귀포시 중문동 2232",time:"09:00~17:10 · 유료 (주차 무료)",
+  links:[["네이버지도",NM("천제연폭포")],["비짓제주",VJ]]},
+ {id:"oedolgae",cat:"spot",emoji:"🪨",region:"서귀포 시내",name:"외돌개",tag:"바다에 홀로 선 20m 바위기둥",hash:"#전연령 #무료 #해안산책로",
+  desc:"파도 한가운데 홀로 솟은 20m 바위. 무료인 데다 데크 산책로가 잘 되어 있어 부담 없이 걷기 좋고, 범섬과 어우러진 일몰이 특히 아름답습니다. 관광버스 오기 전 이른 시간을 추천해요.",
+  addr:"서귀포시 서홍동 791",time:"상시 개방 · 무료",
+  links:[["네이버지도",NM("외돌개")],["비짓제주",VJ]]},
+ {id:"jungmunbeach",cat:"spot",emoji:"🏄",region:"중문·색달",name:"중문색달해수욕장",tag:"야자수와 절벽이 있는 서핑 해변",hash:"#2030 #서핑 #일몰",
+  desc:"검은 절벽과 야자수가 어우러져 이국적인 분위기가 나는 해변. 파도가 있어 서핑 강습이 활발하고 샤워장·주차장 같은 편의시설도 잘 갖춰져 있습니다. 근처 리조트 산책로와도 이어져요.",
+  addr:"서귀포시 색달동 중문색달해변",time:"상시 개방 (물놀이는 시즌 운영)",
+  links:[["네이버지도",NM("중문색달해수욕장")],["비짓제주",VJ]]},
+ {id:"geumneung",cat:"spot",emoji:"🐚",region:"서부·한림",name:"금능으뜸원해변",tag:"협재 옆, 더 한적한 에메랄드 해변",hash:"#전연령 #아이물놀이 #비양도뷰",
+  desc:"협재해수욕장 바로 옆인데 훨씬 한적한 해변. 수심이 얕고 모래가 고와 아이와 놀기 좋고, 검은 현무암과 에메랄드 물빛 대비가 예쁩니다. 주차장이 작아 오전 방문을 권해요.",
+  addr:"제주시 한림읍 금능리 1488-3",time:"상시 개방 · 무료",
+  links:[["네이버지도",NM("금능으뜸원해변")],["비짓제주",VJ]]},
+ {id:"hallimpark",cat:"spot",emoji:"🌺",region:"서부·한림",name:"한림공원",tag:"동굴·야자수길·정원 다 있는 종합공원",hash:"#전연령 #2시간코스 #계절꽃",
+  desc:"협재굴·쌍용굴 용암동굴과 야자수길, 분재원, 새 정원까지 한 번에 도는 종합 공원. 다 보려면 2시간쯤 걸립니다. 계절마다 수선화·수국·튤립이 바뀌어 언제 가도 볼 게 있어요.",
+  addr:"제주시 한림읍 한림로 300",time:"09:00~18:30 · 유료",
+  links:[["네이버지도",NM("한림공원")],["비짓제주",VJ]]},
+ {id:"isidore",cat:"spot",emoji:"🐄",region:"서부·한림",name:"성이시돌목장",tag:"테쉬폰 건물과 초원, 우유 아이스크림",hash:"#2030 #무료 #포토스팟",
+  desc:"유럽 시골 같은 초원에 곡선 지붕의 테쉬폰 건축물이 서 있는 목장. 입장료가 없고 우유 아이스크림과 밀크티가 별미입니다. 새별오름·금오름과 가까워 묶어서 돌기 좋아요.",
+  addr:"제주시 한림읍 금악동길 35",time:"상시 개방 · 무료 (카페 별도 운영)",
+  links:[["네이버지도",NM("성이시돌목장")],["비짓제주",VJ]]},
+ {id:"gwakji",cat:"spot",emoji:"⛱",region:"서부·애월",name:"곽지과물해변",tag:"용천수 노천탕이 있는 애월 해변",hash:"#전연령 #물놀이 #버거리근처",
+  desc:"애월 대표 해변으로 물빛이 곱고 파도가 잔잔합니다. 해변 한쪽에 차가운 용천수가 솟는 '과물' 노천탕이 있어 물놀이 후 씻기 좋아요. 바로 앞 버거리에서 포장해 먹는 조합이 인기예요.",
+  addr:"제주시 애월읍 곽지리 (곽지과물해변)",time:"상시 개방 (물놀이는 시즌 운영)",
+  links:[["네이버지도",NM("곽지과물해변")],["비짓제주",VJ]]},
+ {id:"yongnuni",cat:"spot",emoji:"⛰",region:"동부·구좌",name:"용눈이오름",tag:"부드러운 능선의 오름 대표주자",hash:"#3040 #30분등반 #억새",
+  desc:"완만한 곡선 능선이 아름다워 사진가들이 사랑하는 오름. 30분이면 정상 능선을 한 바퀴 돌 수 있고 성산일출봉까지 보입니다. 훼손 복구로 통제되는 시기가 있으니 방문 전 확인하세요.",
+  addr:"제주시 구좌읍 종달리 (용눈이오름)",time:"상시 개방 · 무료 · 탐방 통제 여부 확인",
+  links:[["네이버지도",NM("용눈이오름")],["비짓제주",VJ]]},
+ {id:"gimnyeongmaze",cat:"spot",emoji:"🧩",region:"동부·구좌",name:"김녕미로공원",tag:"국내 첫 미로공원, 고양이 천국",hash:"#전연령 #체험 #비오는날도OK",
+  desc:"1987년 만들어진 국내 최초 미로공원. 나무 벽 사이에서 스탬프를 모으며 중앙 탈출을 노리는 방식이라 어른도 은근 몰입합니다. 공원 곳곳의 고양이들도 인기 요소예요.",
+  addr:"제주시 구좌읍 일주동로 122",time:"09:00~19:00 · 유료",
+  links:[["네이버지도",NM("김녕미로공원")],["비짓제주",VJ]]},
+ {id:"folkvillage",cat:"spot",emoji:"🏘",region:"동부·표선",name:"제주민속촌",tag:"조선시대 제주 마을 그대로 재현",hash:"#전연령 #드라마촬영지 #동물먹이주기",
+  desc:"돌담과 초가지붕 집을 그대로 옮겨놓은 대형 민속촌. 흑돼지 같은 가축에게 당근을 줄 수 있어 아이와 좋고, 사극 촬영지로도 유명합니다. 순서대로 도는 데 1시간 반쯤 걸려요.",
+  addr:"서귀포시 표선면 민속해안로 631-34",time:"09:00~18:00 · 유료",
+  links:[["네이버지도",NM("제주민속촌")],["비짓제주",VJ]]},
+ {id:"hueree",cat:"spot",emoji:"🐷",region:"동부·남원",name:"휴애리 자연생활공원",tag:"계절꽃 + 흑돼지 먹이주기",hash:"#전연령 #수국 #동물체험",
+  desc:"봄 매화, 여름 수국, 가을 핑크뮬리, 겨울 동백까지 계절마다 다른 꽃이 피는 공원. 흑돼지와 토끼에게 당근을 줄 수 있어 아이와 오기 좋습니다. 1시간이면 다 돌아요.",
+  addr:"서귀포시 남원읍 신례동로 256",time:"09:00~18:00 · 유료",
+  links:[["네이버지도",NM("휴애리 자연생활공원")],["비짓제주",VJ]]},
+ {id:"boreumwat",cat:"spot",emoji:"🌷",region:"동부·표선",name:"보롬왓",tag:"계절 꽃밭과 트랙터 마차",hash:"#2030 #메밀꽃 #튤립",
+  desc:"메밀꽃·라벤더·튤립·수국이 계절마다 피는 너른 꽃밭. 트랙터 마차를 타고 밭을 한 바퀴 도는 체험이 인기이고 카페의 우유 빙수도 유명합니다. 성산 가는 길에 들르기 좋아요.",
+  addr:"서귀포시 표선면 번영로 2350-104",time:"09:00~18:00 · 유료 (계절별 상이)",
+  links:[["네이버지도",NM("보롬왓")],["비짓제주",VJ]]},
+ {id:"songaksan",cat:"spot",emoji:"🌊",region:"서부·대정",name:"송악산 둘레길",tag:"산방산과 형제섬 보이는 해안 트레킹",hash:"#3040 #3km #무료",
+  desc:"바다를 끼고 도는 3km 둘레길로 2시간이면 넉넉합니다. 산방산과 형제섬이 계속 따라오고 운 좋으면 남방큰돌고래도 보여요. 계단 구간이 있으니 편한 신발로 가세요. 일부 구간은 통제 중일 수 있습니다.",
+  addr:"서귀포시 대정읍 송악관광로 421-1",time:"상시 개방 · 무료 · 일부 구간 통제 확인",
+  links:[["네이버지도",NM("송악산 둘레길")],["비짓제주",VJ]]},
+ {id:"suwolbong",cat:"spot",emoji:"🌅",region:"서부·한경",name:"수월봉",tag:"화산 지질층이 드러난 절벽 해안",hash:"#3040 #지질트레일 #일몰",
+  desc:"화산이 쌓인 지층이 케이크 단면처럼 드러난 절벽. 유네스코 지질공원으로 지정된 곳이라 걸으며 지층을 볼 수 있고, 차귀도로 지는 일몰이 절경입니다. 한적해서 여유롭게 돌기 좋아요.",
+  addr:"제주시 한경면 고산리 (수월봉 전망대)",time:"상시 개방 · 무료",
+  links:[["네이버지도",NM("수월봉")],["비짓제주",VJ]]},
+ {id:"sinchang",cat:"spot",emoji:"🌬",region:"서부·한경",name:"신창풍차해안도로",tag:"바다 위 하얀 풍력발전기 드라이브",hash:"#2030 #일몰 #드라이브",
+  desc:"바다 한가운데 하얀 풍차가 줄지어 선 해안도로. 차를 세우고 걷기 좋은 산책로가 있고 일몰 무렵 실루엣이 특히 예쁩니다. 협재·한림에서 이어지는 드라이브 코스로 딱이에요.",
+  addr:"제주시 한경면 신창리 1323",time:"상시 개방 · 무료",
+  links:[["네이버지도",NM("신창풍차해안도로")],["비짓제주",VJ]]},
+ {id:"keuneong",cat:"spot",emoji:"🗺",region:"동부·남원",name:"남원 큰엉해안경승지",tag:"한반도 모양으로 뚫린 나뭇길",hash:"#2030 #포토스팟 #무료산책",
+  desc:"절벽 위 숲길을 걷다 보면 나뭇가지가 한반도 모양으로 뚫린 유명한 포토스팟이 나옵니다. 왕복 1시간 정도의 평탄한 해안 산책로이고 무료예요. 이른 아침이 사진 찍기 좋습니다.",
+  addr:"서귀포시 남원읍 남원리 (큰엉해안경승지)",time:"상시 개방 · 무료",
+  links:[["네이버지도",NM("큰엉해안경승지")],["비짓제주",VJ]]},
+ {id:"bonte",cat:"spot",emoji:"🖼",region:"서부·안덕",name:"본태박물관",tag:"안도 다다오 건축 + 쿠사마 야요이",hash:"#2030 #건축 #무한거울방",
+  desc:"안도 다다오가 설계한 노출 콘크리트 건물 자체가 작품인 미술관. 쿠사마 야요이의 호박과 무한 거울방이 대표 전시이고 전통 상례 유물관도 인상적입니다. 비 오는 날 가기 좋아요.",
+  addr:"서귀포시 안덕면 산록남로762번길 69",time:"10:00~18:00 · 유료",
+  links:[["네이버지도",NM("본태박물관")],["비짓제주",VJ]]},
+ {id:"chilsimni",cat:"spot",emoji:"🌉",region:"서귀포 시내",name:"서귀포 칠십리시공원",tag:"천지연 절벽과 새연교가 보이는 무료 공원",hash:"#전연령 #무료 #야경",
+  desc:"천지연폭포 절벽 위에서 서귀포 앞바다와 새연교를 내려다보는 시민 공원. 무료인 데다 조각과 시비가 놓인 산책로가 잘 정비돼 있고 야경도 좋습니다. 올레시장과 묶어 돌기 좋아요.",
+  addr:"서귀포시 천지동 572-2",time:"상시 개방 · 무료",
+  links:[["네이버지도",NM("서귀포 칠십리시공원")],["비짓제주",VJ]]},
+ {id:"yeongsil",cat:"spot",emoji:"🏔",region:"한라산·영실",name:"한라산 영실 탐방로",tag:"가장 짧고 경치 좋은 한라산 코스",hash:"#3040 #왕복4시간 #오백나한",
+  desc:"한라산 코스 중 가장 짧고 풍경이 좋은 길. 오백나한 기암과 구상나무 숲을 지나 윗세오름까지 왕복 4시간 정도 걸립니다. 정상(백록담)은 성판악·관음사 코스로만 가능하고, 통제 시간이 이르니 새벽 출발이 안전해요.",
+  addr:"서귀포시 하원동 영실로 246",time:"계절별 입산 통제 (동절기 12:00 이전 입산) · 무료",
+  links:[["네이버지도",NM("한라산 영실탐방로")],["비짓제주",VJ]]},
+ {id:"marado",cat:"spot",emoji:"🛥",region:"서부·대정",name:"마라도 (운진항 출발)",tag:"국토 최남단 섬, 짜장면의 성지",hash:"#전연령 #배30분 #섬한바퀴1시간",
+  desc:"운진항에서 배로 30분이면 닿는 국토 최남단 섬. 한 바퀴 걷는 데 1시간이면 충분하고 해물짜장면이 명물입니다. 배가 기상에 따라 자주 결항하니 출발 전 반드시 확인하세요.",
+  addr:"서귀포시 대정읍 송악관광로 424 (운진항 여객터미널)",time:"매표 08:00~16:00 · 기상 따라 결항",
+  links:[["네이버지도",NM("마라도 운진항")],["비짓제주",VJ]]},
+ {id:"sehwa",cat:"spot",emoji:"💙",region:"동부·구좌",name:"세화해변",tag:"썰물 때 생기는 자연 수영장",hash:"#전연령 #한적함 #오일장",
+  desc:"동부에서 물빛이 곱기로 손꼽히는 해변. 썰물이면 모래톱과 맑은 웅덩이가 생겨 아이와 놀기 좋습니다. 5일과 10일에 서는 세화민속오일시장, 건너편 카페한라산과 묶으면 반나절 코스예요.",
+  addr:"제주시 구좌읍 해녀박물관길 26",time:"상시 개방 · 무료",
+  links:[["네이버지도",NM("세화해변")],["비짓제주",VJ]]},
+ {id:"geumoreum",cat:"spot",emoji:"🪂",region:"서부·한림",name:"금오름",tag:"분화구에 물이 고이는 패러글라이딩 명소",hash:"#3040 #30분등반 #일몰",
+  desc:"정상 분화구에 비가 오면 물이 고여 하늘이 비치는 오름. 20~30분이면 오르고 정상에서 패러글라이딩 이륙을 볼 수 있습니다. 일몰이 특히 유명해 해질녘에 사람이 몰려요.",
+  addr:"제주시 한림읍 금악리 (금오름)",time:"상시 개방 · 무료",
+  links:[["네이버지도",NM("금오름")],["비짓제주",VJ]]},
+ {id:"darangshi",cat:"spot",emoji:"🕳",region:"동부·구좌",name:"다랑쉬오름",tag:"오름의 여왕, 깊은 분화구",hash:"#3040 #경사가파름 #왕복1시간반",
+  desc:"'오름의 여왕'이라 불리는 대표 오름. 경사가 제법 가파르지만 정상 분화구가 깊고 웅장해 오를 가치가 있습니다. 왕복 1시간 반 정도 걸리고 성산일출봉까지 시원하게 보여요.",
+  addr:"제주시 구좌읍 세화리 (다랑쉬오름)",time:"상시 개방 · 무료",
+  links:[["네이버지도",NM("다랑쉬오름")],["비짓제주",VJ]]},
+ {id:"peacepark",cat:"spot",emoji:"🕊",region:"제주시·봉개",name:"제주 4·3 평화공원",tag:"제주 현대사를 마주하는 추념 공간",hash:"#3040 #무료 #실내전시",
+  desc:"1948년 4·3 사건의 기록과 희생자를 기리는 기념관. 무료이고 전시가 잘 구성돼 있어 제주를 깊이 이해하게 됩니다. 무거운 주제지만 한 번은 볼 만한 곳이에요. 절물휴양림과 가깝습니다.",
+  addr:"제주시 명림로 430",time:"09:00~18:00 · 무료",
+  links:[["네이버지도",NM("제주 4·3 평화공원")],["비짓제주",VJ]]},
+ {id:"hwansang",cat:"spot",emoji:"🌿",region:"서부·한경",name:"환상숲 곶자왈공원",tag:"해설사와 함께 걷는 곶자왈",hash:"#3040 #숲해설 #족욕",
+  desc:"곶자왈 숲을 해설사와 함께 걷는 30분 코스가 매시 정각에 시작됩니다. 설명을 들으며 걸으면 그냥 볼 때와 완전히 달라요. 온천 족욕 체험도 함께 할 수 있고 일요일은 쉽니다.",
+  addr:"제주시 한경면 녹차분재로 594-1",time:"09:00~18:00 · 일요일 휴무 · 유료",
+  links:[["네이버지도",NM("환상숲 곶자왈공원")],["비짓제주",VJ]]},
+ {id:"nohyungmarket",cat:"spot",emoji:"✨",region:"제주시·해안동",name:"노형수퍼마켓",tag:"이름과 달리 미디어아트 전시관",hash:"#2030 #비오는날 #포토스팟",
+  desc:"슈퍼마켓이 아니라 3층 높이 미디어아트 전시관. 천 개의 조명이 늘어선 복도와 '와랑와랑' 대형 영상관이 하이라이트입니다. 아르떼뮤지엄보다 저렴해 비 오는 날 대안으로 좋아요.",
+  addr:"제주시 해안동 2137-1",time:"09:00~19:00 · 유료",
+  links:[["네이버지도",NM("노형수퍼마켓")],["비짓제주",VJ]]},
  // ================= 맛집 (38) =================
  {id:"donsadon",cat:"food",emoji:"🥩",region:"제주시·노형",name:"돈사돈 본점",tag:"제주 흑돼지 구이 대표주자",hash:"#흑돼지 #근고기 #저녁웨이팅",
   desc:"두툼한 근고기 흑돼지를 연탄불에 구워 멜젓에 찍어 먹는 정석 흑돼지집. 육즙 가득한 목살이 대표 메뉴이며 저녁엔 웨이팅이 길어 오픈 직후 방문 추천.",
@@ -884,6 +1032,18 @@ const ZONE_OF={
  eunsikdang:"daejeong",yeondon:"jungmun",fantasticburger:"pyoseon",
  yangga:"hallim",wayview:"hallim",
  burgeri:"aewol",sisokaymak:"aewol",lazypump:"aewol",
+ seopjikoji:"seongsan",gwangchigi:"seongsan",aquaplanet:"seongsan",
+ sangumburi:"jocheon",stonepark:"jocheon",
+ jeolmul:"jsi",hallaarbo:"jsi",yongduam:"jsi",samseonghyeol:"jsi",dodubong:"jsi",
+ peacepark:"jsi",nohyungmarket:"jsi",
+ sanbanggulsa:"daejeong",bonte:"daejeong",songaksan:"daejeong",marado:"daejeong",
+ cheonjeyeon:"jungmun",jungmunbeach:"jungmun",
+ oedolgae:"sgp",chilsimni:"sgp",yeongsil:"sgp",
+ geumneung:"hallim",hallimpark:"hallim",isidore:"hallim",geumoreum:"hallim",
+ suwolbong:"hallim",sinchang:"hallim",hwansang:"hallim",
+ gwakji:"aewol",
+ yongnuni:"gujwa",gimnyeongmaze:"gujwa",sehwa:"gujwa",darangshi:"gujwa",
+ folkvillage:"pyoseon",hueree:"pyoseon",boreumwat:"pyoseon",keuneong:"pyoseon",
 };
 const ZONE_KW={jsi:["제주시","연동","노형","이도","일도","용담","도두","외도","이호","원도심","공항"],
  aewol:["애월","하귀","한담","곽지","새별"],hallim:["한림","한경","협재","금능","명월","판포"],
@@ -954,6 +1114,19 @@ const LL={
  welcomeburger:[33.5148511,126.5281232],burgeri:[33.4483686,126.3043854],fantasticburger:[33.3084898,126.7790718],
  hugely:[33.5157726,126.5140094],sisokaymak:[33.4780153,126.3642855],sumtarr:[33.4875826,126.478266],
  lazypump:[33.4660037,126.3097954],jinjungsung:[33.5024674,126.4629352],
+ seopjikoji:[33.4242095,126.931111],gwangchigi:[33.4524173,126.9246894],aquaplanet:[33.4327833,126.9278223],
+ sangumburi:[33.43303,126.690658],stonepark:[33.4485653,126.6586582],jeolmul:[33.4393622,126.62991],
+ hallaarbo:[33.4699272,126.4932445],yongduam:[33.5157583,126.5116346],samseonghyeol:[33.5047027,126.529358],
+ dodubong:[33.508095,126.468593],sanbanggulsa:[33.2380765,126.313081],cheonjeyeon:[33.2506678,126.4167726],
+ oedolgae:[33.239113,126.5448343],jungmunbeach:[33.2451968,126.4111861],geumneung:[33.3894008,126.2298168],
+ hallimpark:[33.3895279,126.2392884],isidore:[33.3477633,126.3272925],gwakji:[33.4505158,126.3042485],
+ yongnuni:[33.4599676,126.831477],gimnyeongmaze:[33.5368768,126.7725371],folkvillage:[33.322511,126.841868],
+ hueree:[33.3087565,126.6337938],boreumwat:[33.4136187,126.7527705],songaksan:[33.2043511,126.2896137],
+ suwolbong:[33.2944141,126.1628076],sinchang:[33.3433637,126.173963],keuneong:[33.2733146,126.7048177],
+ bonte:[33.3038302,126.3925024],chilsimni:[33.2470894,126.5532564],yeongsil:[33.3491902,126.4970597],
+ marado:[33.207412,126.2905823],sehwa:[33.5249646,126.8598017],geumoreum:[33.355577,126.3056877],
+ darangshi:[33.4762433,126.8229497],peacepark:[33.4510818,126.6186384],hwansang:[33.3225764,126.2633048],
+ nohyungmarket:[33.4649309,126.4553144],
 };
 function distKm(a,b,c,d){
   const R=6371, rad=x=>x*Math.PI/180;
@@ -1037,6 +1210,7 @@ function render(){
     const items = pool.filter(p=>{
       if(!matchesSearch(p)) return false;
       if(currentFilter==="visited") return visited[p.id];
+      if(visited[p.id]) return false;
       if(currentFilter!=="all") return p.cat===currentFilter;
       return true;
     }).filter(p=>distMap[p.id]!==undefined)
@@ -1062,6 +1236,7 @@ function render(){
     const items = pool.filter(p=>{
       if(!matchesSearch(p)) return false;
       if(currentFilter==="visited") return p.cat===cat && visited[p.id];
+      if(visited[p.id]) return false;
       if(currentFilter!=="all" && currentFilter!==cat) return false;
       return p.cat===cat;
     });
@@ -1084,6 +1259,10 @@ function render(){
   if(currentFilter==="visited" && !pool.some(p=>visited[p.id])){
     list.innerHTML = '<p style="text-align:center;padding:60px 20px;color:#7C8684;">아직 찍은 도장이 없어요.<br>다녀온 곳의 <b>[갔다왔음]</b> 버튼을 눌러보세요!</p>';
   }
+  if(currentFilter!=="visited" && !list.hasChildNodes()){
+    list.innerHTML = '<p style="text-align:center;padding:60px 20px;color:#7C8684;">여기 있던 곳은 전부 다녀오셨어요! 🎉<br>아래 <b>[🔴 갔다온 곳]</b> 탭에서 확인할 수 있어요.</p>';
+  }
+  updateVisitedTab();
   updateProgress();
 }
 
@@ -1123,6 +1302,13 @@ function makeCard(p){
   const del = c.querySelector(".del-link");
   if(del) del.addEventListener("click",()=>{ deleteCustomPlace(p.id); });
   return c;
+}
+
+function updateVisitedTab(){
+  const btn = document.querySelector('.tab[data-filter="visited"]');
+  if(!btn) return;
+  const n = allPlaces().filter(p=>visited[p.id]).length;
+  btn.textContent = n ? ("🔴 갔다온 곳 "+n) : "🔴 갔다온 곳";
 }
 
 function updateProgress(){
