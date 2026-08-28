@@ -181,6 +181,19 @@
   .links a.photo-link:hover{filter:brightness(1.08);}
   .meta a.tel-link{color:#0E7490;font-weight:700;text-decoration:none;}
   .meta a.tel-link:active{opacity:.6;}
+
+  .tab.tab-must{background:linear-gradient(135deg,#B45309,#F59E0B);color:#fff;border-color:transparent;font-weight:800;}
+  .tab.tab-must.active{background:linear-gradient(135deg,#92400E,#D97706);box-shadow:0 2px 8px rgba(180,83,9,.35);}
+  .must-star{position:absolute;left:10px;bottom:10px;background:linear-gradient(135deg,#B45309,#F59E0B);
+    color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:999px;
+    box-shadow:0 2px 6px rgba(0,0,0,.22);letter-spacing:-.2px;}
+  .must-why{background:#FFFBEB;border:1px solid #FDE68A;border-left:4px solid #F59E0B;
+    border-radius:10px;padding:9px 11px;margin:8px 0 10px;font-size:13px;line-height:1.55;color:#78350F;}
+  .must-why b{color:#B45309;margin-right:4px;}
+  .must-head{background:linear-gradient(135deg,#B45309,#F59E0B);color:#fff;border-radius:16px;
+    padding:16px 18px;margin:6px 0 14px;font-size:17px;font-weight:800;}
+  .must-head .must-sub{font-size:13px;font-weight:500;opacity:.95;margin-top:5px;line-height:1.5;}
+  .must-head .must-sub b{font-weight:800;}
 </style>
 </head>
 <body>
@@ -201,6 +214,7 @@
 
 <nav id="tabs">
   <button class="tab active" data-filter="all">전체</button>
+  <button class="tab tab-must" data-filter="must">⭐ 꼭 가볼 곳</button>
   <button class="tab" data-filter="spot">🏝 관광지</button>
   <button class="tab" data-filter="food">🍽 맛집</button>
   <button class="tab" data-filter="cafe">☕ 카페</button>
@@ -1189,6 +1203,44 @@ const TEL={
  daehanmokjang:"010-6647-2180",azulejo:"0507-1411-4052",boromchango:"0507-1327-6416",
  coji:"064-784-1005",audrant:"064-784-5404",easterly:"010-6645-0220",yuji:"064-901-3999",
 };
+// ===== 제주 필수 코스: 처음 왔거나 시간이 없다면 여기부터 =====
+const MUST = {
+ // 관광지 14
+ seongsan:"제주를 대표하는 한 장면. 안 보고 오면 '제주 갔다 왔다'는 말이 안 나옵니다.",
+ udo:"섬 안의 섬. 배 타고 들어가는 것 자체가 여행이 됩니다.",
+ hyeopjae:"제주에서 물빛이 가장 곱다는 해변. 비양도까지 함께 담깁니다.",
+ manjang:"세계적으로 손꼽히는 용암동굴. 한여름에도 안은 13~15도예요.",
+ seopjikoji:"초원·절벽·등대가 이어지는 산책로. 사진이 어디서 찍어도 잘 나옵니다.",
+ sanbanggulsa:"바위산 중턱 동굴 법당. 산방산은 서부 어디서 봐도 랜드마크예요.",
+ jusangjeolli:"육각 기둥 절벽에 파도가 부딪히는 30분 코스. 짧고 확실합니다.",
+ camellia:"사계절 내내 다른 꽃이 피는 정원. 인생사진 실패 확률이 가장 낮은 곳.",
+ saebyeol:"해질 무렵 억새가 금빛으로 물드는 오름. 20분이면 정상입니다.",
+ osulloc:"입장 무료에 녹차 아이스크림이 별미. 서부 코스의 기본값이에요.",
+ ollemarket:"흑돼지 꼬치·감귤·오메기떡까지, 제주 먹거리를 한 번에 훑습니다.",
+ arte:"비 오는 날 1순위. 몰입형 미디어아트 규모가 압도적이에요.",
+ yeongsil:"한라산을 가장 짧고 아름답게 맛보는 코스. 체력이 되면 꼭 한 번.",
+ bijarim:"500년 넘은 나무들 사이 평탄한 흙길. 누구나 걸을 수 있어요.",
+ // 맛집 10
+ donsadon:"연탄불 흑돼지에 멜젓. 제주 흑돼지의 기준점 같은 집입니다.",
+ ollae:"제주에만 있는 고기국수. 메뉴가 하나뿐이라 실패가 없어요.",
+ ujin:"고사리를 갈아 넣은 육개장. 다른 지역엔 없는 제주만의 맛입니다.",
+ myeongjin:"전복 뚝배기와 돌솥밥. 제주 전복은 여기서 한 번 제대로.",
+ miyoung:"모슬포 고등어회. 비린내 없이 고소해서 회를 못 먹던 사람도 놀랍니다.",
+ oneunjeong:"제주 김밥의 대명사. 전화 예약이 사실상 필수예요.",
+ yeondon:"방송이 만든 전설의 돈까스. 예약 앱 추첨을 뚫어야 합니다.",
+ hahahoho:"우도 땅콩버거와 땅콩 셰이크. 우도 가는 날이면 무조건.",
+ suduri:"보말이 가득한 칼국수. 아침 식사로 이만한 게 없습니다.",
+ gozip:"우럭조림 한상에 반찬이 상 두 개. 부모님 모시고 가기 딱이에요.",
+ // 카페 8
+ delmoondo:"함덕 바다 코앞. 새벽 6시부터 열어 일출도 일몰도 됩니다.",
+ monsant:"유리에 바다가 반사되는 애월 랜드마크. 건물 자체가 포토존.",
+ umu:"제주 우뭇가사리로 만든 푸딩. 여기서만 먹을 수 있어요.",
+ abebe:"줄 서서 사 가는 도넛. 마늘크림·인절미가 대표입니다.",
+ audrant:"소스가 흘러넘치는 마늘바게트 원조. 함덕 코스에 꼭 넣으세요.",
+ azulejo:"포르투갈보다 낫다는 말이 나오는 에그타르트. 오픈 직후 방문 추천.",
+ daehanmokjang:"70년 만에 개방된 대나무 숲 목장. 지금 제주에서 가장 뜨거운 곳.",
+ oneandonly:"산방산과 바다를 한 프레임에. 제주 오션뷰 카페의 정석입니다.",
+};
 // 대표 사진 보기 (네이버 이미지 검색 — 항상 최신 사진이 뜸)
 const PHOTO = n => "https://search.naver.com/search.naver?where=image&query=" + encodeURIComponent("제주 " + n);
 const CAT = {spot:{label:"관광지"},food:{label:"맛집"},cafe:{label:"카페"}};
@@ -1599,6 +1651,7 @@ function render(){
       if(!matchesSearch(p)) return false;
       if(currentFilter==="visited") return visited[p.id];
       if(visited[p.id]) return false;
+      if(currentFilter==="must") return !!MUST[p.id];
       if(currentFilter!=="all") return p.cat===currentFilter;
       return true;
     }).filter(p=>distMap[p.id]!==undefined && distMap[p.id]<=NEAR_LIMIT_KM)
@@ -1620,11 +1673,20 @@ function render(){
     updateProgress();
     return;
   }
+  if(currentFilter==="must"){
+    const ids = Object.keys(MUST);
+    const doneN = ids.filter(id=>visited[id]).length;
+    const h = document.createElement("div");
+    h.className = "must-head";
+    h.innerHTML = `⭐ 제주 필수 코스 ${ids.length}곳<div class="must-sub">처음 왔거나 일정이 짧다면 여기부터. 지금까지 <b>${doneN}곳</b> 완료했어요.</div>`;
+    list.appendChild(h);
+  }
   ["spot","food","cafe"].forEach(cat=>{
     const items = pool.filter(p=>{
       if(!matchesSearch(p)) return false;
       if(currentFilter==="visited") return p.cat===cat && visited[p.id];
       if(visited[p.id]) return false;
+      if(currentFilter==="must") return p.cat===cat && !!MUST[p.id];
       if(currentFilter!=="all" && currentFilter!==cat) return false;
       return p.cat===cat;
     });
@@ -1647,6 +1709,9 @@ function render(){
   if(currentFilter==="visited" && !pool.some(p=>visited[p.id])){
     list.innerHTML = '<p style="text-align:center;padding:60px 20px;color:#7C8684;">아직 찍은 도장이 없어요.<br>다녀온 곳의 <b>[갔다왔음]</b> 버튼을 눌러보세요!</p>';
   }
+  if(currentFilter==="must" && !Object.keys(MUST).some(id=>!visited[id])){
+    list.innerHTML = '<p style="text-align:center;padding:60px 20px;color:#7C8684;">필수 코스를 전부 도장 찍으셨어요! 🎉<br>이제 <b>[🏝 관광지]</b> 탭에서 숨은 곳들을 찾아보세요.</p>';
+  }
   if(currentFilter!=="visited" && !list.hasChildNodes()){
     list.innerHTML = '<p style="text-align:center;padding:60px 20px;color:#7C8684;">여기 있던 곳은 전부 다녀오셨어요! 🎉<br>아래 <b>[🔴 갔다온 곳]</b> 탭에서 확인할 수 있어요.</p>';
   }
@@ -1662,6 +1727,7 @@ function makeCard(p){
       <span>${p.emoji}</span>
       <span class="badge b-${p.cat}">${CAT[p.cat].label}</span>
       <span class="region">${p.region}</span>
+      ${MUST[p.id]?'<span class="must-star">⭐ 꼭 가볼 곳</span>':""}
     </div>
     <div class="stamp"><span class="chk">✔</span>방문완료</div>
     <div class="body">
@@ -1669,6 +1735,7 @@ function makeCard(p){
       <div class="name">${p.name}</div>
       <div class="tagline">${p.tag}</div>
       <div class="hash">${p.hash}</div>
+      ${MUST[p.id]?`<div class="must-why"><b>왜 꼭 가야 하냐면</b> ${MUST[p.id]}</div>`:""}
       <p class="desc">${p.desc}</p>
       <div class="meta">
         <div><span class="ico">📍</span><span>${p.addr}</span></div>
@@ -1696,9 +1763,16 @@ function makeCard(p){
 
 function updateVisitedTab(){
   const btn = document.querySelector('.tab[data-filter="visited"]');
-  if(!btn) return;
-  const n = allPlaces().filter(p=>visited[p.id]).length;
-  btn.textContent = n ? ("🔴 갔다온 곳 "+n) : "🔴 갔다온 곳";
+  if(btn){
+    const n = allPlaces().filter(p=>visited[p.id]).length;
+    btn.textContent = n ? ("🔴 갔다온 곳 "+n) : "🔴 갔다온 곳";
+  }
+  const mb = document.querySelector('.tab[data-filter="must"]');
+  if(mb){
+    const ids = Object.keys(MUST);
+    const doneN = ids.filter(id=>visited[id]).length;
+    mb.textContent = `⭐ 꼭 가볼 곳 ${doneN}/${ids.length}`;
+  }
 }
 
 function updateProgress(){
