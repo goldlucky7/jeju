@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>제주 여행 스탬프북 — 관광지·맛집·카페 195선</title>
+<title>제주 여행 스탬프북 — 관광지·맛집·카페·소품샵·술집·호텔 237선</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
@@ -262,17 +262,68 @@
     background:var(--basalt);color:#fff;font-family:inherit;font-size:12.5px;font-weight:800;
     padding:8px 14px;box-shadow:0 4px 14px rgba(0,0,0,.28);cursor:pointer;}
   #selBtn.show{display:block;}
+
+  /* 신규 카테고리 */
+  .v-shop{background:linear-gradient(135deg,#F5D0E0,#C86B9B);}
+  .v-bar{background:linear-gradient(135deg,#F6D9A8,#C98A2E);}
+  .v-hotel{background:linear-gradient(135deg,#C6D6EF,#5B7DB1);}
+  .b-shop{background:#B4407A;} .b-bar{background:#A8701C;} .b-hotel{background:#3F6199;}
+  .tab.tab-eat{background:linear-gradient(135deg,#9F1239,#E11D48);color:#fff;border-color:transparent;font-weight:800;}
+  .tab.tab-eat.active{background:linear-gradient(135deg,#881337,#BE123C);}
+  /* 주차 */
+  .pk-badge{display:inline-block;border-radius:8px;padding:2px 7px;font-size:10.5px;
+    font-weight:900;margin-bottom:5px;margin-right:4px;border:1px solid;}
+  .pk-free{background:#ECFDF5;color:#047857;border-color:#A7F3D0;}
+  .pk-freeS{background:#F0FDF4;color:#3F6212;border-color:#D9F99D;}
+  .pk-paid{background:#EFF6FF;color:#1D4ED8;border-color:#BFDBFE;}
+  .pk-public{background:#FFFBEB;color:#A16207;border-color:#FDE68A;}
+  .pk-street{background:#FEF2F2;color:#B91C1C;border-color:#FECACA;}
+  .pk-line{background:#F6FAF9;border:1px dashed var(--line);border-radius:10px;
+    padding:8px 11px;margin:8px 0 2px;font-size:12.5px;color:#4A5553;line-height:1.6;}
+  .pk-line b{color:var(--sea-deep);}
+  .pk-line a{color:var(--sea-deep);font-weight:800;text-decoration:none;
+    border-bottom:1.5px solid var(--sea);}
+  /* 주소 복사 */
+  .links a.copy-link{background:var(--basalt);color:#fff;border-color:transparent;cursor:pointer;}
+  .links a.copy-link.done{background:#047857;}
+  /* 우선 추천 헤더(공용) */
+  .tier-head{border-radius:14px;padding:14px 16px;margin:18px 0 12px;
+    font-size:16px;font-weight:900;color:#fff;}
+  .tier-head .th-sub{font-size:12.5px;font-weight:500;opacity:.95;margin-top:4px;line-height:1.5;}
+  .th-shop{background:linear-gradient(135deg,#831843,#DB2777);}
+  .th-bar{background:linear-gradient(135deg,#7C2D12,#EA580C);}
+  .th-hotel{background:linear-gradient(135deg,#1E3A8A,#3B82F6);}
+  .tier-star{position:absolute;left:10px;bottom:10px;color:#fff;font-size:11px;font-weight:800;
+    padding:3px 9px;border-radius:999px;box-shadow:0 2px 6px rgba(0,0,0,.22);letter-spacing:-.2px;}
+  .ts-shop{background:linear-gradient(135deg,#831843,#DB2777);}
+  .ts-bar{background:linear-gradient(135deg,#7C2D12,#EA580C);}
+  .ts-hotel{background:linear-gradient(135deg,#1E3A8A,#3B82F6);}
+  .tier-why{border-radius:10px;padding:9px 11px;margin:8px 0 10px;font-size:13px;line-height:1.55;}
+  .tw-shop{background:#FDF2F8;border:1px solid #FBCFE8;border-left:4px solid #DB2777;color:#831843;}
+  .tw-bar{background:#FFF7ED;border:1px solid #FED7AA;border-left:4px solid #EA580C;color:#7C2D12;}
+  .tw-hotel{background:#EFF6FF;border:1px solid #BFDBFE;border-left:4px solid #3B82F6;color:#1E3A8A;}
+  .tier-why b{margin-right:4px;}
+  .anju-line{background:#FFFBEB;border:1px solid #FDE68A;border-radius:10px;padding:8px 11px;
+    margin:6px 0 8px;font-size:13px;color:#78350F;line-height:1.5;}
+  .anju-line b{color:#B45309;margin-right:4px;}
+  #barGps{width:100%;margin:4px 0 12px;border:none;border-radius:14px;
+    background:linear-gradient(135deg,#C2410C,#EA580C);color:#fff;padding:13px;
+    font-family:inherit;font-size:14.5px;font-weight:900;cursor:pointer;
+    box-shadow:0 4px 14px rgba(234,88,12,.32);}
+  #barGps.on{background:linear-gradient(135deg,#065F46,#059669);box-shadow:0 4px 14px rgba(5,150,105,.32);}
+  .star-badge{display:inline-block;background:#FEF3C7;color:#92400E;border:1px solid #FDE68A;
+    border-radius:8px;padding:2px 7px;font-size:10.5px;font-weight:900;margin-bottom:5px;margin-right:4px;}
 </style>
 </head>
 <body>
 
 <header>
   <div style="max-width:1080px;margin:0 auto;">
-    <div class="h-eyebrow">JEJU STAMP BOOK · 195 PLACES</div>
+    <div class="h-eyebrow">JEJU STAMP BOOK · 237 PLACES</div>
     <h1>제주 여행 스탬프북<span class="dot">.</span></h1>
     <p class="h-sub">감성 포토스팟부터 액티비티, 자연 명소, 노포 맛집까지 —
-    20대부터 40대까지 모두를 위한 195곳. 모든 곳을 <b>덜 힘든 순서(실내 → 시원한 야외 → 차로 → 야외 → 걷기 → 등산)</b>로 나눠뒀고,
-    맛집은 종류별로 묶되 <b>죽어도 맛봐야 할 집</b>을 맨 위에 올렸어요. 다녀온 곳은 <b>[갔다왔음]</b>을 눌러 도장을 찍어보세요. 도장 찍은 곳은 목록에서 사라지고 <b>[🔴 갔다온 곳]</b> 탭에 모입니다.</p>
+    20대부터 40대까지 모두를 위한 237곳. 모든 곳을 <b>덜 힘든 순서(실내 → 시원한 야외 → 차로 → 야외 → 걷기 → 등산)</b>로 나눠뒀고,
+    맛집·소품샵·술집·호텔은 <b>꼭 가야 할 곳</b>을 맨 위에 올렸고, 카드마다 <b>주차 정보</b>와 <b>주소 복사</b> 버튼이 있어요. 다녀온 곳은 <b>[갔다왔음]</b>을 눌러 도장을 찍어보세요. 도장 찍은 곳은 목록에서 사라지고 <b>[🔴 갔다온 곳]</b> 탭에 모입니다.</p>
     <div class="progress-wrap"><div class="progress-bar" id="pbar"></div></div>
     <div class="progress-label" id="plabel"></div>
     <div style="text-align:center;margin-top:12px;">
@@ -287,6 +338,9 @@
   <button class="tab" data-filter="spot">🏝 관광지</button>
   <button class="tab" data-filter="food">🍽 맛집</button>
   <button class="tab" data-filter="cafe">☕ 카페</button>
+  <button class="tab" data-filter="shop">🛍 소품샵</button>
+  <button class="tab" data-filter="bar">🍻 술집·안주</button>
+  <button class="tab" data-filter="hotel">🏨 호텔</button>
   <button class="tab" data-filter="visited">🔴 갔다온 곳</button>
 </nav>
 
@@ -326,6 +380,9 @@
       <option value="spot">🏝 관광지</option>
       <option value="food">🍽 맛집</option>
       <option value="cafe">☕ 카페</option>
+      <option value="shop">🛍 소품샵</option>
+      <option value="bar">🍻 술집·안주</option>
+      <option value="hotel">🏨 호텔</option>
     </select>
     <input id="np_region" placeholder="지역 (선택) 예: 서부·애월">
     <input id="np_addr" placeholder="주소 (선택)">
@@ -382,7 +439,7 @@
 <footer>
   💡 <b>같이 쓰는 법</b>: 링크를 상대방에게 보내기만 하면 끝!
   <b>로그인도, 코드 입력도 없이</b> 같은 링크로 여는 모든 기기의 도장이 자동으로 합쳐집니다.<br>
-  주소·운영시간·요금은 조사 시점 기준이며 변동될 수 있으니 방문 전 확인을 권장합니다.<br>
+  주소·운영시간·요금은 조사 시점 기준이며 변동될 수 있으니 방문 전 확인을 권장합니다.<br><b>주차 표시는 안내용 참고값</b>입니다. 실제 운영과 요금은 바뀔 수 있으니 카드의 <b>[🗺 이 근처 주차장 지도로 보기]</b>로 한 번 더 확인하세요. 갓길 주차는 소화전·횡단보도·교차로 5m 이내를 피해주세요.<br>
   공식 여행정보: <a href="https://www.visitjeju.net" target="_blank">비짓제주 (제주관광공사)</a><br>
   <div style="margin-top:12px;">
     <button class="bk-btn" id="backupBtn">💾 기록 백업 (복사)</button>
@@ -1184,9 +1241,225 @@ const PLACES = [
   desc:"굵은 나무 기둥이 성당처럼 솟은 독특한 건물과 창밖 귤밭이 어우러진 카페. 가을엔 주황빛 귤과 초록 잎 대비가 예쁩니다. 실내가 울려 조용한 곳을 원하면 야외 자리를 추천해요.",
   addr:"제주시 오남로 297",open:"10:30~20:00",brk:"없음",closed:"연중무휴",
   links:[["네이버지도",NM("유지커피웍스")],["비짓제주",VJ]]},
+
+ // ================= 기념품·소품샵 (12) =================
+ {id:"islander",cat:"shop",emoji:"🏝",region:"제주시·원도심",name:"더 아일랜더",tag:"제주 로컬 디자이너 굿즈의 본진",hash:"#원도심 #2층향수 #구글4.7",
+  desc:"관덕정 옆 골목에 있는 제주 대표 편집형 기념품샵. 흔한 공항 기념품과 달리 제주 작가들이 만든 굿즈와 포장까지 감각적인 물건들이 모여 있고, 2층 향수 코너가 특히 인기입니다.",
+  addr:"제주시 관덕로4길 7",open:"09:00~19:30",brk:"없음",closed:"연중무휴",
+  links:[["네이버지도",NM("더아일랜더 제주")]]},
+ {id:"jongjong",cat:"shop",emoji:"🎨",region:"동부·조천",name:"종종제주",tag:"여기서만 파는 로컬 일러스트 굿즈",hash:"#구글4.9 #스티커 #엽서",
+  desc:"성산에서 제주시로 넘어오는 길목의 작은 소품샵. 제주 일러스트 작가들의 스티커·엽서·피규어가 가득하고, 다른 데선 구할 수 없는 물건이 많아 일부러 찾아오는 사람이 많습니다.",
+  addr:"제주시 조천읍 선교로 66",open:"10:30~18:00 (금 14:00~)",brk:"없음",closed:"매장 확인",
+  links:[["네이버지도",NM("종종제주")]]},
+ {id:"jestory",cat:"shop",emoji:"🛍",region:"서귀포시내",name:"제스토리 (JESTORY)",tag:"바다 앞 대형 기념품샵",hash:"#리뷰1100+ #핸드메이드 #가격착함",
+  desc:"바다가 보이는 자리에 있는 큰 기념품 매장. 해녀·한라산·귤 캐릭터 소품이 종류별로 다 있고 가격도 무난해서 선물을 한 번에 몰아 사기 좋습니다.",
+  addr:"서귀포시 막숙포로 60",open:"09:00~21:00",brk:"없음",closed:"연중무휴",
+  links:[["네이버지도",NM("제스토리 서귀포")]]},
+ {id:"soranasi",cat:"shop",emoji:"🍊",region:"서귀포·중문",name:"소랑아시 중문점",tag:"중문 최고 평점 선물가게",hash:"#구글5.0 #헬로키티굿즈 #밤10시까지",
+  desc:"중문 관광단지 초입의 선물가게. 귤 캐릭터 소품부터 제주 과자·감귤초콜릿까지 한자리에 있고, 공항보다 저렴하다는 후기가 많습니다. 헬로키티 굿즈 종류가 특히 많아요.",
+  addr:"서귀포시 중문관광로 27 1층",open:"09:30~22:00",brk:"없음",closed:"연중무휴",
+  links:[["네이버지도",NM("소랑아시 중문")]]},
+ {id:"playworks",cat:"shop",emoji:"✏️",region:"제주시·원도심",name:"플레이웍스 제주",tag:"치앙마이 인기 브랜드의 제주점",hash:"#구글4.9 #지류굿즈 #수요일휴무",
+  desc:"태국 치앙마이에서 시작한 문구·소품 브랜드의 제주 매장. 제주만을 위해 만든 종이 굿즈 코너가 따로 있고, 본점 인기 상품도 함께 살 수 있습니다.",
+  addr:"제주시 산지로 47",open:"12:00~18:30",brk:"없음",closed:"수요일",
+  links:[["네이버지도",NM("플레이웍스 제주")]]},
+ {id:"witcider",cat:"shop",emoji:"🎀",region:"제주시·원도심",name:"윗사이다 (WitCider)",tag:"산리오 캐릭터를 제주식으로",hash:"#특이한소품샵 #빈티지 #우진해장국옆",
+  desc:"산리오 캐릭터와 자체 캐릭터를 제주 감성으로 재해석한 물건들이 빼곡한 가게. 흔한 기념품샵과는 결이 완전히 달라서 캐릭터 좋아하면 시간 가는 줄 모릅니다. 우진해장국 웨이팅 중에 들르기 좋아요.",
+  addr:"제주시 관덕로 12",open:"12:00~18:00",brk:"없음",closed:"연중무휴",
+  links:[["네이버지도",NM("윗사이다 제주")]]},
+ {id:"bananaair",cat:"shop",emoji:"🍌",region:"제주시·노형",name:"선물가게바나나 제주공항점",tag:"공항 근처 최대 규모, 2층이 핵심",hash:"#헬로키티제주굿즈 #와인코너 #밤9시반",
+  desc:"공항 근처에서 가장 크다고 꼽히는 선물가게. 2층에 진짜 좋은 물건이 몰려 있고, 헬로키티아일랜드에 못 갔더라도 여기서 제주 한정 헬로키티 굿즈를 살 수 있습니다. 와인·술 코너도 따로 있어요.",
+  addr:"제주시 노형로 284",open:"10:00~21:30",brk:"없음",closed:"연중무휴",
+  links:[["네이버지도",NM("선물가게바나나 제주공항점")]]},
+ {id:"moodjeju",cat:"shop",emoji:"🐚",region:"제주시·원도심",name:"무드제주 (MOOD JEJU)",tag:"조개껍데기로 만든 소품 전문",hash:"#특이한소품샵 #바다감성 #2층",
+  desc:"조개와 바다를 소재로 한 트레이·액세서리를 파는 2층 숨은 가게. 제주 어디서나 파는 흔한 기념품이 아니라, 받는 사람이 '이건 어디서 났냐'고 묻는 물건들입니다.",
+  addr:"제주시 남성로 89 2층",open:"11:00~19:00",brk:"없음",closed:"매장 확인",
+  links:[["네이버지도",NM("무드제주")]]},
+ {id:"seomgyeol",cat:"shop",emoji:"🌊",region:"서귀포시내",name:"섬결 (Seomgyeol)",tag:"자개처럼 빛나는 수제 마그넷",hash:"#구글5.0 #핸드메이드 #수요일휴무",
+  desc:"제주 풍경을 자개처럼 반짝이게 담아낸 수제 마그넷으로 알려진 작은 가게. 한라산을 오른 뒤 기념으로 사 가기 좋다는 후기가 많습니다.",
+  addr:"서귀포시 중앙로 19 1층",open:"10:00~19:00",brk:"없음",closed:"수요일",
+  links:[["네이버지도",NM("섬결 서귀포")]]},
+ {id:"odalkong",cat:"shop",emoji:"🥜",region:"서부·한림",name:"오달콩제주 협재점",tag:"협재해변 건너편, 밤 10시까지",hash:"#구글4.8 #협재코스 #이색라면",
+  desc:"협재해수욕장 바로 건너편에 있어 물놀이 뒤 들르기 좋은 소품샵. 감귤 소품과 제주 한정 라면 같은 재미있는 물건이 섞여 있습니다.",
+  addr:"제주시 한림읍 한림로 340",open:"10:00~22:00",brk:"없음",closed:"연중무휴",
+  links:[["네이버지도",NM("오달콩제주 협재점")]]},
+ {id:"byjeju",cat:"shop",emoji:"✈️",region:"제주시·용담",name:"바이제주 (By Jeju)",tag:"공항 가는 길 마지막 쇼핑",hash:"#공항근처 #밤9시반 #구글4.7",
+  desc:"공항과 가까워 렌터카 반납 전에 들르기 딱 좋은 기념품샵. 종류가 다양하고 늦게까지 열어 마지막 날 선물 사기에 유용합니다.",
+  addr:"제주시 용담3동 1023-2",open:"09:00~21:30",brk:"없음",closed:"연중무휴",
+  links:[["네이버지도",NM("바이제주 용담")]]},
+ {id:"tote",cat:"shop",emoji:"🧴",region:"제주시·원도심",name:"토트 (tote)",tag:"흔한 기념품샵이 아닌 곳",hash:"#구글5.0 #로컬디자이너 #선물용술",
+  desc:"원도심 골목의 작은 편집샵. 뻔한 기념품 대신 로컬 디자이너 제품과 선물하기 좋은 제주 술을 골라 파는 곳이라, 취향 있는 사람에게 줄 선물을 찾는다면 여기입니다.",
+  addr:"제주시 중앙로13길 35",open:"10:30~19:30",brk:"없음",closed:"매장 확인",
+  links:[["네이버지도",NM("토트 제주 기념품")]]},
+
+ // ================= 술집 · 안주 (15) =================
+ {id:"wonnim",cat:"bar",emoji:"🦔",region:"제주시·연동",name:"원님네포장마차",tag:"성게 성지, 현지인들의 아지트",anju:"성게 한 상 · 돔베고기 · 성게 볶음밥",hash:"#죽어도가야할집 #성게 #현금선호",
+  desc:"제주 사람들이 손님 오면 데려간다는 포장마차. 김에 성게와 밥을 얹어 한입에 넣으면 바다를 먹는 것 같다는 후기가 많고, 남은 성게로 볶아주는 볶음밥이 마무리입니다. 돔베고기도 부드럽습니다.",
+  addr:"제주시 연동 (제원 인근)",open:"16:00~22:00",brk:"없음",closed:"매장 확인",
+  links:[["네이버지도",NM("원님네포장마차")]]},
+ {id:"beerfountain",cat:"bar",emoji:"🍺",region:"서귀포시내",name:"제주맥주샘물 본점",tag:"16가지 탭맥주를 다 맛보고 고른다",anju:"피시앤칩스 · 감자튀김(서비스) · 피자",hash:"#죽어도가야할집 #무료시음 #구글4.7",
+  desc:"주문 전에 원하는 맥주를 전부 맛보게 해주고, 자리에 앉으면 감자튀김을 서비스로 내주는 집. 올레시장 바로 옆이라 시장 구경 뒤 한잔하기 좋고 분위기와 응대가 특히 좋다는 평이 많습니다.",
+  addr:"서귀포시 중앙로 35",open:"17:00~24:00",brk:"없음",closed:"연중무휴",
+  links:[["네이버지도",NM("제주맥주샘물 본점")]]},
+ {id:"magpie",cat:"bar",emoji:"🐦",region:"동부·조천",name:"맥파이 브루어리 & 탭룸",tag:"제주 수제맥주의 상징, 화덕피자",anju:"얇은 도우 피자 · 통닭 · 감자웨지",hash:"#죽어도가야할집 #양조장 #불멍",
+  desc:"이태원에서 시작해 제주 조천에 양조장을 낸 맥파이의 탭룸. 천장이 높은 공장형 공간에 야외 좌석과 화덕이 있어 낮술 자리로 최고입니다. 피자는 얇고 바삭해서 맥주와 잘 맞아요.",
+  addr:"제주시 조천읍 동회천1길 23",open:"수 12:00~17:00 / 목~일 12:00~20:00",brk:"없음",closed:"월·화요일",
+  links:[["네이버지도",NM("맥파이 제주 브루어리")]]},
+ {id:"bluebird",cat:"bar",emoji:"🍕",region:"제주시·탑동",name:"블루버드 바이 맥파이",tag:"제주 피자 원톱이라는 말이 나오는 곳",anju:"나폴리식 피자 · 파인애플 깍두기 · 감자튀김",hash:"#죽어도가야할집 #맛보기세트 #새벽1시",
+  desc:"맥파이가 운영하는 탑동의 2층 펍. 맥주 맛보기 세트로 전부 시음한 뒤 고를 수 있고, 피자 도우가 얇으면서도 눅눅하지 않아 평이 아주 좋습니다. 소고기 기름으로 튀긴 감자튀김도 유명해요.",
+  addr:"제주시 탑동로2길 7 2층",open:"17:00~01:00",brk:"없음",closed:"연중무휴",
+  links:[["네이버지도",NM("블루버드 바이 맥파이")]]},
+ {id:"gumdon",cat:"bar",emoji:"🥓",region:"제주시·연동",name:"금돈상회 제원점",tag:"새벽 4시까지 하는 흑돼지 술집",anju:"흑돼지 구이 · 한상 가득 나오는 밑반찬",hash:"#죽어도가야할집 #구글5.0 #늦은밤",
+  desc:"주문하기도 전에 밑반찬이 상을 채우는 집. 고기 가격도 무난하고 직원이 구워줘서 편하며, 새벽 4시까지 열어 늦게까지 마실 자리를 찾을 때 답이 됩니다.",
+  addr:"제주시 제원길 12 1층",open:"16:00~04:00",brk:"없음",closed:"매장 확인",
+  links:[["네이버지도",NM("금돈상회 제원점")]]},
+ {id:"maruara",cat:"bar",emoji:"🍶",region:"서귀포시내",name:"마루아라 (MARUARA)",tag:"사장님 혼자 다 하는 이자카야",anju:"관자 버터구이 · 말고기 육회 · 새우 파스타",hash:"#죽어도가야할집 #구글4.9 #새벽4시",
+  desc:"이중섭거리 2층의 조용한 이자카야. 사장님이 요리·서빙·바를 혼자 다 하는데도 음식 수준이 높아 평점이 4.9입니다. 새우를 다 먹으면 머리를 따로 튀겨주고, 새벽 4시까지 문을 엽니다.",
+  addr:"서귀포시 이중섭로 16 2층",open:"17:00~04:00",brk:"없음",closed:"연중무휴",
+  links:[["네이버지도",NM("마루아라 서귀포")]]},
+ {id:"southbounder",cat:"bar",emoji:"🍔",region:"서귀포·중문",name:"사우스바운더 브루어리",tag:"수제맥주 + 훈제버거·립",anju:"스모크 버거 · 폭립 · 감자튀김",hash:"#유명술집 #가족환영 #새벽1시",
+  desc:"중문에서 조금 벗어난 예래동의 브루어리 펍. 훈제 버거와 립이 맛있고 감자튀김 평이 특히 좋습니다. 아이 동반도 편해서 가족끼리 저녁 겸 한잔하기 좋아요.",
+  addr:"서귀포시 예래로 31",open:"16:30~01:00",brk:"없음",closed:"연중무휴",
+  links:[["네이버지도",NM("사우스바운더 브루어리")]]},
+ {id:"gobrew",cat:"bar",emoji:"🌮",region:"서귀포시내",name:"고브루 (GoBrew)",tag:"수제맥주에 진짜 멕시칸 타코",anju:"타코 · 파히타 · 케사디아",hash:"#유명술집 #실내외좌석 #월요일휴무",
+  desc:"제주에서 드물게 제대로 된 멕시칸 음식을 내는 브루어리. 파히타는 닭·소·새우 세 가지가 나와 둘이 나눠 먹기 좋고, 사장님과 직원들이 영어도 편하게 씁니다.",
+  addr:"서귀포시 태평로 560",open:"16:00~23:00",brk:"없음",closed:"월요일",
+  links:[["네이버지도",NM("고브루 서귀포")]]},
+ {id:"jejubeerf",cat:"bar",emoji:"🏭",region:"서부·한림",name:"제주맥주 양조장",tag:"투어하고 갓 뽑은 맥주 마시기",anju:"치즈·살라미 플레이트",hash:"#유명술집 #양조장투어 #낮술",
+  desc:"금능에 있는 제주맥주 공장. 40분짜리 투어를 하면 서울에서는 못 마시는 갓 뽑은 생맥주를 맛볼 수 있습니다. 다만 투어를 안 하면 탭 맥주를 살 수 없으니 예약하고 가세요.",
+  addr:"제주시 한림읍 금능농공길 62-11",open:"12:30~18:00",brk:"없음",closed:"매장 확인",
+  links:[["네이버지도",NM("제주맥주 양조장")]]},
+ {id:"soksal",cat:"bar",emoji:"🐟",region:"서귀포시내",name:"속살 (soksal)",tag:"서귀포항 앞 제철 재료 이자카야",anju:"표고버섯 튀김 · 사바산도 · 나베",hash:"#유명술집 #예약권장 #바자리",
+  desc:"제주 제철 재료로 계절마다 메뉴가 바뀌는 이자카야. 표고버섯 튀김이 제주 최고라는 후기가 있고, 바 자리가 있어 둘이 조용히 마시기 좋습니다. 대부분 예약으로 받습니다.",
+  addr:"서귀포시 솔동산로 27",open:"18:00~01:00",brk:"없음",closed:"월요일",
+  links:[["네이버지도",NM("속살 서귀포")]]},
+ {id:"gujeju",cat:"bar",emoji:"⛺",region:"제주시·원도심",name:"구제주포차",tag:"원도심 야외 포차 감성",anju:"꼬치 · 생맥주 · 튀김",hash:"#유명술집 #야외좌석 #담요비치",
+  desc:"원도심의 야외 포차. 시원한 생맥주와 안주를 놓고 밤바람 맞으며 마시는 분위기가 좋습니다. 쌀쌀한 날엔 담요를 직접 가져다 쓸 수 있어요.",
+  addr:"제주시 중앙로 13",open:"18:00~01:30",brk:"없음",closed:"연중무휴",
+  links:[["네이버지도",NM("구제주포차")]]},
+ {id:"homaek",cat:"bar",emoji:"🥞",region:"제주시·이도동",name:"호맥",tag:"대왕호떡에 맥주라는 조합",anju:"대왕호떡 · 떡볶이",hash:"#대표안주확실 #이색안주 #일요일휴무",
+  desc:"'호떡+맥주'라서 호맥. 일반 호떡과 식감이 다른 커다란 호떡을 나무 잔에 담긴 시원한 맥주와 함께 먹는 집으로, 제주 사람들이 조용히 다니는 동네 술집입니다.",
+  addr:"제주시 이도2동 68-12",open:"18:00~02:00",brk:"없음",closed:"일요일",
+  links:[["네이버지도",NM("호맥 제주")]]},
+ {id:"sinbong",cat:"bar",emoji:"🍗",region:"제주시·시청",name:"신봉닭발",tag:"시청 앞 닭발은 여기가 기준",anju:"닭발 · 닭곱새 · 목살꼬치 · 계란말이",hash:"#대표안주확실 #새벽3시 #수요일휴무",
+  desc:"제주시청 주변 수많은 가게 중에서 닭발만큼은 여기라는 평을 듣는 집. 닭발에 곱창·새우를 더한 '닭곱새'와 어묵탕, 계란말이까지 술 부르는 구성입니다.",
+  addr:"제주시 서광로32길 10 2층",open:"17:00~03:00",brk:"없음",closed:"수요일",
+  links:[["네이버지도",NM("신봉닭발")]]},
+ {id:"mantae",cat:"bar",emoji:"🍢",region:"서귀포·중문",name:"만태 (Mantae)",tag:"중문에서 오뎅에 사케 한잔",anju:"오뎅탕 · 물떡 · 사케",hash:"#대표안주확실 #중문이자카야 #새벽2시",
+  desc:"중문에서 따뜻한 국물이 당길 때 가는 이자카야. 오뎅 종류가 다양하고 부산식 물떡까지 있어 겨울에 특히 좋습니다. 시끄럽지 않고 분위기가 아늑해요.",
+  addr:"서귀포시 천제연로207번길 10",open:"17:00~02:00 (일 ~00:30)",brk:"없음",closed:"연중무휴",
+  links:[["네이버지도",NM("만태 중문")]]},
+ {id:"beerfountaino",cat:"bar",emoji:"🍻",region:"서귀포시내",name:"제주맥주샘물 올레시장점",tag:"시장 구경하다 한 잔, 시음 3~4종",anju:"감자튀김 · 크래커 · 포장 가능",hash:"#대표안주확실 #무료시음 #낮2시부터",
+  desc:"올레시장 안쪽의 작은 매장. 서너 종을 맛보고 고를 수 있고, 자리가 몇 개 없어 포장해서 숙소에서 마시는 사람도 많습니다. 오후 2시부터 열어 낮술도 됩니다.",
+  addr:"서귀포시 중앙로48번길 10",open:"14:00~22:00",brk:"없음",closed:"연중무휴",
+  links:[["네이버지도",NM("제주맥주샘물 올레시장점")]]},
+
+ // ================= 호텔 (15) =================
+ {id:"grandhyatt",cat:"hotel",emoji:"🏨",region:"제주시·노형",name:"그랜드 하얏트 제주",tag:"★5 · 제주시 최고층, 구글 4.6",hash:"#청소친절우수 #무료주차 #38층뷰",
+  desc:"제주시 노형에 있는 5성급 호텔. 객실이 넓고 청소 상태와 직원 응대에 대한 칭찬이 특히 많습니다. 주차가 무료로 넉넉하고 공항에서 10분 거리라 이동도 편합니다.",
+  addr:"제주시 노연로 12",time:"체크인 15:00 / 체크아웃 11:00",
+  links:[["네이버지도",NM("그랜드하얏트 제주")],["예약 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("그랜드하얏트 제주 예약")]]},
+ {id:"parnas",cat:"hotel",emoji:"🌊",region:"서귀포·중문",name:"파르나스 호텔 제주",tag:"★5 · 중문 오션뷰, 구글 4.6",hash:"#청소친절우수 #인피니티풀 #해변도보10분",
+  desc:"중문 해변까지 걸어서 10분인 5성급 호텔. 리모델링한 객실이 깨끗하고 온수 인피니티풀이 사계절 운영됩니다. 직원 응대가 세심하다는 후기가 꾸준합니다.",
+  addr:"서귀포시 중문관광로72번길 100",time:"체크인 15:00 / 체크아웃 11:00",
+  links:[["네이버지도",NM("파르나스 호텔 제주")],["예약 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("파르나스 호텔 제주 예약")]]},
+ {id:"jwmarriott",cat:"hotel",emoji:"🕯",region:"서귀포시내",name:"JW 메리어트 제주 리조트&스파",tag:"★5 · 가장 최근에 문 연 럭셔리",hash:"#청소친절우수 #조식맛집 #해안산책로",
+  desc:"서귀포 해안 절벽에 자리한 최신 5성급 리조트. 조식 평이 아주 좋고 저녁 캠프파이어 같은 세심한 서비스가 인상적입니다. 다만 가격 대비 객실이 다소 작다는 의견도 있어요.",
+  addr:"서귀포시 호근동 399",time:"체크인 15:00 / 체크아웃 11:00",
+  links:[["네이버지도",NM("JW메리어트 제주")],["예약 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("JW메리어트 제주 예약")]]},
+ {id:"ventimo",cat:"hotel",emoji:"🧺",region:"제주시·연동",name:"벤티모 호텔 제주",tag:"★4 · 넓은 객실 + 무료 세탁실",hash:"#청소친절우수 #가성비 #공항5분",
+  desc:"공항에서 5분 거리의 4성급 호텔. 객실이 넓고 깨끗하며 세제값만 내면 쓰는 무료 세탁실과 헬스장이 있습니다. 주차도 무료라 렌터카 여행에 편합니다.",
+  addr:"제주시 연삼로 14",time:"체크인 15:00 / 체크아웃 11:00 · 24시간 프런트",
+  links:[["네이버지도",NM("벤티모 호텔 제주")],["예약 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("벤티모 호텔 제주 예약")]]},
+ {id:"sirius",cat:"hotel",emoji:"⭐",region:"제주시·연동",name:"호텔 시리우스 제주",tag:"★4 · 공항 근처 + 실내수영장",hash:"#청소친절우수 #조식좋음 #무료주차",
+  desc:"공항과 가까워 이른 비행기 전날 묵기 좋은 호텔. 객실이 넓고 깨끗하며 조식 평이 좋고, 코인 세탁실과 실내 수영장도 있습니다. 바로 옆에 편의점이 있어요.",
+  addr:"제주시 도령로 133",time:"체크인 15:00 / 체크아웃 11:00",
+  links:[["네이버지도",NM("호텔 시리우스 제주")],["예약 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("호텔 시리우스 제주 예약")]]},
+ {id:"haevichi",cat:"hotel",emoji:"🏖",region:"동부·표선",name:"해비치 호텔앤리조트 제주",tag:"★5 · 표선 바다 앞 대형 리조트",hash:"#청소친절우수 #사계절온수풀 #가족여행",
+  desc:"표선해비치해변 바로 앞의 5성급 리조트. 온수 수영장 두 곳을 추가 요금 없이 쓸 수 있고 객실이 넓어 가족 여행에 특히 좋습니다. 한적한 동부에 있어 조용합니다.",
+  addr:"서귀포시 표선면 민속해안로 537",time:"체크인 15:00 / 체크아웃 11:00",
+  links:[["네이버지도",NM("해비치 호텔 제주")],["예약 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("해비치 호텔 제주 예약")]]},
+ {id:"shilla",cat:"hotel",emoji:"👑",region:"서귀포·중문",name:"더 신라 제주",tag:"★5 · 중문 대표 호텔, 구글 4.6",hash:"#전통강자 #가족여행 #바다도보5분",
+  desc:"중문의 대표 5성급 호텔. 시설이 클래식한 편이지만 서비스와 조식 평이 좋고 바다까지 걸어서 5분입니다. 아이 동반 서비스가 잘 갖춰져 있습니다.",
+  addr:"서귀포시 중문관광로72번길 75",time:"체크인 15:00 / 체크아웃 11:00",
+  links:[["네이버지도",NM("신라호텔 제주")],["예약 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("제주신라호텔 예약")]]},
+ {id:"lottehotel",cat:"hotel",emoji:"⛲",region:"서귀포·중문",name:"롯데호텔 제주",tag:"★5 · 대형 온수풀과 자쿠지",hash:"#가족여행 #브런치뷔페 #해변접근",
+  desc:"중문의 오래된 5성급 호텔. 넓은 온수 수영장과 자쿠지가 가장 큰 장점이고, 브런치 뷔페 평이 좋습니다. 시설 연식은 있는 편입니다.",
+  addr:"서귀포시 중문관광로72번길 35",time:"체크인 15:00 / 체크아웃 11:00",
+  links:[["네이버지도",NM("롯데호텔 제주")],["예약 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("롯데호텔 제주 예약")]]},
+ {id:"shinhwamr",cat:"hotel",emoji:"🎡",region:"서부·안덕",name:"제주신화월드 메리어트 리조트",tag:"★5 · 워터파크·쇼핑까지 한 단지",hash:"#가족여행 #조식평좋음 #넓은단지",
+  desc:"워터파크·쇼핑몰·식당이 한 단지에 모여 있어 밖에 안 나가도 되는 대형 리조트. 가격 대비 객실이 넓고 조식 평이 좋습니다. 공항에서 30분 정도 걸립니다.",
+  addr:"서귀포시 안덕면 신화역사로304번길 38",time:"체크인 15:00 / 체크아웃 11:00",
+  links:[["네이버지도",NM("제주신화월드 메리어트 리조트")],["예약 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("신화월드 메리어트 예약")]]},
+ {id:"lotteart",cat:"hotel",emoji:"🏡",region:"서귀포·중문",name:"롯데리조트 제주 아트빌라스",tag:"★5 · 독채 빌라, 조용한 휴식",hash:"#프라이빗 #오션뷰 #건축디자인",
+  desc:"언덕 위에 건축가별로 설계된 독채 빌라들이 모인 리조트. 넓고 조용해 가족·친구끼리 방해받지 않고 쉬기 좋습니다. 다만 시설 연식이 느껴진다는 후기도 있습니다.",
+  addr:"서귀포시 색달중앙로252번길 124",time:"체크인 15:00 / 체크아웃 11:00",
+  links:[["네이버지도",NM("롯데리조트 제주 아트빌라스")],["예약 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("롯데 아트빌라스 예약")]]},
+ {id:"shillastay",cat:"hotel",emoji:"🛏",region:"제주시·노형",name:"신라스테이 제주",tag:"★4 · 먹자골목 바로 옆",hash:"#위치좋음 #조식 #가성비",
+  desc:"노형 먹자골목 바로 옆이라 저녁에 나가 먹기 좋은 4성급 비즈니스 호텔. 객실이 깔끔하고 공항 접근이 편합니다. 침대가 다소 작다는 후기가 있습니다.",
+  addr:"제주시 노연로 100",time:"체크인 15:00 / 체크아웃 12:00",
+  links:[["네이버지도",NM("신라스테이 제주")],["예약 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("신라스테이 제주 예약")]]},
+ {id:"lottecity",cat:"hotel",emoji:"🏙",region:"제주시·연동",name:"롯데시티호텔 제주",tag:"★4 · 지하 편의점, 쇼핑가 인접",hash:"#위치좋음 #조식뷔페 #더블룸추천",
+  desc:"연동 쇼핑가 한복판에 있어 이동이 편한 4성급 호텔. 지하에 편의점이 있고 조식 뷔페 평이 좋습니다. 트윈보다 더블룸이 훨씬 넓다는 후기가 많습니다.",
+  addr:"제주시 도령로 83",time:"체크인 15:00 / 체크아웃 12:00 · 24시간 프런트",
+  links:[["네이버지도",NM("롯데시티호텔 제주")],["예약 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("롯데시티호텔 제주 예약")]]},
+ {id:"bestwestern",cat:"hotel",emoji:"🧳",region:"제주시·연동",name:"베스트웨스턴 제주호텔",tag:"★4 · 객실 넓고 무료주차",hash:"#가성비 #공용주방 #1층스타벅스",
+  desc:"객실이 넓어 3인 이상 묵기 편한 호텔. 1층에 스타벅스와 편의점이 있고 주차가 무료입니다. 욕실 등 일부 시설은 오래된 편입니다.",
+  addr:"제주시 도령로 27",time:"체크인 15:00 / 체크아웃 11:00",
+  links:[["네이버지도",NM("베스트웨스턴 제주호텔")],["예약 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("베스트웨스턴 제주호텔 예약")]]},
+ {id:"maisonglad",cat:"hotel",emoji:"🌴",region:"제주시·연동",name:"메종글래드 제주",tag:"★5 · 연동 한복판 대형 호텔",hash:"#위치좋음 #무료주차 #연식있음",
+  desc:"연동 상권 한가운데 있어 걸어서 뭐든 해결되는 대형 호텔. 주차가 무료이고 공항에서 10~15분입니다. 시설 연식과 프런트 응대에 대한 아쉬운 후기도 있으니 기대치를 조절하세요.",
+  addr:"제주시 노연로 80",time:"체크인 15:00 / 체크아웃 11:00",
+  links:[["네이버지도",NM("메종글래드 제주")],["예약 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("메종글래드 제주 예약")]]},
+ {id:"first70",cat:"hotel",emoji:"🚶",region:"서귀포시내",name:"더 퍼스트70 호텔",tag:"★3~4 · 올레시장 도보권 가성비",hash:"#가성비 #올레시장도보 #주차복층",
+  desc:"서귀포 올레시장까지 걸어갈 수 있는 가성비 호텔. 로비에 편의점이 있고 복층 주차장이 있지만 늦게 들어오면 자리가 빠듯합니다. 객실은 넓은 편이나 방음은 보통입니다.",
+  addr:"서귀포시 명동로 46",time:"체크인 15:00 / 체크아웃 11:00 · 24시간 프런트",
+  links:[["네이버지도",NM("더퍼스트70 호텔")],["예약 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("더퍼스트70 호텔 예약")]]},
 ];
 
 const TEL={
+ islander:"070-8811-9562",
+ jongjong:"0507-1441-1891",
+ jestory:"064-738-1134",
+ playworks:"010-9141-1113",
+ witcider:"0507-1357-8611",
+ bananaair:"010-9772-4464",
+ moodjeju:"010-4352-5991",
+ seomgyeol:"010-2547-5926",
+ odalkong:"064-796-0340",
+ byjeju:"064-745-1134",
+ tote:"010-2196-7557",
+ wonnim:"064-711-5080",
+ beerfountain:"064-805-6572",
+ magpie:"064-721-0227",
+ bluebird:"064-722-2849",
+ gumdon:"064-747-8295",
+ maruara:"064-763-1364",
+ southbounder:"0507-1392-7536",
+ gobrew:"064-733-5747",
+ jejubeerf:"064-798-9872",
+ soksal:"064-733-2727",
+ gujeju:"064-722-6777",
+ homaek:"064-751-1192",
+ sinbong:"064-722-9280",
+ mantae:"010-7475-7510",
+ beerfountaino:"064-901-6632",
+ grandhyatt:"064-907-1234",
+ parnas:"064-801-5555",
+ jwmarriott:"064-803-7777",
+ ventimo:"064-712-2276",
+ sirius:"064-743-1147",
+ haevichi:"064-780-8100",
+ shilla:"064-735-5114",
+ lottehotel:"064-731-1000",
+ shinhwamr:"064-908-8888",
+ lotteart:"064-731-9000",
+ shillastay:"064-717-9000",
+ lottecity:"064-730-1000",
+ bestwestern:"064-797-6000",
+ maisonglad:"064-747-4900",
+ first70:"064-766-0000",
+
  hamdeok:"064-728-3989",
  bijarim:"064-710-7912",
  manjang:"064-710-7903",
@@ -1350,6 +1623,311 @@ const MUST = {
  oneandonly:"산방산과 바다를 한 프레임에. 제주 오션뷰 카페의 정석입니다.",
 };
 
+
+// ===== 주차 (우선순위: 무료 편한 곳 → 유료 → 공영 → 갓길) =====
+const PKT = [
+ {key:"free",  emoji:"🅿️",label:"무료 주차장",     full:"전용 주차장 · 무료",
+  tip:"주차 걱정 없는 곳이에요."},
+ {key:"freeS", emoji:"🅿️",label:"무료·좁음",       full:"무료 주차장 (좁아서 붐빔)",
+  tip:"자리가 적어요. 이른 시간이 안전합니다."},
+ {key:"paid",  emoji:"💰",label:"유료 주차장",     full:"주차장 있음 · 유료",
+  tip:"대체로 자리는 넉넉하지만 요금이 있어요."},
+ {key:"public",emoji:"🏢",label:"인근 공영주차장", full:"전용 주차장 없음 · 인근 공영주차장",
+  tip:"가게 앞이 아니라 근처 공영주차장에 대야 해요."},
+ {key:"street",emoji:"🚧",label:"갓길·이면도로",   full:"전용 주차장 없음 · 이면도로 갓길",
+  tip:"골목 갓길에 대는 곳이에요. 소화전·횡단보도 근처는 피하세요."},
+];
+const PK_ORDER = PKT.map(x=>x.key);
+const PK_OF = PKT.reduce((o,x)=>(o[x.key]=x,o),{});
+const PK = {
+ seongsan:"free",
+ udo:"free",
+ hyeopjae:"free",
+ woljeong:"freeS",
+ hamdeok:"free",
+ iho:"free",
+ saryeoni:"free",
+ bijarim:"free",
+ saebyeol:"free",
+ manjang:"free",
+ camellia:"free",
+ cheonjiyeon:"free",
+ jusangjeolli:"paid",
+ yongmeori:"free",
+ soesokkak:"free",
+ osulloc:"free",
+ arte:"free",
+ park981:"free",
+ snoopy:"free",
+ bunker:"free",
+ ecoland:"free",
+ dongmun:"paid",
+ ollemarket:"freeS",
+ jeongbang:"free",
+ leejungseop:"public",
+ saeyeongyo:"free",
+ teddybear:"paid",
+ teseum:"free",
+ joanne:"free",
+ figuremuseum:"free",
+ hellokitty:"free",
+ brickcampus:"free",
+ seopjikoji:"paid",
+ gwangchigi:"free",
+ aquaplanet:"free",
+ sangumburi:"free",
+ stonepark:"free",
+ jeolmul:"paid",
+ hallaarbo:"free",
+ yongduam:"paid",
+ samseonghyeol:"free",
+ dodubong:"free",
+ sanbanggulsa:"free",
+ cheonjeyeon:"free",
+ oedolgae:"free",
+ jungmunbeach:"paid",
+ geumneung:"free",
+ hallimpark:"free",
+ isidore:"free",
+ gwakji:"free",
+ yongnuni:"free",
+ gimnyeongmaze:"free",
+ folkvillage:"free",
+ hueree:"free",
+ boreumwat:"free",
+ songaksan:"free",
+ suwolbong:"free",
+ sinchang:"free",
+ keuneong:"free",
+ bonte:"free",
+ chilsimni:"free",
+ yeongsil:"paid",
+ marado:"free",
+ sehwa:"free",
+ geumoreum:"freeS",
+ darangshi:"free",
+ peacepark:"free",
+ hwansang:"free",
+ nohyungmarket:"freeS",
+ gotjawalpark:"free",
+ geomunoreum:"free",
+ tansanspa:"free",
+ mocajeju:"free",
+ yumin:"paid",
+ nexon:"free",
+ aerospace:"free",
+ carpiano:"free",
+ glasscastle:"free",
+ soingook:"free",
+ gimnyeongbeach:"free",
+ pyoseonbeach:"free",
+ herbdongsan:"free",
+ letsrun:"free",
+ folknature:"free",
+ mokgwana:"public",
+ sarabong:"free",
+ abu:"freeS",
+ baekyaki:"free",
+ ttarabi:"free",
+ mulyeongari:"free",
+ bulgeun:"paid",
+ sgpforest:"paid",
+ hallaeco:"free",
+ bangmokji:"free",
+ eongtto:"freeS",
+ hwanguji:"freeS",
+ biyangdo:"free",
+ gapado:"free",
+ oradong:"free",
+ donsadon:"free",
+ sukseongdo:"free",
+ ollae:"street",
+ jamae:"free",
+ ujin:"street",
+ matna:"public",
+ myeongjin:"free",
+ leechunok:"free",
+ miyoung:"freeS",
+ oneunjeong:"street",
+ manong:"public",
+ saerona:"public",
+ woojung:"public",
+ grandma:"street",
+ eunhee:"freeS",
+ dodu:"free",
+ sinseol:"street",
+ mooger:"freeS",
+ kyungmi:"freeS",
+ gasi:"free",
+ chunja:"free",
+ negeori:"public",
+ cheonjitgol:"street",
+ sekdal:"free",
+ suduri:"free",
+ sanbang:"free",
+ okdom:"freeS",
+ suudong:"freeS",
+ hanmo:"free",
+ yeondon:"freeS",
+ onoff:"free",
+ eunsikdang:"free",
+ halladon:"street",
+ hahahoho:"free",
+ yangga:"free",
+ welcomeburger:"street",
+ burgeri:"free",
+ fantasticburger:"free",
+ samdae:"free",
+ golmak:"street",
+ apbaengdi:"street",
+ gwenegi:"free",
+ gozip:"free",
+ sunok:"free",
+ myeongridong:"free",
+ lambs:"street",
+ budu:"public",
+ guksitmeong:"free",
+ dajeong:"street",
+ manseon:"free",
+ jeongseong:"street",
+ hareubang:"free",
+ haenyeohouse:"free",
+ childon:"free",
+ hwaseong:"street",
+ delmoondo:"freeS",
+ monsant:"freeS",
+ bomnal:"freeS",
+ randys:"free",
+ oneandonly:"free",
+ insmill:"free",
+ manor:"free",
+ kleinblue:"free",
+ umu:"street",
+ abebe:"public",
+ orrrn:"free",
+ blanc:"free",
+ handam:"paid",
+ gongbech:"free",
+ poonglim:"free",
+ moalboal:"free",
+ hallasan:"freeS",
+ glencoe:"free",
+ delekoomda:"free",
+ saebil:"free",
+ antoinette:"free",
+ soona:"street",
+ oedo:"freeS",
+ myeongwol:"free",
+ mippeun:"free",
+ honeymoon:"freeS",
+ terarosa:"free",
+ seoyeun:"freeS",
+ hugely:"freeS",
+ sisokaymak:"street",
+ wayview:"free",
+ sumtarr:"freeS",
+ lazypump:"free",
+ jinjungsung:"free",
+ daehanmokjang:"free",
+ azulejo:"freeS",
+ boromchango:"free",
+ coji:"free",
+ audrant:"freeS",
+ easterly:"free",
+ yuji:"free",
+ islander:"street",
+ jongjong:"free",
+ jestory:"free",
+ soranasi:"freeS",
+ playworks:"street",
+ witcider:"street",
+ bananaair:"free",
+ moodjeju:"street",
+ seomgyeol:"street",
+ odalkong:"free",
+ byjeju:"free",
+ tote:"street",
+ wonnim:"street",
+ beerfountain:"street",
+ magpie:"free",
+ bluebird:"paid",
+ gumdon:"street",
+ maruara:"street",
+ southbounder:"free",
+ gobrew:"free",
+ jejubeerf:"free",
+ soksal:"street",
+ gujeju:"paid",
+ homaek:"street",
+ sinbong:"street",
+ mantae:"free",
+ beerfountaino:"street",
+ grandhyatt:"free",
+ parnas:"free",
+ jwmarriott:"free",
+ ventimo:"free",
+ sirius:"free",
+ haevichi:"free",
+ shilla:"free",
+ lottehotel:"free",
+ shinhwamr:"free",
+ lotteart:"free",
+ shillastay:"free",
+ lottecity:"free",
+ bestwestern:"free",
+ maisonglad:"free",
+ first70:"freeS",
+};
+function pkOf(p){ return (p.pk && PK_OF[p.pk]) ? p.pk : (PK[p.id] || "street"); }
+function byPk(a,b){ return PK_ORDER.indexOf(pkOf(a)) - PK_ORDER.indexOf(pkOf(b)); }
+const PKMAP = n => "https://map.naver.com/p/search/" + encodeURIComponent(n + " 주차장");
+
+// ===== 소품샵 / 술집 / 호텔 우선 추천 =====
+const MUSTSHOP = {
+ islander:"제주 작가 굿즈가 가장 잘 모인 곳. 기념품샵 딱 한 군데만 간다면 여기예요.",
+ jongjong:"다른 데선 아예 못 구하는 로컬 일러스트 굿즈. 성산~제주시 동선에 꼭 끼워 넣으세요.",
+ jestory:"종류와 가격 밸런스가 가장 좋아요. 선물 여러 개를 한 번에 해결할 수 있습니다.",
+ soranasi:"공항보다 싸고 종류는 더 많다는 평. 중문 코스라면 무조건 들르세요.",
+ playworks:"제주 전용으로 만든 지류 굿즈가 여기에만 있어요. 문구 좋아하면 필수.",
+};
+const SHOPTIER = {islander:1,jongjong:1,jestory:1,soranasi:1,playworks:1,witcider:2,bananaair:2,moodjeju:2,seomgyeol:2,odalkong:3,byjeju:3,tote:3};
+const SHOP_T = [
+ {t:1,emoji:"💎",label:"죽어도 가봐야 하는 유명 소품샵"},
+ {t:2,emoji:"🎀",label:"산리오·조개공예 같은 특이한 소품샵"},
+ {t:3,emoji:"🛍",label:"그 밖의 좋은 기념품샵"},
+];
+const MUSTBAR = {
+ wonnim:"제주 성게를 술안주로 먹는 경험. 육지에선 이 가격에 이 양이 안 나옵니다.",
+ beerfountain:"16가지를 다 맛보고 고른 뒤 감자튀김까지 서비스로 나와요. 실패가 없습니다.",
+ magpie:"제주 수제맥주의 출발점. 양조장 옆에서 마시는 맛이 다릅니다.",
+ bluebird:"맥주 맛보기 세트 + 제주 최고로 꼽히는 피자. 탑동 밤 코스의 정답이에요.",
+ gumdon:"새벽 4시까지 흑돼지에 반찬 한 상. 늦게까지 마실 곳을 찾는다면 여기.",
+ maruara:"1인 운영인데 평점 4.9. 조용히 제대로 마시고 싶은 날 가세요.",
+};
+const BARTIER = {wonnim:1,beerfountain:1,magpie:1,bluebird:1,gumdon:1,maruara:1,southbounder:2,gobrew:2,jejubeerf:2,soksal:2,gujeju:2,homaek:3,sinbong:3,mantae:3,beerfountaino:3};
+const BAR_T = [
+ {t:1,emoji:"🔥",label:"죽어도 가봐야 할 술집 · 안주집"},
+ {t:2,emoji:"🍺",label:"간단히 맥주 한잔하기 좋은 유명 술집"},
+ {t:3,emoji:"🍢",label:"대표 안주가 확실한 집"},
+];
+const MUSTHOTEL = {
+ grandhyatt:"청소 상태와 직원 응대 칭찬이 가장 많은 곳. 무료 주차도 넉넉합니다.",
+ parnas:"리모델링한 객실이 깨끗하고 응대가 세심해요. 사계절 온수 인피니티풀.",
+ jwmarriott:"가장 최근에 문 연 럭셔리 리조트. 조식과 서비스 평이 뛰어납니다.",
+ ventimo:"4성급인데 객실이 넓고 깨끗해요. 무료 세탁실이 장기 여행에 큰 도움이 됩니다.",
+ sirius:"공항 근처에서 청결·조식 평이 가장 안정적인 호텔이에요.",
+ haevichi:"넓은 객실과 추가요금 없는 온수풀. 가족 여행이면 1순위입니다.",
+};
+const HOTELTIER = {grandhyatt:1,parnas:1,jwmarriott:1,ventimo:1,sirius:1,haevichi:1,shilla:2,lottehotel:2,shinhwamr:2,lotteart:2,shillastay:2,lottecity:2,bestwestern:2,maisonglad:2,first70:2};
+const HOTEL_T = [
+ {t:1,emoji:"✨",label:"청소·친절 평이 특히 좋은 곳"},
+ {t:2,emoji:"🏨",label:"그 밖의 3~5성급"},
+];
+const STARS = {grandhyatt:5,parnas:5,jwmarriott:5,shilla:5,lottehotel:5,haevichi:5,shinhwamr:5,lotteart:5,maisonglad:5,ventimo:4,sirius:4,shillastay:4,lottecity:4,bestwestern:4,first70:3};
+const TIERMAP = {shop:{tier:SHOPTIER,defs:SHOP_T,must:MUSTSHOP,cls:"shop",why:"여기는 꼭"},
+                 bar:{tier:BARTIER,defs:BAR_T,must:MUSTBAR,cls:"bar",why:"이 집을 꼽는 이유"},
+                 hotel:{tier:HOTELTIER,defs:HOTEL_T,must:MUSTHOTEL,cls:"hotel",why:"이 호텔을 꼽는 이유"}};
+
 // ===== 활동 강도: 실내 → 시원한 야외 → 차로 → 야외 → 걷기 → 약간의 등산 =====
 const EFF = [
  {key:"in",  emoji:"🏠",name:"실내",     full:"실내 (에어컨·비와도 OK)",   tip:"덥거나 비 오는 날 1순위"},
@@ -1363,6 +1941,49 @@ const EFF = [
 const EFF_ORDER = EFF.map(e=>e.key);
 const EFF_OF = EFF.reduce((o,e)=>(o[e.key]=e,o),{});
 const EFFORT = {
+ islander:"in",
+ jongjong:"in",
+ jestory:"in",
+ soranasi:"in",
+ playworks:"in",
+ witcider:"in",
+ bananaair:"in",
+ moodjeju:"in",
+ seomgyeol:"in",
+ odalkong:"in",
+ byjeju:"in",
+ tote:"in",
+ wonnim:"in",
+ beerfountain:"in",
+ magpie:"in",
+ bluebird:"in",
+ gumdon:"in",
+ maruara:"in",
+ southbounder:"in",
+ gobrew:"in",
+ jejubeerf:"in",
+ soksal:"in",
+ gujeju:"in",
+ homaek:"in",
+ sinbong:"in",
+ mantae:"in",
+ beerfountaino:"in",
+ grandhyatt:"in",
+ parnas:"in",
+ jwmarriott:"in",
+ ventimo:"in",
+ sirius:"in",
+ haevichi:"in",
+ shilla:"in",
+ lottehotel:"in",
+ shinhwamr:"in",
+ lotteart:"in",
+ shillastay:"in",
+ lottecity:"in",
+ bestwestern:"in",
+ maisonglad:"in",
+ first70:"in",
+
  seongsan:"hike",
  udo:"walk",
  hyeopjae:"out",
@@ -1560,7 +2181,8 @@ const EFFORT = {
  yuji:"in",
 };
 function effOf(p){ return (p.eff && EFF_OF[p.eff]) ? p.eff : (EFFORT[p.id] || "etc"); }
-function byEff(a,b){ return EFF_ORDER.indexOf(effOf(a)) - EFF_ORDER.indexOf(effOf(b)); }
+function byEff(a,b){ const d = EFF_ORDER.indexOf(effOf(a)) - EFF_ORDER.indexOf(effOf(b));
+  return d !== 0 ? d : byPk(a,b); }
 
 // ===== 맛집 세부 종류 =====
 const FT = [
@@ -1745,7 +2367,9 @@ function glossify(t){
 
 // 대표 사진 보기 (네이버 이미지 검색 — 항상 최신 사진이 뜸)
 const PHOTO = n => "https://search.naver.com/search.naver?where=image&query=" + encodeURIComponent("제주 " + n);
-const CAT = {spot:{label:"관광지"},food:{label:"맛집"},cafe:{label:"카페"}};
+const CAT = {spot:{label:"관광지"},food:{label:"맛집"},cafe:{label:"카페"},shop:{label:"소품샵"},bar:{label:"술집·안주"},hotel:{label:"호텔"}};
+const CATS = ["spot","food","cafe","shop","bar","hotel"];
+const CAT_EMOJI = {spot:"🏝 ",food:"🍽 ",cafe:"☕ ",shop:"🛍 ",bar:"🍻 ",hotel:"🏨 "};
 
 // ===== 저장 구조: {v: 방문 도장, c: 직접 추가한 장소} — 두 사람이 자동 공유 =====
 const COUPLE_KEY = "jejustamp_3c5491d5379e4abce2a377bae7987b6c";
@@ -1881,6 +2505,7 @@ function customToCard(p){
     time: "방문 전 운영시간 확인",
     links: [["네이버지도", NM(p.name)]],
     eff: p.eff || (p.cat === "spot" ? "out" : "in"),
+    pk: p.pk || "street",
     custom: true
   };
 }
@@ -1919,6 +2544,49 @@ const ZONES=[
  {key:"daejeong",emoji:"⛰",name:"대정·안덕",full:"서귀포시 대정읍·안덕면"},
 ];
 const ZONE_OF={
+ islander:"jsi",
+ jongjong:"jocheon",
+ jestory:"sgp",
+ soranasi:"jungmun",
+ playworks:"jsi",
+ witcider:"jsi",
+ bananaair:"jsi",
+ moodjeju:"jsi",
+ seomgyeol:"sgp",
+ odalkong:"hallim",
+ byjeju:"jsi",
+ tote:"jsi",
+ wonnim:"jsi",
+ beerfountain:"sgp",
+ magpie:"jocheon",
+ bluebird:"jsi",
+ gumdon:"jsi",
+ maruara:"sgp",
+ southbounder:"jungmun",
+ gobrew:"sgp",
+ jejubeerf:"hallim",
+ soksal:"sgp",
+ gujeju:"jsi",
+ homaek:"jsi",
+ sinbong:"jsi",
+ mantae:"jungmun",
+ beerfountaino:"sgp",
+ grandhyatt:"jsi",
+ parnas:"jungmun",
+ jwmarriott:"sgp",
+ ventimo:"jsi",
+ sirius:"jsi",
+ haevichi:"pyoseon",
+ shilla:"jungmun",
+ lottehotel:"jungmun",
+ shinhwamr:"daejeong",
+ lotteart:"jungmun",
+ shillastay:"jsi",
+ lottecity:"jsi",
+ bestwestern:"jsi",
+ maisonglad:"jsi",
+ first70:"sgp",
+
  iho:"jsi",dongmun:"jsi",brickcampus:"jsi",donsadon:"jsi",sukseongdo:"jsi",ollae:"jsi",jamae:"jsi",ujin:"jsi",
  eunhee:"jsi",dodu:"jsi",sinseol:"jsi",abebe:"jsi",antoinette:"jsi",soona:"jsi",oedo:"jsi",
  saebyeol:"aewol",arte:"aewol",park981:"aewol",teseum:"aewol",leechunok:"aewol",hanmo:"aewol",
@@ -2025,6 +2693,49 @@ function renderEffMenu(){
 
 // 장소 좌표 (지도 데이터 검증)
 const LL={
+ islander:[33.5123869,126.5214218],
+ jongjong:[33.4878473,126.7124147],
+ jestory:[33.2360926,126.5149193],
+ soranasi:[33.2487954,126.4198849],
+ playworks:[33.5133408,126.5283153],
+ witcider:[33.5128272,126.5205568],
+ bananaair:[33.4781673,126.4684967],
+ moodjeju:[33.5077651,126.5152691],
+ seomgyeol:[33.2464329,126.5618782],
+ odalkong:[33.3937921,126.2407402],
+ byjeju:[33.516627,126.5040466],
+ tote:[33.5116788,126.527986],
+ wonnim:[33.4907873,126.4930684],
+ beerfountain:[33.2477512,126.5616839],
+ magpie:[33.5031897,126.617275],
+ bluebird:[33.5180077,126.5232786],
+ gumdon:[33.489015,126.4892562],
+ maruara:[33.2467078,126.5640387],
+ southbounder:[33.2565309,126.4026394],
+ gobrew:[33.2472114,126.552951],
+ jejubeerf:[33.3585402,126.2412396],
+ soksal:[33.242339,126.5635345],
+ gujeju:[33.5168938,126.5252958],
+ homaek:[33.5013413,126.5437363],
+ sinbong:[33.4995918,126.5281856],
+ mantae:[33.2525611,126.4270925],
+ beerfountaino:[33.2490223,126.5628247],
+ grandhyatt:[33.4853707,126.4815713],
+ parnas:[33.2445996,126.4059611],
+ jwmarriott:[33.243829,126.5386304],
+ ventimo:[33.4934577,126.4937634],
+ sirius:[33.4934411,126.4910541],
+ haevichi:[33.323125,126.8447251],
+ shilla:[33.2471631,126.4079553],
+ lottehotel:[33.2484468,126.4106058],
+ shinhwamr:[33.3075638,126.3176387],
+ lotteart:[33.2882586,126.4155923],
+ shillastay:[33.4855434,126.4908994],
+ lottecity:[33.4905955,126.4864277],
+ bestwestern:[33.4877957,126.4818957],
+ maisonglad:[33.4848645,126.4885577],
+ first70:[33.2472796,126.5668542],
+
  seongsan:[33.458056,126.9425],udo:[33.5023255,126.9432712],hyeopjae:[33.3942945,126.2398813],
  woljeong:[33.5559739,126.7961709],hamdeok:[33.5434231,126.6697752],iho:[33.4979571,126.4531502],
  saryeoni:[33.4273021,126.6616589],bijarim:[33.484272,126.8064793],saebyeol:[33.3659432,126.35644],
@@ -2106,7 +2817,7 @@ let nearbyOn=false, myPos=null, distMap=null;
 const nearbyBtn = document.getElementById("nearbyBtn");
 nearbyBtn.addEventListener("click",()=>{
   if(nearbyOn){
-    nearbyOn=false; distMap=null;
+    nearbyOn=false; if(!barNear) distMap=null;
     nearbyBtn.classList.remove("on");
     nearbyBtn.textContent="📍 내 주변 15km 이내 보기";
     render(); return;
@@ -2126,6 +2837,28 @@ nearbyBtn.addEventListener("click",()=>{
     alert("위치를 가져올 수 없어요.\n브라우저의 위치 권한을 허용한 뒤 다시 눌러주세요.");
   },{enableHighAccuracy:true, timeout:10000, maximumAge:60000});
 });
+// 술집 섹션 전용: 내 위치에서 가까운 순 (전체 화면을 바꾸지 않음)
+let barNear = false;
+function toggleBarNear(){
+  const b = document.getElementById("barGps");
+  if(barNear){
+    barNear = false;
+    if(!nearbyOn) distMap = null;
+    render(); return;
+  }
+  if(!navigator.geolocation){ alert("이 브라우저는 위치 기능을 지원하지 않아요."); return; }
+  if(b) b.textContent = "📡 내 위치 찾는 중…";
+  navigator.geolocation.getCurrentPosition(pos=>{
+    myPos = {lat:pos.coords.latitude, lng:pos.coords.longitude};
+    distMap = distMap || {};
+    allPlaces().forEach(p=>{ if(LL[p.id]) distMap[p.id]=distKm(myPos.lat,myPos.lng,LL[p.id][0],LL[p.id][1]); });
+    barNear = true;
+    render();
+  },err=>{
+    barNear = false; render();
+    alert("위치를 가져올 수 없어요.\n브라우저의 위치 권한을 허용한 뒤 다시 눌러주세요.");
+  },{enableHighAccuracy:true, timeout:10000, maximumAge:60000});
+}
 let searchQ = "", activeChip = -1;
 function placeText(p){
   return [(p.name||""),(p.region||""),(p.tag||""),(p.hash||""),(p.desc||""),(p.memo||""),(p.addr||"")].join(" ");
@@ -2217,6 +2950,42 @@ function addFoodGroups(items){
     addGrid(g.arr.slice().sort(byEff));
   });
 }
+// 소품샵·술집·호텔: 우선순위 티어별로
+function addTierGroups(cat, items){
+  const M = TIERMAP[cat];
+  if(cat==="bar"){
+    const b = document.createElement("button");
+    b.id = "barGps";
+    b.className = barNear ? "on" : "";
+    b.textContent = barNear ? "📍 내 위치에서 가까운 순으로 보는 중 (누르면 해제)"
+                            : "📍 지금 내 위치에서 가까운 술집부터 보기";
+    b.addEventListener("click", toggleBarNear);
+    list.appendChild(b);
+  }
+  const near = ((barNear || nearbyOn) && distMap);
+  M.defs.forEach(d=>{
+    let arr = items.filter(p=>(M.tier[p.id]||99)===d.t);
+    if(!arr.length) return;
+    arr = arr.slice().sort(near
+      ? (a,b)=>(distMap[a.id]===undefined?1e9:distMap[a.id])-(distMap[b.id]===undefined?1e9:distMap[b.id])
+      : byPk);
+    if(d.t===1){
+      const h = document.createElement("div");
+      h.className = "tier-head th-"+M.cls;
+      h.innerHTML = d.emoji+" "+d.label+" "+arr.length+"곳"+
+        '<div class="th-sub">'+(near?"내 위치에서 가까운 순입니다. ":"")+
+        (cat==="hotel"?"청소 상태와 직원 응대 후기가 꾸준히 좋은 곳만 골랐어요."
+         :cat==="bar"?"제주가 아니면 이 안주를 이렇게 못 먹습니다."
+         :"기념품샵을 딱 한 군데만 간다면 이 안에서 고르세요.")+'</div>';
+      list.appendChild(h);
+    }else{
+      addSubHead(d.emoji+" "+d.label+" ("+arr.length+")", near?"가까운 순":"");
+    }
+    addGrid(arr);
+  });
+  const rest = items.filter(p=>!M.tier[p.id]);
+  if(rest.length){ addSubHead("📌 직접 추가한 곳 ("+rest.length+")"); addGrid(rest); }
+}
 
 function render(){
   renderZoneMenu();
@@ -2253,14 +3022,15 @@ function render(){
     const items = pool.filter(passes);
     if(items.length) addEffGroups(items, true);
   } else {
-    ["spot","food","cafe"].forEach(cat=>{
+    CATS.forEach(cat=>{
       const items = pool.filter(p=>p.cat===cat && passes(p));
       if(items.length===0) return;
       const title = document.createElement("h2");
       title.className="section-title";
-      title.textContent = (cat==="spot"?"🏝 ":cat==="food"?"🍽 ":"☕ ")+CAT[cat].label+" ("+items.length+")";
+      title.textContent = CAT_EMOJI[cat]+CAT[cat].label+" ("+items.length+")";
       list.appendChild(title);
       if(cat==="food") addFoodGroups(items);
+      else if(TIERMAP[cat]) addTierGroups(cat, items);
       else addEffGroups(items, cat==="spot");
     });
   }
@@ -2292,16 +3062,25 @@ function makeCard(p){
       <span>${p.emoji}</span>
       <span class="badge b-${p.cat}">${CAT[p.cat].label}</span>
       <span class="region">${p.region}</span>
-      ${MUSTEAT[p.id]?'<span class="musteat-star">🔥 죽어도 맛봐야 할 집</span>':(MUST[p.id]?'<span class="must-star">⭐ 꼭 가볼 곳</span>':"")}
+      ${(()=>{const M=TIERMAP[p.cat];
+        if(M && M.must[p.id]) return '<span class="tier-star ts-'+M.cls+'">'+
+          (p.cat==="shop"?"💎 꼭 가볼 소품샵":p.cat==="bar"?"🔥 죽어도 가야 할 집":"✨ 청소·친절 우수")+'</span>';
+        if(MUSTEAT[p.id]) return '<span class="musteat-star">🔥 죽어도 맛봐야 할 집</span>';
+        if(MUST[p.id]) return '<span class="must-star">⭐ 꼭 가볼 곳</span>';
+        return "";})()}
     </div>
     <div class="stamp"><span class="chk">✔</span>방문완료</div>
     <div class="body">
-      ${(()=>{const e=EFF_OF[effOf(p)];return e?`<span class="eff-badge e-${e.key}">${e.emoji} ${e.full}</span>`:"";})()}${(()=>{const z=ZONES.find(x=>x.key===zoneOf(p));return z?`<span class="zone-badge">📍 ${z.full}</span>`:"";})()}${nearbyOn&&distMap&&distMap[p.id]!==undefined?`<span class="dist-badge">🧭 ${fmtDist(distMap[p.id])}</span>`:""}
+      ${STARS[p.id]?`<span class="star-badge">${"★".repeat(STARS[p.id])} ${STARS[p.id]}성급</span>`:""}${(()=>{const e=EFF_OF[effOf(p)];return e?`<span class="eff-badge e-${e.key}">${e.emoji} ${e.full}</span>`:"";})()}${(()=>{const k=PK_OF[pkOf(p)];return k?`<span class="pk-badge pk-${k.key}">${k.emoji} ${k.label}</span>`:"";})()}${(()=>{const z=ZONES.find(x=>x.key===zoneOf(p));return z?`<span class="zone-badge">📍 ${z.full}</span>`:"";})()}${(nearbyOn||barNear)&&distMap&&distMap[p.id]!==undefined?`<span class="dist-badge">🧭 ${fmtDist(distMap[p.id])}</span>`:""}
       <div class="name">${p.name}</div>
       <div class="tagline">${p.tag}</div>
       <div class="hash">${p.hash}</div>
-      ${MUSTEAT[p.id]?`<div class="musteat-why"><b>이건 제주에서만</b> ${MUSTEAT[p.id]}</div>`
-        :(MUST[p.id]?`<div class="must-why"><b>왜 꼭 가야 하냐면</b> ${MUST[p.id]}</div>`:"")}
+      ${(()=>{const M=TIERMAP[p.cat];
+        if(M && M.must[p.id]) return '<div class="tier-why tw-'+M.cls+'"><b>'+M.why+'</b> '+M.must[p.id]+'</div>';
+        if(MUSTEAT[p.id]) return `<div class="musteat-why"><b>이건 제주에서만</b> ${MUSTEAT[p.id]}</div>`;
+        if(MUST[p.id]) return `<div class="must-why"><b>왜 꼭 가야 하냐면</b> ${MUST[p.id]}</div>`;
+        return "";})()}
+      ${p.anju?`<div class="anju-line"><b>🍢 대표 안주</b> ${p.anju}</div>`:""}
       <p class="desc">${glossify(p.desc)}</p>
       <div class="meta">
         <div><span class="ico">📍</span><span>${p.addr}</span></div>
@@ -2312,7 +3091,10 @@ function makeCard(p){
         :`<div><span class="ico">🕐</span><span>${p.time}</span></div>`}
         ${TEL[p.id]?`<div><span class="ico">📞</span><span><a class="tel-link" href="tel:${TEL[p.id].replace(/-/g,"")}">${TEL[p.id]}</a></span></div>`:""}
       </div>
+      ${(()=>{const k=PK_OF[pkOf(p)];return k?`<div class="pk-line"><b>${k.emoji} 주차</b> ${k.full} — ${k.tip}
+        <br><a href="${PKMAP(p.name)}" target="_blank" rel="noopener">🗺 이 근처 주차장 지도로 보기 ↗</a></div>`:"";})()}
       <div class="links">
+        <a class="copy-link" role="button" tabindex="0">📋 주소 복사</a>
         <a class="photo-link" href="${PHOTO(p.name)}" target="_blank" rel="noopener">📷 대표 사진 보기 ↗</a>
         ${p.links.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${l[0]} ↗</a>`).join("")}
       </div>
@@ -2322,6 +3104,8 @@ function makeCard(p){
       ${p.custom?'<button class="del-link">이 장소 삭제</button>':""}
     </div>`;
   c.querySelector(".visit-btn").addEventListener("click",()=>{ toggleVisit(p.id); });
+  const cp = c.querySelector(".copy-link");
+  if(cp) cp.addEventListener("click",()=>copyAddr(p, cp));
   const del = c.querySelector(".del-link");
   if(del) del.addEventListener("click",()=>{ deleteCustomPlace(p.id); });
   return c;
@@ -2440,6 +3224,18 @@ document.getElementById("resetBtn").addEventListener("click",async ()=>{
   }
 });
 
+
+// ===== 주소 복사 =====
+function copyAddr(p, btn){
+  const txt = (p.addr && p.addr !== "주소 미입력") ? (p.name + "\n" + p.addr) : p.name;
+  const done = ()=>{ const o = btn.textContent; btn.textContent = "✅ 복사됨";
+    btn.classList.add("done"); setTimeout(()=>{ btn.textContent = o; btn.classList.remove("done"); }, 1600); };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done, ()=>prompt("아래 주소를 길게 눌러 복사하세요:", txt));
+  }else{
+    prompt("아래 주소를 길게 눌러 복사하세요:", txt);
+  }
+}
 
 // ===== 모르는 말 바로 찾기 (사전 + AI 검색) =====
 const gloModal = document.getElementById("gloModal");
