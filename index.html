@@ -68,6 +68,18 @@
   .zone-badge{display:inline-block;background:#FFF4EC;color:var(--tangerine);
     border:1px solid #FFDCC2;border-radius:8px;padding:2px 7px;
     font-size:10.5px;font-weight:900;margin-bottom:5px;}
+  #nearbyBtn{width:100%;margin-top:10px;border:none;border-radius:14px;
+    background:linear-gradient(135deg,#0E7490,#0891B2);color:#fff;
+    padding:14px;font-family:inherit;font-size:15px;font-weight:900;cursor:pointer;
+    box-shadow:0 4px 14px rgba(14,116,144,.3);}
+  #nearbyBtn.on{background:linear-gradient(135deg,#C2410C,#EA580C);
+    box-shadow:0 4px 14px rgba(234,88,12,.35);}
+  .dist-badge{display:inline-block;background:#E6F7FA;color:#0E7490;
+    border:1px solid #BAE6EF;border-radius:8px;padding:2px 7px;
+    font-size:10.5px;font-weight:900;margin-bottom:5px;margin-left:4px;}
+  .nearby-head{max-width:1080px;margin:18px auto 0;padding:0 16px;
+    font-size:16px;font-weight:900;color:var(--basalt);}
+  .nearby-sub{font-size:12px;color:#8A9490;font-weight:400;margin-top:2px;}
   main{max-width:1080px;margin:0 auto;padding:18px 16px 60px;}
   .section-title{font-family:'Gowun Batang',serif;font-size:22px;margin:26px 4px 12px;
     display:flex;align-items:center;gap:10px;}
@@ -199,6 +211,7 @@
 <div id="zoneWrap">
   <p id="zoneTitle">📍 지역별로 보기</p>
   <div id="zoneGrid"></div>
+  <button id="nearbyBtn">📍 내 주변 가까운 순으로 보기</button>
 </div>
 
 <main id="list"></main>
@@ -835,6 +848,71 @@ function renderZoneMenu(){
     zoneGrid.appendChild(b);
   });
 }
+// 장소 좌표 (지도 데이터 검증)
+const LL={
+ seongsan:[33.458056,126.9425],udo:[33.5023255,126.9432712],hyeopjae:[33.3942945,126.2398813],
+ woljeong:[33.5559739,126.7961709],hamdeok:[33.5434231,126.6697752],iho:[33.4979571,126.4531502],
+ saryeoni:[33.4273021,126.6616589],bijarim:[33.484272,126.8064793],saebyeol:[33.3659432,126.35644],
+ manjang:[33.5281972,126.7717618],camellia:[33.2898073,126.368298],cheonjiyeon:[33.246944,126.554417],
+ jusangjeolli:[33.2367938,126.4254867],yongmeori:[33.2316155,126.3148321],soesokkak:[33.2523471,126.6238624],
+ osulloc:[33.3059385,126.2894355],arte:[33.3964708,126.3446147],park981:[33.3899391,126.3663248],
+ snoopy:[33.4441972,126.7783058],bunker:[33.4399386,126.8990193],ecoland:[33.4465682,126.6670507],
+ dongmun:[33.5122122,126.5282021],ollemarket:[33.2487163,126.5640617],jeongbang:[33.2448567,126.5715794],
+ leejungseop:[33.2448955,126.5644569],saeyeongyo:[33.2382692,126.5591697],teddybear:[33.2503549,126.4121736],
+ teseum:[33.412271,126.3936089],joanne:[33.2402778,126.4341667],figuremuseum:[33.2818685,126.3552384],
+ hellokitty:[33.2902148,126.3520461],brickcampus:[33.4584094,126.4854567],
+ donsadon:[33.4788707,126.4640837],sukseongdo:[33.4850463,126.4850445],ollae:[33.4915195,126.4972577],
+ jamae:[33.498621,126.4587659],ujin:[33.511505,126.5200319],matna:[33.4485794,126.9160712],
+ myeongjin:[33.5324891,126.8502082],leechunok:[33.4889643,126.4186374],miyoung:[33.2177388,126.2498932],
+ oneunjeong:[33.2495863,126.5677504],manong:[33.2491267,126.5633678],saerona:[33.2485391,126.564227],
+ woojung:[33.2497834,126.5636145],grandma:[33.2486024,126.5642223],eunhee:[33.5085228,126.5408037],
+ dodu:[33.506162,126.4666434],sinseol:[33.5054021,126.541614],mooger:[33.5490079,126.6551297],
+ kyungmi:[33.4612157,126.9334624],gasi:[33.3530912,126.7712412],chunja:[33.3265195,126.8330412],
+ negeori:[33.2485302,126.5593236],cheonjitgol:[33.2482505,126.5613046],sekdal:[33.2417217,126.3862842],
+ suduri:[33.2515765,126.4251078],sanbang:[33.2234878,126.254219],okdom:[33.2199308,126.2490365],
+ suudong:[33.3965751,126.2425147],hanmo:[33.4854363,126.4080098],
+ delmoondo:[33.5437787,126.6688353],monsant:[33.4628548,126.3092669],bomnal:[33.4624568,126.3096148],
+ randys:[33.4611909,126.3116327],oneandonly:[33.2392241,126.3193748],insmill:[33.2384496,126.2293708],
+ manor:[33.254851,126.2950137],kleinblue:[33.3449957,126.1775252],umu:[33.4059283,126.2564727],
+ abebe:[33.5126576,126.5287951],orrrn:[33.4717785,126.9157889],blanc:[33.5156863,126.9580858],
+ handam:[33.4591293,126.3103796],gongbech:[33.5535179,126.7151174],poonglim:[33.4718344,126.7856128],
+ moalboal:[33.5595508,126.7279497],hallasan:[33.5246978,126.8629837],glencoe:[33.4335091,126.7333688],
+ delekoomda:[33.4448521,126.9189402],saebil:[33.387421,126.364475],antoinette:[33.516156,126.5088246],
+ soona:[33.5130785,126.5227249],oedo:[33.4942916,126.43403],myeongwol:[33.3885095,126.2651195],
+ mippeun:[33.2691605,126.1800592],honeymoon:[33.2441415,126.5787741],terarosa:[33.2494837,126.6186004],
+ seoyeun:[33.2693956,126.6556676],
+};
+function distKm(a,b,c,d){
+  const R=6371, rad=x=>x*Math.PI/180;
+  const dLat=rad(c-a), dLon=rad(d-b);
+  const h=Math.sin(dLat/2)**2 + Math.cos(rad(a))*Math.cos(rad(c))*Math.sin(dLon/2)**2;
+  return 2*R*Math.asin(Math.sqrt(h));
+}
+function fmtDist(km){ return km<1 ? Math.round(km*1000)+"m" : (km<10 ? km.toFixed(1) : Math.round(km))+"km"; }
+let nearbyOn=false, myPos=null, distMap=null;
+const nearbyBtn = document.getElementById("nearbyBtn");
+nearbyBtn.addEventListener("click",()=>{
+  if(nearbyOn){
+    nearbyOn=false; distMap=null;
+    nearbyBtn.classList.remove("on");
+    nearbyBtn.textContent="📍 내 주변 가까운 순으로 보기";
+    render(); return;
+  }
+  if(!navigator.geolocation){ alert("이 브라우저는 위치 기능을 지원하지 않아요."); return; }
+  nearbyBtn.textContent="📡 내 위치 찾는 중…";
+  navigator.geolocation.getCurrentPosition(pos=>{
+    myPos={lat:pos.coords.latitude, lng:pos.coords.longitude};
+    distMap={};
+    allPlaces().forEach(p=>{ if(LL[p.id]) distMap[p.id]=distKm(myPos.lat,myPos.lng,LL[p.id][0],LL[p.id][1]); });
+    nearbyOn=true;
+    nearbyBtn.classList.add("on");
+    nearbyBtn.textContent="📍 내 주변 보기 켜짐 · 누르면 해제";
+    render();
+  },err=>{
+    nearbyBtn.textContent="📍 내 주변 가까운 순으로 보기";
+    alert("위치를 가져올 수 없어요.\n브라우저의 위치 권한을 허용한 뒤 다시 눌러주세요.");
+  },{enableHighAccuracy:true, timeout:10000, maximumAge:60000});
+});
 let searchQ = "", activeChip = -1;
 function placeText(p){
   return [(p.name||""),(p.region||""),(p.tag||""),(p.hash||""),(p.desc||""),(p.memo||""),(p.addr||"")].join(" ");
@@ -882,6 +960,31 @@ function render(){
   renderZoneMenu();
   list.innerHTML = "";
   const pool = allPlaces();
+  if(nearbyOn && distMap){
+    const items = pool.filter(p=>{
+      if(!matchesSearch(p)) return false;
+      if(currentFilter==="visited") return visited[p.id];
+      if(currentFilter!=="all") return p.cat===currentFilter;
+      return true;
+    }).filter(p=>distMap[p.id]!==undefined)
+      .sort((a,b)=>distMap[a.id]-distMap[b.id])
+      .slice(0,30);
+    const head = document.createElement("div");
+    head.className="nearby-head";
+    head.innerHTML=`📍 내 위치에서 가까운 순 (상위 ${items.length}곳)<div class="nearby-sub">직선거리 기준이에요. 필터·검색과 함께 쓸 수 있어요.</div>`;
+    list.appendChild(head);
+    const grid = document.createElement("div");
+    grid.className="grid";
+    items.forEach(p=>grid.appendChild(makeCard(p)));
+    list.appendChild(grid);
+    if(!items.length){
+      const d=document.createElement("div"); d.className="no-result";
+      d.innerHTML="🔍 조건에 맞는 주변 장소가 없어요.<br>필터나 검색어를 풀어보세요.";
+      list.appendChild(d);
+    }
+    updateProgress();
+    return;
+  }
   ["spot","food","cafe"].forEach(cat=>{
     const items = pool.filter(p=>{
       if(!matchesSearch(p)) return false;
@@ -922,7 +1025,7 @@ function makeCard(p){
     </div>
     <div class="stamp"><span class="chk">✔</span>방문완료</div>
     <div class="body">
-      ${(()=>{const z=ZONES.find(x=>x.key===zoneOf(p));return z?`<span class="zone-badge">📍 ${z.full}</span>`:"";})()}
+      ${(()=>{const z=ZONES.find(x=>x.key===zoneOf(p));return z?`<span class="zone-badge">📍 ${z.full}</span>`:"";})()}${nearbyOn&&distMap&&distMap[p.id]!==undefined?`<span class="dist-badge">🧭 ${fmtDist(distMap[p.id])}</span>`:""}
       <div class="name">${p.name}</div>
       <div class="tagline">${p.tag}</div>
       <div class="hash">${p.hash}</div>
