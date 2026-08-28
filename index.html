@@ -38,6 +38,23 @@
     transition:all .18s;font-family:inherit;}
   .tab:hover{border-color:var(--sea);}
   .tab.active{background:var(--basalt);color:#fff;border-color:var(--basalt);}
+  #searchWrap{max-width:1080px;margin:10px auto 0;padding:0 16px;}
+  #searchBox{position:relative;}
+  #searchInput{width:100%;box-sizing:border-box;padding:13px 42px 13px 42px;
+    border:1.5px solid var(--line);border-radius:14px;background:#fff;
+    font-family:inherit;font-size:15px;color:var(--basalt);outline:none;}
+  #searchInput:focus{border-color:var(--sea);}
+  #searchBox .mag{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:16px;pointer-events:none;}
+  #searchClear{position:absolute;right:8px;top:50%;transform:translateY(-50%);
+    border:none;background:#EDF1F0;color:#5C6664;border-radius:999px;width:28px;height:28px;
+    font-size:14px;cursor:pointer;display:none;line-height:1;}
+  #searchClear.show{display:block;}
+  #chips{display:flex;gap:8px;overflow-x:auto;padding:10px 2px 4px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+  #chips::-webkit-scrollbar{display:none;}
+  .chip{flex:0 0 auto;border:1.5px solid var(--line);background:#fff;color:var(--basalt);
+    padding:8px 13px;border-radius:999px;font-family:inherit;font-size:12.5px;font-weight:700;cursor:pointer;white-space:nowrap;}
+  .chip.active{background:var(--sea);border-color:var(--sea);color:#fff;}
+  .no-result{text-align:center;color:#8A9490;padding:48px 16px;font-size:14px;line-height:1.7;}
   main{max-width:1080px;margin:0 auto;padding:18px 16px 60px;}
   .section-title{font-family:'Gowun Batang',serif;font-size:22px;margin:26px 4px 12px;
     display:flex;align-items:center;gap:10px;}
@@ -156,6 +173,15 @@
   <button class="tab" data-filter="cafe">☕ 카페</button>
   <button class="tab" data-filter="visited">🔴 갔다온 곳</button>
 </nav>
+
+<div id="searchWrap">
+  <div id="searchBox">
+    <span class="mag">🔍</span>
+    <input id="searchInput" type="search" placeholder="장소 검색 · 초성만 쳐도 OK (예: ㅇㅈㅎㅈㄱ)" autocomplete="off">
+    <button id="searchClear">✕</button>
+  </div>
+  <div id="chips"></div>
+</div>
 
 <main id="list"></main>
 
@@ -711,11 +737,72 @@ function allPlaces(){
   return PLACES.concat(customPlaces.map(customToCard));
 }
 
+// ===== 검색 + 세부 카테고리 =====
+const CHO_LIST=["ㄱ","ㄲ","ㄴ","ㄷ","ㄸ","ㄹ","ㅁ","ㅂ","ㅃ","ㅅ","ㅆ","ㅇ","ㅈ","ㅉ","ㅊ","ㅋ","ㅌ","ㅍ","ㅎ"];
+function toCho(s){let r="";for(const ch of s){const c=ch.charCodeAt(0);
+  if(c>=0xAC00&&c<=0xD7A3)r+=CHO_LIST[Math.floor((c-0xAC00)/588)];else r+=ch;}return r;}
+const CHIPS=[
+ {label:"🏛 박물관·전시",keys:["박물관","미술관","전시","갤러리","아쿠아","민속촌"]},
+ {label:"🌊 해변·바다",keys:["해수욕장","해변","해안","바다","포구","항 ","등대","우도","섬 "]},
+ {label:"⛰ 오름·트레킹",keys:["오름","한라산","등반","숲길","둘레길","곶자왈","산책로","트레킹"]},
+ {label:"🌄 경치·전망",keys:["뷰","경치","절경","전망","일출","일몰","풍경","폭포","주상절리"]},
+ {label:"🎡 테마파크·체험",keys:["테마파크","체험","카트","루지","승마","놀이","레일","공원","목장","동물"]},
+ {label:"🛍 시장·거리",keys:["시장","거리","골목","원도심","상점","쇼핑"]},
+ {label:"🍜 국수·국밥",keys:["국수","국밥","해장국","칼국수","몸국","밀면","우동","라면"]},
+ {label:"🐟 해산물",keys:["해산물","해물","전복","갈치","물회","고등어","보말","횟집","회센타","성게","문어","김밥"]},
+ {label:"🥩 고기·치킨",keys:["흑돼지","돼지","고기","돔베","두루치기","치킨","통닭","버거","수육"]},
+ {label:"🍞 빵·디저트",keys:["베이커리","빵","도넛","떡","푸딩","케이크","제과","분식","디저트"]},
+ {label:"🌅 오션뷰 카페",keys:["오션뷰","바다뷰","바다 뷰","해안"]},
+ {label:"🌸 정원·꽃",keys:["정원","꽃","수국","동백","핑크뮬리","억새","귤밭","유채"]},
+];
+let searchQ = "", activeChip = -1;
+function placeText(p){
+  return [(p.name||""),(p.region||""),(p.tag||""),(p.hash||""),(p.desc||""),(p.memo||""),(p.addr||"")].join(" ");
+}
+function matchesSearch(p){
+  if(activeChip>=0){
+    const t = placeText(p);
+    if(!CHIPS[activeChip].keys.some(k=>t.includes(k))) return false;
+  }
+  if(!searchQ) return true;
+  const q = searchQ.replace(/\s/g,"").toLowerCase();
+  if(/^[ㄱ-ㅎ]+$/.test(q)){
+    const cho = toCho((p.name||"")+(p.region||"")+(p.tag||"")).replace(/\s/g,"");
+    return cho.includes(q);
+  }
+  const hay = placeText(p).toLowerCase();
+  return hay.includes(q) || hay.replace(/\s/g,"").includes(q);
+}
+const chipsEl = document.getElementById("chips");
+CHIPS.forEach((c,i)=>{
+  const b = document.createElement("button");
+  b.className="chip"; b.textContent=c.label;
+  b.addEventListener("click",()=>{
+    activeChip = (activeChip===i? -1 : i);
+    [...chipsEl.children].forEach((el,j)=>el.classList.toggle("active", j===activeChip));
+    render();
+  });
+  chipsEl.appendChild(b);
+});
+const searchInput = document.getElementById("searchInput");
+const searchClear = document.getElementById("searchClear");
+searchInput.addEventListener("input",()=>{
+  searchQ = searchInput.value.trim();
+  searchClear.classList.toggle("show", searchQ.length>0);
+  render();
+});
+searchClear.addEventListener("click",()=>{
+  searchInput.value=""; searchQ="";
+  searchClear.classList.remove("show");
+  render(); searchInput.focus();
+});
+
 function render(){
   list.innerHTML = "";
   const pool = allPlaces();
   ["spot","food","cafe"].forEach(cat=>{
     const items = pool.filter(p=>{
+      if(!matchesSearch(p)) return false;
       if(currentFilter==="visited") return p.cat===cat && visited[p.id];
       if(currentFilter!=="all" && currentFilter!==cat) return false;
       return p.cat===cat;
@@ -730,6 +817,12 @@ function render(){
     items.forEach(p=>grid.appendChild(makeCard(p)));
     list.appendChild(grid);
   });
+  if(!list.hasChildNodes() && (searchQ || activeChip>=0)){
+    const d = document.createElement("div");
+    d.className="no-result";
+    d.innerHTML="🔍 검색 결과가 없어요.<br>다른 검색어나 카테고리를 눌러보세요.";
+    list.appendChild(d);
+  }
   if(currentFilter==="visited" && !pool.some(p=>visited[p.id])){
     list.innerHTML = '<p style="text-align:center;padding:60px 20px;color:#7C8684;">아직 찍은 도장이 없어요.<br>다녀온 곳의 <b>[갔다왔음]</b> 버튼을 눌러보세요!</p>';
   }
