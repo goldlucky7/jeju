@@ -113,6 +113,22 @@
     font-size:14px;font-weight:700;cursor:pointer;}
   #np_cancel{background:#F1F4F3;border:1.5px solid var(--line);color:#5C6664;}
   #np_save{background:var(--tangerine);border:none;color:#fff;}
+  #fabHours{position:fixed;left:16px;bottom:20px;z-index:50;
+    background:var(--sea);color:#fff;border:none;border-radius:999px;
+    padding:14px 18px;font-family:inherit;font-size:14px;font-weight:900;
+    box-shadow:0 6px 18px rgba(14,116,144,.4);cursor:pointer;}
+  #hoursModal{position:fixed;inset:0;background:rgba(20,30,28,.55);z-index:60;
+    display:none;align-items:center;justify-content:center;padding:20px;}
+  #hoursModal.open{display:flex;}
+  #hoursModal .modal-box{max-width:540px;max-height:84vh;display:flex;flex-direction:column;}
+  #hoursTableWrap{overflow-y:auto;flex:1;margin-bottom:10px;-webkit-overflow-scrolling:touch;}
+  .hours-table{width:100%;border-collapse:collapse;font-size:12.5px;}
+  .hours-table th{position:sticky;top:0;background:#F1F4F3;padding:8px 6px;text-align:left;
+    border-bottom:2px solid var(--line);z-index:1;}
+  .hours-table td{padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top;}
+  .hours-table .grp td{background:#FFF4EC;font-weight:900;color:var(--tangerine);}
+  .hours-table .nm{font-weight:700;}
+  .hours-table .sub{color:#8A9490;font-size:11px;font-weight:400;}
   .del-link{font-size:11.5px;color:#B8514A;text-decoration:underline;background:none;
     border:none;cursor:pointer;font-family:inherit;margin-top:6px;}
 </style>
@@ -145,6 +161,8 @@
 
 <button id="fabAdd">➕ 장소 추가</button>
 
+<button id="fabHours">🕐 영업시간표</button>
+
 <div id="addModal">
   <div class="modal-box">
     <h3>📌 우리만의 장소 추가</h3>
@@ -160,6 +178,16 @@
     <div class="modal-actions">
       <button id="np_cancel">취소</button>
       <button id="np_save">추가하기</button>
+    </div>
+  </div>
+</div>
+
+<div id="hoursModal">
+  <div class="modal-box">
+    <h3>🕐 가게 영업시간표 (맛집·카페 전체)</h3>
+    <div id="hoursTableWrap"></div>
+    <div class="modal-actions">
+      <button id="hm_close" style="background:#F1F4F3;border:1.5px solid var(--line);color:#5C6664;">닫기</button>
     </div>
   </div>
 </div>
@@ -312,232 +340,232 @@ const PLACES = [
  // ================= 맛집 (29) =================
  {id:"donsadon",cat:"food",emoji:"🥩",region:"제주시·노형",name:"돈사돈 본점",tag:"제주 흑돼지 구이 대표주자",hash:"#흑돼지 #근고기 #저녁웨이팅",
   desc:"두툼한 근고기 흑돼지를 연탄불에 구워 멜젓에 찍어 먹는 정석 흑돼지집. 육즙 가득한 목살이 대표 메뉴이며 저녁엔 웨이팅이 길어 오픈 직후 방문 추천.",
-  addr:"제주시 노형동 3086-3",time:"12:30~22:00 · 화요일 휴무",
+  addr:"제주시 노형동 3086-3",open:"12:30~22:00",brk:"없음",closed:"화요일",
   links:[["네이버지도",NM("돈사돈본점")],["흑돼지 가이드","https://kr.hotels.com/go/south-korea/blog-jeju-black-pork-restaurants-best-5"]]},
  {id:"sukseongdo",cat:"food",emoji:"🔥",region:"제주시·노형",name:"숙성도 노형본점",tag:"드라이에이징 흑돼지의 신흥 강자",hash:"#숙성흑돼지 #2030최애 #원격줄서기",
   desc:"2~3주 이상 숙성한 흑돼지 뼈등심·뽈살로 유명한 곳. 겉은 바삭, 속은 버터처럼 부드러운 식감이 시그니처입니다. 캐치테이블 원격 줄서기가 사실상 필수.",
-  addr:"제주시 원노형로 41",time:"매장 확인 (대기 많음)",
+  addr:"제주시 원노형로 41",open:"매장 확인",brk:"매장 확인",closed:"매장 확인",
   links:[["네이버지도",NM("숙성도 노형본점")],["비짓제주",VJ]]},
  {id:"ollae",cat:"food",emoji:"🍜",region:"제주시·연동",name:"올래국수",tag:"제주 고기국수 3대장",hash:"#고기국수 #단일메뉴 #아침영업",
   desc:"메뉴는 사실상 고기국수 하나. 진하고 뽀얀 돼지 육수에 수육이 푸짐하게 올라갑니다. 아침 일찍부터 현지인과 여행객이 줄 서는 국수 명가입니다.",
-  addr:"제주시 귀아랑길 24",time:"08:00~15:00 · 일요일 휴무",
+  addr:"제주시 귀아랑길 24",open:"08:00~15:00",brk:"없음",closed:"일요일",
   links:[["네이버지도",NM("올래국수")],["맛집 기사","https://hotplacehunter.co.kr/sns/article/87816/amp/"]]},
  {id:"jamae",cat:"food",emoji:"🥢",region:"제주시·공항근처",name:"자매국수",tag:"공항 5분, 비빔국수도 유명",hash:"#고기국수 #비빔국수 #공항근처",
   desc:"올래국수와 함께 고기국수 양대산맥으로 불리는 집. 진한 고기국수와 새콤매콤 비빔국수가 모두 인기라 반반 주문이 국룰입니다. 공항과 가까워 도착 첫 끼로 좋아요.",
-  addr:"제주시 항골남길 46",time:"09:00~14:20 / 16:10~18:00 · 수요일 휴무",
+  addr:"제주시 항골남길 46",open:"09:00~18:00",brk:"14:20~16:10",closed:"수요일",
   links:[["네이버지도",NM("자매국수")],["비짓제주",VJ]]},
  {id:"ujin",cat:"food",emoji:"🍲",region:"제주시·삼도",name:"우진해장국",tag:"고사리육개장의 원조급 명가",hash:"#고사리육개장 #아침해장 #현지인",
   desc:"제주 고사리를 푹 고아 걸쭉하게 끓인 고사리육개장이 시그니처. 새벽 6시부터 문을 열어 아침 해장 코스로 유명하며 대기 줄이 긴 편입니다.",
-  addr:"제주시 서사로 11",time:"06:00~22:00 · 연중무휴",
+  addr:"제주시 서사로 11",open:"06:00~22:00",brk:"없음",closed:"연중무휴",
   links:[["네이버지도",NM("우진해장국")],["맛집 기사","https://hotplacehunter.co.kr/sns/article/87816/amp/"]]},
  {id:"matna",cat:"food",emoji:"🐟",region:"동부·성산",name:"맛나식당",tag:"가성비 갈치조림·고등어조림",hash:"#갈치조림 #가성비 #오픈런",
   desc:"성산일출봉 근처의 갈치·고등어조림 맛집. 달큰하고 매콤한 양념에 밥 비벼 먹는 맛이 일품이며, 착한 가격 덕에 오픈 전부터 대기가 생깁니다.",
-  addr:"서귀포시 성산읍 동류암로 41",time:"08:30~14:00 · 수·일 휴무",
+  addr:"서귀포시 성산읍 동류암로 41",open:"08:30~14:00",brk:"없음",closed:"수·일요일",
   links:[["네이버지도",NM("맛나식당 성산")],["맛집 기사","https://hotplacehunter.co.kr/sns/article/87816/amp/"]]},
  {id:"myeongjin",cat:"food",emoji:"🦪",region:"동부·구좌",name:"명진전복",tag:"오션뷰 전복돌솥밥의 성지",hash:"#전복돌솥밥 #오션뷰 #부모님과",
   desc:"바다를 보며 먹는 전복돌솥밥과 전복구이로 전국구 유명세를 떨치는 집. 고소한 전복 내장이 밴 밥에 버터를 곁들이면 밥도둑이 따로 없습니다.",
-  addr:"제주시 구좌읍 해맞이해안로 1282",time:"09:30~20:30 · 화요일 휴무",
+  addr:"제주시 구좌읍 해맞이해안로 1282",open:"09:30~20:30",brk:"없음",closed:"화요일",
   links:[["네이버지도",NM("명진전복")],["비짓제주",VJ]]},
  {id:"leechunok",cat:"food",emoji:"🥬",region:"서부·애월",name:"이춘옥원조고등어쌈밥",tag:"BTS도 다녀간 오션뷰 쌈밥",hash:"#고등어쌈밥 #묵은지 #오션뷰",
   desc:"묵은지와 고등어를 함께 조려 쌈에 싸 먹는 고등어쌈밥 전문점. 바다가 보이는 좌석이 인기라 예약 추천. BTS 방문 이후 더 유명해졌습니다.",
-  addr:"제주시 애월읍 일주서로 7213",time:"10:00~20:30 (브레이크 16:00~17:00)",
+  addr:"제주시 애월읍 일주서로 7213",open:"10:00~20:30",brk:"16:00~17:00",closed:"연중무휴",
   links:[["네이버지도",NM("이춘옥원조고등어쌈밥")],["맛집 기사","https://hotplacehunter.co.kr/sns/article/87816/amp/"]]},
  {id:"miyoung",cat:"food",emoji:"🍣",region:"남서부·모슬포",name:"미영이네식당",tag:"고등어회 하면 여기, 모슬포 명물",hash:"#고등어회 #신선도끝판왕 #저녁추천",
   desc:"싱싱한 고등어회를 김+양념밥에 싸 먹는 모슬포 대표 맛집. 비린내 없이 고소한 회와 마무리로 나오는 고등어 맑은탕까지 코스처럼 즐깁니다.",
-  addr:"서귀포시 대정읍 하모리 770-29",time:"11:30~21:00 · 수요일 휴무",
+  addr:"서귀포시 대정읍 하모리 770-29",open:"11:30~21:00",brk:"없음",closed:"수요일",
   links:[["네이버지도",NM("미영이네식당")],["비짓제주",VJ]]},
  {id:"oneunjeong",cat:"food",emoji:"🍙",region:"남부·서귀포",name:"오는정김밥",tag:"전화 예약 필수인 전설의 김밥",hash:"#김밥 #포장전문 #피크닉",
   desc:"튀긴 유부와 바삭한 튀김가루가 들어가 감칠맛이 남다른 서귀포 명물 김밥. 포장 전문에 예약이 밀려 있으니 반드시 전화 주문 후 방문하세요.",
-  addr:"서귀포시 동문동로 2",time:"09:00~19:00 (브레이크 13:00~14:30) · 일요일 휴무",
+  addr:"서귀포시 동문동로 2",open:"09:00~19:00",brk:"13:00~14:30",closed:"일요일",
   links:[["네이버지도",NM("오는정김밥")],["비짓제주",VJ]]},
  {id:"manong",cat:"food",emoji:"🍗",region:"서귀포·올레시장",name:"마농치킨 (중앙통닭)",tag:"올레시장 1등 명물 마늘통닭",hash:"#마늘치킨 #포장맥주안주 #웨이팅",
   desc:"'마농'은 제주어로 마늘. 옛날 통닭에 은은한 마늘 향이 밴 올레시장 대표 먹거리로, 시장 안 원조집이 중앙통닭입니다. 포장해서 숙소 맥주 안주로 최고.",
-  addr:"서귀포시 중앙로48번길 14-1",time:"08:00~20:00 (조기 품절 잦음)",
+  addr:"서귀포시 중앙로48번길 14-1",open:"매장 확인",brk:"매장 확인",closed:"매장 확인",
   links:[["네이버지도",NM("마농치킨 중앙통닭")],["올레시장 먹거리 가이드","https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=72ea1f7c-4755-4d02-8fc2-293f25b8f70d"]]},
  {id:"saerona",cat:"food",emoji:"🍢",region:"서귀포·올레시장",name:"새로나분식",tag:"제주식 분식 '모닥치기'의 성지",hash:"#모닥치기 #떡볶이 #1991년노포",
   desc:"모닥치기는 '한데 모아준다'는 제주어로, 떡볶이에 김밥·어묵·전·계란을 한 접시에 담아주는 제주식 분식입니다. 1991년부터 이어온 원조급 노포.",
-  addr:"서귀포시 중앙로42번길 24",time:"매장 확인 (점심~저녁)",
+  addr:"서귀포시 중앙로42번길 24",open:"매장 확인",brk:"매장 확인",closed:"매장 확인",
   links:[["네이버지도",NM("새로나분식")],["모닥치기 후기","https://geniusjw.com/2971"]]},
  {id:"woojung",cat:"food",emoji:"🐡",region:"서귀포·올레시장",name:"우정회센타 본점",tag:"꽁치 한 마리 통째로, 꽁치김밥",hash:"#꽁치김밥 #이색먹거리 #고등어회",
   desc:"김밥 밖으로 꽁치 머리와 꼬리가 튀어나온 비주얼로 유명한 원조 꽁치김밥집. 비린내 없이 고소하며, 고등어회·물회 등 횟집 메뉴도 함께 즐길 수 있습니다.",
-  addr:"서귀포시 중앙로54번길 32",time:"매장 확인",
+  addr:"서귀포시 중앙로54번길 32",open:"매장 확인",brk:"매장 확인",closed:"매장 확인",
   links:[["네이버지도",NM("우정회센타")],["올레시장 먹거리 가이드","https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=72ea1f7c-4755-4d02-8fc2-293f25b8f70d"]]},
  {id:"grandma",cat:"food",emoji:"🍡",region:"서귀포·올레시장",name:"할머니떡집",tag:"직접 쑨 팥소 오메기떡 원조",hash:"#오메기떡 #선물용 #택배가능",
   desc:"차조 반죽에 팥소를 채운 제주 전통 오메기떡 명가. 쫀득한 떡과 달지 않은 팥고물의 조화가 일품이라 귀가 전 선물·기념품으로 사 가는 단골 코스입니다.",
-  addr:"서귀포시 중앙로42번길 24",time:"매장 확인 (조기 품절 잦음)",
+  addr:"서귀포시 중앙로42번길 24",open:"08:00~21:00",brk:"없음",closed:"화요일",
   links:[["네이버지도",NM("할머니떡집 서귀포")],["올레시장 먹거리 가이드","https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=72ea1f7c-4755-4d02-8fc2-293f25b8f70d"]]},
  {id:"eunhee",cat:"food",emoji:"🍛",region:"제주시·일도",name:"은희네해장국 본점",tag:"소고기해장국 단일메뉴 전국구 맛집",hash:"#소고기해장국 #아침식사 #오픈런",
   desc:"메뉴판도 없이 자리에 앉으면 바로 나오는 소고기해장국 단일메뉴 집. 선지·소고기·콩나물이 가득한 얼큰한 국물에 다진 마늘을 풀어 먹는 게 정석. 아침 6시부터 현지인·여행객 줄이 늘어섭니다.",
-  addr:"제주시 일도2동 357-4",time:"06:00~15:00 (주말 ~14:00) · 목요일 휴무",
+  addr:"제주시 일도2동 357-4",open:"06:00~15:00 (주말 ~14:00)",brk:"없음",closed:"목요일",
   links:[["네이버지도",NM("은희네해장국 본점")],["비짓제주",VJ]]},
  {id:"dodu",cat:"food",emoji:"🥣",region:"제주시·도두",name:"도두해녀의집",tag:"공항 10분, 전복죽·물회 성지",hash:"#전복죽 #한치물회 #공항근처",
   desc:"도두항에서 해녀들이 직접 잡은 해산물로 만드는 전복죽·물회 전문점. 첫날 도착 직후나 마지막 날 비행기 타기 전 들르기 좋은 위치로, 재료 소진 시 일찍 마감하니 서두르는 게 좋아요.",
-  addr:"제주시 도두항길 16",time:"10:00~15:30 / 17:00~20:00 (재료 소진 시 마감)",
+  addr:"제주시 도두항길 16",open:"10:00~20:00",brk:"15:30~17:00",closed:"연중무휴 (재료 소진 마감)",
   links:[["네이버지도",NM("도두해녀의집")],["비짓제주",VJ]]},
  {id:"sinseol",cat:"food",emoji:"🍲",region:"제주시·이도",name:"신설오름",tag:"제주 몸국의 최강자",hash:"#몸국 #제주향토음식 #현지인맛집",
   desc:"돼지 육수에 모자반을 넣어 끓인 제주 향토음식 몸국을 가장 잘한다고 꼽히는 집. 진하고 걸쭉한 국물이 해장으로도 최고이며 아침부터 새벽까지 영업해 언제든 들를 수 있습니다.",
-  addr:"제주시 고마로17길 2",time:"08:00~새벽 · 월요일 휴무",
+  addr:"제주시 고마로17길 2",open:"08:00~새벽 04:00",brk:"없음",closed:"월요일",
   links:[["네이버지도",NM("신설오름")],["비짓제주",VJ]]},
  {id:"mooger",cat:"food",emoji:"🍔",region:"동부·함덕",name:"무거버거",tag:"오션뷰 수제버거, 넷플릭스 출연",hash:"#시금치버거 #당근버거 #함덕코스",
   desc:"시금치빵·당근빵 등 채소로 만든 컬러 번이 시그니처인 오션뷰 수제버거집. 독특한 건축물 2층에서 바다를 보며 먹는 재미가 있고, 함덕해수욕장·서우봉과 묶어 가기 좋습니다.",
-  addr:"제주시 조천읍 조함해안로 356",time:"10:00~19:00",
+  addr:"제주시 조천읍 조함해안로 356",open:"10:00~19:00",brk:"없음",closed:"연중무휴",
   links:[["네이버지도",NM("무거버거")],["비짓제주",VJ]]},
  {id:"kyungmi",cat:"food",emoji:"🦑",region:"동부·성산",name:"경미네집",tag:"성산일출봉 앞 해녀 문어라면",hash:"#해물라면 #문어라면 #성산코스",
   desc:"성산일출봉 바로 앞, 해녀가 잡은 문어·전복·홍합을 통째로 올려주는 해물라면으로 유명한 작은 식당. 일출봉 오르기 전후 허기 달래기에 딱이고 성게알밥과 같이 먹으면 든든합니다.",
-  addr:"서귀포시 성산읍 일출로 259",time:"08:30~16:00 · 월요일 휴무",
+  addr:"서귀포시 성산읍 일출로 259",open:"08:30~16:00",brk:"없음",closed:"월요일",
   links:[["네이버지도",NM("경미네집")],["비짓제주",VJ]]},
  {id:"gasi",cat:"food",emoji:"🐷",region:"동부·표선",name:"가시식당",tag:"두루치기·순대·몸국 3대 향토 노포",hash:"#돼지두루치기 #순대 #중산간노포",
   desc:"표선 중산간 가시리 마을의 향토음식 노포. 연탄불에 볶아 먹는 돼지두루치기와 제주식 피순대, 몸국이 모두 수준급이라 현지인들이 멀리서도 찾아오는 집입니다.",
-  addr:"서귀포시 표선면 가시로565번길 24",time:"08:30~15:00 / 17:00~19:30 · 일요일 휴무",
+  addr:"서귀포시 표선면 가시로565번길 24",open:"08:30~19:30",brk:"15:00~17:00",closed:"일요일",
   links:[["네이버지도",NM("가시식당")],["비짓제주",VJ]]},
  {id:"chunja",cat:"food",emoji:"🍥",region:"동부·표선",name:"춘자멸치국수 (춘자싸롱)",tag:"한 그릇 4천원, 40년 멸치국수",hash:"#멸치국수 #가성비끝판왕 #노포감성",
   desc:"90세 가까운 할머니가 40년 넘게 끓여온 진한 멸치국수 한 그릇. 간판도 없던 시절 '춘자싸롱'이라 불리던 전설의 노포로, 착한 가격과 옛날 그대로의 맛이 매력입니다.",
-  addr:"서귀포시 표선면 표선동서로 255",time:"매장 확인 (낮 시간대 영업)",
+  addr:"서귀포시 표선면 표선동서로 255",open:"매장 확인",brk:"매장 확인",closed:"매장 확인",
   links:[["네이버지도",NM("춘자멸치국수")],["비짓제주",VJ]]},
  {id:"negeori",cat:"food",emoji:"🐟",region:"서귀포·서홍",name:"네거리식당",tag:"갈치국·갈치조림 서귀포 대표",hash:"#갈치국 #갈치구이 #아침영업",
   desc:"맑고 시원한 갈치국으로 서귀포에서 가장 유명한 집. 두툼한 갈치구이·조림도 훌륭하며 아침 7시부터 밤까지 쉬는 시간 없이 영업해 일정 짜기 편합니다. 올레시장에서 도보 5분.",
-  addr:"서귀포시 서문로29번길 20",time:"07:00~21:40 · 연중무휴",
+  addr:"서귀포시 서문로29번길 20",open:"07:00~21:40",brk:"없음",closed:"연중무휴",
   links:[["네이버지도",NM("네거리식당")],["비짓제주",VJ]]},
  {id:"cheonjitgol",cat:"food",emoji:"🥓",region:"서귀포·중앙",name:"천짓골식당",tag:"돔베고기(수육)의 성지",hash:"#돔베고기 #흑돼지수육 #저녁예약",
   desc:"삶은 흑돼지를 도마(돔베)째 내어주는 돔베고기 전문점. 사장님이 테이블에서 직접 썰어주며 먹는 법까지 알려주는 정성이 유명합니다. 저녁만 영업하고 웨이팅이 길어 오픈 직후 방문 추천.",
-  addr:"서귀포시 중앙로41번길 4",time:"17:10~21:30 · 일요일 휴무",
+  addr:"서귀포시 중앙로41번길 4",open:"17:10~21:30 (저녁만 영업)",brk:"없음",closed:"일요일",
   links:[["네이버지도",NM("천짓골식당")],["비짓제주",VJ]]},
  {id:"sekdal",cat:"food",emoji:"🎣",region:"중문·예래",name:"색달식당 중문본점",tag:"통갈치조림의 원조격 대형 맛집",hash:"#통갈치조림 #가족외식 #중문코스",
   desc:"1m급 통갈치조림·구이를 테이블에 통째로 올려주는 중문의 대표 갈치 전문점. 살이 버터처럼 부드럽고 밑반찬도 푸짐해 중문 관광단지 일정과 묶기 좋습니다.",
-  addr:"서귀포시 예래로 255-18",time:"10:00~20:50",
+  addr:"서귀포시 예래로 255-18",open:"10:00~20:50",brk:"없음",closed:"연중무휴",
   links:[["네이버지도",NM("색달식당 중문본점")],["비짓제주",VJ]]},
  {id:"suduri",cat:"food",emoji:"🐚",region:"중문·천제연",name:"중문수두리보말칼국수",tag:"보말칼국수 전국 1등 후보",hash:"#보말칼국수 #보말죽 #아침웨이팅",
   desc:"제주 바다 고둥 '보말'을 듬뿍 넣어 끓인 걸쭉한 칼국수 단일 전문점. 보말죽·물만두까지 메뉴 3개로 승부하는 내공 있는 집으로, 원격 줄서기가 사실상 필수입니다.",
-  addr:"서귀포시 천제연로 192",time:"08:00~16:00 · 화요일 휴무",
+  addr:"서귀포시 천제연로 192",open:"08:00~16:00",brk:"없음",closed:"화요일",
   links:[["네이버지도",NM("중문수두리보말칼국수")],["비짓제주",VJ]]},
  {id:"sanbang",cat:"food",emoji:"🍜",region:"남서부·모슬포",name:"산방식당",tag:"제주식 밀냉면(밀면)의 원조",hash:"#밀면 #돼지수육 #여름별미",
   desc:"모슬포에서 3대째 이어온 제주식 밀면의 원조집. 살얼음 동동 뜬 새콤달콤한 냉국물과 쫄깃한 면발, 수육 한 접시 조합이 정석입니다. 산방산·송악산 코스와 연결하기 좋아요.",
-  addr:"서귀포시 대정읍 하모이삼로 62",time:"11:00~18:00 · 수요일 휴무",
+  addr:"서귀포시 대정읍 하모이삼로 62",open:"11:00~18:00",brk:"없음",closed:"수요일",
   links:[["네이버지도",NM("산방식당")],["비짓제주",VJ]]},
  {id:"okdom",cat:"food",emoji:"🥟",region:"남서부·모슬포",name:"옥돔식당",tag:"간판과 달리 보말칼국수 단일메뉴",hash:"#보말칼국수 #모슬포노포 #웨이팅",
   desc:"이름은 옥돔식당이지만 파는 건 보말칼국수 하나뿐인 재미있는 노포. 진하게 우러난 보말 국물과 미역의 조합이 일품이라 점심시간엔 줄이 깁니다. 산방식당과 같은 동네라 취향대로 선택.",
-  addr:"서귀포시 대정읍 하모리 1067-23",time:"11:00~16:00 · 수요일 휴무",
+  addr:"서귀포시 대정읍 하모리 1067-23",open:"11:00~16:00",brk:"없음",closed:"수요일",
   links:[["네이버지도",NM("옥돔식당")],["비짓제주",VJ]]},
  {id:"suudong",cat:"food",emoji:"🍤",region:"서부·협재",name:"협재수우동",tag:"협재해변 앞 오션뷰 우동집",hash:"#냉우동 #돈카츠 #예약제",
   desc:"협재해수욕장 바로 앞, 쫄깃한 수타면 냉우동과 바삭한 돈카츠로 유명한 집. 대기 명단에 이름을 올려두고 협재 바다를 산책하다 오는 시스템이라 여유 있게 계획하는 게 좋습니다.",
-  addr:"제주시 한림읍 협재1길 11",time:"10:30~16:00 · 화요일 휴무",
+  addr:"제주시 한림읍 협재1길 11",open:"10:30~16:00",brk:"없음",closed:"화요일",
   links:[["네이버지도",NM("협재수우동")],["비짓제주",VJ]]},
  {id:"hanmo",cat:"food",emoji:"🧊",region:"서부·애월(하귀)",name:"신의한모",tag:"바다 보며 먹는 두부 요리 코스",hash:"#두부요리 #하귀해안 #분위기맛집",
   desc:"하귀 해안가에서 직접 만든 두부로 코스를 내는 두부 전문점. 두부 카츠·아게다시도후·두부 아이스크림까지 이색 메뉴가 가득하고 창밖 바다 뷰가 근사해 데이트 코스로 인기입니다.",
-  addr:"제주시 애월읍 하귀1리 1620-4",time:"매장 확인 (주말 웨이팅 많음)",
+  addr:"제주시 애월읍 하귀1리 1620-4",open:"매장 확인",brk:"매장 확인",closed:"매장 확인",
   links:[["네이버지도",NM("신의한모")],["비짓제주",VJ]]},
  // ================= 카페 (28) =================
  {id:"delmoondo",cat:"cafe",emoji:"🌊",region:"동부·함덕",name:"델문도",tag:"함덕 바다 코앞 오션뷰 1티어",hash:"#오션뷰 #새벽6시오픈 #베이커리",
   desc:"함덕해수욕장 에메랄드 바다 바로 위에 앉는 로스터리 카페. 새벽 6시부터 자정까지 열어 일출·일몰 모두 즐길 수 있고 베이커리도 다양합니다.",
-  addr:"제주시 조천읍 조함해안로 519-10",time:"06:00~24:00 · 연중무휴",
+  addr:"제주시 조천읍 조함해안로 519-10",open:"06:00~24:00",brk:"없음",closed:"연중무휴",
   links:[["네이버지도",NM("카페델문도")],["대형카페 추천글","https://tripsoda.com/article/1431"]]},
  {id:"monsant",cat:"cafe",emoji:"🪞",region:"서부·애월",name:"몽상드애월",tag:"GD가 만든 유리 거울 카페",hash:"#2030핫플 #한담해변 #건축미",
   desc:"지드래곤이 지은 것으로 유명한 한담해변의 미러 글라스 카페. 유리 벽에 바다가 반사되는 외관 자체가 포토존이며 한라봉 크루아상이 인기입니다.",
-  addr:"제주시 애월읍 애월로1길 25-4",time:"매장 확인 (보통 09:00~19:00 전후)",
+  addr:"제주시 애월읍 애월로1길 25-4",open:"매장 확인",brk:"매장 확인",closed:"매장 확인",
   links:[["네이버지도",NM("몽상드애월")],["애월 카페 순위","https://www.diningcode.com/list.dc?query=애월+카페"]]},
  {id:"bomnal",cat:"cafe",emoji:"🌷",region:"서부·애월",name:"봄날카페",tag:"드라마 촬영지, 한담 원조 감성 카페",hash:"#한담해변 #드라마촬영지 #감성",
   desc:"드라마 '맨도롱 또똣' 촬영지로 유명한 한담해안 터줏대감 카페. 알록달록한 소품과 바다 바로 앞 창가 자리에서 노을 보기 좋습니다.",
-  addr:"제주시 애월읍 애월로1길 25",time:"09:00~21:30",
+  addr:"제주시 애월읍 애월로1길 25",open:"09:00~21:30",brk:"없음",closed:"연중무휴",
   links:[["네이버지도",NM("봄날카페")],["애월 카페 순위","https://www.diningcode.com/list.dc?query=애월+카페"]]},
  {id:"randys",cat:"cafe",emoji:"🍩",region:"서부·애월",name:"랜디스도넛 제주직영점",tag:"LA 명물 도넛 + 오션뷰",hash:"#2030 #도넛 #포토존",
   desc:"영화 아이언맨에 나온 LA 랜디스도넛의 제주 매장. 대형 도넛 조형물 포토존과 오션뷰 좌석, 피스타치오·글레이즈드 등 다양한 도넛이 인기입니다.",
-  addr:"제주시 애월읍 애월리 2471",time:"09:30~18:30",
+  addr:"제주시 애월읍 애월리 2471",open:"09:30~18:30",brk:"없음",closed:"연중무휴",
   links:[["네이버지도",NM("랜디스도넛 제주")],["카페 추천글","https://suggestravel.com/제주도-카페/"]]},
  {id:"oneandonly",cat:"cafe",emoji:"⛰",region:"남서부·산방산",name:"원앤온리",tag:"산방산 절벽 + 황우치해변 뷰",hash:"#산방산뷰 #노을 #대형카페",
   desc:"앞은 바다, 뒤는 산방산이 병풍처럼 서 있는 압도적 풍경의 대형 카페. 보헤미안 감성 인테리어와 야외 좌석으로 노을 시간대가 특히 인기입니다.",
-  addr:"서귀포시 안덕면 산방로 141",time:"10:00~18:30",
+  addr:"서귀포시 안덕면 산방로 141",open:"10:00~18:30",brk:"없음",closed:"연중무휴",
   links:[["네이버지도",NM("원앤온리")],["카페 추천글","https://suggestravel.com/제주도-카페/"]]},
  {id:"insmill",cat:"cafe",emoji:"🌾",region:"남서부·대정",name:"인스밀",tag:"보리밭 감성 창고 카페",hash:"#이국적 #보리개역 #감성샷",
   desc:"1950년대 곡물 창고를 개조한 카페로, 야자수와 보리밭이 어우러진 이국적 풍경이 시그니처. 보리개역(미숫가루 음료)과 보리 아이스크림이 대표 메뉴.",
-  addr:"서귀포시 대정읍 일과대수로27번길 22",time:"10:30~18:30 · 수요일 휴무",
+  addr:"서귀포시 대정읍 일과대수로27번길 22",open:"10:30~18:30",brk:"없음",closed:"수요일",
   links:[["네이버지도",NM("인스밀")],["카페 추천글","https://suggestravel.com/제주도-카페/"]]},
  {id:"manor",cat:"cafe",emoji:"💐",region:"남서부·안덕",name:"마노르블랑",tag:"수국·핑크뮬리 정원 카페",hash:"#3040 #계절꽃정원 #산방산뷰",
   desc:"계절마다 수국, 핑크뮬리, 동백이 만발하는 정원형 카페. 산방산을 배경으로 한 꽃밭 포토존이 유명해 꽃 시즌에 맞춰 방문하면 후회가 없습니다.",
-  addr:"서귀포시 안덕면 일주서로2100번길 46",time:"09:00~18:00 · 정원 입장료 별도",
+  addr:"서귀포시 안덕면 일주서로2100번길 46",open:"09:00~18:00",brk:"없음",closed:"연중무휴",
   links:[["네이버지도",NM("마노르블랑")],["비짓제주",VJ]]},
  {id:"kleinblue",cat:"cafe",emoji:"🌀",region:"서부·한경",name:"클랭블루",tag:"풍력발전기 노을 뷰 갤러리 카페",hash:"#노을맛집 #한적함 #갤러리",
   desc:"신창풍차해안도로의 노을 명당 카페. 2층 통창 너머 풍력발전기와 바다로 지는 해가 그림 같고, 갤러리를 겸해 조용히 머물기 좋습니다.",
-  addr:"제주시 한경면 신창리 1293-1",time:"11:00~20:00",
+  addr:"제주시 한경면 신창리 1293-1",open:"11:00~20:00",brk:"없음",closed:"연중무휴",
   links:[["네이버지도",NM("클랭블루")],["비짓제주",VJ]]},
  {id:"umu",cat:"cafe",emoji:"🍮",region:"서부·한림",name:"우무",tag:"제주 바다가 만든 수제 푸딩",hash:"#푸딩 #디저트 #협재코스",
   desc:"해녀가 채취한 우뭇가사리로 만드는 커스터드 푸딩 전문점. 협재 가는 길에 들르기 좋은 한림의 작은 가게로, 부드러운 식감과 귀여운 병이 인기입니다.",
-  addr:"제주시 한림읍 한림로 542-1",time:"매장 확인 · 품절 시 조기마감",
+  addr:"제주시 한림읍 한림로 542-1",open:"매장 확인",brk:"매장 확인",closed:"매장 확인",
   links:[["네이버지도",NM("우무 한림")],["카페 추천글","https://suggestravel.com/제주도-카페/"]]},
  {id:"abebe",cat:"cafe",emoji:"🥯",region:"제주시·동문시장",name:"아베베베이커리",tag:"오픈런 부르는 크림 도넛",hash:"#도넛맛집 #동문시장 #웨이팅",
   desc:"인절미·우도땅콩 등 제주 재료로 만든 묵직한 크림 도넛으로 오픈런이 생기는 빵집. 동문시장 구경과 묶어 방문하기 딱 좋은 위치입니다.",
-  addr:"제주시 동문로6길 4 (동문시장 12번 게이트 옆)",time:"09:30~20:30",
+  addr:"제주시 동문로6길 4 (동문시장 12번 게이트 옆)",open:"09:30~20:30",brk:"없음",closed:"연중무휴",
   links:[["네이버지도",NM("아베베베이커리")],["카페 추천글","https://suggestravel.com/제주도-카페/"]]},
  {id:"orrrn",cat:"cafe",emoji:"🧈",region:"동부·성산",name:"오른 (Orrrn)",tag:"성산 오션뷰 + 소금빵 맛집",hash:"#성산코스 #소금빵 #유채꽃밭",
   desc:"성산일출봉 가는 길, 통창 너머 바다와 뒤편 유채꽃밭을 함께 즐기는 카페. 소금빵과 오른라떼가 시그니처로 평점이 유독 높은 곳입니다.",
-  addr:"서귀포시 성산읍 해맞이해안로 2714",time:"10:00~20:00",
+  addr:"서귀포시 성산읍 해맞이해안로 2714",open:"10:00~20:00",brk:"없음",closed:"연중무휴",
   links:[["네이버지도",NM("카페 오른 성산")],["카페 추천글","https://suggestravel.com/제주도-카페/"]]},
  {id:"blanc",cat:"cafe",emoji:"🥜",region:"동부·우도",name:"블랑로쉐",tag:"우도 땅콩 디저트 오션뷰 카페",hash:"#우도필수 #땅콩아이스크림 #치즈케이크",
   desc:"우도 바다를 통창으로 바라보며 땅콩라떼, 땅콩 아이스크림, 블랑 치즈케이크를 즐기는 우도 대표 카페. 우도 일정에 자연스럽게 넣기 좋습니다.",
-  addr:"제주시 우도면 연평리 712-1",time:"10:00~17:00",
+  addr:"제주시 우도면 연평리 712-1",open:"10:00~17:00",brk:"없음",closed:"연중무휴 (우도 배편 시간 확인)",
   links:[["네이버지도",NM("블랑로쉐 우도")],["카페 추천글","https://suggestravel.com/제주도-카페/"]]},
  {id:"handam",cat:"cafe",emoji:"🌅",region:"서부·애월",name:"애월 한담해안 카페거리",tag:"노을 맛집 카페들의 성지",hash:"#카페투어 #한담산책로 #노을",
   desc:"한담해안산책로를 따라 오션뷰 카페가 줄지어 선 애월의 핫플레이스. 봄날, 몽상드애월, 랜디스도넛 등이 모여 있어 산책과 카페 투어를 한 번에 즐깁니다.",
-  addr:"제주시 애월읍 애월로1길 일대",time:"카페별 상이 (보통 10:00~21:00 전후)",
+  addr:"제주시 애월읍 애월로1길 일대",open:"카페별 상이 (보통 10:00~21:00)",brk:"카페별 상이",closed:"카페별 상이",
   links:[["네이버지도",NM("한담해안산책로")],["애월 카페 순위","https://www.diningcode.com/list.dc?query=애월+카페"]]},
  {id:"gongbech",cat:"cafe",emoji:"🖼",region:"동부·구좌(동복)",name:"카페 공백",tag:"BTS 형이 만든 미술관 같은 카페",hash:"#바다뷰 #전시공간 #건축미",
   desc:"돌창고를 개조한 공간과 통유리 바다 뷰, 별관 전시장까지 갖춰 '카페인지 미술관인지' 싶은 곳. 붉은 대형 테이블 너머로 보이는 현무암 해안이 시그니처 컷입니다.",
-  addr:"제주시 구좌읍 동복로 83",time:"매장 확인 (보통 낮 시간대)",
+  addr:"제주시 구좌읍 동복로 83",open:"매장 확인",brk:"매장 확인",closed:"매장 확인",
   links:[["네이버지도",NM("카페 공백")],["비짓제주",VJ]]},
  {id:"poonglim",cat:"cafe",emoji:"☕",region:"동부·송당",name:"풍림다방 송당점",tag:"풍림브뤠베 하나로 전국구가 된 다방",hash:"#풍림브뤠베 #중산간숲속 #레트로",
   desc:"바닐라빈 크림을 올린 시그니처 '풍림브뤠베'로 유명한 중산간 숲속 카페. 빈티지 소품 가득한 레트로 감성 공간에서 즐기는 진한 커피 한 잔이 송당 오름 코스와 잘 어울립니다.",
-  addr:"제주시 구좌읍 중산간동로 2267-4",time:"11:00~18:00 · 목요일 휴무",
+  addr:"제주시 구좌읍 중산간동로 2267-4",open:"11:00~18:00",brk:"없음",closed:"목요일",
   links:[["네이버지도",NM("풍림다방 송당점")],["비짓제주",VJ]]},
  {id:"moalboal",cat:"cafe",emoji:"🏝",region:"동부·김녕",name:"카페모알보알",tag:"제주 안의 동남아, 좌식 오션뷰",hash:"#발리감성 #김녕바다 #포토존",
   desc:"라탄 소품과 좌식 방석으로 꾸민 동남아 휴양지 감성 카페. 창밖으로 김녕의 에메랄드빛 바다가 펼쳐져 어느 자리에서든 인생샷이 나옵니다. 김녕해수욕장·세화 코스와 연결 추천.",
-  addr:"제주시 구좌읍 구좌해안로 141",time:"매장 확인 (보통 오전~일몰)",
+  addr:"제주시 구좌읍 구좌해안로 141",open:"매장 확인",brk:"매장 확인",closed:"매장 확인",
   links:[["네이버지도",NM("카페모알보알")],["비짓제주",VJ]]},
  {id:"hallasan",cat:"cafe",emoji:"📺",region:"동부·세화(평대)",name:"카페한라산",tag:"'한라산' 액자샷의 원조 레트로 카페",hash:"#창문액자샷 #당근케이크 #고양이",
   desc:"파란 창문 너머 바다가 액자처럼 담기는 사진으로 유명해진 레트로 카페. 옛날 TV 속에서 잠자는 고양이와 당근케이크가 시그니처로, 세화·평대 해안도로 드라이브에 끼우기 좋습니다.",
-  addr:"제주시 구좌읍 면수1길 48",time:"09:30~21:00",
+  addr:"제주시 구좌읍 면수1길 48",open:"09:30~21:00",brk:"없음",closed:"연중무휴",
   links:[["네이버지도",NM("카페한라산")],["비짓제주",VJ]]},
  {id:"glencoe",cat:"cafe",emoji:"🌸",region:"동부·송당(교래)",name:"카페 글렌코",tag:"핑크뮬리·수국 만발 정원 카페",hash:"#핑크뮬리 #꽃밭 #가을필수",
   desc:"스코틀랜드 글렌코 협곡에서 이름을 딴 넓은 정원 카페. 가을 핑크뮬리와 여름 수국 등 계절 꽃밭이 장관이라 꽃 시즌엔 웨딩스냅 명소가 됩니다. 산굼부리·비자림과 동선이 겹칩니다.",
-  addr:"제주시 구좌읍 송당리 886",time:"09:00~19:00",
+  addr:"제주시 구좌읍 송당리 886",open:"09:00~19:00",brk:"없음",closed:"연중무휴",
   links:[["네이버지도",NM("카페 글렌코")],["비짓제주",VJ]]},
  {id:"delekoomda",cat:"cafe",emoji:"🎠",region:"동부·성산(섭지)",name:"드르쿰다in성산",tag:"성산일출봉 뷰 포토존 테마 카페",hash:"#섭지코지 #회전목마 #인생샷",
   desc:"회전목마·그네 등 야외 포토존이 가득한 대형 카페 겸 테마파크. 바다 건너 성산일출봉이 배경으로 잡혀 어떤 각도로 찍어도 그림이 됩니다. 섭지코지 가는 길에 있어 동선 낭비가 없어요.",
-  addr:"서귀포시 성산읍 섭지코지로25번길 64",time:"09:00~21:00",
+  addr:"서귀포시 성산읍 섭지코지로25번길 64",open:"09:00~21:00",brk:"없음",closed:"연중무휴",
   links:[["네이버지도",NM("드르쿰다in성산")],["비짓제주",VJ]]},
  {id:"saebil",cat:"cafe",emoji:"🌾",region:"서부·애월(새별)",name:"새빌",tag:"새별오름 코앞 리조트 개조 베이커리",hash:"#새별오름뷰 #대형베이커리 #억새",
   desc:"옛 리조트를 개조한 대형 베이커리 카페로, 통유리 너머로 새별오름이 그대로 들어옵니다. 가을 억새 시즌엔 오름 등반 후 마늘바게트와 커피로 마무리하는 코스가 국룰입니다.",
-  addr:"제주시 애월읍 평화로 1529",time:"매장 확인 (아침 일찍 오픈)",
+  addr:"제주시 애월읍 평화로 1529",open:"매장 확인",brk:"매장 확인",closed:"매장 확인",
   links:[["네이버지도",NM("새빌카페")],["비짓제주",VJ]]},
  {id:"antoinette",cat:"cafe",emoji:"✈",region:"제주시·용담",name:"앙뚜아네트 용담점",tag:"비행기 뜨는 바다 뷰 베이커리",hash:"#용담해안도로 #소금빵 #비행기샷",
   desc:"용담 해안도로에 자리한 오션뷰 베이커리 카페. 커피를 마시다 보면 바다 위로 비행기가 날아오르는 장면이 잡힙니다. 현무암 소금빵 등 제주 감성 빵이 많고 공항과 가까워 마지막 일정으로 최적.",
-  addr:"제주시 서해안로 671",time:"08:00~20:00",
+  addr:"제주시 서해안로 671",open:"08:00~20:00",brk:"없음",closed:"연중무휴",
   links:[["네이버지도",NM("앙뚜아네트 용담점")],["비짓제주",VJ]]},
  {id:"soona",cat:"cafe",emoji:"🏠",region:"제주시·원도심",name:"순아커피",tag:"100년 적산가옥에서 마시는 커피",hash:"#적산가옥 #원도심산책 #고요함",
   desc:"관덕정 옆 100년 된 적산가옥을 그대로 살린 작고 고요한 카페. 삐걱이는 나무 계단을 올라 2층 다다미방에 앉으면 시간이 멈춘 듯합니다. 동문시장·원도심 산책과 묶기 좋아요.",
-  addr:"제주시 관덕로 32-1",time:"09:00~17:00 (토 ~19:00) · 일·월 휴무",
+  addr:"제주시 관덕로 32-1",open:"09:00~17:00 (토 10:00~19:00)",brk:"없음",closed:"일·월요일",
   links:[["네이버지도",NM("순아커피")],["비짓제주",VJ]]},
  {id:"oedo",cat:"cafe",emoji:"🪨",region:"제주시·외도",name:"그럼외도",tag:"월대천 옆 돌담집 감성 카페",hash:"#돌라떼 #탐라주악 #숨은명소",
   desc:"외도 월대천 근처 옛집을 개조한 카페로, 진동벨 대신 번호 적힌 돌멩이를 주는 위트가 있는 곳. 시그니처 돌라떼와 전통과자 탐라주악이 유명하며 한적하게 쉬어가기 좋습니다.",
-  addr:"제주시 외도2동 월대3길 16",time:"11:00~19:00 · 화요일 휴무",
+  addr:"제주시 외도2동 월대3길 16",open:"11:00~19:00",brk:"없음",closed:"화요일",
   links:[["네이버지도",NM("그럼외도")],["비짓제주",VJ]]},
  {id:"myeongwol",cat:"cafe",emoji:"🏫",region:"서부·한림(명월)",name:"명월국민학교",tag:"폐교를 살린 국민학교 감성 카페",hash:"#폐교카페 #웰컴투삼달리 #소품샵",
   desc:"1993년 폐교된 명월국민학교를 카페·소품샵·갤러리로 살린 곳. 드라마 '웰컴투 삼달리' 촬영지로도 유명하며, 운동장 벤치와 복도 등 추억을 소환하는 포토존이 가득합니다.",
-  addr:"제주시 한림읍 명월로 48",time:"매장 확인 (보통 11:00~19:00)",
+  addr:"제주시 한림읍 명월로 48",open:"매장 확인",brk:"매장 확인",closed:"매장 확인",
   links:[["네이버지도",NM("명월국민학교")],["비짓제주",VJ]]},
  {id:"mippeun",cat:"cafe",emoji:"🏯",region:"남서부·대정(신도)",name:"미쁜제과",tag:"바닷가 대형 한옥 베이커리",hash:"#한옥카페 #소금빵 #정원",
   desc:"기와 한옥과 너른 정원, 그네·투호 같은 놀거리까지 갖춘 대형 베이커리 카페. 갓 구운 빵을 들고 마당을 거닐면 담장 너머로 서쪽 바다가 보입니다. 수월봉·차귀도 코스와 연결 추천.",
-  addr:"서귀포시 대정읍 도원남로 16",time:"09:00~20:00",
+  addr:"서귀포시 대정읍 도원남로 16",open:"09:00~20:00",brk:"없음",closed:"연중무휴",
   links:[["네이버지도",NM("미쁜제과")],["비짓제주",VJ]]},
  {id:"honeymoon",cat:"cafe",emoji:"🌴",region:"서귀포·칠십리",name:"허니문하우스",tag:"야자수 숲속 유럽풍 오션뷰 카페",hash:"#콜로니얼감성 #브런치 #숨은뷰맛집",
   desc:"옛 호텔 별관을 개조한 콜로니얼풍 건물과 야자수 정원, 절벽 아래 바다까지 이국적인 풍경의 카페. 베이커리와 브런치가 알차고 소정방폭포 산책로와 이어져 있어 걷기도 좋습니다.",
-  addr:"서귀포시 칠십리로 228-13",time:"10:00~18:30",
+  addr:"서귀포시 칠십리로 228-13",open:"10:00~18:30",brk:"없음",closed:"연중무휴",
   links:[["네이버지도",NM("허니문하우스")],["비짓제주",VJ]]},
  {id:"terarosa",cat:"cafe",emoji:"🍊",region:"서귀포·하효",name:"테라로사 서귀포점",tag:"귤밭 한가운데 스페셜티 커피",hash:"#귤밭뷰 #스페셜티커피 #쇠소깍근처",
   desc:"강릉의 유명 로스터리 테라로사가 귤 창고를 개조해 만든 지점. 통유리 너머 감귤밭 풍경과 수준급 핸드드립, 베이커리를 함께 즐길 수 있습니다. 쇠소깍·효돈 코스와 묶기 좋아요.",
-  addr:"서귀포시 칠십리로658번길 27-16",time:"09:00~20:00",
+  addr:"서귀포시 칠십리로658번길 27-16",open:"09:00~20:00",brk:"없음",closed:"연중무휴",
   links:[["네이버지도",NM("테라로사 서귀포점")],["비짓제주",VJ]]},
  {id:"seoyeun",cat:"cafe",emoji:"🎬",region:"남부·위미",name:"카페 서연의집",tag:"영화 '건축학개론' 그 집",hash:"#건축학개론 #위미바다 #첫사랑감성",
   desc:"영화 '건축학개론' 속 서연의 집을 그대로 카페로 만든 곳. 잔디 옥상에 앉아 위미 바다를 바라보면 영화의 한 장면 속에 들어온 기분입니다. 위미 동백나무 군락지와 함께 돌아보세요.",
-  addr:"서귀포시 남원읍 위미해안로 86",time:"10:00~19:00",
+  addr:"서귀포시 남원읍 위미해안로 86",open:"10:00~19:00",brk:"없음",closed:"연중무휴",
   links:[["네이버지도",NM("카페 서연의집")],["비짓제주",VJ]]},
 ];
 
@@ -725,7 +753,11 @@ function makeCard(p){
       <p class="desc">${p.desc}</p>
       <div class="meta">
         <div><span class="ico">📍</span><span>${p.addr}</span></div>
-        <div><span class="ico">🕐</span><span>${p.time}</span></div>
+        ${p.open!==undefined?`
+        <div><span class="ico">🕐</span><span><b>영업시간</b> ${p.open}</span></div>
+        <div><span class="ico">⏸️</span><span><b>브레이크타임</b> ${p.brk}</span></div>
+        <div><span class="ico">📅</span><span><b>휴무일</b> ${p.closed}</span></div>`
+        :`<div><span class="ico">🕐</span><span>${p.time}</span></div>`}
       </div>
       <div class="links">
         ${p.links.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${l[0]} ↗</a>`).join("")}
@@ -765,6 +797,23 @@ const modal = document.getElementById("addModal");
 document.getElementById("fabAdd").addEventListener("click",()=>{ modal.classList.add("open"); });
 document.getElementById("np_cancel").addEventListener("click",()=>{ modal.classList.remove("open"); });
 modal.addEventListener("click",e=>{ if(e.target===modal) modal.classList.remove("open"); });
+
+const hoursModal = document.getElementById("hoursModal");
+document.getElementById("fabHours").addEventListener("click",()=>{ renderHoursTable(); hoursModal.classList.add("open"); });
+document.getElementById("hm_close").addEventListener("click",()=>{ hoursModal.classList.remove("open"); });
+hoursModal.addEventListener("click",e=>{ if(e.target===hoursModal) hoursModal.classList.remove("open"); });
+function renderHoursTable(){
+  const rows=[];
+  [["food","🍽 맛집"],["cafe","☕ 카페"]].forEach(([cat,label])=>{
+    const items = allPlaces().filter(p=>p.cat===cat);
+    rows.push(`<tr class="grp"><td colspan="4">${label} (${items.length})</td></tr>`);
+    items.forEach(p=>{
+      rows.push(`<tr><td class="nm">${p.name}<div class="sub">${p.region||""}</div></td><td>${p.open??p.time??"매장 확인"}</td><td>${p.brk??"매장 확인"}</td><td>${p.closed??"매장 확인"}</td></tr>`);
+    });
+  });
+  document.getElementById("hoursTableWrap").innerHTML =
+    `<table class="hours-table"><thead><tr><th>가게</th><th>영업시간</th><th>브레이크</th><th>휴무일</th></tr></thead><tbody>${rows.join("")}</tbody></table>`;
+}
 document.getElementById("np_save").addEventListener("click",()=>{
   const name = document.getElementById("np_name").value.trim();
   if(!name){ alert("장소 이름을 입력해주세요!"); return; }
