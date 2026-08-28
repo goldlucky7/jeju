@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>제주 여행 스탬프북 — 관광지·맛집·카페 59선</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sea:#0E7490; --sea-deep:#155E6B;
+    --tangerine:#F2762E; --canola:#F5C542;
+    --basalt:#26302E; --paper:#F7FAF9; --card:#FFFFFF;
+    --stamp:#D6362B; --line:#DCE7E5;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Noto Sans KR',sans-serif;background:var(--paper);color:var(--basalt);line-height:1.6;}
+  header{
+    background:linear-gradient(160deg,var(--sea-deep) 0%,var(--sea) 60%,#1E8FA5 100%);
+    color:#fff;padding:44px 20px 30px;position:relative;overflow:hidden;
+  }
+  header::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:26px;
+    background:radial-gradient(circle at 10px -6px, transparent 14px, var(--paper) 15px);
+    background-size:40px 26px;}
+  .h-eyebrow{font-size:13px;letter-spacing:4px;color:var(--canola);font-weight:700;margin-bottom:8px;}
+  h1{font-family:'Gowun Batang',serif;font-size:clamp(28px,6vw,44px);font-weight:700;letter-spacing:-1px;}
+  h1 .dot{color:var(--tangerine);}
+  .h-sub{margin-top:10px;font-size:14px;opacity:.92;max-width:600px;}
+  .progress-wrap{margin:22px auto 6px;max-width:680px;background:rgba(255,255,255,.16);border-radius:999px;padding:5px;}
+  .progress-bar{height:14px;border-radius:999px;width:0%;
+    background:linear-gradient(90deg,var(--canola),var(--tangerine));
+    transition:width .5s cubic-bezier(.22,1,.36,1);min-width:14px;}
+  .progress-label{text-align:center;font-size:13px;margin-top:8px;font-weight:500;}
+  .progress-label b{color:var(--canola);font-size:16px;}
+  nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:22px 16px 6px;position:sticky;top:0;background:rgba(247,250,249,.94);backdrop-filter:blur(6px);z-index:10;border-bottom:1px solid var(--line);}
+  .tab{border:1.5px solid var(--line);background:#fff;color:var(--basalt);
+    padding:8px 16px;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer;
+    transition:all .18s;font-family:inherit;}
+  .tab:hover{border-color:var(--sea);}
+  .tab.active{background:var(--basalt);color:#fff;border-color:var(--basalt);}
+  main{max-width:1080px;margin:0 auto;padding:18px 16px 60px;}
+  .section-title{font-family:'Gowun Batang',serif;font-size:22px;margin:26px 4px 12px;
+    display:flex;align-items:center;gap:10px;}
+  .section-title::after{content:"";flex:1;height:1px;background:var(--line);}
+  .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;
+    position:relative;display:flex;flex-direction:column;transition:transform .18s, box-shadow .18s;}
+  .card:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(21,94,107,.12);}
+  .card.visited{border-color:#F0C9C5;background:#FFFDFB;}
+  .visual{height:104px;display:flex;align-items:center;justify-content:center;font-size:48px;position:relative;}
+  .v-spot{background:linear-gradient(135deg,#B7E6EE,#4FA9BC);}
+  .v-food{background:linear-gradient(135deg,#FFDCC2,#F2925C);}
+  .v-cafe{background:linear-gradient(135deg,#EFE6CE,#C9B77F);}
+  .badge{position:absolute;top:10px;left:10px;font-size:11px;font-weight:900;letter-spacing:1px;
+    padding:3px 10px;border-radius:999px;color:#fff;}
+  .b-spot{background:var(--sea);} .b-food{background:var(--tangerine);} .b-cafe{background:#8A7742;}
+  .region{position:absolute;top:10px;right:10px;font-size:11px;font-weight:700;
+    background:rgba(255,255,255,.85);padding:3px 10px;border-radius:999px;color:var(--basalt);}
+  .body{padding:16px 16px 14px;flex:1;display:flex;flex-direction:column;}
+  .name{font-family:'Gowun Batang',serif;font-size:19px;font-weight:700;margin-bottom:2px;}
+  .tagline{font-size:12.5px;color:var(--sea-deep);font-weight:700;margin-bottom:6px;}
+  .hash{font-size:11.5px;color:#8B9693;margin-bottom:8px;font-weight:500;}
+  .desc{font-size:13.5px;color:#4A5553;margin-bottom:10px;}
+  .meta{font-size:12.5px;color:#5C6664;border-top:1px dashed var(--line);padding-top:9px;margin-top:auto;}
+  .meta div{display:flex;gap:6px;margin-bottom:3px;}
+  .meta .ico{flex-shrink:0;}
+  .links{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
+  .links a{font-size:12px;font-weight:700;text-decoration:none;padding:5px 11px;border-radius:8px;
+    border:1px solid var(--line);color:var(--sea-deep);transition:all .15s;}
+  .links a:hover{background:var(--sea);color:#fff;border-color:var(--sea);}
+  .visit-btn{margin-top:12px;width:100%;padding:10px;border-radius:10px;
+    border:1.5px dashed #C9CFCE;background:#F6F8F8;
+    font-family:inherit;font-size:14px;font-weight:700;color:#6B7573;cursor:pointer;transition:all .18s;}
+  .visit-btn:hover{border-color:var(--stamp);color:var(--stamp);}
+  .card.visited .visit-btn{background:#FBEDEB;border:1.5px solid #EFC5C0;color:var(--stamp);}
+  .stamp{position:absolute;top:50px;right:14px;width:86px;height:86px;border-radius:50%;
+    border:3.5px solid var(--stamp);color:var(--stamp);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    font-weight:900;font-size:13px;letter-spacing:1px;
+    transform:rotate(-14deg) scale(0);opacity:0;pointer-events:none;
+    background:rgba(255,255,255,.55);box-shadow:inset 0 0 0 2px rgba(214,54,43,.25);
+    transition:transform .3s cubic-bezier(.34,1.56,.64,1), opacity .2s;z-index:2;}
+  .stamp .chk{font-size:26px;line-height:1;}
+  .card.visited .stamp{transform:rotate(-14deg) scale(1);opacity:.92;}
+  @media (prefers-reduced-motion: reduce){.card,.stamp,.progress-bar{transition:none;}}
+  footer{text-align:center;font-size:12px;color:#7C8684;padding:26px 16px 40px;border-top:1px solid var(--line);}
+  footer a{color:var(--sea-deep);}
+  .reset{margin-top:10px;background:none;border:none;font-size:12px;color:#9AA3A1;
+    text-decoration:underline;cursor:pointer;font-family:inherit;}
+  .cpl-btn{font-family:inherit;font-size:12.5px;font-weight:700;margin:0 3px 6px;
+    background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.45);
+    border-radius:999px;padding:6px 14px;cursor:pointer;transition:background .15s;}
+  .cpl-btn:hover{background:rgba(255,255,255,.32);}
+  .bk-btn{font-family:inherit;font-size:12.5px;font-weight:700;margin:0 4px;
+    background:#fff;color:var(--sea-deep);border:1.5px solid var(--line);
+    border-radius:999px;padding:7px 16px;cursor:pointer;transition:all .15s;}
+  .bk-btn:hover{border-color:var(--sea);background:var(--sea);color:#fff;}
+  /* 장소 추가 버튼(플로팅) & 입력창 */
+  #fabAdd{position:fixed;right:16px;bottom:20px;z-index:50;
+    background:var(--tangerine);color:#fff;border:none;border-radius:999px;
+    padding:14px 20px;font-family:inherit;font-size:15px;font-weight:900;
+    box-shadow:0 6px 18px rgba(242,118,46,.4);cursor:pointer;}
+  #addModal{position:fixed;inset:0;background:rgba(20,30,28,.55);z-index:60;
+    display:none;align-items:center;justify-content:center;padding:20px;}
+  #addModal.open{display:flex;}
+  .modal-box{background:#fff;border-radius:18px;padding:22px 20px;width:100%;max-width:400px;}
+  .modal-box h3{font-family:'Gowun Batang',serif;font-size:20px;margin-bottom:14px;}
+  .modal-box input,.modal-box select{width:100%;margin-bottom:10px;padding:11px 12px;
+    border:1.5px solid var(--line);border-radius:10px;font-family:inherit;font-size:14px;}
+  .modal-box input:focus,.modal-box select:focus{outline:none;border-color:var(--sea);}
+  .modal-actions{display:flex;gap:8px;margin-top:6px;}
+  .modal-actions button{flex:1;padding:12px;border-radius:10px;font-family:inherit;
+    font-size:14px;font-weight:700;cursor:pointer;}
+  #np_cancel{background:#F1F4F3;border:1.5px solid var(--line);color:#5C6664;}
+  #np_save{background:var(--tangerine);border:none;color:#fff;}
+  .del-link{font-size:11.5px;color:#B8514A;text-decoration:underline;background:none;
+    border:none;cursor:pointer;font-family:inherit;margin-top:6px;}
+</style>
+</head>
+<body>
+
+<header>
+  <div style="max-width:1080px;margin:0 auto;">
+    <div class="h-eyebrow">JEJU STAMP BOOK · 59 PLACES</div>
+    <h1>제주 여행 스탬프북<span class="dot">.</span></h1>
+    <p class="h-sub">감성 포토스팟부터 액티비티, 자연 명소, 노포 맛집까지 —
+    20대부터 40대까지 모두를 위한 59곳. 다녀온 곳은 <b>[갔다왔음]</b>을 눌러 빨간 도장을 찍어보세요.</p>
+    <div class="progress-wrap"><div class="progress-bar" id="pbar"></div></div>
+    <div class="progress-label" id="plabel"></div>
+    <div style="text-align:center;margin-top:12px;">
+      <div id="syncstate" style="font-size:12px;opacity:.9;"></div>
+    </div>
+  </div>
+</header>
+
+<nav id="tabs">
+  <button class="tab active" data-filter="all">전체</button>
+  <button class="tab" data-filter="spot">🏝 관광지</button>
+  <button class="tab" data-filter="food">🍽 맛집</button>
+  <button class="tab" data-filter="cafe">☕ 카페</button>
+  <button class="tab" data-filter="visited">🔴 갔다온 곳</button>
+</nav>
+
+<main id="list"></main>
+
+<button id="fabAdd">➕ 장소 추가</button>
+
+<div id="addModal">
+  <div class="modal-box">
+    <h3>📌 우리만의 장소 추가</h3>
+    <input id="np_name" placeholder="장소 이름 (필수) 예: OO식당">
+    <select id="np_cat">
+      <option value="spot">🏝 관광지</option>
+      <option value="food">🍽 맛집</option>
+      <option value="cafe">☕ 카페</option>
+    </select>
+    <input id="np_region" placeholder="지역 (선택) 예: 서부·애월">
+    <input id="np_addr" placeholder="주소 (선택)">
+    <input id="np_memo" placeholder="메모 (선택) 예: 인스타에서 봄, 웨이팅 있음">
+    <div class="modal-actions">
+      <button id="np_cancel">취소</button>
+      <button id="np_save">추가하기</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  💡 <b>같이 쓰는 법</b>: 링크를 상대방에게 보내기만 하면 끝!
+  <b>로그인도, 코드 입력도 없이</b> 같은 링크로 여는 모든 기기의 도장이 자동으로 합쳐집니다.<br>
+  주소·운영시간·요금은 조사 시점 기준이며 변동될 수 있으니 방문 전 확인을 권장합니다.<br>
+  공식 여행정보: <a href="https://www.visitjeju.net" target="_blank">비짓제주 (제주관광공사)</a><br>
+  <div style="margin-top:12px;">
+    <button class="bk-btn" id="backupBtn">💾 기록 백업 (복사)</button>
+    <button class="bk-btn" id="restoreBtn">♻️ 기록 복원</button>
+  </div>
+  <button class="reset" id="resetBtn">방문 기록 전체 초기화</button>
+</footer>
+
+<script>
+const VJ = "https://www.visitjeju.net";
+const NM = n => "https://map.naver.com/p/search/"+encodeURIComponent(n);
+const PLACES = [
+ // ================= 관광지 (22) =================
+ {id:"seongsan",cat:"spot",emoji:"🌋",region:"동부·성산",name:"성산일출봉",tag:"유네스코 세계자연유산 · 일출 명소",hash:"#전연령 #일출 #등반30분",
+  desc:"바닷속 화산 폭발로 만들어진 분화구가 왕관처럼 솟은 제주의 상징. 정상까지 30분이면 오르며, 꼭대기에서 보는 일출과 바다 전망이 압권입니다.",
+  addr:"서귀포시 성산읍 일출로 284-12",time:"연중 개방 (계절별 입장마감 상이) · 유료",
+  links:[["네이버지도",NM("성산일출봉")],["비짓제주",VJ]]},
+ {id:"udo",cat:"spot",emoji:"🚢",region:"동부·우도",name:"우도",tag:"배 타고 15분, 섬 속의 섬",hash:"#전연령 #전기바이크 #땅콩아이스크림",
+  desc:"성산항에서 도항선으로 들어가는 작은 섬. 서빈백사의 하얀 산호 해변과 우도 땅콩 아이스크림이 유명합니다. 기상에 따라 배편이 바뀌니 출발 전 확인 필수.",
+  addr:"제주시 우도면 (승선: 성산항 여객터미널)",time:"배편 기상 따라 변동 · 렌터카 반입 제한 확인",
+  links:[["네이버지도",NM("우도")],["가볼만한곳 정리","https://suggestravel.com/jeju-travel/"]]},
+ {id:"hyeopjae",cat:"spot",emoji:"🏖",region:"서부·한림",name:"협재해수욕장",tag:"에메랄드빛 바다 + 비양도 뷰",hash:"#전연령 #물놀이 #서쪽대표해변",
+  desc:"제주에서 가장 투명한 물빛으로 꼽히는 해변. 고운 모래와 얕은 수심으로 누구나 즐기기 좋고, 바다 건너 비양도가 그림처럼 떠 있습니다.",
+  addr:"제주시 한림읍 한림로 329-10",time:"상시 개방 · 무료 주차",
+  links:[["네이버지도",NM("협재해수욕장")],["비짓제주",VJ]]},
+ {id:"woljeong",cat:"spot",emoji:"🏄",region:"동부·구좌",name:"월정리해변",tag:"서핑과 감성 카페의 해변",hash:"#2030 #서핑 #투명카약",
+  desc:"'달이 머문다'는 이름처럼 맑은 물빛과 하얀 백사장이 예쁜 동쪽 대표 감성 해변. 서핑 입문 강습과 투명카약이 인기이고 해변가에 카페가 줄지어 있습니다.",
+  addr:"제주시 구좌읍 월정리",time:"상시 개방",
+  links:[["네이버지도",NM("월정리해변")],["비짓제주",VJ]]},
+ {id:"hamdeok",cat:"spot",emoji:"🐚",region:"동부·조천",name:"함덕해수욕장",tag:"서우봉과 어우러진 에메랄드 해변",hash:"#전연령 #물놀이 #산책",
+  desc:"동쪽의 협재로 불리는 인기 해변. 얕고 잔잔한 물과 넓은 백사장, 옆으로 이어지는 서우봉 산책로까지 풍경이 단조롭지 않습니다. 델문도 카페와 함께 코스로.",
+  addr:"제주시 조천읍 신북로 (함덕리)",time:"상시 개방 (물놀이는 시즌 운영)",
+  links:[["네이버지도",NM("함덕해수욕장")],["비짓제주",VJ]]},
+ {id:"iho",cat:"spot",emoji:"🐴",region:"제주시·이호",name:"이호테우해변 목마등대",tag:"빨간 조랑말 등대 일몰 명소",hash:"#2030 #포토스팟 #공항10분",
+  desc:"빨간·하얀 조랑말 모양 등대 한 쌍이 서 있는 제주시의 일몰 포토스팟. 공항에서 10분 거리라 첫날이나 마지막 날 일정으로 넣기 좋습니다.",
+  addr:"제주시 이호일동 375-43",time:"상시 개방 · 무료",
+  links:[["네이버지도",NM("이호테우해변")],["비짓제주",VJ]]},
+ {id:"saryeoni",cat:"spot",emoji:"🌲",region:"동부·조천",name:"사려니숲길",tag:"삼나무 사이 힐링 산책로",hash:"#3040 #힐링 #비오는날도OK",
+  desc:"하늘을 가리는 삼나무·편백 숲 사이로 평탄한 길이 이어지는 대표 숲길. 빛이 스며드는 오전이 특히 아름답고, 안개 낀 날의 몽환적인 분위기도 매력적입니다.",
+  addr:"제주시 조천읍 교래리 (비자림로 입구)",time:"상시 개방 · 무료",
+  links:[["네이버지도",NM("사려니숲길")],["비짓제주",VJ]]},
+ {id:"bijarim",cat:"spot",emoji:"🌳",region:"동부·구좌",name:"비자림",tag:"수백 년 비자나무 원시림",hash:"#3040 #평탄한숲길 #피톤치드",
+  desc:"500~800년 된 비자나무 2,800여 그루가 우거진 천연기념물 숲. 경사 없는 흙길이라 누구나 1~2시간 여유롭게 걷기 좋고 새소리 가득한 고요함이 일품입니다.",
+  addr:"제주시 구좌읍 비자숲길 55",time:"09:00~18:00 · 성인 3,000원",
+  links:[["네이버지도",NM("비자림")],["비짓제주",VJ]]},
+ {id:"saebyeol",cat:"spot",emoji:"🌄",region:"서부·애월",name:"새별오름",tag:"억새와 노을의 오름",hash:"#전연령 #노을 #가을억새",
+  desc:"20~30분이면 오르는 완만한 오름으로, 정상에서 서쪽 바다로 지는 노을이 장관입니다. 가을 억새 시즌엔 은빛 물결이 산 전체를 덮습니다.",
+  addr:"제주시 애월읍 봉성리 산59-8",time:"상시 개방 · 무료",
+  links:[["네이버지도",NM("새별오름")],["비짓제주",VJ]]},
+ {id:"manjang",cat:"spot",emoji:"🕳",region:"동부·구좌",name:"만장굴",tag:"세계 최대급 용암동굴",hash:"#전연령 #더위탈출 #유네스코",
+  desc:"유네스코 세계자연유산인 거대 용암동굴. 내부는 연중 13~15도로 여름 피서지로 최고이며, 1km 탐방로 끝의 7.6m 용암석주가 하이라이트입니다.",
+  addr:"제주시 구좌읍 만장굴길 182",time:"09:00~17:00 · 수요일 휴무 · 성인 4,000원",
+  links:[["네이버지도",NM("만장굴")],["비짓제주",VJ]]},
+ {id:"camellia",cat:"spot",emoji:"🌺",region:"남서부·안덕",name:"카멜리아힐",tag:"동백·수국 사계절 수목원",hash:"#2030 #인생샷 #꽃축제",
+  desc:"겨울 동백, 봄 벚꽃·튤립, 여름 수국까지 계절마다 꽃이 바뀌는 대형 수목원. 포토존이 많아 인생샷 명소로 꼽힙니다. 개화 시기를 확인하고 가면 좋아요.",
+  addr:"서귀포시 안덕면 병악로 166",time:"08:30~18:00 · 성인 12,000원",
+  links:[["네이버지도",NM("카멜리아힐")],["비짓제주",VJ]]},
+ {id:"cheonjiyeon",cat:"spot",emoji:"💧",region:"남부·서귀포",name:"천지연폭포",tag:"밤에 더 예쁜 폭포 산책",hash:"#3040 #야간개장 #산책",
+  desc:"'하늘과 땅이 만나는 연못'이라는 이름의 폭포. 입구부터 폭포까지 이어지는 산책로가 잘 정비되어 있고, 야간 조명이 켜지는 저녁 방문도 추천합니다.",
+  addr:"서귀포시 천지동 (남성중로 2-15 매표소)",time:"야간 개장 · 유료",
+  links:[["네이버지도",NM("천지연폭포")],["비짓제주",VJ]]},
+ {id:"jusangjeolli",cat:"spot",emoji:"🪨",region:"남부·중문",name:"대포 주상절리대",tag:"육각 돌기둥 해안 절경",hash:"#3040 #자연경관 #중문코스",
+  desc:"한라산 용암이 바다에서 식으며 만들어진 사각·육각 돌기둥 병풍. 파도가 기둥에 부딪히는 모습이 장관이며 천제연폭포 등과 묶어 둘러보기 좋습니다.",
+  addr:"서귀포시 중문동 (이어도로 36-30)",time:"성인 2,000원",
+  links:[["네이버지도",NM("대포주상절리대")],["여행 가이드","https://kr.trip.com/blog/jeju-trip-guide/"]]},
+ {id:"yongmeori",cat:"spot",emoji:"🐉",region:"남서부·안덕",name:"용머리해안",tag:"수천 년 지층이 만든 해안 트레킹",hash:"#2040 #지질트레킹 #물때확인필수",
+  desc:"용이 바다로 들어가는 형상의 사암 절벽 해안. 켜켜이 쌓인 지층 사이를 걷는 이색 트레킹 코스로, 만조·파도 때는 통제되니 개방 여부를 꼭 확인하세요.",
+  addr:"서귀포시 안덕면 사계리 112-3",time:"물때·기상 따라 개방 · 성인 2,000원",
+  links:[["네이버지도",NM("용머리해안")],["비짓제주",VJ]]},
+ {id:"soesokkak",cat:"spot",emoji:"🛶",region:"남부·서귀포",name:"쇠소깍",tag:"에메랄드 계곡 카약·테우 체험",hash:"#2030 #카약 #이색체험",
+  desc:"민물과 바닷물이 만나 짙은 옥빛을 띠는 계곡. 투명카약과 전통 뗏목 '테우'를 타고 협곡 사이를 유유히 떠다니는 체험이 인기입니다.",
+  addr:"서귀포시 쇠소깍로 142",time:"상시 개방 (체험은 주간 운영)",
+  links:[["네이버지도",NM("쇠소깍")],["비짓제주",VJ]]},
+ {id:"osulloc",cat:"spot",emoji:"🍵",region:"남서부·안덕",name:"오설록 티뮤지엄",tag:"초록 녹차밭 + 무료 입장",hash:"#전연령 #녹차아이스크림 #무료",
+  desc:"드넓은 녹차밭 옆의 차(茶) 박물관. 입장 무료에 다양한 차 시음이 가능하고, 녹차 아이스크림이 시그니처입니다. 바로 옆 이니스프리 하우스도 함께.",
+  addr:"서귀포시 안덕면 신화역사로 15",time:"09:00~19:00 · 무료",
+  links:[["네이버지도",NM("오설록티뮤지엄")],["비짓제주",VJ]]},
+ {id:"arte",cat:"spot",emoji:"🎨",region:"서부·애월",name:"아르떼뮤지엄 제주",tag:"국내 최대급 몰입형 미디어아트",hash:"#2030 #인생샷100장 #실내",
+  desc:"옛 스피커 공장을 개조한 초대형 미디어아트 전시관. 폭포·바다·꽃 테마의 빛과 소리에 온몸이 잠기는 경험으로, 비 오는 날 실내 코스 1순위입니다.",
+  addr:"제주시 애월읍 어림비로 478",time:"10:00~20:00 · 유료 (온라인 예매 할인)",
+  links:[["네이버지도",NM("아르떼뮤지엄 제주")],["실내명소 추천글","https://kr.trip.com/blog/jeju-indoor-tourist-attractions-on-a-rainy-day/"]]},
+ {id:"park981",cat:"spot",emoji:"🏎",region:"서부·애월",name:"9.81 파크",tag:"중력으로 달리는 무동력 레이싱",hash:"#2030 #액티비티 #커플데이트",
+  desc:"경사만으로 시속 40km까지 달리는 무동력 카트 레이싱 파크. 앱으로 내 주행 영상과 랭킹을 확인하는 재미가 있고, 실내 게임존도 있어 우천 시에도 즐길 거리가 있습니다.",
+  addr:"제주시 애월읍 천덕로 880-24",time:"09:00~19:00 · 유료 (사전예매 추천)",
+  links:[["네이버지도",NM("9.81파크")],["이용 후기","https://kr.trip.com/guide/attraction/9.81+파크.html"]]},
+ {id:"snoopy",cat:"spot",emoji:"🐶",region:"동부·구좌",name:"스누피가든",tag:"피너츠 감성 정원 테마파크",hash:"#2040 #힐링 #굿즈쇼핑",
+  desc:"스누피와 피너츠 친구들 테마의 정원형 파크. 실내 전시관과 넓은 야외 가든을 2~3시간 산책하듯 즐기며, 제주 한정 굿즈샵과 테마 카페도 놓치기 아쉽습니다.",
+  addr:"제주시 구좌읍 금백조로 930",time:"09:00~18:00 (시즌별 상이) · 유료",
+  links:[["네이버지도",NM("스누피가든")],["방문 가이드","https://kr.trip.com/guide/attraction/스누피가든.html"]]},
+ {id:"bunker",cat:"spot",emoji:"💡",region:"동부·성산",name:"빛의 벙커",tag:"비밀 벙커에서 만나는 명화",hash:"#3040 #몰입형전시 #실내",
+  desc:"옛 국가 통신벙커를 개조한 몰입형 미술 전시관. 거장의 명화가 음악과 함께 벽·바닥 전체에 흐르는 30분의 몰입 경험으로, 성산 코스와 묶기 좋습니다.",
+  addr:"서귀포시 성산읍 서성일로1168번길 89-17",time:"10:00~18:20 · 유료 (예매 할인)",
+  links:[["네이버지도",NM("빛의벙커")],["실내명소 추천글","https://kr.trip.com/blog/jeju-indoor-tourist-attractions-on-a-rainy-day/"]]},
+ {id:"ecoland",cat:"spot",emoji:"🚂",region:"동부·조천",name:"에코랜드 테마파크",tag:"기차 타고 곶자왈 숲 여행",hash:"#전연령 #가족 #튤립시즌",
+  desc:"증기기관차 모형 기차를 타고 곶자왈 숲속 4개 역을 도는 테마파크. 역마다 호수·정원·풍차 등 테마가 달라 걷기 부담 없이 자연을 즐길 수 있습니다.",
+  addr:"제주시 조천읍 번영로 1278-169",time:"08:30~19:00 (시즌별 상이) · 유료",
+  links:[["네이버지도",NM("에코랜드")],["비짓제주",VJ]]},
+ {id:"dongmun",cat:"spot",emoji:"🍊",region:"제주시·원도심",name:"동문재래시장",tag:"제주 최대 재래시장 먹거리 투어",hash:"#전연령 #야시장 #기념품",
+  desc:"감귤, 오메기떡, 흑돼지꼬치, 딱새우회까지 제주 먹거리가 총집합한 최대 재래시장. 저녁엔 야시장 먹거리 골목이 열려 밤 산책 코스로도 좋습니다.",
+  addr:"제주시 동문로4길 9 일대",time:"08:00~21:00 (야시장은 저녁 운영)",
+  links:[["네이버지도",NM("동문재래시장")],["비짓제주",VJ]]},
+ {id:"ollemarket",cat:"spot",emoji:"🛍",region:"서귀포·시내",name:"서귀포매일올레시장",tag:"서귀포 대표 전통시장 먹거리 투어",hash:"#전연령 #먹방투어 #저녁도좋음",
+  desc:"200여 개 점포가 모인 서귀포 최대 상설시장. 마농치킨, 모닥치기, 꽁치김밥, 오메기떡 등 명물 먹거리가 총집합해 있어 걷다 보면 배가 부릅니다. 공영주차장 완비.",
+  addr:"서귀포시 중앙로62번길 18",time:"07:00~21:00 (점포별 상이)",
+  links:[["네이버지도",NM("서귀포매일올레시장")],["공식 소개","https://visitjeju.net/kr/detail/view?contentsid=CONT_000000000500731"]]},
+ {id:"jeongbang",cat:"spot",emoji:"🌊",region:"서귀포·시내",name:"정방폭포",tag:"아시아에서 드문, 바다로 직접 떨어지는 폭포",hash:"#전연령 #올레시장도보권 #해녀해산물",
+  desc:"23m 물줄기가 곧장 바다로 쏟아지는 국내 유일급 해안 폭포. 올레시장에서 도보 15분 거리라 시장 코스와 묶기 좋고, 폭포 아래 해녀 좌판 해산물도 별미입니다.",
+  addr:"서귀포시 칠십리로214번길 37",time:"09:00~17:20 · 성인 2,000원",
+  links:[["네이버지도",NM("정방폭포")],["비짓제주",VJ]]},
+ {id:"leejungseop",cat:"spot",emoji:"🖼",region:"서귀포·시내",name:"이중섭 문화거리",tag:"화가의 흔적이 남은 예술 산책길",hash:"#3040 #예술감성 #올레시장연결",
+  desc:"화가 이중섭이 피난 시절 살던 집과 미술관, 공방·소품샵이 이어지는 문화 거리. 골목 곳곳에 숨은 그림을 찾으며 올레시장 남쪽 입구까지 걸어 내려가기 좋습니다.",
+  addr:"서귀포시 이중섭로 29 일대",time:"상시 개방 (주말 문화 행사)",
+  links:[["네이버지도",NM("이중섭거리")],["비짓제주",VJ]]},
+ {id:"saeyeongyo",cat:"spot",emoji:"🌉",region:"서귀포·시내",name:"새연교 · 새섬",tag:"야경 명소 다리 건너 섬 한 바퀴",hash:"#2030 #야경 #저녁산책",
+  desc:"돛 모양 다리 새연교를 건너면 새섬 둘레 산책로가 1km가량 이어집니다. 밤엔 다리와 산책로에 조명이 켜져 서귀포 야경 코스로 사랑받습니다.",
+  addr:"서귀포시 남성중로 40",time:"상시 개방 · 무료 (야간 조명)",
+  links:[["네이버지도",NM("새연교")],["비짓제주",VJ]]},
+ {id:"teddybear",cat:"spot",emoji:"🧸",region:"남부·중문",name:"테디베어뮤지엄 제주",tag:"국내 대표 테디베어 박물관 원조",hash:"#전연령 #실내 #중문관광단지",
+  desc:"세계 각국의 희귀 테디베어로 인류 역사를 재현한 3층 규모 박물관. 다이아몬드 눈의 억대 곰인형 '주빌리' 레플리카가 명물이며, 중문 색달해변이 보이는 야외정원도 있습니다.",
+  addr:"서귀포시 중문관광로 31",time:"09:00~18:00 · 연중무휴 · 유료",
+  links:[["네이버지도",NM("테디베어뮤지엄 제주")],["비짓제주 소개","https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500575"]]},
+ {id:"teseum",cat:"spot",emoji:"🏰",region:"서부·애월",name:"테지움 (테디베어 사파리)",tag:"성 모양 건물 속 테디베어 사파리",hash:"#가족 #체험형 #곰인형만들기",
+  desc:"사파리·영화·뮤지컬 테마존을 곰인형으로 꾸민 체험형 테디베어 테마파크. 성처럼 생긴 건물부터 눈길을 끌며, 나만의 곰인형 만들기 체험도 할 수 있습니다.",
+  addr:"제주시 애월읍 평화로 2159",time:"08:30~19:00 · 유료",
+  links:[["네이버지도",NM("테지움 제주")],["공식 홈페이지","http://teseum.net/"]]},
+ {id:"joanne",cat:"spot",emoji:"🐻",region:"남부·중문",name:"조안베어뮤지엄",tag:"작가가 직접 만든 핸드메이드 곰인형",hash:"#3040 #핸드메이드 #조용한관람",
+  desc:"테디베어 작가 조안 오의 수제 곰인형 작품을 전시하는 아틀리에형 박물관. 대형 박물관과 달리 작가의 손맛이 담긴 작품 위주라 차분히 감상하기 좋습니다.",
+  addr:"서귀포시 색달동 (중문관광단지 인근)",time:"매장 확인 · 유료 (온라인 예매 할인)",
+  links:[["네이버지도",NM("조안베어뮤지엄")],["비짓제주",VJ]]},
+ {id:"figuremuseum",cat:"spot",emoji:"🦸",region:"남서부·안덕",name:"피규어뮤지엄 제주",tag:"마블·영화 피규어 총집합",hash:"#2030 #마블덕후 #대형피규어",
+  desc:"2m 넘는 대형 히어로 조형물부터 정교한 미니 피규어까지 모은 국내 최대급 피규어 박물관. 마블·영화 팬이라면 인증샷 찍느라 시간 가는 줄 모릅니다.",
+  addr:"서귀포시 안덕면 한창로 243",time:"09:30~18:00 (입장마감 17:30) · 유료",
+  links:[["네이버지도",NM("피규어뮤지엄 제주")],["입장권 안내","https://www.waug.com/ko/activities/105400"]]},
+ {id:"hellokitty",cat:"spot",emoji:"🎀",region:"남서부·안덕",name:"헬로키티아일랜드",tag:"산리오 감성 가득 캐릭터 뮤지엄",hash:"#산리오덕후 #포토존 #3층카페",
+  desc:"헬로키티 테마 전시와 포토존, 키즈 플레이존, 키티 케이크를 파는 카페까지 갖춘 캐릭터 뮤지엄. 산리오 팬이라면 연령 불문 즐겁게 돌아볼 수 있습니다.",
+  addr:"서귀포시 안덕면 한창로 340",time:"09:00~17:00 · 유료",
+  links:[["네이버지도",NM("헬로키티아일랜드")],["비짓제주",VJ]]},
+ {id:"brickcampus",cat:"spot",emoji:"🧱",region:"제주시·노형",name:"브릭캠퍼스 제주",tag:"브릭(레고) 아트 갤러리 + 체험",hash:"#전연령 #브릭아트 #비오는날",
+  desc:"국내외 브릭 아티스트들의 작품을 모은 브릭 아트 갤러리. 감상 후 자유롭게 브릭을 조립하는 체험존과 브릭 모양 버거를 파는 카페가 있어 가족·커플 모두 즐깁니다.",
+  addr:"제주시 1100로 3047 (노형동)",time:"매장 확인 · 유료",
+  links:[["네이버지도",NM("브릭캠퍼스 제주")],["실내명소 추천글","https://kr.trip.com/blog/jeju-indoor-tourist-attractions-on-a-rainy-day/"]]},
+ // ================= 맛집 (14) =================
+ {id:"donsadon",cat:"food",emoji:"🥩",region:"제주시·노형",name:"돈사돈 본점",tag:"제주 흑돼지 구이 대표주자",hash:"#흑돼지 #근고기 #저녁웨이팅",
+  desc:"두툼한 근고기 흑돼지를 연탄불에 구워 멜젓에 찍어 먹는 정석 흑돼지집. 육즙 가득한 목살이 대표 메뉴이며 저녁엔 웨이팅이 길어 오픈 직후 방문 추천.",
+  addr:"제주시 노형동 3086-3",time:"12:30~22:00 · 화요일 휴무",
+  links:[["네이버지도",NM("돈사돈본점")],["흑돼지 가이드","https://kr.hotels.com/go/south-korea/blog-jeju-black-pork-restaurants-best-5"]]},
+ {id:"sukseongdo",cat:"food",emoji:"🔥",region:"제주시·노형",name:"숙성도 노형본점",tag:"드라이에이징 흑돼지의 신흥 강자",hash:"#숙성흑돼지 #2030최애 #원격줄서기",
+  desc:"2~3주 이상 숙성한 흑돼지 뼈등심·뽈살로 유명한 곳. 겉은 바삭, 속은 버터처럼 부드러운 식감이 시그니처입니다. 캐치테이블 원격 줄서기가 사실상 필수.",
+  addr:"제주시 원노형로 41",time:"매장 확인 (대기 많음)",
+  links:[["네이버지도",NM("숙성도 노형본점")],["비짓제주",VJ]]},
+ {id:"ollae",cat:"food",emoji:"🍜",region:"제주시·연동",name:"올래국수",tag:"제주 고기국수 3대장",hash:"#고기국수 #단일메뉴 #아침영업",
+  desc:"메뉴는 사실상 고기국수 하나. 진하고 뽀얀 돼지 육수에 수육이 푸짐하게 올라갑니다. 아침 일찍부터 현지인과 여행객이 줄 서는 국수 명가입니다.",
+  addr:"제주시 귀아랑길 24",time:"08:00~15:00 · 일요일 휴무",
+  links:[["네이버지도",NM("올래국수")],["맛집 기사","https://hotplacehunter.co.kr/sns/article/87816/amp/"]]},
+ {id:"jamae",cat:"food",emoji:"🥢",region:"제주시·공항근처",name:"자매국수",tag:"공항 5분, 비빔국수도 유명",hash:"#고기국수 #비빔국수 #공항근처",
+  desc:"올래국수와 함께 고기국수 양대산맥으로 불리는 집. 진한 고기국수와 새콤매콤 비빔국수가 모두 인기라 반반 주문이 국룰입니다. 공항과 가까워 도착 첫 끼로 좋아요.",
+  addr:"제주시 항골남길 46",time:"09:00~14:20 / 16:10~18:00 · 수요일 휴무",
+  links:[["네이버지도",NM("자매국수")],["비짓제주",VJ]]},
+ {id:"ujin",cat:"food",emoji:"🍲",region:"제주시·삼도",name:"우진해장국",tag:"고사리육개장의 원조급 명가",hash:"#고사리육개장 #아침해장 #현지인",
+  desc:"제주 고사리를 푹 고아 걸쭉하게 끓인 고사리육개장이 시그니처. 새벽 6시부터 문을 열어 아침 해장 코스로 유명하며 대기 줄이 긴 편입니다.",
+  addr:"제주시 서사로 11",time:"06:00~22:00 · 연중무휴",
+  links:[["네이버지도",NM("우진해장국")],["맛집 기사","https://hotplacehunter.co.kr/sns/article/87816/amp/"]]},
+ {id:"matna",cat:"food",emoji:"🐟",region:"동부·성산",name:"맛나식당",tag:"가성비 갈치조림·고등어조림",hash:"#갈치조림 #가성비 #오픈런",
+  desc:"성산일출봉 근처의 갈치·고등어조림 맛집. 달큰하고 매콤한 양념에 밥 비벼 먹는 맛이 일품이며, 착한 가격 덕에 오픈 전부터 대기가 생깁니다.",
+  addr:"서귀포시 성산읍 동류암로 41",time:"08:30~14:00 · 수·일 휴무",
+  links:[["네이버지도",NM("맛나식당 성산")],["맛집 기사","https://hotplacehunter.co.kr/sns/article/87816/amp/"]]},
+ {id:"myeongjin",cat:"food",emoji:"🦪",region:"동부·구좌",name:"명진전복",tag:"오션뷰 전복돌솥밥의 성지",hash:"#전복돌솥밥 #오션뷰 #부모님과",
+  desc:"바다를 보며 먹는 전복돌솥밥과 전복구이로 전국구 유명세를 떨치는 집. 고소한 전복 내장이 밴 밥에 버터를 곁들이면 밥도둑이 따로 없습니다.",
+  addr:"제주시 구좌읍 해맞이해안로 1282",time:"09:30~20:30 · 화요일 휴무",
+  links:[["네이버지도",NM("명진전복")],["비짓제주",VJ]]},
+ {id:"leechunok",cat:"food",emoji:"🥬",region:"서부·애월",name:"이춘옥원조고등어쌈밥",tag:"BTS도 다녀간 오션뷰 쌈밥",hash:"#고등어쌈밥 #묵은지 #오션뷰",
+  desc:"묵은지와 고등어를 함께 조려 쌈에 싸 먹는 고등어쌈밥 전문점. 바다가 보이는 좌석이 인기라 예약 추천. BTS 방문 이후 더 유명해졌습니다.",
+  addr:"제주시 애월읍 일주서로 7213",time:"10:00~20:30 (브레이크 16:00~17:00)",
+  links:[["네이버지도",NM("이춘옥원조고등어쌈밥")],["맛집 기사","https://hotplacehunter.co.kr/sns/article/87816/amp/"]]},
+ {id:"miyoung",cat:"food",emoji:"🍣",region:"남서부·모슬포",name:"미영이네식당",tag:"고등어회 하면 여기, 모슬포 명물",hash:"#고등어회 #신선도끝판왕 #저녁추천",
+  desc:"싱싱한 고등어회를 김+양념밥에 싸 먹는 모슬포 대표 맛집. 비린내 없이 고소한 회와 마무리로 나오는 고등어 맑은탕까지 코스처럼 즐깁니다.",
+  addr:"서귀포시 대정읍 하모리 770-29",time:"11:30~21:00 · 수요일 휴무",
+  links:[["네이버지도",NM("미영이네식당")],["비짓제주",VJ]]},
+ {id:"oneunjeong",cat:"food",emoji:"🍙",region:"남부·서귀포",name:"오는정김밥",tag:"전화 예약 필수인 전설의 김밥",hash:"#김밥 #포장전문 #피크닉",
+  desc:"튀긴 유부와 바삭한 튀김가루가 들어가 감칠맛이 남다른 서귀포 명물 김밥. 포장 전문에 예약이 밀려 있으니 반드시 전화 주문 후 방문하세요.",
+  addr:"서귀포시 동문동로 2",time:"09:00~19:00 (브레이크 13:00~14:30) · 일요일 휴무",
+  links:[["네이버지도",NM("오는정김밥")],["비짓제주",VJ]]},
+ {id:"manong",cat:"food",emoji:"🍗",region:"서귀포·올레시장",name:"마농치킨 (중앙통닭)",tag:"올레시장 1등 명물 마늘통닭",hash:"#마늘치킨 #포장맥주안주 #웨이팅",
+  desc:"'마농'은 제주어로 마늘. 옛날 통닭에 은은한 마늘 향이 밴 올레시장 대표 먹거리로, 시장 안 원조집이 중앙통닭입니다. 포장해서 숙소 맥주 안주로 최고.",
+  addr:"서귀포시 중앙로48번길 14-1",time:"08:00~20:00 (조기 품절 잦음)",
+  links:[["네이버지도",NM("마농치킨 중앙통닭")],["올레시장 먹거리 가이드","https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=72ea1f7c-4755-4d02-8fc2-293f25b8f70d"]]},
+ {id:"saerona",cat:"food",emoji:"🍢",region:"서귀포·올레시장",name:"새로나분식",tag:"제주식 분식 '모닥치기'의 성지",hash:"#모닥치기 #떡볶이 #1991년노포",
+  desc:"모닥치기는 '한데 모아준다'는 제주어로, 떡볶이에 김밥·어묵·전·계란을 한 접시에 담아주는 제주식 분식입니다. 1991년부터 이어온 원조급 노포.",
+  addr:"서귀포시 중앙로42번길 24",time:"매장 확인 (점심~저녁)",
+  links:[["네이버지도",NM("새로나분식")],["모닥치기 후기","https://geniusjw.com/2971"]]},
+ {id:"woojung",cat:"food",emoji:"🐡",region:"서귀포·올레시장",name:"우정회센타 본점",tag:"꽁치 한 마리 통째로, 꽁치김밥",hash:"#꽁치김밥 #이색먹거리 #고등어회",
+  desc:"김밥 밖으로 꽁치 머리와 꼬리가 튀어나온 비주얼로 유명한 원조 꽁치김밥집. 비린내 없이 고소하며, 고등어회·물회 등 횟집 메뉴도 함께 즐길 수 있습니다.",
+  addr:"서귀포시 중앙로54번길 32",time:"매장 확인",
+  links:[["네이버지도",NM("우정회센타")],["올레시장 먹거리 가이드","https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=72ea1f7c-4755-4d02-8fc2-293f25b8f70d"]]},
+ {id:"grandma",cat:"food",emoji:"🍡",region:"서귀포·올레시장",name:"할머니떡집",tag:"직접 쑨 팥소 오메기떡 원조",hash:"#오메기떡 #선물용 #택배가능",
+  desc:"차조 반죽에 팥소를 채운 제주 전통 오메기떡 명가. 쫀득한 떡과 달지 않은 팥고물의 조화가 일품이라 귀가 전 선물·기념품으로 사 가는 단골 코스입니다.",
+  addr:"서귀포시 중앙로42번길 24",time:"매장 확인 (조기 품절 잦음)",
+  links:[["네이버지도",NM("할머니떡집 서귀포")],["올레시장 먹거리 가이드","https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=72ea1f7c-4755-4d02-8fc2-293f25b8f70d"]]},
+ // ================= 카페 (13) =================
+ {id:"delmoondo",cat:"cafe",emoji:"🌊",region:"동부·함덕",name:"델문도",tag:"함덕 바다 코앞 오션뷰 1티어",hash:"#오션뷰 #새벽6시오픈 #베이커리",
+  desc:"함덕해수욕장 에메랄드 바다 바로 위에 앉는 로스터리 카페. 새벽 6시부터 자정까지 열어 일출·일몰 모두 즐길 수 있고 베이커리도 다양합니다.",
+  addr:"제주시 조천읍 조함해안로 519-10",time:"06:00~24:00 · 연중무휴",
+  links:[["네이버지도",NM("카페델문도")],["대형카페 추천글","https://tripsoda.com/article/1431"]]},
+ {id:"monsant",cat:"cafe",emoji:"🪞",region:"서부·애월",name:"몽상드애월",tag:"GD가 만든 유리 거울 카페",hash:"#2030핫플 #한담해변 #건축미",
+  desc:"지드래곤이 지은 것으로 유명한 한담해변의 미러 글라스 카페. 유리 벽에 바다가 반사되는 외관 자체가 포토존이며 한라봉 크루아상이 인기입니다.",
+  addr:"제주시 애월읍 애월로1길 25-4",time:"매장 확인 (보통 09:00~19:00 전후)",
+  links:[["네이버지도",NM("몽상드애월")],["애월 카페 순위","https://www.diningcode.com/list.dc?query=애월+카페"]]},
+ {id:"bomnal",cat:"cafe",emoji:"🌷",region:"서부·애월",name:"봄날카페",tag:"드라마 촬영지, 한담 원조 감성 카페",hash:"#한담해변 #드라마촬영지 #감성",
+  desc:"드라마 '맨도롱 또똣' 촬영지로 유명한 한담해안 터줏대감 카페. 알록달록한 소품과 바다 바로 앞 창가 자리에서 노을 보기 좋습니다.",
+  addr:"제주시 애월읍 애월로1길 25",time:"09:00~21:30",
+  links:[["네이버지도",NM("봄날카페")],["애월 카페 순위","https://www.diningcode.com/list.dc?query=애월+카페"]]},
+ {id:"randys",cat:"cafe",emoji:"🍩",region:"서부·애월",name:"랜디스도넛 제주직영점",tag:"LA 명물 도넛 + 오션뷰",hash:"#2030 #도넛 #포토존",
+  desc:"영화 아이언맨에 나온 LA 랜디스도넛의 제주 매장. 대형 도넛 조형물 포토존과 오션뷰 좌석, 피스타치오·글레이즈드 등 다양한 도넛이 인기입니다.",
+  addr:"제주시 애월읍 애월리 2471",time:"09:30~18:30",
+  links:[["네이버지도",NM("랜디스도넛 제주")],["카페 추천글","https://suggestravel.com/제주도-카페/"]]},
+ {id:"oneandonly",cat:"cafe",emoji:"⛰",region:"남서부·산방산",name:"원앤온리",tag:"산방산 절벽 + 황우치해변 뷰",hash:"#산방산뷰 #노을 #대형카페",
+  desc:"앞은 바다, 뒤는 산방산이 병풍처럼 서 있는 압도적 풍경의 대형 카페. 보헤미안 감성 인테리어와 야외 좌석으로 노을 시간대가 특히 인기입니다.",
+  addr:"서귀포시 안덕면 산방로 141",time:"10:00~18:30",
+  links:[["네이버지도",NM("원앤온리")],["카페 추천글","https://suggestravel.com/제주도-카페/"]]},
+ {id:"insmill",cat:"cafe",emoji:"🌾",region:"남서부·대정",name:"인스밀",tag:"보리밭 감성 창고 카페",hash:"#이국적 #보리개역 #감성샷",
+  desc:"1950년대 곡물 창고를 개조한 카페로, 야자수와 보리밭이 어우러진 이국적 풍경이 시그니처. 보리개역(미숫가루 음료)과 보리 아이스크림이 대표 메뉴.",
+  addr:"서귀포시 대정읍 일과대수로27번길 22",time:"10:30~18:30 · 수요일 휴무",
+  links:[["네이버지도",NM("인스밀")],["카페 추천글","https://suggestravel.com/제주도-카페/"]]},
+ {id:"manor",cat:"cafe",emoji:"💐",region:"남서부·안덕",name:"마노르블랑",tag:"수국·핑크뮬리 정원 카페",hash:"#3040 #계절꽃정원 #산방산뷰",
+  desc:"계절마다 수국, 핑크뮬리, 동백이 만발하는 정원형 카페. 산방산을 배경으로 한 꽃밭 포토존이 유명해 꽃 시즌에 맞춰 방문하면 후회가 없습니다.",
+  addr:"서귀포시 안덕면 일주서로2100번길 46",time:"09:00~18:00 · 정원 입장료 별도",
+  links:[["네이버지도",NM("마노르블랑")],["비짓제주",VJ]]},
+ {id:"kleinblue",cat:"cafe",emoji:"🌀",region:"서부·한경",name:"클랭블루",tag:"풍력발전기 노을 뷰 갤러리 카페",hash:"#노을맛집 #한적함 #갤러리",
+  desc:"신창풍차해안도로의 노을 명당 카페. 2층 통창 너머 풍력발전기와 바다로 지는 해가 그림 같고, 갤러리를 겸해 조용히 머물기 좋습니다.",
+  addr:"제주시 한경면 신창리 1293-1",time:"11:00~20:00",
+  links:[["네이버지도",NM("클랭블루")],["비짓제주",VJ]]},
+ {id:"umu",cat:"cafe",emoji:"🍮",region:"서부·한림",name:"우무",tag:"제주 바다가 만든 수제 푸딩",hash:"#푸딩 #디저트 #협재코스",
+  desc:"해녀가 채취한 우뭇가사리로 만드는 커스터드 푸딩 전문점. 협재 가는 길에 들르기 좋은 한림의 작은 가게로, 부드러운 식감과 귀여운 병이 인기입니다.",
+  addr:"제주시 한림읍 한림로 542-1",time:"매장 확인 · 품절 시 조기마감",
+  links:[["네이버지도",NM("우무 한림")],["카페 추천글","https://suggestravel.com/제주도-카페/"]]},
+ {id:"abebe",cat:"cafe",emoji:"🥯",region:"제주시·동문시장",name:"아베베베이커리",tag:"오픈런 부르는 크림 도넛",hash:"#도넛맛집 #동문시장 #웨이팅",
+  desc:"인절미·우도땅콩 등 제주 재료로 만든 묵직한 크림 도넛으로 오픈런이 생기는 빵집. 동문시장 구경과 묶어 방문하기 딱 좋은 위치입니다.",
+  addr:"제주시 동문로6길 4 (동문시장 12번 게이트 옆)",time:"09:30~20:30",
+  links:[["네이버지도",NM("아베베베이커리")],["카페 추천글","https://suggestravel.com/제주도-카페/"]]},
+ {id:"orrrn",cat:"cafe",emoji:"🧈",region:"동부·성산",name:"오른 (Orrrn)",tag:"성산 오션뷰 + 소금빵 맛집",hash:"#성산코스 #소금빵 #유채꽃밭",
+  desc:"성산일출봉 가는 길, 통창 너머 바다와 뒤편 유채꽃밭을 함께 즐기는 카페. 소금빵과 오른라떼가 시그니처로 평점이 유독 높은 곳입니다.",
+  addr:"서귀포시 성산읍 해맞이해안로 2714",time:"10:00~20:00",
+  links:[["네이버지도",NM("카페 오른 성산")],["카페 추천글","https://suggestravel.com/제주도-카페/"]]},
+ {id:"blanc",cat:"cafe",emoji:"🥜",region:"동부·우도",name:"블랑로쉐",tag:"우도 땅콩 디저트 오션뷰 카페",hash:"#우도필수 #땅콩아이스크림 #치즈케이크",
+  desc:"우도 바다를 통창으로 바라보며 땅콩라떼, 땅콩 아이스크림, 블랑 치즈케이크를 즐기는 우도 대표 카페. 우도 일정에 자연스럽게 넣기 좋습니다.",
+  addr:"제주시 우도면 연평리 712-1",time:"10:00~17:00",
+  links:[["네이버지도",NM("블랑로쉐 우도")],["카페 추천글","https://suggestravel.com/제주도-카페/"]]},
+ {id:"handam",cat:"cafe",emoji:"🌅",region:"서부·애월",name:"애월 한담해안 카페거리",tag:"노을 맛집 카페들의 성지",hash:"#카페투어 #한담산책로 #노을",
+  desc:"한담해안산책로를 따라 오션뷰 카페가 줄지어 선 애월의 핫플레이스. 봄날, 몽상드애월, 랜디스도넛 등이 모여 있어 산책과 카페 투어를 한 번에 즐깁니다.",
+  addr:"제주시 애월읍 애월로1길 일대",time:"카페별 상이 (보통 10:00~21:00 전후)",
+  links:[["네이버지도",NM("한담해안산책로")],["애월 카페 순위","https://www.diningcode.com/list.dc?query=애월+카페"]]},
+];
+
+const CAT = {spot:{label:"관광지"},food:{label:"맛집"},cafe:{label:"카페"}};
+
+// ===== 저장 구조: {v: 방문 도장, c: 직접 추가한 장소} — 두 사람이 자동 공유 =====
+const COUPLE_KEY = "jejustamp_3c5491d5379e4abce2a377bae7987b6c";
+const READ_URL  = "https://textdb.online/" + COUPLE_KEY;
+const WRITE_URL = "https://textdb.online/update";
+const KEY = "jeju_data_v2";
+let visited = {};
+let customPlaces = [];
+let online = false;
+
+function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+
+function normalize(data){
+  if(!data || typeof data !== "object") return {v:{}, c:[]};
+  if(data.v || data.c) return {v: data.v || {}, c: Array.isArray(data.c) ? data.c : []};
+  return {v: data, c: []}; // 예전 형식(도장만 있던 시절) 자동 변환
+}
+function mergeCustom(a, b){ // 직접 추가한 장소 합치기 (중복 제거)
+  const seen = {}; const out = [];
+  [].concat(a||[], b||[]).forEach(p=>{
+    if(p && p.id && !seen[p.id]){ seen[p.id]=1; out.push(p); }
+  });
+  return out;
+}
+
+async function fetchRemote(){
+  const res = await fetch(READ_URL + "?t=" + Date.now(), {cache:"no-store"});
+  const txt = await res.text();
+  if(!txt || !txt.trim()) return {v:{}, c:[]};
+  try{ return normalize(JSON.parse(txt)); }catch(e){ return {v:{}, c:[]}; }
+}
+async function pushRemote(){
+  const body = "key=" + encodeURIComponent(COUPLE_KEY) +
+               "&value=" + encodeURIComponent(JSON.stringify({v:visited, c:customPlaces}));
+  const res = await fetch(WRITE_URL, {
+    method:"POST",
+    headers:{"Content-Type":"application/x-www-form-urlencoded"},
+    body: body
+  });
+  if(!res.ok) throw new Error("save fail");
+}
+function saveLocal(){ lsSet(KEY, JSON.stringify({v:visited, c:customPlaces})); }
+
+function updateSyncLabel(){
+  const el = document.getElementById("syncstate");
+  if(!el) return;
+  el.textContent = online
+    ? "🔗 자동 연동 중 · 도장과 추가한 장소가 두 사람에게 함께 저장됩니다"
+    : "📱 오프라인 · 인터넷 연결 시 자동으로 다시 연동됩니다";
+}
+
+// 도장 찍기: 최신 기록에 내 변경만 얹어 저장 (덮어쓰기 방지)
+async function toggleVisit(id){
+  const newVal = !visited[id];
+  visited[id] = newVal;
+  render();
+  try{
+    let latest = {v:visited, c:customPlaces};
+    try{ latest = await fetchRemote(); }catch(e){}
+    if(newVal) latest.v[id] = true; else delete latest.v[id];
+    visited = latest.v;
+    customPlaces = mergeCustom(latest.c, customPlaces);
+    await pushRemote();
+    saveLocal(); online = true;
+    render(); updateSyncLabel();
+  }catch(e){ online = false; saveLocal(); updateSyncLabel(); }
+}
+
+// 장소 추가: 두 사람 모두에게 자동 반영
+async function addCustomPlace(p){
+  customPlaces = customPlaces.concat([p]);
+  render();
+  try{
+    let latest = {v:visited, c:[]};
+    try{ latest = await fetchRemote(); }catch(e){}
+    visited = Object.assign({}, latest.v, visited);
+    customPlaces = mergeCustom(latest.c, customPlaces);
+    await pushRemote();
+    saveLocal(); online = true;
+    render(); updateSyncLabel();
+  }catch(e){ online = false; saveLocal(); updateSyncLabel(); }
+}
+
+// 직접 추가한 장소 삭제
+async function deleteCustomPlace(id){
+  if(!confirm("이 장소를 목록에서 삭제할까요? (두 사람 모두에게서 지워집니다)")) return;
+  customPlaces = customPlaces.filter(p=>p.id!==id);
+  delete visited[id];
+  render();
+  try{
+    let latest = {v:visited, c:customPlaces};
+    try{ latest = await fetchRemote(); }catch(e){}
+    latest.c = latest.c.filter(p=>p.id!==id);
+    delete latest.v[id];
+    visited = latest.v;
+    customPlaces = mergeCustom(latest.c, customPlaces.filter(p=>p.id!==id));
+    await pushRemote();
+    saveLocal(); online = true;
+    render(); updateSyncLabel();
+  }catch(e){ online = false; saveLocal(); updateSyncLabel(); }
+}
+
+// 자동 갱신: 10초마다 + 화면 복귀 시 (상대방의 도장·추가 장소 반영)
+async function autoSync(){
+  try{
+    const latest = await fetchRemote();
+    online = true;
+    const now = JSON.stringify({v:visited, c:customPlaces});
+    const remote = JSON.stringify(latest);
+    if(remote !== now){
+      visited = latest.v;
+      customPlaces = latest.c;
+      saveLocal();
+      render();
+    }
+    updateSyncLabel();
+  }catch(e){ online = false; updateSyncLabel(); }
+}
+
+const list = document.getElementById("list");
+let currentFilter = "all";
+
+function customToCard(p){
+  return {
+    id: p.id, cat: p.cat || "spot", emoji: "📌",
+    region: p.region || "직접 추가",
+    name: p.name,
+    tag: "우리가 직접 추가한 곳",
+    hash: p.memo ? ("📝 " + p.memo) : "",
+    desc: p.memo || "가보고 싶어서 직접 추가한 장소예요.",
+    addr: p.addr || "주소 미입력",
+    time: "방문 전 운영시간 확인",
+    links: [["네이버지도", NM(p.name)]],
+    custom: true
+  };
+}
+function allPlaces(){
+  return PLACES.concat(customPlaces.map(customToCard));
+}
+
+function render(){
+  list.innerHTML = "";
+  const pool = allPlaces();
+  ["spot","food","cafe"].forEach(cat=>{
+    const items = pool.filter(p=>{
+      if(currentFilter==="visited") return p.cat===cat && visited[p.id];
+      if(currentFilter!=="all" && currentFilter!==cat) return false;
+      return p.cat===cat;
+    });
+    if(items.length===0) return;
+    const title = document.createElement("h2");
+    title.className="section-title";
+    title.textContent = (cat==="spot"?"🏝 ":cat==="food"?"🍽 ":"☕ ")+CAT[cat].label+" ("+items.length+")";
+    list.appendChild(title);
+    const grid = document.createElement("div");
+    grid.className="grid";
+    items.forEach(p=>grid.appendChild(makeCard(p)));
+    list.appendChild(grid);
+  });
+  if(currentFilter==="visited" && !pool.some(p=>visited[p.id])){
+    list.innerHTML = '<p style="text-align:center;padding:60px 20px;color:#7C8684;">아직 찍은 도장이 없어요.<br>다녀온 곳의 <b>[갔다왔음]</b> 버튼을 눌러보세요!</p>';
+  }
+  updateProgress();
+}
+
+function makeCard(p){
+  const c = document.createElement("article");
+  c.className = "card"+(visited[p.id]?" visited":"");
+  c.innerHTML = `
+    <div class="visual v-${p.cat}">
+      <span>${p.emoji}</span>
+      <span class="badge b-${p.cat}">${CAT[p.cat].label}</span>
+      <span class="region">${p.region}</span>
+    </div>
+    <div class="stamp"><span class="chk">✔</span>방문완료</div>
+    <div class="body">
+      <div class="name">${p.name}</div>
+      <div class="tagline">${p.tag}</div>
+      <div class="hash">${p.hash}</div>
+      <p class="desc">${p.desc}</p>
+      <div class="meta">
+        <div><span class="ico">📍</span><span>${p.addr}</span></div>
+        <div><span class="ico">🕐</span><span>${p.time}</span></div>
+      </div>
+      <div class="links">
+        ${p.links.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${l[0]} ↗</a>`).join("")}
+      </div>
+      <button class="visit-btn" aria-pressed="${!!visited[p.id]}">
+        ${visited[p.id]?"✔ 갔다왔음 (다시 누르면 취소)":"갔다왔음 도장 찍기"}
+      </button>
+      ${p.custom?'<button class="del-link">이 장소 삭제</button>':""}
+    </div>`;
+  c.querySelector(".visit-btn").addEventListener("click",()=>{ toggleVisit(p.id); });
+  const del = c.querySelector(".del-link");
+  if(del) del.addEventListener("click",()=>{ deleteCustomPlace(p.id); });
+  return c;
+}
+
+function updateProgress(){
+  const pool = allPlaces();
+  const total = pool.length;
+  const done = pool.filter(p=>visited[p.id]).length;
+  const pct = total ? Math.round(done/total*100) : 0;
+  document.getElementById("pbar").style.width = pct+"%";
+  document.getElementById("plabel").innerHTML =
+    `전체 <b>${total}</b>곳 중 <b>${done}</b>곳 방문 · 달성률 <b>${pct}%</b>`;
+}
+
+document.getElementById("tabs").addEventListener("click",e=>{
+  const btn = e.target.closest(".tab");
+  if(!btn) return;
+  document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
+  btn.classList.add("active");
+  currentFilter = btn.dataset.filter;
+  render();
+});
+
+// ===== 장소 추가 입력창 =====
+const modal = document.getElementById("addModal");
+document.getElementById("fabAdd").addEventListener("click",()=>{ modal.classList.add("open"); });
+document.getElementById("np_cancel").addEventListener("click",()=>{ modal.classList.remove("open"); });
+modal.addEventListener("click",e=>{ if(e.target===modal) modal.classList.remove("open"); });
+document.getElementById("np_save").addEventListener("click",()=>{
+  const name = document.getElementById("np_name").value.trim();
+  if(!name){ alert("장소 이름을 입력해주세요!"); return; }
+  const p = {
+    id: "cust_" + Date.now(),
+    name: name,
+    cat: document.getElementById("np_cat").value,
+    region: document.getElementById("np_region").value.trim(),
+    addr: document.getElementById("np_addr").value.trim(),
+    memo: document.getElementById("np_memo").value.trim()
+  };
+  ["np_name","np_region","np_addr","np_memo"].forEach(i=>document.getElementById(i).value="");
+  modal.classList.remove("open");
+  addCustomPlace(p);
+});
+
+// ===== 기록 백업 / 복원 =====
+document.getElementById("backupBtn").addEventListener("click",()=>{
+  const names = allPlaces().filter(p=>visited[p.id]).map(p=>p.name).join(", ");
+  const data = "JEJU-BACKUP|" + JSON.stringify({v:visited, c:customPlaces});
+  const doneMsg = "백업 완료! 카톡 '나에게 보내기'나 메모장에 붙여넣어 보관하세요.\n\n다녀온 곳: " + (names || "아직 없음");
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(data).then(
+      ()=>alert(doneMsg),
+      ()=>prompt("아래 내용을 길게 눌러 전체 복사한 뒤 메모장에 보관하세요:", data)
+    );
+  }else{
+    prompt("아래 내용을 길게 눌러 전체 복사한 뒤 메모장에 보관하세요:", data);
+  }
+});
+
+document.getElementById("restoreBtn").addEventListener("click",async ()=>{
+  const raw = prompt("보관해둔 백업 내용을 붙여넣으세요:");
+  if(!raw) return;
+  try{
+    const json = raw.trim().replace(/^JEJU-BACKUP\|/, "");
+    const data = normalize(JSON.parse(json));
+    visited = Object.assign({}, visited, data.v);
+    customPlaces = mergeCustom(customPlaces, data.c);
+    saveLocal();
+    try{ await pushRemote(); online = true; }catch(e){ online = false; }
+    render(); updateSyncLabel();
+    alert("복원 완료! 도장 " + Object.keys(visited).filter(k=>visited[k]).length + "개를 되살렸어요.");
+  }catch(e){
+    alert("백업 내용을 읽을 수 없어요. 복사한 내용이 잘렸는지 확인해주세요.");
+  }
+});
+
+document.getElementById("resetBtn").addEventListener("click",async ()=>{
+  if(confirm("모든 방문 도장을 지울까요? (연동 중이면 두 사람 모두 지워지며, 추가한 장소는 남습니다)")){
+    visited = {};
+    saveLocal();
+    try{ await pushRemote(); }catch(e){}
+    render();
+  }
+});
+
+(async function init(){
+  const raw = lsGet(KEY) || lsGet("jeju_visited"); // 예전 저장분도 인식
+  if(raw){ try{ const d = normalize(JSON.parse(raw)); visited=d.v; customPlaces=d.c; }catch(e){} }
+  render();
+  await autoSync();  // 열자마자 최신 공유 기록 반영
+  setInterval(autoSync, 10000);
+  document.addEventListener("visibilitychange", ()=>{ if(!document.hidden) autoSync(); });
+  window.addEventListener("focus", autoSync);
+})();
+</script>
+</body>
+</html>
