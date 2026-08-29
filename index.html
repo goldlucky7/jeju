@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>제주 여행 스탬프북 — 관광지·맛집·카페·소품샵·술집·호텔·마사지·가성비카페 295선</title>
+<title>제주 여행 스탬프북 — 관광지·맛집·카페·소품샵·술집·호텔·마사지·가성비카페·탈것 318선</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
@@ -311,6 +311,11 @@
   .cheap-head{background:linear-gradient(135deg,#166534,#3F9E63);color:#fff;border-radius:14px;
     padding:14px 16px;margin:14px 4px 12px;font-size:15px;font-weight:900;line-height:1.35;}
   .cheap-head .ch-sub{font-size:12.5px;font-weight:500;opacity:.95;margin-top:4px;line-height:1.55;}
+  .v-ride{background:linear-gradient(135deg,#CDE4F7,#3D7FB8);}
+  .b-ride{background:#215D8F;}
+  .ride-head{background:linear-gradient(135deg,#0F4C75,#2E86AB);color:#fff;border-radius:14px;
+    padding:14px 16px;margin:14px 4px 12px;font-size:15px;font-weight:900;line-height:1.35;}
+  .ride-head .rh-sub{font-size:12.5px;font-weight:500;opacity:.95;margin-top:4px;line-height:1.55;}
   .lotte-badge{position:absolute;left:10px;bottom:10px;background:linear-gradient(135deg,#D32F2F,#F57C00);
     color:#fff;font-size:11px;font-weight:800;padding:4px 9px;border-radius:999px;letter-spacing:-.2px;}
   .lotte-line{margin:8px 0 0;padding:9px 11px;border-radius:10px;background:#FFF4EC;
@@ -414,10 +419,10 @@
 
 <header>
   <div style="max-width:1080px;margin:0 auto;">
-    <div class="h-eyebrow">JEJU STAMP BOOK · 295 PLACES</div>
+    <div class="h-eyebrow">JEJU STAMP BOOK · 318 PLACES</div>
     <h1>제주 여행 스탬프북<span class="dot">.</span></h1>
     <p class="h-sub">감성 포토스팟부터 액티비티, 자연 명소, 노포 맛집까지 —
-    20대부터 40대까지 모두를 위한 295곳. 모든 곳을 <b>덜 힘든 순서(실내 → 시원한 야외 → 차로 → 야외 → 걷기 → 등산)</b>로 나눠뒀고,
+    20대부터 40대까지 모두를 위한 318곳. 모든 곳을 <b>덜 힘든 순서(실내 → 시원한 야외 → 차로 → 야외 → 걷기 → 등산)</b>로 나눠뒀고,
     맛집·소품샵·술집·호텔·마사지는 <b>꼭 가야 할 곳</b>을 맨 위에 올렸고, 카드마다 <b>주차 정보</b>와 <b>주소 복사</b> 버튼이 있어요. 가보고 싶은 곳은 <b>[☆ 가보고 싶어요]</b>로 담고 날짜를 정하면 <b>[⭐ 내 일정]</b> 탭에 날짜별로 정리됩니다. 다녀온 곳은 <b>[갔다왔음]</b>을 눌러 도장을 찍어보세요. 도장 찍은 곳은 목록에서 사라지고 <b>[🔴 갔다온 곳]</b> 탭에 모입니다.</p>
     <div class="progress-wrap"><div class="progress-bar" id="pbar"></div></div>
     <div class="progress-label" id="plabel"></div>
@@ -438,6 +443,7 @@
   <button class="tab" data-filter="hotel">🏨 호텔</button>
   <button class="tab" data-filter="spa">💆 마사지</button>
   <button class="tab" data-filter="cheap">💸 가성비 카페</button>
+  <button class="tab" data-filter="ride">🎢 탈것·놀이기구</button>
   <button class="tab tab-plan" data-filter="plan">⭐ 내 일정</button>
   <button class="tab" data-filter="visited">🔴 갔다온 곳</button>
 </nav>
@@ -1778,9 +1784,124 @@ const PLACES = [
   desc:"모슬포 시내의 노란 간판 매장으로, 동네 오아시스 같다는 후기가 여럿이에요. 수박주스가 인공적인 맛 없이 진하다는 평이 좋고 아이들용 밀크셰이크도 잘 나갑니다. 주말에도 비교적 한산해서 앉아 쉬기 편해요.",
   addr:"서귀포시 대정읍 하모리 846-1",time:"방문 전 확인",
   links:[["네이버지도(주소)",NM("서귀포시 대정읍 하모리 846-1")],["컴포즈커피 매장찾기","https://map.naver.com/p/search/"+encodeURIComponent("서귀포시 대정읍 하모리 846-1 컴포즈커피")],["후기 검색","https://search.naver.com/search.naver?query="+encodeURIComponent("컴포즈커피 대정 모슬포 후기")]]},
+
+// ================= 🎢 탈것·놀이기구 (23) =================
+ {id:"rsubsgp",cat:"ride",emoji:"🐠",region:"남부·서귀포",name:"서귀포잠수함",tag:"수심 40m까지 내려가는 국내 유일 관광잠수함",hash:"#전연령 #비오는날 #문섬 #실내 #예약필수",
+  desc:"서귀포항에서 배로 문섬까지 나간 뒤 잠수함으로 갈아타 수심 40m 안팎까지 내려갑니다. 연산호 군락과 물고기 떼, 가라앉은 배까지 창으로 보이고 잠수부가 먹이를 주는 순서도 있어요. 함내는 흔들림이 적어 배멀미 걱정이 덜한 편입니다. 정원이 정해져 있어 전화로 예약하고 가는 게 안전해요.",
+  addr:"서귀포시 남성중로 40",time:"매일 09:20~16:40 · 40분 간격 운항 · 예약 권장",
+  links:[["네이버지도",NM("서귀포잠수함")],["비짓제주",VJ("서귀포잠수함")],["후기 검색",REV("서귀포잠수함")]]},
+ {id:"rsubudo",cat:"ride",emoji:"🐠",region:"동부·성산(우도)",name:"우도잠수함",tag:"성산항에서 타고 우도 앞바다 해저를 도는 코스",hash:"#전연령 #우도 #해저 #실내 #예약필수",
+  desc:"성산항에서 출발해 우도 앞바다 해저를 도는 잠수함이에요. 국내 관광잠수함 중 해저 이동 거리가 가장 길다고 안내하고, 우도의 수중 지형과 물고기를 창으로 봅니다. 우도 일정과 묶어 반나절 코스로 짜는 사람이 많아요. 기상에 따라 결항이 잦으니 출발 전 전화로 운항 여부를 확인하세요.",
+  addr:"서귀포시 성산읍 성산등용로 112-7",time:"09:45~15:45 사이 항차 운영 · 기상 따라 결항",
+  links:[["네이버지도",NM("우도잠수함")],["후기 검색",REV("우도잠수함 성산")]]},
+ {id:"rcrusgp",cat:"ride",emoji:"🛳",region:"남부·서귀포",name:"서귀포유람선",tag:"새연교·문섬·범섬·외돌개를 배에서 한 번에",hash:"#전연령 #해상관광 #외돌개 #차없이",
+  desc:"서귀포 앞바다의 문섬·범섬·섶섬과 새연교, 외돌개를 배 위에서 이어 봅니다. 육지에서 따로 찾아다니면 반나절이 걸리는 곳들을 한 번에 도는 셈이에요. 잠수함과 같은 건물에서 표를 끊어 두 개를 묶어 타는 사람도 많습니다. 갑판은 바람이 세니 여름에도 겉옷을 챙기세요.",
+  addr:"서귀포시 남성중로 40",time:"매일 11:20 / 14:00 출항 · 예약 상황 따라 변동",
+  links:[["네이버지도",NM("서귀포유람선")],["후기 검색",REV("서귀포유람선")]]},
+ {id:"rcruseongsan",cat:"ride",emoji:"🛳",region:"동부·성산",name:"성산포유람선",tag:"성산일출봉 절벽과 우도8경을 바다에서",hash:"#전연령 #우도8경 #일출봉 #선상낚시",
+  desc:"성산항에서 출발해 성산일출봉 절벽과 우도 해안을 배에서 봅니다. 서빈백사와 해식동굴, 기암을 육지에서는 못 보는 각도로 보게 돼요. 낚시 유람선도 따로 있어 아이와 짧게 체험하기 좋습니다. 파도가 있는 날은 운항이 취소되니 당일 전화 확인이 필요해요.",
+  addr:"서귀포시 성산읍 성산등용로 130-21",time:"하루 여러 항차 · 기상 따라 결항 · 당일 확인 권장",
+  links:[["네이버지도",NM("성산포유람선")],["후기 검색",REV("성산포유람선")]]},
+ {id:"rcrusanbang",cat:"ride",emoji:"🛳",region:"서부·안덕",name:"산방산유람선",tag:"화순항에서 용머리해안·형제섬·송악산까지 1시간",hash:"#전연령 #용머리해안 #형제섬 #1시간 #예약필수",
+  desc:"화순항에서 출발해 산방산과 용머리해안, 형제섬, 송악산 절벽을 돌아 1시간 만에 돌아옵니다. 용머리해안은 물때가 안 맞으면 걸어서 못 들어가는데 배에서는 그 절벽을 통째로 볼 수 있어요. 하루 3회 정도만 뜨고 정원제라 예약이 필수입니다. 당일 예약과 취소는 전화로만 됩니다.",
+  addr:"서귀포시 안덕면 화순해안로106번길 16",time:"매일 09:00~16:30 · 하루 3회 안팎 · 예약 필수",
+  links:[["네이버지도",NM("산방산유람선")],["후기 검색",REV("산방산유람선 화순항")]]},
+ {id:"ryachtpacific",cat:"ride",emoji:"⛵",region:"중문·색달",name:"퍼시픽마리나 요트투어",tag:"중문 앞바다를 도는 사계절 요트",hash:"#2030 #중문 #선셋 #커플 #단체가능",
+  desc:"중문 퍼시픽 리솜 안 마리나에서 뜨는 요트예요. 26인승 중형 두 대와 60인승 대형 한 대를 운영해 단체도 함께 탈 수 있습니다. 주상절리와 중문 해안 절벽을 바다 쪽에서 보고, 해질 무렵 항차가 특히 인기예요. 겨울에도 운항하지만 바람이 세면 결항하니 확인하고 가세요.",
+  addr:"서귀포시 색달동 2950-4",time:"사계절 운항 · 항차별 시간 상이 · 예약제",
+  links:[["네이버지도",NM("퍼시픽마리나 요트투어")],["비짓제주",VJ("퍼시픽마리나 요트투어")],["후기 검색",REV("퍼시픽마리나 요트투어 중문")]]},
+ {id:"ryachtgimnyeong",cat:"ride",emoji:"⛵",region:"동부·구좌",name:"김녕요트투어",tag:"돌고래가 가장 자주 나오는 김녕 앞바다 세일링",hash:"#2030 #돌고래 #세일링 #선셋",
+  desc:"김녕항에서 뜨는 요트로, 엔진을 끄고 바람만으로 가는 세일링을 태워줍니다. 김녕 앞바다는 남방큰돌고래가 자주 지나가는 구간이라 항해 중 만날 확률이 제주에서 높은 편이에요. 일반 60분과 선셋 70분 코스가 있습니다. 돌고래는 야생이라 보장된 일정이 아니니 기대치는 낮춰 잡으세요.",
+  addr:"제주시 구좌읍 구좌해안로 229-16",time:"매일 10:00~18:00 · 항차별 운영시간 상이",
+  links:[["네이버지도",NM("김녕요트투어")],["비짓제주",VJ("김녕요트투어")],["후기 검색",REV("김녕요트투어")]]},
+ {id:"rudoship",cat:"ride",emoji:"⛴",region:"동부·성산",name:"우도 도항선 (성산항 여객터미널)",tag:"15분이면 섬 속의 섬, 현장 발권만 되는 배",hash:"#전연령 #우도 #15분 #신분증필수",
+  desc:"성산항 종합여객터미널에서 우도 천진항·하우목동항으로 들어가는 배예요. 15분이면 도착하고 성수기엔 30분 간격으로 다닙니다. 온라인 사전 예매가 안 되고 현장 발권만 되니 신분증을 꼭 챙기세요. 우도는 숙박·장애인 등 예외를 빼면 렌터카 반입이 안 되어 섬 안에서는 전기차나 순환버스를 씁니다.",
+  addr:"서귀포시 성산읍 성산등용로 130-21",time:"성수기 07:00~18:30 · 30분 간격 · 현장 발권만 가능",
+  links:[["네이버지도",NM("성산항 종합여객터미널")],["후기 검색",REV("우도 도항선 성산항 배시간")]]},
+ {id:"rjejujet",cat:"ride",emoji:"🚤",region:"중문·대포",name:"제주제트 (주상절리 제트보트)",tag:"주상절리 절벽 앞까지 붙는 15분 스릴",hash:"#2030 #주상절리 #스릴 #여벌옷 #전날예약",
+  desc:"대포 앞바다에서 주상절리 절벽 가까이까지 들어갔다 나오는 제트보트예요. 15~20분 정도인데 회전할 때 물이 크게 튀어 여벌 옷과 수건이 필요합니다. 30분 간격으로 출발하고 전날 오후 1시까지 예약해야 해요. 당일 예약은 안 되니 일정에 미리 넣어두세요.",
+  addr:"서귀포시 대포동 2184-10",time:"매일 11:00~18:00 · 30분 간격 · 전날 13:00까지 예약",
+  links:[["네이버지도",NM("제주제트")],["후기 검색",REV("제주제트 제트보트 중문")]]},
+ {id:"rrailbike",cat:"ride",emoji:"🚲",region:"동부·구좌",name:"제주레일바이크",tag:"용눈이·다랑쉬오름을 끼고 도는 전동 레일바이크",hash:"#전연령 #용눈이오름 #페달없음 #35분",
+  desc:"용눈이오름과 다랑쉬오름 사이 목장 초지를 도는 레일바이크예요. 전기모터로 굴러가서 페달을 밟지 않아도 되고, 소와 말이 풀 뜯는 초원을 그대로 지나갑니다. 한 바퀴 35분 정도이고 정시부터 30분 사이에 출발해요. 그늘이 거의 없어 한여름 한낮보다 이른 오전이나 늦은 오후가 낫습니다.",
+  addr:"제주시 구좌읍 용눈이오름로 641",time:"매일 09:00~17:30 (동절기 11~2월 09:00~17:00)",
+  links:[["네이버지도",NM("제주레일바이크")],["비짓제주",VJ("제주레일바이크")],["후기 검색",REV("제주레일바이크 용눈이오름")]]},
+ {id:"rleports",cat:"ride",emoji:"🏎",region:"동부·조천",name:"제주레포츠랜드",tag:"카트·버기·짚라인·사계절썰매를 한자리에서",hash:"#전연령 #카트 #짚라인 #버기카 #가족",
+  desc:"국내 최대 규모라고 안내하는 카트 체험장으로, 코스가 길어 7km부터 16km까지 고를 수 있어요. 산악버기카와 짚라인, 서바이벌, 사계절썰매까지 한 곳에 있어 아이와 어른이 각자 탈 것을 고를 수 있습니다. 조천 중산간이라 안개가 자주 끼니 출발 전에 운영 여부를 물어보세요. 카트는 신장·연령 제한이 있으니 미리 확인하는 게 좋습니다.",
+  addr:"제주시 조천읍 와흘상서2길 47",time:"문의 09:00~18:00 · 종목별 운영시간 상이",
+  links:[["네이버지도",NM("제주레포츠랜드")],["비짓제주",VJ("제주레포츠랜드")],["후기 검색",REV("제주레포츠랜드 카트")]]},
+ {id:"ratvoreum",cat:"ride",emoji:"🛻",region:"동부·조천",name:"오름ATV (조천 번영로)",tag:"오름 능선을 ATV로 오르는 30~50분 코스",hash:"#2030 #ATV #오름 #승마연계",
+  desc:"번영로변 목장에서 ATV를 타고 오름 능선까지 올라가는 코스예요. 30분 A코스와 50분 B코스가 있고 승마 체험을 붙인 조합도 있습니다. 헬멧과 보호구를 주고 가이드가 앞에서 끌어주니 처음 타도 무리가 없어요. 흙먼지가 많이 붙으니 흰옷은 피하는 게 좋습니다.",
+  addr:"제주시 조천읍 번영로 1734-15",time:"매일 09:00~19:00 (입장 마감 18:00)",
+  links:[["네이버지도",NM("오름ATV 조천")],["후기 검색",REV("제주 오름ATV 조천 번영로")]]},
+ {id:"ratvsaebyeol",cat:"ride",emoji:"🛻",region:"서부·한림",name:"새별레저 ATV (새별오름)",tag:"새별오름 억새밭 사이를 달리는 ATV",hash:"#2030 #새별오름 #억새 #노을 #예약제",
+  desc:"새별오름 바로 옆 초지에서 ATV를 타는 곳이에요. 가을 억새철에는 은빛 억새 사이를 지나가고, 해질 무렵에는 노을과 오름 실루엣이 배경이 됩니다. 오름 등반과 묶어 반나절 코스로 짜기 좋아요. 예약제로 운영하니 가기 전에 전화로 시간을 잡으세요.",
+  addr:"제주시 한림읍 금악리 산31-2",time:"매일 10:00~17:00 (5월 이후 하계 17:30) · 예약 권장",
+  links:[["네이버지도",NM("새별레저 ATV")],["후기 검색",REV("새별오름 ATV 금악리")]]},
+ {id:"rutvjungmun",cat:"ride",emoji:"🛻",region:"중문·대포",name:"중문레저 슈퍼버기카(UTV)",tag:"둘이 나란히 앉아 모는 오프로드 버기",hash:"#2030 #버기카 #중문 #오프로드 #예약필수",
+  desc:"ATV가 혼자 타는 것이라면 버기카는 둘이 나란히 앉아 모는 차예요. 운전대와 페달이 자동차와 같아 면허가 있으면 훨씬 편하고, 아이를 옆에 태울 수도 있습니다. 중문 관광단지에서 가까워 주상절리나 중문색달해수욕장과 묶기 좋아요. 사전 예약이 필수입니다.",
+  addr:"서귀포시 대포동 산39-5",time:"10:00~18:00 (입장 마감 17:00) · 동절기 11~3월 10:00~17:00 · 일요일 휴무",
+  links:[["네이버지도",NM("중문레저 버기카")],["후기 검색",REV("중문레저 슈퍼버기카 UTV")]]},
+ {id:"ratvgeumdang",cat:"ride",emoji:"🛻",region:"서부·안덕",name:"금당목장 ATV 목장투어",tag:"실제 방목 목장을 ATV로 한 바퀴",hash:"#2030 #목장 #ATV #중산간",
+  desc:"동광 중산간의 실제 방목 목장을 ATV로 도는 코스예요. 놀이용 트랙이 아니라 목장 길을 그대로 달려서 시야가 넓고 소와 말을 가까이 봅니다. 성인 1인 4만원대 목장투어가 기본 코스예요. 비 온 다음 날은 길이 질어 옷이 많이 젖으니 날을 골라 가세요.",
+  addr:"서귀포시 안덕면 동광리 산56",time:"매일 10:00~17:30 (매표 마감 16:30) · 예약 권장",
+  links:[["네이버지도",NM("금당목장 ATV")],["후기 검색",REV("금당목장 ATV 동광리")]]},
+ {id:"rudobike",cat:"ride",emoji:"🛵",region:"동부·우도",name:"우도 전기차·전기바이크 대여",tag:"렌터카가 못 들어가는 섬에서 쓰는 이동수단",hash:"#전연령 #우도 #전기자전거 #면허확인",
+  desc:"우도는 렌터카 반입이 막혀 있어 섬 안에서는 전기차나 스쿠터, 전기자전거를 빌려 다닙니다. 천진항과 하우목동항 앞에 대여소가 몰려 있어 배에서 내리자마자 빌릴 수 있어요. 전기차와 오픈형 사이드카는 운전면허가 있어야 하고 전기자전거는 면허가 필요 없습니다. 차는 성산항에 두고 들어가며, 종일권도 그날 마지막 배 시각까지라 배 시간부터 확인하세요.",
+  addr:"제주시 우도면 (천진항·하우목동항 앞 대여소)",time:"08:00~18:00 안팎 · 계절 따라 변동 · 반납 초과 시 추가요금",
+  links:[["네이버지도",NM("우도 전기차 대여")],["후기 검색",REV("우도 전기차 스쿠터 대여")]]},
+ {id:"rshinhwa",cat:"ride",emoji:"🎢",region:"서부·안덕",name:"신화테마파크",tag:"제주에서 놀이기구다운 놀이기구가 있는 거의 유일한 곳",hash:"#전연령 #놀이기구 #라바 #실내어트랙션 #야간개장",
+  desc:"제주에는 대형 놀이공원이 없는데 여기가 그 자리를 채웁니다. 라바 캐릭터를 쓴 12종 안팎의 어트랙션이 있고 회전목마와 4D 시어터 같은 실내 시설이 있어 비 오는 날에도 됩니다. 게이트가 개방돼 입장은 자유롭고 라이드는 탑승권을 따로 사요. 여름 성수기에는 밤 9시까지 열어 저녁에 가면 덜 덥습니다.",
+  addr:"서귀포시 안덕면 신화역사로304번길 98",time:"1~5월·9~12월 10:00~20:00 · 6~8월 10:00~21:00",
+  links:[["네이버지도",NM("신화테마파크")],["후기 검색",REV("제주신화월드 신화테마파크")]]},
+ {id:"rsanbangland",cat:"ride",emoji:"🎠",region:"서부·안덕",name:"산방산랜드",tag:"국내에서 가장 높이 올라간다는 바이킹",hash:"#전연령 #바이킹 #회전목마 #입장무료",
+  desc:"산방산 아래 있는 작은 놀이공원이에요. 규모는 크지 않은데 바이킹이 유난히 높이 올라가는 걸로 알려져 이것만 타러 오는 사람도 있습니다. 회전목마와 미니바이킹, 레일썰매, 사격장이 함께 있어 아이와 어른이 같이 놀 수 있어요. 입장은 무료고 놀이기구마다 따로 결제합니다.",
+  addr:"서귀포시 안덕면 사계리 117-2",time:"방문 전 확인 · 입장 무료 (기구별 유료)",
+  links:[["네이버지도",NM("산방산랜드")],["비짓제주",VJ("산방산랜드")],["후기 검색",REV("산방산랜드 바이킹")]]},
+ {id:"rautomuseum",cat:"ride",emoji:"🚗",region:"서부·안덕",name:"세계자동차&피아노박물관 (어린이 전기차)",tag:"아이가 직접 운전대를 잡는 전기차 체험장",hash:"#전연령 #아이와함께 #실내 #비오는날",
+  desc:"클래식카를 보는 박물관인데, 아이가 보호자와 함께 작은 전기차를 직접 몰아보는 체험장이 따로 있어요. 체험료는 입장료와 별도로 붙습니다. 무료 어린이 교통체험과 사슴·토끼 먹이주기, 산책로까지 있어 반나절이 채워져요. 대부분 실내라 비 오는 날 대안으로 쓰기 좋습니다.",
+  addr:"서귀포시 안덕면 중산간서로 1610",time:"매일 09:00~18:00 (입장 마감 17:20) · 연중무휴",
+  links:[["네이버지도",NM("세계자동차&피아노박물관")],["후기 검색",REV("세계자동차 피아노박물관 어린이 전기차")]]},
+ {id:"rdermapark",cat:"ride",emoji:"🐎",region:"서부·한림",name:"더마파크",tag:"몽골 기마쇼를 보고 직접 말도 타는 곳",hash:"#전연령 #기마쇼 #승마 #카트 #월요일휴무",
+  desc:"말을 주제로 한 테마파크로, 몽골 마사협회와 함께 만든 기마 공연을 하루 몇 차례 합니다. 공연을 본 뒤 승마와 카트를 이어서 탈 수 있어 아이와 반나절을 보내기 좋아요. 월요일은 쉬니 일정을 짤 때 조심하세요. 공연이 하루 세 번뿐이라 도착 시간을 공연에 맞추는 게 낫습니다.",
+  addr:"제주시 한림읍 월림7길 155",time:"화~일 09:00~17:00 (입장 마감 16:30) · 공연 10:30/14:00/16:30 · 월요일 휴무",
+  links:[["네이버지도",NM("더마파크")],["비짓제주",VJ("더마파크")],["후기 검색",REV("제주 더마파크 기마쇼")]]},
+ {id:"rlaf",cat:"ride",emoji:"🚠",region:"동부·조천",name:"제주라프 짚라인",tag:"녹차밭 위를 4단계로 건너가는 짚와이어",hash:"#2030 #짚라인 #녹차밭 #족욕 #거문오름",
+  desc:"거문오름 자락 녹차밭 위를 4단계 코스로 건너가는 짚라인이에요. 마지막 구간이 가장 길고 발밑이 전부 초록이라 사진이 잘 나옵니다. 타고 나서 화산송이 족욕으로 다리를 풀 수 있게 묶어 파는 경우가 많아요. 비바람이 심하면 운영이 멈추니 당일 확인이 필요합니다.",
+  addr:"제주시 조천읍 선교로 115-1",time:"매일 09:00~12:00, 13:00~18:00 (종료 30분 전 마감)",
+  links:[["네이버지도",NM("제주라프")],["비짓제주",VJ("제주라프")],["후기 검색",REV("제주라프 짚라인")]]},
+ {id:"rparaglide",cat:"ride",emoji:"🪂",region:"서부·한림",name:"제주바다하늘 패러글라이딩 (금악)",tag:"금악 활공장에서 5~7분, 제주 서쪽이 발밑에",hash:"#2030 #패러글라이딩 #금악 #체중제한 #예약필수",
+  desc:"한림 금악 활공장에서 강사와 함께 나는 2인 비행이에요. 실제 비행은 5~7분이지만 장비 착용과 이동에 시간이 더 걸립니다. 체중 30~85kg 사이만 되고 하루 인원이 정해져 있어 예약이 필수예요. 바람 방향이 안 맞으면 그날 비행이 통째로 취소되니 여유 있는 날에 넣으세요.",
+  addr:"제주시 한림읍 금악리 1902-1 (활공장 금악리 1222-2)",time:"기상 조건 따라 운영 · 사전 예약 필수",
+  links:[["네이버지도",NM("제주바다하늘 패러글라이딩")],["비짓제주",VJ("제주바다하늘패러투어")],["후기 검색",REV("제주 금악 패러글라이딩")]]},
+ {id:"rjorangmal",cat:"ride",emoji:"🐴",region:"동부·표선",name:"조랑말체험공원",tag:"조선시대 국영목장 자리에서 타는 제주 조랑말",hash:"#전연령 #아이와함께 #가시리 #박물관무료",
+  desc:"조선시대 임금에게 말을 바치던 갑마장 자리에 있는 목장이에요. 5분 트랙부터 1시간 외승까지 코스가 나뉘어 있어 아이도 어른도 각자 수준에 맞게 탑니다. 붙어 있는 조랑말박물관은 입장이 무료예요. 녹산로 벚꽃·유채 구간과 가까워 봄에 묶어 가기 좋습니다.",
+  addr:"서귀포시 표선면 녹산로 381-15",time:"방문 전 확인 · 승마 예약 064-787-0960",
+  links:[["네이버지도",NM("조랑말체험공원")],["비짓제주",VJ("조랑말체험공원")],["후기 검색",REV("조랑말체험공원 가시리 승마")]]},
 ];
 
 const TEL={
+ rsubsgp:"064-732-6060",
+ rcrusgp:"064-732-1717",
+ rsubudo:"1899-4644",
+ rcruseongsan:"064-782-0012",
+ rudoship:"064-782-5671",
+ rcrusanbang:"064-792-1188",
+ ryachtpacific:"1544-2988",
+ ryachtgimnyeong:"064-782-5271",
+ rjejujet:"064-739-3939",
+ rleports:"064-784-8800",
+ ratvoreum:"0507-1339-1804",
+ ratvsaebyeol:"010-8541-9292",
+ rsanbangland:"064-794-1425",
+ rautomuseum:"064-792-3000",
+ rlaf:"064-784-9030",
+ rparaglide:"010-3692-7345",
+ rjorangmal:"064-787-0960",
+ rrailbike:"064-723-1551",
+ rdermapark:"064-795-8080",
+ ratvgeumdang:"064-792-7200",
+ rshinhwa:"1670-8800",
  bingsulsim:"064-745-2145",
  bingmilpot:"064-727-1107",
  bingpapa:"064-753-2888",
@@ -2050,6 +2171,11 @@ const PKT = [
 const PK_ORDER = PKT.map(x=>x.key);
 const PK_OF = PKT.reduce((o,x)=>(o[x.key]=x,o),{});
 const PK = {
+ rsubsgp:"public", rcrusgp:"public", rsubudo:"public", rcruseongsan:"public", rudoship:"public",
+ rcrusanbang:"free", ryachtpacific:"free", ryachtgimnyeong:"free", rjejujet:"free",
+ rrailbike:"free", rleports:"free", ratvoreum:"free", ratvsaebyeol:"free", rutvjungmun:"free",
+ ratvgeumdang:"free", rudobike:"public", rshinhwa:"free", rsanbangland:"free",
+ rautomuseum:"free", rdermapark:"free", rlaf:"free", rparaglide:"free", rjorangmal:"free",
  bingsulsim:"free",
  bingmilpot:"street",
  bingpapa:"public",
@@ -2420,6 +2546,12 @@ const EFF = [
 const EFF_ORDER = EFF.map(e=>e.key);
 const EFF_OF = EFF.reduce((o,e)=>(o[e.key]=e,o),{});
 const EFFORT = {
+ rsubsgp:"in", rsubudo:"in", rautomuseum:"in",
+ rcrusgp:"cool", rcruseongsan:"cool", rcrusanbang:"cool", ryachtpacific:"cool",
+ ryachtgimnyeong:"cool", rudoship:"cool", rjejujet:"cool",
+ rrailbike:"out", rleports:"out", ratvoreum:"out", ratvsaebyeol:"out", rutvjungmun:"out",
+ ratvgeumdang:"out", rudobike:"out", rshinhwa:"out", rsanbangland:"out", rdermapark:"out",
+ rlaf:"out", rparaglide:"out", rjorangmal:"out",
  bingsulsim:"in",
  bingmilpot:"in",
  bingpapa:"in",
@@ -2891,6 +3023,16 @@ const GLOSSARY = {
   "쿠사마 야요이":"물방울무늬와 호박 조각으로 유명한 일본 현대미술가예요.",
   "아르누보":"19세기 말~20세기 초에 유행한, 식물 덩굴 같은 곡선 장식 예술 양식이에요.",
   "곤돌라":"공중에 매달려 이동하는 케이블 탑승칸이에요.",
+  "짚라인":"높은 곳에 건 쇠줄에 도르래를 걸고 미끄러져 내려가는 놀이기구예요. 짚와이어라고도 합니다.",
+  "패러글라이딩":"낙하산처럼 생긴 날개를 메고 비탈에서 뛰어내려 하늘을 나는 활동이에요. 보통 강사와 둘이 탑니다.",
+  "활공장":"패러글라이딩이나 행글라이더가 뜨는 비탈 자리예요. 바람 방향이 맞아야 뜰 수 있습니다.",
+  "ATV":"바퀴가 네 개 달린 1인용 오프로드 차예요. 사륜 오토바이라고도 부릅니다.",
+  "버기카":"둘이 나란히 앉아 모는 오픈형 오프로드 차예요. UTV라고도 합니다.",
+  "레일바이크":"철길 위를 달리는 자전거형 탈것이에요. 요즘은 전기모터로 굴러가 페달을 안 밟는 곳이 많습니다.",
+  "도항선":"섬과 육지를 오가는 짧은 거리의 여객선이에요.",
+  "외승":"울타리 안 트랙이 아니라 밖으로 나가 들판이나 숲길을 달리는 승마예요.",
+  "갑마장":"조선시대에 임금에게 바칠 좋은 말을 따로 기르던 국영 목장이에요.",
+  "세일링":"엔진을 끄고 돛으로 바람만 받아 배를 몰고 나가는 항해예요.",
   "일주도로":"제주 해안을 따라 섬을 한 바퀴 도는 국도예요.",
   "렌터카 반입":"우도는 환경 보호를 위해 일부 예외(숙박·장애인 등)를 빼고 렌터카를 들일 수 없어요. 섬 안에서는 전기바이크나 순환버스를 씁니다.",
 };
@@ -2904,7 +3046,7 @@ function glossify(t){
 
 // 대표 사진 보기 (네이버 이미지 검색 — 항상 최신 사진이 뜸)
 const PHOTO = n => "https://search.naver.com/search.naver?where=image&query=" + encodeURIComponent("제주 " + n);
-const CAT = {spot:{label:"관광지"},food:{label:"맛집"},cafe:{label:"카페"},shop:{label:"소품샵"},bar:{label:"술집·안주"},hotel:{label:"호텔"},spa:{label:"마사지"},cheap:{label:"가성비 카페"}};
+const CAT = {spot:{label:"관광지"},food:{label:"맛집"},cafe:{label:"카페"},shop:{label:"소품샵"},bar:{label:"술집·안주"},hotel:{label:"호텔"},spa:{label:"마사지"},cheap:{label:"가성비 카페"},ride:{label:"탈것·놀이기구"}};
 // ===== 🎟 롯데렌터카 제주 웰컴 쿠폰팩 제휴처 (공식 홈페이지 기준) =====
 // rate: 확인된 할인율만 적음. null이면 쿠폰팩 화면에서 직접 확인해야 하는 곳.
 // id: 이 스탬프북에 이미 들어 있는 장소면 그 id를 적어 카드에 뱃지가 붙게 한다.
@@ -2953,8 +3095,8 @@ const LOTTE_ALL = [
 const LOTTE = LOTTE_ALL.reduce((o,x)=>{ if(x.id) o[x.id]=x; return o; },{});
 const LOTTE_IDS = LOTTE_ALL.filter(x=>x.id).map(x=>x.id);
 
-const CATS = ["spot","food","cafe","shop","bar","hotel","spa","cheap"];
-const CAT_EMOJI = {spot:"🏝 ",food:"🍽 ",cafe:"☕ ",shop:"🛍 ",bar:"🍻 ",hotel:"🏨 ",spa:"💆 ",cheap:"💸 "};
+const CATS = ["spot","food","cafe","shop","bar","hotel","spa","cheap","ride"];
+const CAT_EMOJI = {spot:"🏝 ",food:"🍽 ",cafe:"☕ ",shop:"🛍 ",bar:"🍻 ",hotel:"🏨 ",spa:"💆 ",cheap:"💸 ",ride:"🎢 "};
 
 // ===== 저장 구조: {v: 방문 도장, c: 직접 추가한 장소} — 두 사람이 자동 공유 =====
 const COUPLE_KEY = "jejustamp_3c5491d5379e4abce2a377bae7987b6c";
@@ -3179,6 +3321,8 @@ const CHIPS=[
  {label:"🍧 빙수·팥빙수",cats:["cafe","food"],keys:["빙수","팥빙수","팥죽","눈꽃","팥칼국수"]},
  {label:"🎟 롯데렌터카 할인",ids:LOTTE_IDS},
  {label:"💆 마사지·테라피",cats:["spa"],keys:["마사지","아로마","테라피","오일","타이","발관리","지압","스포츠"]},
+ {label:"🚢 배·잠수함·요트",cats:["ride","spot"],keys:["잠수함","유람선","요트","도항선","여객선","제트보트","승선","배편","선상"]},
+ {label:"🎢 탈것·놀이기구",cats:["ride"],keys:["카트","ATV","버기","짚라인","레일바이크","패러글라이딩","놀이기구","승마","조랑말","외승","바이킹","회전목마","전기차","전기바이크","잠수함","유람선","요트","제트보트","도항선"]},
  {label:"🌸 정원·꽃",cats:["spot","cafe"],keys:["정원","꽃","수국","동백","핑크뮬리","억새","귤밭","유채","벚꽃","포토존"]},
 ];
 // 칩 하나가 이 장소를 포함하는지 (카테고리 + 맛집 종류 + 키워드 3중 판정)
@@ -3205,6 +3349,15 @@ const ZONES=[
  {key:"daejeong",emoji:"⛰",name:"대정·안덕",full:"서귀포시 대정읍·안덕면"},
 ];
 const ZONE_OF={
+ rsubsgp:"sgp", rcrusgp:"sgp",
+ rsubudo:"seongsan", rcruseongsan:"seongsan", rudoship:"seongsan",
+ rcrusanbang:"daejeong", ratvgeumdang:"daejeong", rshinhwa:"daejeong",
+ rsanbangland:"daejeong", rautomuseum:"daejeong",
+ ryachtpacific:"jungmun", rjejujet:"jungmun", rutvjungmun:"jungmun",
+ ryachtgimnyeong:"gujwa", rrailbike:"gujwa", rudobike:"gujwa",
+ rleports:"jocheon", ratvoreum:"jocheon", rlaf:"jocheon",
+ ratvsaebyeol:"hallim", rdermapark:"hallim", rparaglide:"hallim",
+ rjorangmal:"pyoseon",
  bingsulsim:"jsi",
  bingmilpot:"jsi",
  bingpapa:"jsi",
@@ -3413,6 +3566,14 @@ function renderEffMenu(){
 
 // 장소 좌표 (지도 데이터 검증)
 const LL={
+ rsubsgp:[33.2392291,126.5587093],
+ rcrusgp:[33.2392291,126.5587093],
+ rrailbike:[33.4643587,126.8366273],
+ rleports:[33.48239,126.63868],
+ ryachtgimnyeong:[33.5582523,126.7371949],
+ rdermapark:[33.3549531,126.2430897],
+ rjorangmal:[33.3833355,126.7358351],
+ rshinhwa:[33.3029183,126.3175482],
  bingsulsim:[33.5194453,126.493001],
  bingmilpot:[33.4842631,126.529653],
  bingpapa:[33.4879866,126.4903414],
@@ -3788,6 +3949,26 @@ function addCheapGroups(items){
   const etc = rest.filter(p=>!CHEAPG[p.id]);
   if(etc.length){ addSubHead("\u2615 \uadf8 \ubc16\uc758 \uc9c0\uc810 ("+etc.length+")"); addGrid(etc.slice().sort(byEff)); }
 }
+// 🎢 탈것·놀이기구: 무엇을 타느냐로 묶어서 보여준다
+const RIDEG = {rsubsgp:"boat",rsubudo:"boat",rcrusgp:"boat",rcruseongsan:"boat",rcrusanbang:"boat",ryachtpacific:"boat",ryachtgimnyeong:"boat",rudoship:"boat",rjejujet:"boat",rrailbike:"drive",rleports:"drive",ratvoreum:"drive",ratvsaebyeol:"drive",rutvjungmun:"drive",ratvgeumdang:"drive",rudobike:"drive",rlaf:"sky",rparaglide:"sky",rshinhwa:"park",rsanbangland:"park",rautomuseum:"park",rdermapark:"horse",rjorangmal:"horse"};
+const RIDE_GROUPS = [{k:"boat",label:"🚢 배 타고 나가기",tip:"잠수함·유람선·요트·도항선. 기상에 따라 결항이 잦으니 당일 전화 확인이 안전해요."},{k:"drive",label:"🏎 직접 몰아보는 것",tip:"카트·ATV·버기·레일바이크. 대부분 예약제이고 신장·연령·면허 조건이 있어요."},{k:"sky",label:"🪂 하늘로 뜨는 것",tip:"짚라인·패러글라이딩. 바람이 안 맞으면 그날 통째로 취소됩니다."},{k:"park",label:"🎢 놀이기구·테마파크",tip:"제주에 몇 안 되는, 놀이기구다운 놀이기구가 있는 곳들."},{k:"horse",label:"🐴 말 타기",tip:"제주 조랑말을 직접 타보는 곳. 아이용 짧은 코스가 따로 있어요."}];
+function addRideGroups(items){
+  const h = document.createElement("div");
+  h.className = "ride-head";
+  h.innerHTML = "🎢 탈것·놀이기구 " + items.length + "곳" +
+    '<div class="rh-sub">제주에서 <b>직접 타볼 수 있는 것</b>만 모았어요. 배·잠수함·요트부터 카트·ATV·레일바이크, 짚라인·패러글라이딩, 놀이기구와 승마까지.'
+    + ' <b>거의 다 예약제</b>이고 바다·하늘은 기상에 따라 결항이 잦으니 출발 전 전화로 확인하세요.'
+    + '<br>이미 다른 탭에 있는 탈것: 9.81파크·에코랜드 기차·쇠소깍 카약·우도·마라도·가파도·비양도 배편은 <b>[🏝 관광지]</b> 탭에 있어요.</div>';
+  list.appendChild(h);
+  RIDE_GROUPS.forEach(g=>{
+    const arr = items.filter(p=>RIDEG[p.id]===g.k);
+    if(!arr.length) return;
+    addSubHead(g.label+" ("+arr.length+")", g.tip);
+    addGrid(arr.slice().sort(byEff));
+  });
+  const etc = items.filter(p=>!RIDEG[p.id]);
+  if(etc.length){ addSubHead("📌 그 밖의 탈것 ("+etc.length+")"); addGrid(etc.slice().sort(byEff)); }
+}
 function addFoodGroups(items){
   const must = items.filter(p=>MUSTEAT[p.id]);
   const rest = items.filter(p=>!MUSTEAT[p.id]);
@@ -4068,6 +4249,7 @@ function render(){
       list.appendChild(title);
       if(cat==="food") addFoodGroups(items);
       else if(cat==="cheap") addCheapGroups(items);
+      else if(cat==="ride") addRideGroups(items);
       else if(TIERMAP[cat]) addTierGroups(cat, items);
       else addEffGroups(items, cat==="spot");
     });
