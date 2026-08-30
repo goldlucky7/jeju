@@ -449,6 +449,7 @@
     background:#fff;font-family:inherit;font-size:12.5px;font-weight:800;color:var(--basalt);
     cursor:pointer;line-height:1.4;}
   .fl-ways button.main{background:linear-gradient(135deg,#0B2E52,#1D7FB8);border-color:transparent;color:#fff;}
+  .fl-ways button.wide{grid-column:1 / -1;padding:15px 4px;font-size:15px;}
   #flScan{display:none;margin-bottom:12px;}
   #flScan.on{display:block;}
   #flScan .sc-frame{position:relative;border-radius:14px;overflow:hidden;background:#0A1218;
@@ -677,15 +678,14 @@
     <div id="flBody">
 
       <div class="fl-pane on" id="flPane_pass">
-        <p class="fl-lead">📸 <b>[찍어서 읽기]가 가장 잘 됩니다.</b> 폰 사진 앱이 초점을 제대로 잡아주기 때문이에요.
-        카메라로 계속 비추는 방식은 화면이 흐리면 안 읽힐 수 있습니다.<br>
-        탑승권의 <b>QR코드·바코드</b>에서 편명·좌석·예약번호를 자동으로 읽어옵니다.
+        <p class="fl-lead"><b>[탑승권 찍어서 읽기]</b>를 누르면 카메라가 열립니다. 탑승권의
+        <b>QR코드·바코드</b>가 잘 나오게 찍으면 편명·좌석·예약번호를 자동으로 읽어옵니다.
+        (찍기 전에 <b>코드를 한 번 눌러</b> 초점을 맞추면 확실해요.)<br>
         출발 시각만 한 번 넣으면 <b>카운트다운·수속 마감·탑승 시작 시각</b>까지 계산해드려요.
         읽은 내용은 <b>이 기기에만 저장</b>되고 어디로도 전송되지 않습니다.</p>
         <div class="fl-ways">
-          <button id="flShotBtn" class="main">📸 찍어서 읽기<br><small style="font-weight:700;opacity:.85;">가장 잘 됩니다</small></button>
-          <button id="flScanBtn">📷 카메라로<br>스캔</button>
-          <button id="flPhotoBtn">🖼 사진에서<br>찾기</button>
+          <button id="flShotBtn" class="main wide">📸 탑승권 찍어서 읽기</button>
+          <button id="flPhotoBtn">🖼 저장된 사진에서<br>찾기</button>
           <button id="flManualBtn">⌨️ 직접<br>입력</button>
         </div>
         <input type="file" id="flPhotoInput" accept="image/*" style="display:none">
@@ -731,7 +731,7 @@
       </div>
 
     </div>
-    <p class="fl-ver">화면 버전 <b>2026-08-30h</b> · 이 숫자가 안 보이면 예전 화면이니 새로고침해주세요</p>
+    <p class="fl-ver">화면 버전 <b>2026-08-30i</b> · 이 숫자가 안 보이면 예전 화면이니 새로고침해주세요</p>
     <div class="modal-actions">
       <button id="fl_close" style="background:#F1F4F3;border:1.5px solid var(--line);color:#5C6664;">닫기</button>
     </div>
@@ -5694,7 +5694,11 @@ document.getElementById("myFlightBar").addEventListener("click", ()=>openFlight(
 document.getElementById("fl_close").addEventListener("click", closeFlight);
 flightModal.addEventListener("click", e=>{ if(e.target===flightModal) closeFlight(); });
 document.querySelectorAll("#flSeg .fl-seg").forEach(b=>b.addEventListener("click",()=>setFlPane(b.dataset.pane)));
-document.getElementById("flScanBtn").addEventListener("click", startScan);
+// [📷 카메라로 스캔]은 화면에서 뺐다 (2026-08-30i).
+// 갤럭시 노트20에서 미리보기가 계속 흐려(실측 또렷함 13.9 ≈ 2.7px 뭉개짐) 다섯 번을 고쳐도
+// 안 읽혔다. 미리보기 화질은 웹페이지가 어떻게 할 수 있는 영역이 아니다.
+// 아래 스캔 코드(startScan·pickEngine·#flScan)는 **지우지 않고 남겨뒀다.**
+// 되살리려면 버튼 하나와 이 연결 한 줄만 도로 넣으면 된다.
 document.getElementById("flScanStop").addEventListener("click", ()=>{ stopScan(); flMsg("",""); });
 document.getElementById("flTorch").addEventListener("click", toggleTorch);
 // 카메라 화면을 누르면 그 자리에 초점을 다시 잡는다 (흐릿하면 QR 이 안 읽힌다)
