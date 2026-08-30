@@ -675,6 +675,7 @@
         <div id="flScan">
           <div class="sc-frame"><video id="flVideo" playsinline muted></video><div class="sc-guide"></div></div>
           <p class="sc-hint">📄 종이 탑승권은 <b>가로로 긴 바코드</b>를, 모바일 탑승권은 <b>QR코드</b>를 네모 안에 꽉 차게 맞춰주세요. 화면 밝기를 올리면 더 잘 읽힙니다.</p>
+          <p class="sc-hint" id="flEngine"></p>
           <button class="sc-stop" id="flScanStop">스캔 멈추기</button>
         </div>
         <div id="flMsg"></div>
@@ -5095,18 +5096,19 @@ function renderApSteps(){
 // 1) 기기에 내장된 BarcodeDetector (안드로이드 크롬 등 · PDF417 종이 탑승권까지 읽음)
 // 2) ZXing (QR·PDF417·Aztec 전부) — CDN 여러 곳을 순서대로 시도
 // 3) jsQR (QR 전용) — 위 둘이 모두 안 될 때의 마지막 보루. 모바일 탑승권은 대부분 QR이라 이걸로도 된다.
+// 인식기 파일은 이 저장소 안(lib/)에 같이 넣어뒀다. CDN이 막힌 망이나 광고 차단기
+// 뒤에서도 되게 하려는 것. 혹시 lib/ 없이 index.html만 따로 열었을 때를 대비해 CDN도 남겨둔다.
 const SCAN_LIBS = [
+  "lib/zxing.min.js",
   "https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3/umd/index.min.js",
-  "https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3",
-  "https://unpkg.com/@zxing/library@0.21.3/umd/index.min.js",
-  "https://unpkg.com/@zxing/library@0.21.3"
+  "https://unpkg.com/@zxing/library@0.21.3/umd/index.min.js"
 ];
 const QR_LIBS = [
-  "https://cdnjs.cloudflare.com/ajax/libs/jsQR/1.4.0/jsQR.js",
+  "lib/jsQR.js",
   "https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js",
   "https://unpkg.com/jsqr@1.4.0/dist/jsQR.js"
 ];
-let flStream=null, flReader=null, flRaf=0, flScanning=false, natDet=null, natTried=false, zxTried=false, qrTried=false;
+let flStream=null, flReader=null, flRaf=0, flTimer=0, flScanning=false, natDet=null, natTried=false, zxTried=false, qrTried=false;
 let flCanvas=null, flCtx=null;
 function flMsg(kind, html){
   const el = document.getElementById("flMsg");
@@ -5150,16 +5152,29 @@ async function ensureJsQR(){
   }
   return null;
 }
-// jsQR은 캔버스 픽셀을 받으므로 영상/이미지를 한 장 떠서 넘긴다
-function grabPixels(src, w, h){
+// 영상 프레임을 한 장 떠서 캔버스에 올린다. 인식기 셋 다 이 캔버스를 같이 쓴다.
+function grabCanvas(src, w, h){
   if(!w || !h) return null;
   if(!flCanvas){ flCanvas = document.createElement("canvas"); flCtx = flCanvas.getContext("2d", {willReadFrequently:true}); }
   const max = 1280, sc = Math.min(1, max/Math.max(w,h));
   flCanvas.width = Math.round(w*sc); flCanvas.height = Math.round(h*sc);
+  try{ flCtx.drawImage(src, 0, 0, flCanvas.width, flCanvas.height); return flCanvas; }
+  catch(e){ return null; }
+}
+function grabPixels(src, w, h){
+  const c = grabCanvas(src, w, h);
+  if(!c) return null;
+  try{ return flCtx.getImageData(0, 0, c.width, c.height); }catch(e){ return null; }
+}
+// ZXing 이 video 를 직접 읽는 기능은 프레임을 제대로 못 떠오는 경우가 있다.
+// 우리가 뜬 캔버스를 넘기면 확실히 읽으므로 그렇게 한다.
+function zxDecodeCanvas(Z, canvas){
   try{
-    flCtx.drawImage(src, 0, 0, flCanvas.width, flCanvas.height);
-    return flCtx.getImageData(0, 0, flCanvas.width, flCanvas.height);
-  }catch(e){ return null; }
+    const lum = new Z.HTMLCanvasElementLuminanceSource(canvas);
+    const bmp = new Z.BinaryBitmap(new Z.HybridBinarizer(lum));
+    const r = flReader.decodeBitmap(bmp);
+    return r ? (r.getText ? r.getText() : r.text) : null;
+  }catch(e){ return null; }   // 이번 프레임에 코드가 없다는 뜻일 뿐
 }
 function jsqrRead(src, w, h){
   const px = grabPixels(src, w, h);
@@ -5178,9 +5193,15 @@ function zxHints(Z){
   }catch(e){}
   return h;
 }
+function setEngine(html){
+  const el = document.getElementById("flEngine");
+  if(el) el.innerHTML = html || "";
+}
 function stopScan(){
   flScanning = false;
+  setEngine("");
   if(flRaf){ cancelAnimationFrame(flRaf); flRaf = 0; }
+  if(flTimer){ clearTimeout(flTimer); flTimer = 0; }
   if(flReader){ try{ flReader.reset(); }catch(e){} flReader = null; }
   if(flStream){ flStream.getTracks().forEach(t=>{ try{ t.stop(); }catch(e){} }); flStream = null; }
   const v = document.getElementById("flVideo");
@@ -5191,7 +5212,10 @@ function onDecoded(raw){
   stopScan();
   const p = parsePass(raw);
   if(!p){
-    flMsg("warn","🔍 코드는 읽었지만 <b>탑승권 형식이 아니었어요.</b> 다른 QR코드를 읽은 것 같습니다. 탑승권의 바코드를 다시 비추거나 <b>[⌨️ 직접 입력]</b>을 이용해주세요.");
+    const peek = String(raw||"").slice(0,140);
+    flMsg("warn","🔍 코드는 읽었는데 <b>탑승권 형식이 아니었어요.</b> 탑승권 말고 다른 QR을 읽었거나, "+
+      "항공사가 자체 형식을 쓰는 경우예요. <b>[⌨️ 직접 입력]</b>으로 넣으시면 똑같이 계산해드립니다."+
+      "<br><br>읽은 내용 ▸ <code style=\'word-break:break-all;font-size:11px;\'>"+escHtml(peek)+"</code>");
     return;
   }
   flDraft = p;
@@ -5203,8 +5227,38 @@ function onDecoded(raw){
   renderFlightForm();
   document.getElementById("flForm").scrollIntoView({behavior:"smooth", block:"nearest"});
 }
+// 인식기가 셋(내장·ZXing·jsQR)이지만 화면을 읽는 방식은 하나로 통일한다.
+// ZXing 자체 영상 기능은 video 의 'playing' 이벤트를 기다리는데, 우리가 카메라를 먼저 켜두면
+// 그 이벤트가 이미 지나가 버려서 영원히 시작되지 않는다. 그래서 프레임을 직접 넘겨준다.
+async function pickEngine(){
+  const det = await getNativeDetector();
+  if(det) return {
+    label:"🟢 기기 내장 인식기 · QR코드와 종이 탑승권 바코드 모두 읽습니다", gap:120,
+    read: async v=>{ const c = await det.detect(v); return (c && c.length && c[0].rawValue) || null; }
+  };
+  setEngine("⏳ 인식기를 불러오는 중…");
+  const Z = await ensureZXing();
+  if(Z){
+    try{
+      flReader = new Z.BrowserMultiFormatReader(zxHints(Z), 200);
+      return {
+        label:"🟢 ZXing 인식기 · QR코드와 종이 탑승권 바코드 모두 읽습니다", gap:150,
+        read: v=>{
+          const c = grabCanvas(v, v.videoWidth, v.videoHeight);
+          return c ? zxDecodeCanvas(Z, c) : null;
+        }
+      };
+    }catch(e){ flReader = null; }
+  }
+  const J = await ensureJsQR();
+  if(J) return {
+    label:"🟡 QR 전용 인식기 · 종이 탑승권의 긴 바코드는 <b>[⌨️ 직접 입력]</b>을 이용해주세요", gap:120,
+    read: v=>jsqrRead(v, v.videoWidth, v.videoHeight)
+  };
+  return null;
+}
 async function startScan(){
-  flMsg("","");
+  flMsg("",""); setEngine("");
   if(!window.isSecureContext){
     flMsg("warn","🔒 카메라는 <b>https 주소</b>에서만 열 수 있어요. <b>[🖼 사진에서 찾기]</b>나 <b>[⌨️ 직접 입력]</b>을 이용해주세요.");
     return;
@@ -5216,61 +5270,34 @@ async function startScan(){
   const vid = document.getElementById("flVideo");
   document.getElementById("flScan").classList.add("on");
   flScanning = true;
-  const det = await getNativeDetector();
-  if(det){
-    try{
-      flStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:"environment"},
-        width:{ideal:1280}, height:{ideal:720}}});
-    }catch(e){ camError(e); return; }
-    vid.srcObject = flStream;
-    try{ await vid.play(); }catch(e){}
-    const loop = async ()=>{
-      if(!flScanning) return;
-      try{
-        const codes = await det.detect(vid);
-        if(codes && codes.length && codes[0].rawValue){ onDecoded(codes[0].rawValue); return; }
-      }catch(e){}
-      if(flScanning) flRaf = requestAnimationFrame(loop);
-    };
-    flRaf = requestAnimationFrame(loop);
-    return;
-  }
-  flMsg("info","⏳ 탑승권 인식기를 불러오는 중이에요…");
-  const Z = await ensureZXing();
-  if(!flScanning){ stopScan(); return; }
-  if(!Z){
-    const J = await ensureJsQR();
-    if(!J || !flScanning){
-      stopScan();
-      if(!J) flMsg("warn","📶 인식기를 불러오지 못했어요(인터넷 연결 확인). <b>[⌨️ 직접 입력]</b>으로 편명과 시각을 넣으면 똑같이 계산해드립니다.");
-      return;
-    }
-    try{
-      flStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:"environment"},
-        width:{ideal:1280}, height:{ideal:720}}});
-    }catch(e){ camError(e); return; }
-    vid.srcObject = flStream;
-    try{ await vid.play(); }catch(e){}
-    flMsg("info","ℹ️ 이 기기에서는 <b>QR코드만</b> 읽을 수 있어요. 종이 탑승권의 긴 바코드는 <b>[⌨️ 직접 입력]</b>을 이용해주세요.");
-    const qloop = ()=>{
-      if(!flScanning) return;
-      const raw = jsqrRead(vid, vid.videoWidth, vid.videoHeight);
-      if(raw){ onDecoded(raw); return; }
-      flRaf = requestAnimationFrame(qloop);
-    };
-    flRaf = requestAnimationFrame(qloop);
-    return;
-  }
-  flMsg("","");
+  // 아이폰은 사용자가 버튼을 누른 '그 순간'에 카메라를 열어야 허락을 받는다.
+  // 인식기 파일(수백 KB)을 먼저 받고 나서 열면 그 시점이 만료돼 조용히 거부되는 일이 있다.
   try{
-    flReader = new Z.BrowserMultiFormatReader(zxHints(Z), 400);
-    const cb = (res,err)=>{ if(res){ onDecoded(res.getText ? res.getText() : (res.text||"")); } };
-    if(typeof flReader.decodeFromConstraints === "function"){
-      await flReader.decodeFromConstraints({video:{facingMode:{ideal:"environment"}}}, vid, cb);
-    }else{
-      await flReader.decodeFromVideoDevice(null, vid, cb);
-    }
-  }catch(e){ camError(e); }
+    flStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:"environment"},
+      width:{ideal:1280}, height:{ideal:720}}});
+  }catch(e){ camError(e); return; }
+  if(!flScanning){ stopScan(); return; }
+  vid.srcObject = flStream;
+  vid.muted = true;
+  try{ await vid.play(); }catch(e){}
+
+  const eng = await pickEngine();
+  if(!flScanning){ stopScan(); return; }
+  if(!eng){
+    stopScan();
+    flMsg("warn","📶 인식기를 불러오지 못했어요(인터넷 연결 확인). <b>[⌨️ 직접 입력]</b>으로 편명과 시각을 넣으면 똑같이 계산해드립니다.");
+    return;
+  }
+  setEngine(eng.label);
+  const loop = async ()=>{
+    if(!flScanning) return;
+    let raw = null;
+    try{ raw = await eng.read(vid); }catch(e){}
+    if(!flScanning) return;
+    if(raw){ onDecoded(raw); return; }
+    flTimer = setTimeout(loop, eng.gap);
+  };
+  loop();
 }
 function camError(e){
   stopScan();
