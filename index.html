@@ -17,24 +17,28 @@
   body{font-family:'Noto Sans KR',sans-serif;background:var(--paper);color:var(--basalt);line-height:1.6;}
   header{
     background:linear-gradient(160deg,var(--sea-deep) 0%,var(--sea) 60%,#1E8FA5 100%);
-    color:#fff;padding:44px 20px 30px;position:relative;overflow:hidden;
+    color:#fff;padding:28px 20px 22px;position:relative;overflow:hidden;
   }
   header::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:26px;
     background:radial-gradient(circle at 10px -6px, transparent 14px, var(--paper) 15px);
     background-size:40px 26px;}
-  .h-eyebrow{font-size:13px;letter-spacing:4px;color:var(--canola);font-weight:700;margin-bottom:8px;}
-  h1{font-family:'Gowun Batang',serif;font-size:clamp(28px,6vw,44px);font-weight:700;letter-spacing:-1px;}
-  h1 .dot{color:var(--tangerine);}
-  .h-sub{margin-top:10px;font-size:14px;opacity:.92;max-width:600px;}
+  .h-eyebrow{font-size:11.5px;letter-spacing:3px;color:var(--canola);font-weight:700;margin-bottom:8px;}
+  h1{font-family:'Gowun Batang',serif;font-size:clamp(24px,5.6vw,34px);font-weight:700;letter-spacing:-1px;
+    color:#FF7A1A;text-shadow:0 0 14px rgba(255,138,26,.55),0 0 34px rgba(255,110,0,.32),0 2px 3px rgba(0,0,0,.25);}
+  h1 .dot{color:#FFD24A;}
+  .h-sub{margin-top:7px;font-size:13.5px;opacity:.92;max-width:600px;line-height:1.6;}
   .progress-wrap{margin:22px auto 6px;max-width:680px;background:rgba(255,255,255,.16);border-radius:999px;padding:5px;}
   .progress-bar{height:14px;border-radius:999px;width:0%;
     background:linear-gradient(90deg,var(--canola),var(--tangerine));
     transition:width .5s cubic-bezier(.22,1,.36,1);min-width:14px;}
   .progress-label{text-align:center;font-size:13px;margin-top:8px;font-weight:500;}
   .progress-label b{color:var(--canola);font-size:16px;}
-  nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:22px 16px 6px;position:sticky;top:0;background:rgba(247,250,249,.94);backdrop-filter:blur(6px);z-index:10;border-bottom:1px solid var(--line);}
-  .tab{border:1.5px solid var(--line);background:#fff;color:var(--basalt);
-    padding:8px 16px;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer;
+  nav{display:flex;gap:7px;flex-wrap:nowrap;overflow-x:auto;padding:11px 16px 10px;position:sticky;top:0;
+    background:rgba(247,250,249,.96);backdrop-filter:blur(8px);z-index:10;border-bottom:1px solid var(--line);
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+  nav::-webkit-scrollbar{display:none;}
+  .tab{flex:0 0 auto;white-space:nowrap;border:1.5px solid var(--line);background:#fff;color:var(--basalt);
+    padding:8px 15px;border-radius:999px;font-size:13.5px;font-weight:700;cursor:pointer;
     transition:all .18s;font-family:inherit;}
   .tab:hover{border-color:var(--sea);}
   .tab.active{background:var(--basalt);color:#fff;border-color:var(--basalt);}
@@ -65,7 +69,31 @@
   #filterBar .fb-cnt{font-size:11.5px;font-weight:900;color:var(--sea);}
   .no-result{text-align:center;color:#8A9490;padding:48px 16px;font-size:14px;line-height:1.7;}
   #zoneWrap{max-width:1080px;margin:14px auto 0;padding:0 16px;}
-  #zoneTitle{font-size:15px;font-weight:900;color:var(--basalt);margin:0 0 8px;display:flex;align-items:center;gap:6px;}
+  /* ── 내 여행 (꼭 가볼 곳 · 내 일정 · 갔다온 곳) ── */
+  #myRow{max-width:1080px;margin:14px auto 0;padding:0 16px;display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px;}
+  #myRow .tab .t-ico{font-size:21px;line-height:1;}
+  #myRow .tab .t-num{display:block;font-size:10.5px;font-weight:900;color:#8A9490;margin-top:1px;}
+  #myRow .tab.active .t-num{color:rgba(255,255,255,.85);}
+  #myRow .tab{flex:none;white-space:normal;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;gap:4px;min-height:62px;padding:9px 5px;border-radius:14px;
+    font-size:12.5px;font-weight:800;line-height:1.35;text-align:center;}
+  /* ── 도구 타일 ── */
+  #toolGrid{max-width:1080px;margin:12px auto 0;padding:0 16px;display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px;}
+  .tool{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:5px;min-height:76px;padding:10px 5px;border:1.5px solid var(--line);border-radius:14px;
+    background:#fff;font-family:inherit;font-size:12px;font-weight:800;color:var(--basalt);
+    cursor:pointer;line-height:1.35;text-align:center;transition:all .18s;}
+  .tool .t-ico{font-size:21px;line-height:1;}
+  .tool:hover{border-color:var(--sea);}
+  .tool.on{background:var(--tangerine);border-color:var(--tangerine);color:#fff;}
+  .tool .t-badge{position:absolute;top:6px;right:7px;background:var(--tangerine);color:#fff;
+    border-radius:999px;padding:1px 6px;font-size:10px;font-weight:900;}
+  /* ── 구역 제목 ── */
+  .sec-lab{max-width:1080px;margin:18px auto 7px;padding:0 16px;
+    font-size:12px;font-weight:900;color:#8A9490;letter-spacing:.3px;}
+
   #zoneGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px;}
   .zone-btn{border:1.5px solid var(--line);background:#fff;border-radius:14px;
     padding:10px 6px;font-family:inherit;cursor:pointer;text-align:center;line-height:1.35;}
@@ -77,12 +105,8 @@
   .zone-badge{display:inline-block;background:#FFF4EC;color:var(--tangerine);
     border:1px solid #FFDCC2;border-radius:8px;padding:2px 7px;
     font-size:10.5px;font-weight:900;margin-bottom:5px;}
-  #nearbyBtn{width:100%;margin-top:10px;border:none;border-radius:14px;
-    background:linear-gradient(135deg,#0E7490,#0891B2);color:#fff;
-    padding:14px;font-family:inherit;font-size:15px;font-weight:900;cursor:pointer;
-    box-shadow:0 4px 14px rgba(14,116,144,.3);}
-  #nearbyBtn.on{background:linear-gradient(135deg,#C2410C,#EA580C);
-    box-shadow:0 4px 14px rgba(234,88,12,.35);}
+
+
   .dist-badge{display:inline-block;background:#E6F7FA;color:#0E7490;
     border:1px solid #BAE6EF;border-radius:8px;padding:2px 7px;
     font-size:10.5px;font-weight:900;margin-bottom:5px;margin-left:4px;}
@@ -147,10 +171,7 @@
     border-radius:999px;padding:7px 16px;cursor:pointer;transition:all .15s;}
   .bk-btn:hover{border-color:var(--sea);background:var(--sea);color:#fff;}
   /* 장소 추가 버튼(플로팅) & 입력창 */
-  #fabAdd{position:fixed;right:16px;bottom:20px;z-index:50;
-    background:var(--tangerine);color:#fff;border:none;border-radius:999px;
-    padding:14px 20px;font-family:inherit;font-size:15px;font-weight:900;
-    box-shadow:0 6px 18px rgba(242,118,46,.4);cursor:pointer;}
+
   #addModal{position:fixed;inset:0;background:rgba(20,30,28,.55);z-index:60;
     display:none;align-items:center;justify-content:center;padding:20px;}
   #addModal.open{display:flex;}
@@ -164,9 +185,7 @@
     font-size:14px;font-weight:700;cursor:pointer;}
   #np_cancel{background:#F1F4F3;border:1.5px solid var(--line);color:#5C6664;}
   #np_save{background:var(--tangerine);border:none;color:#fff;}
-  #updBtn{width:100%;margin-top:10px;border:none;border-radius:14px;
-    padding:14px;font-family:inherit;font-size:14.5px;font-weight:900;cursor:pointer;color:#fff;
-    background:linear-gradient(135deg,#7C3AED,#DB2777);box-shadow:0 6px 18px rgba(124,58,237,.32);}
+
   #updBtn .u-sub{display:block;font-size:11.5px;font-weight:700;opacity:.9;margin-top:3px;}
   #updBtn .u-dot{display:inline-block;background:#FDE047;color:#7C3AED;border-radius:999px;
     padding:1px 7px;font-size:11px;font-weight:900;margin-left:5px;}
@@ -192,13 +211,35 @@
   .upd-btns .add{background:var(--tangerine);border-color:var(--tangerine);color:#fff;}
   .upd-btns .add[disabled]{background:#DDE4E2;border-color:#DDE4E2;color:#8A9490;cursor:default;}
   #updAddAll{background:linear-gradient(135deg,#7C3AED,#DB2777);border:none;color:#fff;}
-  #fabHours{position:fixed;left:16px;bottom:20px;z-index:50;
-    background:var(--sea);color:#fff;border:none;border-radius:999px;
-    padding:14px 18px;font-family:inherit;font-size:14px;font-weight:900;
-    box-shadow:0 6px 18px rgba(14,116,144,.4);cursor:pointer;}
-  #lotteModal,#hoursModal{position:fixed;inset:0;background:rgba(20,30,28,.55);z-index:60;
+
+  #couponModal,#hoursModal{position:fixed;inset:0;background:rgba(20,30,28,.55);z-index:60;
     display:none;align-items:center;justify-content:center;padding:20px;}
-  #hoursModal.open{display:flex;}
+  #couponModal.open,#hoursModal.open{display:flex;}
+  #couponModal .modal-box{max-width:560px;max-height:88vh;display:flex;flex-direction:column;}
+  .cp-lead{font-size:13px;line-height:1.7;color:#4A5553;margin:0 0 12px;}
+  .cp-note{font-size:11.5px;line-height:1.6;color:#8A9490;margin:10px 0 0;
+    background:#F6FAF9;border:1px dashed var(--line);border-radius:10px;padding:9px 11px;}
+  #couponBody{overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch;}
+  .cp-card{border:1.5px solid var(--line);border-radius:14px;padding:13px;margin-bottom:10px;background:#fff;}
+  .cp-card.best{border-color:#F2762E;background:#FFFAF6;}
+  .cp-h{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:7px;}
+  .cp-ico{font-size:20px;line-height:1;}
+  .cp-nm{font-size:15px;font-weight:900;color:var(--basalt);}
+  .cp-badge{display:inline-block;margin-left:5px;background:var(--tangerine);color:#fff;
+    border-radius:999px;padding:1px 8px;font-size:10.5px;font-weight:900;vertical-align:2px;}
+  .cp-tag{flex-basis:100%;font-size:11.5px;font-weight:800;color:#8A9490;}
+  .cp-what{font-size:12.5px;line-height:1.7;color:#4A5553;margin:0 0 8px;}
+  .cp-save{list-style:none;margin:0 0 8px;padding:0;}
+  .cp-save li{position:relative;padding-left:17px;font-size:12.5px;line-height:1.75;color:var(--basalt);}
+  .cp-save li::before{content:"💰";position:absolute;left:0;font-size:11px;}
+  .cp-warn{font-size:11.5px;line-height:1.65;color:#7C2D12;background:#FFF7ED;
+    border:1px solid #FED7AA;border-radius:9px;padding:8px 10px;margin:0 0 8px;}
+  .cp-links{display:flex;flex-wrap:wrap;gap:6px;}
+  .cp-links a{border:1.5px solid var(--line);border-radius:9px;padding:7px 11px;
+    font-size:11.5px;font-weight:800;color:var(--sea);text-decoration:none;background:#F6FAF9;}
+  #lotteHead{font-size:12.5px;color:#7C8684;line-height:1.6;margin-bottom:8px;}
+  #lotteBody{overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch;margin-bottom:10px;}
+  /* .modal-box input 규칙(width:100%)이 더 세서 할인율 칸이 줄을 다 먹어버린다 → 여기서 되돌린다 */
   #hoursModal .modal-box{max-width:540px;max-height:84vh;display:flex;flex-direction:column;}
   #hoursTableWrap{overflow-y:auto;flex:1;margin-bottom:10px;-webkit-overflow-scrolling:touch;}
   .hours-table{width:100%;border-collapse:collapse;font-size:12.5px;}
@@ -219,8 +260,8 @@
   .meta a.tel-link{color:#0E7490;font-weight:700;text-decoration:none;}
   .meta a.tel-link:active{opacity:.6;}
 
-  .tab.tab-must{background:linear-gradient(135deg,#B45309,#F59E0B);color:#fff;border-color:transparent;font-weight:800;}
-  .tab.tab-must.active{background:linear-gradient(135deg,#92400E,#D97706);box-shadow:0 2px 8px rgba(180,83,9,.35);}
+  
+    #myRow .tab.tab-must.active{background:linear-gradient(135deg,#B45309,#F59E0B);border-color:transparent;}
   .must-star{position:absolute;left:10px;bottom:10px;background:linear-gradient(135deg,#B45309,#F59E0B);
     color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:999px;
     box-shadow:0 2px 6px rgba(0,0,0,.22);letter-spacing:-.2px;}
@@ -234,7 +275,19 @@
 
   /* ===== 활동 강도 (실내 → 등산) ===== */
   #effWrap{max-width:1080px;margin:16px auto 0;padding:0 16px;}
-  #effTitle{font-size:15px;font-weight:900;color:var(--basalt);margin:0 0 3px;}
+  /* 접었다 펴는 메뉴 머리글 (평소엔 접혀 있다) */
+  .fold-head{width:100%;display:flex;align-items:center;gap:8px;margin:0 0 8px;
+    padding:13px 14px;border:1.5px solid var(--line);border-radius:12px;background:#fff;
+    font-family:inherit;font-size:15px;font-weight:900;color:var(--basalt);
+    cursor:pointer;text-align:left;line-height:1.3;}
+  .fold-head .fh-t{flex:none;}
+  .fold-head .fh-now{flex:1;min-width:0;font-size:12.5px;font-weight:800;color:#7C8684;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .fold-head .fh-ar{flex:none;font-size:11px;color:#7C8684;transition:transform .18s;}
+  .fold-head.open{border-color:#1D7FB8;}
+  .fold-head.open .fh-ar{transform:rotate(180deg);}
+  .fold-body{display:none;}
+  .fold-body.open{display:block;}
   #effSub{font-size:11.5px;color:#8A9490;margin:0 0 8px;line-height:1.5;}
   #effGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(98px,1fr));gap:8px;}
   .eff-btn{border:1.5px solid var(--line);background:#fff;border-radius:14px;
@@ -316,10 +369,6 @@
   .ride-head{background:linear-gradient(135deg,#0F4C75,#2E86AB);color:#fff;border-radius:14px;
     padding:14px 16px;margin:14px 4px 12px;font-size:15px;font-weight:900;line-height:1.35;}
   .ride-head .rh-sub{font-size:12.5px;font-weight:500;opacity:.95;margin-top:4px;line-height:1.55;}
-  .lotte-badge{position:absolute;left:10px;bottom:10px;background:linear-gradient(135deg,#D32F2F,#F57C00);
-    color:#fff;font-size:11px;font-weight:800;padding:4px 9px;border-radius:999px;letter-spacing:-.2px;}
-  .lotte-line{margin:8px 0 0;padding:9px 11px;border-radius:10px;background:#FFF4EC;
-    border:1.5px solid #FFD3B0;color:#8A4B18;font-size:12.5px;line-height:1.55;font-weight:700;}
   .wish-btn{width:100%;margin-top:8px;padding:11px;border-radius:12px;border:1.5px solid #F0C64A;
     background:#FFFBEB;color:#8A6A08;font-size:14px;font-weight:800;cursor:pointer;}
   .wish-btn.on{background:linear-gradient(135deg,#F59E0B,#F0C64A);border-color:#F59E0B;color:#fff;}
@@ -347,26 +396,7 @@
     font-size:13px;font-weight:900;box-shadow:0 2px 8px rgba(0,0,0,.22);}
   .route-hop{position:absolute;left:10px;bottom:10px;font-size:11px;font-weight:800;
     background:rgba(0,0,0,.55);color:#fff;padding:3px 8px;border-radius:999px;}
-  #lotteBtn{display:block;width:100%;margin:10px 0 0;padding:14px;border-radius:14px;border:none;
-    background:linear-gradient(135deg,#D32F2F,#F57C00);color:#fff;font-size:15px;font-weight:800;cursor:pointer;
-    box-shadow:0 6px 18px rgba(211,47,47,.26);position:relative;z-index:11;}
-  #lotteBtn .l-sub{display:block;margin-top:4px;font-size:11.5px;font-weight:600;opacity:.92;}
-  .lt-row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;
-    padding:11px 12px;border-bottom:1px solid var(--line);}
-  .lt-row:last-child{border-bottom:none;}
-  .lt-nm{font-size:14px;font-weight:700;color:#26302E;}
-  .lt-rg{display:block;font-size:11.5px;color:#7C8684;font-weight:600;margin-top:2px;}
-  .lt-l{flex:1;min-width:0;}
-  .lt-in{flex:none;width:104px;padding:7px 9px;border-radius:9px;border:1.5px solid #FFD3B0;
-    background:#FFF9F4;font-size:13px;font-weight:800;color:#C2410C;text-align:center;}
-  .lt-in::placeholder{color:#B9A99C;font-weight:600;}
-  .lotte-edit{margin-top:7px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
-  .lotte-edit b{font-size:12px;}
-  .lotte-in{width:96px;padding:6px 8px;border-radius:8px;border:1.5px solid #FFD3B0;
-    background:#fff;font-size:13px;font-weight:800;color:#C2410C;text-align:center;}
-  .li-tip{font-size:11px;color:#A9743F;font-weight:600;}
-  .lt-have{display:inline-block;margin-left:6px;font-size:10.5px;font-weight:800;color:#fff;
-    background:#2E7D6B;border-radius:999px;padding:2px 7px;vertical-align:middle;}
+
   .tab.tab-eat{background:linear-gradient(135deg,#9F1239,#E11D48);color:#fff;border-color:transparent;font-weight:800;}
   .tab.tab-eat.active{background:linear-gradient(135deg,#881337,#BE123C);}
   /* 주차 */
@@ -413,6 +443,127 @@
   #barGps.on{background:linear-gradient(135deg,#065F46,#059669);box-shadow:0 4px 14px rgba(5,150,105,.32);}
   .star-badge{display:inline-block;background:#FEF3C7;color:#92400E;border:1px solid #FDE68A;
     border-radius:8px;padding:2px 7px;font-size:10.5px;font-weight:900;margin-bottom:5px;margin-right:4px;}
+  /* ===== ✈️ 항공사 운영시간 · 탑승권 읽기 ===== */
+
+  #flightBtn .f-sub{display:block;margin-top:4px;font-size:11.5px;font-weight:600;opacity:.92;}
+  #myFlightBar{display:none;width:calc(100% - 32px);margin:12px auto 0;border-radius:14px;padding:13px 14px;
+    background:linear-gradient(135deg,#0B2E52,#1668A8);color:#fff;text-align:left;border:none;
+    box-shadow:0 6px 18px rgba(11,46,82,.3);position:relative;z-index:11;cursor:pointer;font-family:inherit;}
+  #myFlightBar.on{display:block;}
+  #myFlightBar .mf-top{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;}
+  #myFlightBar .mf-no{font-size:18px;font-weight:900;letter-spacing:-.3px;}
+  #myFlightBar .mf-air{font-size:12.5px;font-weight:700;opacity:.9;}
+  #myFlightBar .mf-route{margin-top:4px;font-size:13.5px;font-weight:700;opacity:.96;}
+  #myFlightBar .mf-cd{margin-top:7px;display:inline-block;background:rgba(255,255,255,.2);
+    border-radius:999px;padding:5px 12px;font-size:13px;font-weight:900;}
+  #myFlightBar .mf-cd.soon{background:#FDE047;color:#7C2D12;}
+  #myFlightBar .mf-cd.gone{background:rgba(255,255,255,.16);opacity:.85;}
+  #myFlightBar .mf-note{display:block;margin-top:6px;font-size:11.5px;font-weight:600;opacity:.9;line-height:1.55;}
+  #flightModal{position:fixed;inset:0;background:rgba(20,30,28,.55);z-index:60;
+    display:none;align-items:center;justify-content:center;padding:16px;}
+  #flightModal.open{display:flex;}
+  #flightModal .modal-box{max-width:560px;max-height:88vh;display:flex;flex-direction:column;}
+  #flSeg{display:flex;gap:6px;margin-bottom:12px;}
+  #flSeg button{flex:1;padding:9px 4px;border-radius:11px;border:1.5px solid var(--line);background:#fff;
+    color:#5C6664;font-family:inherit;font-size:12.5px;font-weight:800;cursor:pointer;line-height:1.35;}
+  #flSeg button.on{background:#0B2E52;border-color:#0B2E52;color:#fff;}
+  #flBody{overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch;margin-bottom:10px;}
+  .fl-pane{display:none;}
+  .fl-pane.on{display:block;}
+  .fl-lead{font-size:12.5px;color:#5C6664;line-height:1.65;margin-bottom:11px;}
+  .fl-lead b{color:#0B2E52;}
+  .fl-ways{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:11px;}
+  .fl-ways button{padding:12px 4px;border-radius:12px;border:1.5px solid var(--line);
+    background:#fff;font-family:inherit;font-size:12.5px;font-weight:800;color:var(--basalt);
+    cursor:pointer;line-height:1.4;}
+  .fl-ways button.main{background:linear-gradient(135deg,#0B2E52,#1D7FB8);border-color:transparent;color:#fff;}
+  .fl-ways button.wide{grid-column:1 / -1;padding:15px 4px;font-size:15px;}
+  #flScan{display:none;margin-bottom:12px;}
+  #flScan.on{display:block;}
+  #flScan .sc-frame{position:relative;border-radius:14px;overflow:hidden;background:#0A1218;
+    aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;}
+  #flVideo{width:100%;height:100%;object-fit:cover;display:block;}
+  #flScan .sc-guide{position:absolute;left:8%;right:8%;top:26%;bottom:26%;
+    border:2.5px dashed rgba(255,255,255,.8);border-radius:12px;pointer-events:none;}
+  /* 상태를 화면 위에 겹쳐 둔다. 아래에 적으면 스크롤 밖이라 못 보고 지나친다 */
+  #flScan .sc-live{position:absolute;left:0;right:0;top:0;padding:6px 8px;pointer-events:none;
+    background:linear-gradient(rgba(0,0,0,.62),rgba(0,0,0,0));color:#fff;
+    font-size:10.5px;font-weight:800;line-height:1.45;letter-spacing:-.2px;
+    text-shadow:0 1px 2px rgba(0,0,0,.9);}
+  #flScan .sc-hint{margin-top:8px;font-size:12px;color:#5C6664;line-height:1.6;}
+  .sc-tools{display:flex;gap:7px;margin-top:8px;}
+  #flScan .sc-stop{flex:1;padding:11px;border-radius:11px;border:1.5px solid var(--line);
+    background:#F1F4F3;color:#5C6664;font-family:inherit;font-size:13px;font-weight:800;cursor:pointer;}
+  #flShotBtn2{flex:none;padding:11px 12px;border-radius:11px;border:none;
+    background:linear-gradient(135deg,#0B2E52,#1D7FB8);color:#fff;
+    font-family:inherit;font-size:13px;font-weight:800;cursor:pointer;}
+  #flTorch{flex:none;padding:11px 14px;border-radius:11px;border:1.5px solid var(--line);
+    background:#fff;color:var(--basalt);font-family:inherit;font-size:13px;font-weight:800;cursor:pointer;}
+  #flTorch.on{background:#FDE047;border-color:#FACC15;color:#7C2D12;}
+  .fl-msg{border-radius:11px;padding:10px 12px;font-size:12.5px;line-height:1.6;margin-bottom:11px;}
+  .fl-msg.warn{background:#FFF7ED;border:1px solid #FED7AA;color:#7C2D12;}
+  .fl-msg.ok{background:#ECFDF5;border:1px solid #A7F3D0;color:#065F46;}
+  .fl-msg.info{background:#F6FAF9;border:1px dashed var(--line);color:#4A5553;}
+  .fl-msg b{font-weight:900;}
+  .fl-form{border:1.5px solid var(--line);border-radius:14px;padding:13px;margin-bottom:12px;}
+  .fl-form h4{font-size:14px;font-weight:900;color:#0B2E52;margin-bottom:9px;}
+  .fl-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .fl-f label{display:block;font-size:11px;font-weight:800;color:#7C8684;margin-bottom:3px;}
+  .fl-f input,.fl-f select{width:100%;margin:0;padding:9px 10px;border:1.5px solid var(--line);
+    border-radius:9px;font-family:inherit;font-size:13.5px;font-weight:700;color:var(--basalt);background:#fff;}
+  .fl-f.wide{grid-column:1 / -1;}
+  .fl-save{width:100%;margin-top:10px;padding:12px;border-radius:11px;border:none;
+    background:var(--tangerine);color:#fff;font-family:inherit;font-size:14px;font-weight:900;cursor:pointer;}
+  .tk{border-radius:16px;border:1.5px solid var(--line);overflow:hidden;margin-bottom:12px;background:#fff;}
+  .tk-top{background:linear-gradient(135deg,#0B2E52,#1668A8);color:#fff;padding:13px 14px;}
+  .tk-no{font-size:20px;font-weight:900;letter-spacing:-.4px;}
+  .tk-air{font-size:12.5px;font-weight:700;opacity:.92;margin-left:7px;}
+  .tk-route{margin-top:7px;display:flex;align-items:center;gap:9px;font-weight:900;}
+  .tk-ap{font-size:15px;}
+  .tk-ap small{display:block;font-size:11px;font-weight:600;opacity:.85;margin-top:1px;}
+  .tk-arrow{font-size:15px;opacity:.85;}
+  .tk-body{padding:12px 14px;}
+  .tk-kv{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px;}
+  .tk-kv span{background:#F1F4F3;border-radius:9px;padding:5px 9px;font-size:11.5px;font-weight:800;color:#4A5553;}
+  .tk-kv span b{color:#0B2E52;margin-left:3px;}
+  .tl{border-top:1px dashed var(--line);padding-top:10px;margin-top:2px;}
+  .tl-row{display:flex;align-items:center;gap:9px;padding:6px 0;font-size:12.5px;}
+  .tl-row .t{flex:none;width:56px;font-weight:900;color:#0B2E52;font-variant-numeric:tabular-nums;}
+  .tl-row .l{flex:1;color:#4A5553;font-weight:700;line-height:1.45;}
+  .tl-row .l small{display:block;font-size:10.5px;font-weight:600;color:#8A9490;margin-top:1px;}
+  .tl-row.hi .t{color:#C2410C;}
+  .tl-row.hi .l{color:#7C2D12;}
+  .tk-btns{display:flex;gap:6px;flex-wrap:wrap;margin-top:11px;}
+  .tk-btns a,.tk-btns button{border:1.5px solid var(--line);background:#fff;border-radius:999px;
+    padding:8px 12px;font-family:inherit;font-size:11.5px;font-weight:800;cursor:pointer;
+    color:var(--basalt);text-decoration:none;display:inline-block;}
+  .tk-btns a.live{background:#0B2E52;border-color:#0B2E52;color:#fff;}
+  .tk-btns button.del{color:#B8514A;border-color:#F3D3D0;}
+  .air-card{border:1.5px solid var(--line);border-radius:14px;padding:12px 13px;margin-bottom:9px;}
+  .air-card .ac-top{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap;margin-bottom:8px;}
+  .air-card .ac-nm{font-size:15.5px;font-weight:900;color:#0B2E52;}
+  .air-card .ac-code{font-size:11px;font-weight:700;color:#8A9490;}
+  .air-card .ac-tel{margin-left:auto;font-size:13.5px;font-weight:900;color:var(--tangerine);
+    text-decoration:none;white-space:nowrap;border-bottom:1.5px solid #FBCFA8;}
+  .air-card .ac-row{display:flex;gap:8px;font-size:12px;line-height:1.6;margin-top:4px;}
+  .air-card .ac-row .k{flex:none;width:62px;font-weight:900;color:#7C8684;}
+  .air-card .ac-row .v{flex:1;color:#4A5553;font-weight:600;}
+  .air-card .ac-row .v b{color:#0B2E52;font-weight:900;}
+  .air-card .go{display:inline-block;margin-top:9px;font-size:11.5px;font-weight:800;
+    color:var(--sea-deep);text-decoration:none;border:1.5px solid var(--line);
+    border-radius:999px;padding:6px 12px;}
+  .air-note{font-size:11.5px;color:#7C8684;line-height:1.65;margin-top:10px;
+    background:#F6FAF9;border:1px dashed var(--line);border-radius:11px;padding:10px 12px;}
+  .ap-step{display:flex;gap:10px;padding:11px 0;border-bottom:1px dashed var(--line);}
+  .ap-step:last-child{border-bottom:none;}
+  .ap-step .n{flex:none;width:28px;height:28px;line-height:28px;text-align:center;border-radius:999px;
+    background:#0B2E52;color:#fff;font-size:13px;font-weight:900;}
+  .ap-step .b{flex:1;}
+  .ap-step .b h5{font-size:13.5px;font-weight:900;color:var(--basalt);margin-bottom:3px;}
+  .ap-step .b p{font-size:12px;color:#5C6664;line-height:1.65;}
+  .ap-step .b p b{color:#0B2E52;}
+  .fl-ver{font-size:10.5px;color:#A3ADAB;text-align:center;margin:0 0 8px;}
+  .fl-ver b{color:#7C8684;}
 </style>
 </head>
 <body>
@@ -421,9 +572,8 @@
   <div style="max-width:1080px;margin:0 auto;">
     <div class="h-eyebrow">JEJU STAMP BOOK · 318 PLACES</div>
     <h1>제주 여행 스탬프북<span class="dot">.</span></h1>
-    <p class="h-sub">감성 포토스팟부터 액티비티, 자연 명소, 노포 맛집까지 —
-    20대부터 40대까지 모두를 위한 318곳. 모든 곳을 <b>덜 힘든 순서(실내 → 시원한 야외 → 차로 → 야외 → 걷기 → 등산)</b>로 나눠뒀고,
-    맛집·소품샵·술집·호텔·마사지는 <b>꼭 가야 할 곳</b>을 맨 위에 올렸고, 카드마다 <b>주차 정보</b>와 <b>주소 복사</b> 버튼이 있어요. 가보고 싶은 곳은 <b>[☆ 가보고 싶어요]</b>로 담고 날짜를 정하면 <b>[⭐ 내 일정]</b> 탭에 날짜별로 정리됩니다. 다녀온 곳은 <b>[갔다왔음]</b>을 눌러 도장을 찍어보세요. 도장 찍은 곳은 목록에서 사라지고 <b>[🔴 갔다온 곳]</b> 탭에 모입니다.</p>
+    <p class="h-sub">가볼 만한 곳 <b>318곳</b>을 한곳에. 다녀온 곳엔 도장을 찍고,
+    가보고 싶은 곳은 담아서 날짜별 일정으로 만들어보세요.</p>
     <div class="progress-wrap"><div class="progress-bar" id="pbar"></div></div>
     <div class="progress-label" id="plabel"></div>
     <div style="text-align:center;margin-top:12px;">
@@ -432,20 +582,20 @@
   </div>
 </header>
 
+<button id="myFlightBar"></button>
+
+<!-- 장소 종류: 한 줄 가로 스크롤 (예전엔 12개가 구름처럼 흩어져 있었다) -->
 <nav id="tabs">
   <button class="tab active" data-filter="all">전체</button>
-  <button class="tab tab-must" data-filter="must">⭐ 꼭 가볼 곳</button>
   <button class="tab" data-filter="spot">🏝 관광지</button>
   <button class="tab" data-filter="food">🍽 맛집</button>
   <button class="tab" data-filter="cafe">☕ 카페</button>
+  <button class="tab" data-filter="cheap">💸 가성비 카페</button>
   <button class="tab" data-filter="shop">🛍 소품샵</button>
   <button class="tab" data-filter="bar">🍻 술집·안주</button>
   <button class="tab" data-filter="hotel">🏨 호텔</button>
   <button class="tab" data-filter="spa">💆 마사지</button>
-  <button class="tab" data-filter="cheap">💸 가성비 카페</button>
   <button class="tab" data-filter="ride">🎢 탈것·놀이기구</button>
-  <button class="tab tab-plan" data-filter="plan">⭐ 내 일정</button>
-  <button class="tab" data-filter="visited">🔴 갔다온 곳</button>
 </nav>
 
 <div id="searchWrap">
@@ -459,25 +609,68 @@
   <button id="aiAskBtn">🤖 모르는 말이 있나요? 눌러서 바로 찾아보기</button>
 </div>
 
+<p class="sec-lab">내 여행</p>
+<div id="myRow">
+  <button class="tab tab-must" data-filter="must">⭐<br>꼭 가볼 곳</button>
+  <button class="tab tab-plan" data-filter="plan">🗓<br>내 일정</button>
+  <button class="tab" data-filter="visited">🔴<br>갔다온 곳</button>
+</div>
+
+<p class="sec-lab">여행 도구</p>
+<div id="toolGrid">
+  <button class="tool" id="nearbyBtn"><span class="t-ico">📍</span>내 주변</button>
+  <button class="tool" id="updBtn"><span class="t-ico">🆕</span>요즘 뜨는 곳</button>
+  <button class="tool" id="flightBtn"><span class="t-ico">✈️</span>항공편</button>
+  <button class="tool" id="couponBtn"><span class="t-ico">🎟</span>할인 쿠폰</button>
+  <button class="tool" id="fabHours"><span class="t-ico">🕐</span>영업시간표</button>
+  <button class="tool" id="fabAdd"><span class="t-ico">➕</span>장소 추가</button>
+</div>
+
+<p class="sec-lab">골라 보기</p>
+
 <div id="effWrap">
-  <p id="effTitle">🧭 얼마나 움직여야 하나요?</p>
-  <p id="effSub">덜 힘든 순서로 정리했어요. 더운 날·비 오는 날엔 왼쪽 위부터 고르시면 됩니다.</p>
-  <div id="effGrid"></div>
+  <button class="fold-head" id="effTitle" aria-expanded="false">
+    <span class="fh-t">🧭 얼마나 움직여야 하나요?</span>
+    <span class="fh-now" id="effNow"></span>
+    <span class="fh-ar">▾</span>
+  </button>
+  <div class="fold-body" id="effBody">
+    <p id="effSub">덜 힘든 순서로 정리했어요. 더운 날·비 오는 날엔 왼쪽 위부터 고르시면 됩니다.</p>
+    <div id="effGrid"></div>
+  </div>
 </div>
 
 <div id="zoneWrap">
-  <p id="zoneTitle">📍 지역별로 보기</p>
-  <div id="zoneGrid"></div>
-  <button id="nearbyBtn">📍 내 주변 15km 이내 보기</button>
-  <button id="updBtn">🆕 요즘 뜨는 곳 업데이트 받기<span class="u-sub">눌러서 새로 올라온 맛집·명소를 확인하세요</span></button>
-  <button id="lotteBtn">🎟 롯데렌터카 할인되는 곳 보기<span class="l-sub">제주 웰컴 쿠폰팩 제휴처 39곳 · 렌터카 예약 고객 무료</span></button>
+  <button class="fold-head" id="zoneTitle" aria-expanded="false">
+    <span class="fh-t">📍 지역별로 보기</span>
+    <span class="fh-now" id="zoneNow"></span>
+    <span class="fh-ar">▾</span>
+  </button>
+  <div class="fold-body" id="zoneBody"><div id="zoneGrid"></div></div>
+</div>
+
+<div id="helpWrap" style="max-width:1080px;margin:16px auto 0;padding:0 16px;">
+  <button class="fold-head" id="helpTitle" aria-expanded="false">
+    <span class="fh-t">❓ 처음이신가요?</span>
+    <span class="fh-now">· 쓰는 법 보기</span>
+    <span class="fh-ar">▾</span>
+  </button>
+  <div class="fold-body" id="helpBody">
+    <p style="font-size:13px;line-height:1.75;color:#4A5553;margin:0 0 6px;">
+    감성 포토스팟부터 액티비티, 자연 명소, 노포 맛집까지 <b>318곳</b>이 들어 있어요.<br><br>
+    🏝 <b>위쪽 종류 버튼</b>을 옆으로 밀어 관광지·맛집·카페 등을 골라 보세요.<br>
+    🔍 <b>검색</b>은 초성만 쳐도 찾아줍니다 (예: ㅇㅈㅎㅈ).<br>
+    ☆ 마음에 드는 곳은 <b>[가보고 싶어요]</b>로 담고 날짜를 정하면 <b>[🗓 내 일정]</b>에 날짜별로 정리됩니다.<br>
+    🔴 다녀온 곳은 <b>[갔다왔음]</b>을 눌러 도장을 찍으세요. 목록에서 사라지고 <b>[갔다온 곳]</b>에 모입니다.<br>
+    🧭 <b>[얼마나 움직여야 하나요?]</b>는 덜 힘든 순서로 나눠둔 거예요. 더운 날·비 오는 날에 유용합니다.<br>
+    ✈️ 돌아가는 날은 <b>[항공편]</b>에서 탑승권을 찍으면 출발까지 남은 시간과 수속 마감을 계산해줍니다.<br>
+    👫 도장과 일정은 <b>두 사람이 자동으로 함께</b> 봅니다.</p>
+  </div>
 </div>
 
 <main id="list"></main>
 
-<button id="fabAdd">➕ 장소 추가</button>
 
-<button id="fabHours">🕐 영업시간표</button>
 
 <div id="updModal">
   <div class="modal-box">
@@ -521,14 +714,16 @@
   </div>
 </div>
 
-<div id="lotteModal">
+<div id="couponModal">
   <div class="modal-box">
-    <h3>🎟 롯데렌터카 제주 웰컴 쿠폰팩</h3>
-    <div id="lotteHead"></div>
-    <div id="lotteBody"></div>
+    <h3>🎟 제주에서 쓸 수 있는 할인</h3>
+    <p class="cp-lead">폰에 미리 받아두면 <b>보여주기만 해도</b> 깎아주는 것들이에요.
+    아래 둘은 <b>제주도가 직접 하는 공식 제도</b>라 가맹점이 아주 많습니다.</p>
+    <div id="couponBody"></div>
+    <p class="cp-note">📌 위 내용은 <b>2026년 8월 조사 시점</b> 기준이에요. 혜택·기간·비율은 바뀔 수 있으니
+    가기 전에 각 <b>[바로가기]</b>에서 한 번 더 확인해주세요.</p>
     <div class="modal-actions">
-      <button id="lt_close" style="background:#F1F4F3;border:1.5px solid var(--line);color:#5C6664;">닫기</button>
-      <button id="lt_open">공식 쿠폰팩 열기 ↗</button>
+      <button id="cp_close" style="background:#F1F4F3;border:1.5px solid var(--line);color:#5C6664;">닫기</button>
     </div>
   </div>
 </div>
@@ -539,6 +734,77 @@
     <div id="hoursTableWrap"></div>
     <div class="modal-actions">
       <button id="hm_close" style="background:#F1F4F3;border:1.5px solid var(--line);color:#5C6664;">닫기</button>
+    </div>
+  </div>
+</div>
+
+<div id="flightModal">
+  <div class="modal-box">
+    <h3>✈️ 내 항공편 · 항공사 운영시간</h3>
+    <div id="flSeg">
+      <button class="fl-seg on" data-pane="pass">🎫 탑승권<br>인식</button>
+      <button class="fl-seg" data-pane="air">🕐 항공사<br>운영시간</button>
+      <button class="fl-seg" data-pane="map">🧭 공항에서<br>어디로</button>
+    </div>
+    <div id="flBody">
+
+      <div class="fl-pane on" id="flPane_pass">
+        <p class="fl-lead"><b>[탑승권 찍어서 읽기]</b>를 누르면 카메라가 열립니다. 탑승권의
+        <b>QR코드·바코드</b>가 잘 나오게 찍으면 편명·좌석·예약번호를 자동으로 읽어옵니다.
+        (찍기 전에 <b>코드를 한 번 눌러</b> 초점을 맞추면 확실해요.)<br>
+        출발 시각만 한 번 넣으면 <b>카운트다운·수속 마감·탑승 시작 시각</b>까지 계산해드려요.
+        읽은 내용은 <b>이 기기에만 저장</b>되고 어디로도 전송되지 않습니다.</p>
+        <div class="fl-ways">
+          <button id="flShotBtn" class="main wide">📸 탑승권 찍어서 읽기</button>
+          <button id="flPhotoBtn">🖼 저장된 사진에서<br>찾기</button>
+          <button id="flManualBtn">⌨️ 직접<br>입력</button>
+        </div>
+        <input type="file" id="flPhotoInput" accept="image/*" style="display:none">
+        <input type="file" id="flShotInput" accept="image/*" capture="environment" style="display:none">
+        <div id="flScan">
+          <div class="sc-frame"><video id="flVideo" playsinline muted></video><div class="sc-guide"></div><div class="sc-live" id="flLive"></div></div>
+          <p class="sc-hint">📄 코드를 <b>네모 안에 꽉 차게</b> 맞춰주세요. <b>화면이 또렷해야 읽힙니다</b> —
+          흐릿하면 <b>화면을 한 번 톡 누르고</b>(초점을 다시 잡습니다) 손을 살짝 앞뒤로 움직여 또렷해질 때까지 기다려주세요.</p>
+          <div class="sc-tools">
+            <button id="flShotBtn2">📸 찍어서 읽기</button>
+            <button id="flTorch" hidden>🔦 불 켜기</button>
+            <button class="sc-stop" id="flScanStop">멈추기</button>
+          </div>
+        </div>
+        <div id="flMsg"></div>
+        <div id="flForm"></div>
+        <div id="flSaved"></div>
+      </div>
+
+      <div class="fl-pane" id="flPane_air">
+        <p class="fl-lead">제주 노선을 운항하는 국내 항공사의 <b>고객센터 운영시간</b>과
+        <b>탑승 수속 마감 기준</b>이에요. 공항 카운터는 보통 <b>첫 출발편 1~2시간 전</b>에 열고
+        <b>막 출발편 마감과 함께</b> 닫습니다.</p>
+        <div id="airTableWrap"></div>
+        <p class="air-note">☎️ <b>공항 문의</b> — 한국공항공사 통합 콜센터 <a class="tel" href="tel:16612626">1661-2626</a> (연중무휴 06:00~23:00) ·
+        제주국제공항 대표 <a class="tel" href="tel:0647972526">064-797-2526</a><br>
+        📌 상담시간·마감 기준은 조사 시점 기준이라 바뀔 수 있어요. 특히 <b>성수기·기상 악화</b> 때는 달라지니
+        표의 [바로가기]로 항공사 공지를 한 번 더 확인하세요.</p>
+      </div>
+
+      <div class="fl-pane" id="flPane_map">
+        <p class="fl-lead">제주공항 여객터미널은 <b>1층 도착 · 2층 탑승장 · 3층 출발</b> 구조예요.
+        떠나는 날은 <b>3층</b>부터 시작하면 됩니다.</p>
+        <div id="apSteps"></div>
+        <p class="air-note">🎫 <b>탑승구(게이트) 번호는 당일 배정</b>이라 미리 정해져 있지 않아요.
+        공항에 들어가면 3층 전광판에서 내 편명을 찾아 <b>카운터 번호</b>를,
+        보안검색을 통과한 뒤 2층 전광판에서 <b>탑승구 번호</b>를 확인하는 게 가장 정확합니다.
+        아래 실시간 조회 버튼으로도 볼 수 있어요.</p>
+        <div class="tk-btns" style="margin-top:10px;">
+          <a class="live" id="apLive" target="_blank" rel="noopener">🛫 제주공항 실시간 출발·도착 ↗</a>
+          <a id="apMap" target="_blank" rel="noopener">🗺 제주공항 지도 ↗</a>
+        </div>
+      </div>
+
+    </div>
+    <p class="fl-ver">화면 버전 <b>2026-08-30m</b> · 이 숫자가 안 보이면 예전 화면이니 새로고침해주세요</p>
+    <div class="modal-actions">
+      <button id="fl_close" style="background:#F1F4F3;border:1.5px solid var(--line);color:#5C6664;">닫기</button>
     </div>
   </div>
 </div>
@@ -3050,6 +3316,9 @@ const CAT = {spot:{label:"관광지"},food:{label:"맛집"},cafe:{label:"카페"
 // ===== 🎟 롯데렌터카 제주 웰컴 쿠폰팩 제휴처 (공식 홈페이지 기준) =====
 // rate: 확인된 할인율만 적음. null이면 쿠폰팩 화면에서 직접 확인해야 하는 곳.
 // id: 이 스탬프북에 이미 들어 있는 장소면 그 id를 적어 카드에 뱃지가 붙게 한다.
+// 🎟 롯데렌터카 쿠폰팩 화면은 뺐다 (2026-08-30 · 사용자 요청, 대신 COUPONS 로 교체).
+// 아래 데이터와 저장 칸 r(rates)은 **지우지 않는다** — 상대방 기기에 남아 있는 기록을
+// 병합할 때 이 칸을 빠뜨리면 저쪽 데이터가 날아간다. 되살리려면 화면만 다시 붙이면 된다.
 const LOTTE_URL = "https://www.lotterentacar.net/hp/kor/reservation/welcomeCouponpack/jeju.do";
 const LOTTE_ALL = [
  {id:"park981",     name:"9.81파크",            rg:"제주시 애월",  rate:"최대 54%"},
@@ -3193,7 +3462,7 @@ async function saveWish(id, val, remove){
 // 🎟 쿠폰팩에서 본 할인율을 직접 적어두기 (두 사람 공유)
 async function saveRate(nm, val){
   if(val) rates[nm] = val; else delete rates[nm];
-  render(); drawLotte();
+  render();
   try{
     let latest = {v:visited, c:customPlaces, w:wish, r:rates};
     try{ latest = await fetchRemote(); }catch(e){}
@@ -3205,7 +3474,7 @@ async function saveRate(nm, val){
     rates = latest.r;
     await pushRemote();
     saveLocal(); online = true;
-    render(); drawLotte(); updateSyncLabel();
+    render(); updateSyncLabel();
   }catch(e){ online = false; saveLocal(); updateSyncLabel(); }
 }
 // 우선순위: 우리가 직접 적어둔 값 > 기사로 확인된 값 > 없음
@@ -3319,7 +3588,6 @@ const CHIPS=[
  {label:"🍞 빵·디저트",cats:["cafe","food"],keys:["베이커리","빵","도넛","떡","푸딩","케이크","제과","디저트","타르트","젤라또","아이스크림","카이막","젤루","크로플","크로칸슈","마카롱","소금빵"]},
  {label:"🌅 오션뷰 카페",cats:["cafe"],keys:["오션뷰","바다뷰","바다 뷰","해안","바다가","바다를","해변"]},
  {label:"🍧 빙수·팥빙수",cats:["cafe","food"],keys:["빙수","팥빙수","팥죽","눈꽃","팥칼국수"]},
- {label:"🎟 롯데렌터카 할인",ids:LOTTE_IDS},
  {label:"💆 마사지·테라피",cats:["spa"],keys:["마사지","아로마","테라피","오일","타이","발관리","지압","스포츠"]},
  {label:"🚢 배·잠수함·요트",cats:["ride","spot"],keys:["잠수함","유람선","요트","도항선","여객선","제트보트","승선","배편","선상"]},
  {label:"🎢 탈것·놀이기구",cats:["ride"],keys:["카트","ATV","버기","짚라인","레일바이크","패러글라이딩","놀이기구","승마","조랑말","외승","바이킹","회전목마","전기차","전기바이크","잠수함","유람선","요트","제트보트","도항선"]},
@@ -3539,7 +3807,27 @@ function renderZoneMenu(){
     b.addEventListener("click",()=>{ activeZone=(activeZone===z.key?null:z.key); renderZoneMenu(); render(); });
     zoneGrid.appendChild(b);
   });
+  foldNow("zoneNow", activeZone ? (ZONES.find(z=>z.key===activeZone)||{}).name : "");
 }
+// ===== 접었다 펴는 메뉴 =====
+// 평소에는 접혀 있고 눌렀을 때만 열린다. 목록이 길어 화면을 다 먹기 때문이다.
+function setupFold(headId, bodyId){
+  const head = document.getElementById(headId), body = document.getElementById(bodyId);
+  if(!head || !body || head.dataset.fold) return;   // 두 번 걸면 눌러도 안 열린다
+  head.dataset.fold = "1";
+  head.addEventListener("click", ()=>{
+    const open = !body.classList.contains("open");
+    body.classList.toggle("open", open);
+    head.classList.toggle("open", open);
+    head.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+}
+// 접혀 있어도 지금 무엇이 골라져 있는지 머리글에 적어준다
+function foldNow(id, text){
+  const el = document.getElementById(id);
+  if(el) el.textContent = text ? ("· " + text) : "· 전체";
+}
+
 // ===== 활동 강도 메뉴 =====
 let activeEff = null;
 const effGrid = document.getElementById("effGrid");
@@ -3562,6 +3850,7 @@ function renderEffMenu(){
     b.addEventListener("click",()=>{ activeEff=(activeEff===e.key?null:e.key); render(); });
     effGrid.appendChild(b);
   });
+  foldNow("effNow", activeEff ? (EFF.find(e=>e.key===activeEff)||{}).name : "");
 }
 
 // 장소 좌표 (지도 데이터 검증)
@@ -3758,22 +4047,22 @@ nearbyBtn.addEventListener("click",()=>{
   if(nearbyOn){
     nearbyOn=false; if(!barNear) distMap=null;
     nearbyBtn.classList.remove("on");
-    nearbyBtn.textContent="📍 내 주변 15km 이내 보기";
+    nearbyBtn.innerHTML='<span class="t-ico">📍</span>내 주변';
     render(); return;
   }
   if(!navigator.geolocation){ alert("이 브라우저는 위치 기능을 지원하지 않아요."); return; }
   if(currentFilter==="must") setTab("all"); // 꼭 가볼 곳 탭은 거리 무시라 전체 탭으로 옮겨서 보여준다
-  nearbyBtn.textContent="📡 내 위치 찾는 중…";
+  nearbyBtn.innerHTML='<span class="t-ico">📡</span>위치 찾는 중…';
   navigator.geolocation.getCurrentPosition(pos=>{
     myPos={lat:pos.coords.latitude, lng:pos.coords.longitude};
     distMap={};
     allPlaces().forEach(p=>{ const c=LL[p.id]||p.ll; if(c) distMap[p.id]=distKm(myPos.lat,myPos.lng,c[0],c[1]); });
     nearbyOn=true;
     nearbyBtn.classList.add("on");
-    nearbyBtn.textContent="📍 내 주변 보기 켜짐 · 누르면 해제";
+    nearbyBtn.innerHTML='<span class="t-ico">📍</span>내 주변 켜짐';
     render();
   },err=>{
-    nearbyBtn.textContent="📍 내 주변 15km 이내 보기";
+    nearbyBtn.innerHTML='<span class="t-ico">📍</span>내 주변';
     alert("위치를 가져올 수 없어요.\n브라우저의 위치 권한을 허용한 뒤 다시 눌러주세요.");
   },{enableHighAccuracy:true, timeout:10000, maximumAge:60000});
 });
@@ -3822,7 +4111,7 @@ function syncChips(){
 function visibleCount(){ return allPlaces().filter(passes).length; }
 function clearNearby(){
   nearbyOn=false; barNear=false; distMap=null;
-  if(nearbyBtn){ nearbyBtn.classList.remove("on"); nearbyBtn.textContent="📍 내 주변 "+NEAR_LIMIT_KM+"km 이내 보기"; }
+  if(nearbyBtn){ nearbyBtn.classList.remove("on"); nearbyBtn.innerHTML='<span class="t-ico">📍</span>내 주변'; }
 }
 function setTab(f){
   currentFilter=f;
@@ -4288,7 +4577,6 @@ function makeCard(p){
         if(MUSTEAT[p.id]) return '<span class="musteat-star">🔥 죽어도 맛봐야 할 집</span>';
         if(MUST[p.id]) return '<span class="must-star">⭐ 꼭 가볼 곳</span>';
         return "";})()}
-      ${LOTTE[p.id]?`<span class="lotte-badge">🎟 롯데렌터카 ${rateOf(LOTTE[p.id])||"쿠폰 할인"}</span>`:""}
     </div>
     <div class="stamp"><span class="chk">✔</span>방문완료</div>
     <div class="body">
@@ -4319,14 +4607,6 @@ function makeCard(p){
         <a class="photo-link" href="${PHOTO(p.name)}" target="_blank" rel="noopener">📷 대표 사진 보기 ↗</a>
         ${p.links.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${l[0]} ↗</a>`).join("")}
       </div>
-      ${LOTTE[p.id]?(()=>{const x=LOTTE[p.id],r=rateOf(x),sc=rateSrc(x);
-        return `<div class="lotte-line">🎟 <b>롯데렌터카 제주 웰컴 쿠폰팩 제휴처</b>
-        ${r?("· 할인율 <b>"+r+"</b>"+(sc==="mine"?" (직접 적어둔 값)":" (기사 확인분)")):"· 할인율 미확인"}
-        <br>단기렌터카 예약 고객이면 현장에서 모바일 쿠폰만 보여주면 됩니다.
-        <div class="lotte-edit"><b>할인율 적어두기</b>
-          <input class="lotte-in" data-nm="${x.name}" value="${rates[x.name]||""}" placeholder="예: 20%">
-          <span class="li-tip">앱에서 본 숫자를 적으면 두 사람 카드에 같이 뜹니다</span></div>
-        <a href="${LOTTE_URL}" target="_blank" rel="noopener">쿠폰팩 열기 ↗</a></div>`;})():""}
       <button class="wish-btn${isWished(p.id)?" on":""}" aria-pressed="${isWished(p.id)}">
         ${isWished(p.id)?"⭐ 가보고 싶은 곳에 담김 (누르면 빼기)":"☆ 가보고 싶어요"}
       </button>
@@ -4345,8 +4625,6 @@ function makeCard(p){
   if(wb) wb.addEventListener("click",()=>{ toggleWish(p.id); });
   const wd = c.querySelector(".wish-date");
   if(wd) wd.addEventListener("change",()=>{ setWishDate(p.id, wd.value); });
-  const li = c.querySelector(".lotte-in");
-  if(li) li.addEventListener("change",()=>{ saveRate(li.dataset.nm, li.value.trim()); });
   const wc = c.querySelector(".wish-clear");
   if(wc) wc.addEventListener("click",()=>{ setWishDate(p.id, ""); });
   const cp = c.querySelector(".copy-link");
@@ -4357,22 +4635,18 @@ function makeCard(p){
 }
 
 function updateVisitedTab(){
-  const btn = document.querySelector('.tab[data-filter="visited"]');
-  if(btn){
-    const n = allPlaces().filter(p=>visited[p.id]).length;
-    btn.textContent = n ? ("🔴 갔다온 곳 "+n) : "🔴 갔다온 곳";
-  }
-  const pb = document.querySelector('.tab[data-filter="plan"]');
-  if(pb){
-    const n = Object.keys(wish).length;
-    pb.textContent = n ? ("⭐ 내 일정 "+n) : "⭐ 내 일정";
-  }
-  const mb = document.querySelector('.tab[data-filter="must"]');
-  if(mb){
-    const ids = Object.keys(MUST);
-    const doneN = ids.filter(id=>visited[id]).length;
-    mb.textContent = `⭐ 꼭 가볼 곳 ${doneN}/${ids.length}`;
-  }
+  // 내 여행 타일 세 개: 아이콘 · 이름 · 숫자를 같은 모양으로 맞춘다
+  const myTile = (f, ico, name, num)=>{
+    const el = document.querySelector('.tab[data-filter="'+f+'"]');
+    if(!el) return;
+    el.innerHTML = '<span class="t-ico">'+ico+'</span>' + name +
+      (num ? '<span class="t-num">'+num+'</span>' : "");
+  };
+  const vN = allPlaces().filter(p=>visited[p.id]).length;
+  const mustIds = Object.keys(MUST);
+  myTile("must", "⭐", "꼭 가볼 곳", mustIds.filter(id=>visited[id]).length + "/" + mustIds.length);
+  myTile("plan", "🗓", "내 일정", Object.keys(wish).length || "");
+  myTile("visited", "🔴", "갔다온 곳", vN || "");
 }
 
 function updateProgress(){
@@ -4385,7 +4659,8 @@ function updateProgress(){
     `전체 <b>${total}</b>곳 중 <b>${done}</b>곳 방문 · 달성률 <b>${pct}%</b>`;
 }
 
-document.getElementById("tabs").addEventListener("click",e=>{
+// 종류 탭(#tabs)과 내 여행 탭(#myRow)이 나뉘어 있으므로 문서에서 한 번에 받는다
+document.addEventListener("click",e=>{
   const btn = e.target.closest(".tab");
   if(!btn) return;
   document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
@@ -4409,40 +4684,72 @@ document.getElementById("fabAdd").addEventListener("click",()=>{ modal.classList
 document.getElementById("np_cancel").addEventListener("click",()=>{ modal.classList.remove("open"); });
 modal.addEventListener("click",e=>{ if(e.target===modal) modal.classList.remove("open"); });
 
-// ===== 🎟 롯데렌터카 쿠폰팩 =====
-const lotteModal = document.getElementById("lotteModal");
-function drawLotte(){
-  const head = document.getElementById("lotteHead");
-  if(!head || !lotteModal.classList.contains("open")) return;
-  const have = LOTTE_ALL.filter(x=>x.id).length;
-  const filled = LOTTE_ALL.filter(x=>rateOf(x)).length;
-  head.innerHTML =
-    `롯데렌터카로 <b>제주 단기렌터카</b>를 빌리면 아래 <b>${LOTTE_ALL.length}곳</b>을 할인가에 이용할 수 있어요. ` +
-    `미리 티켓을 살 필요 없이 현장에서 모바일 쿠폰만 보여주면 됩니다. 반납 후 1주일까지 쓸 수 있어요. ` +
-    `이 중 <b>${have}곳</b>은 이 스탬프북에도 있어서 카드에 🎟 표시가 붙습니다.` +
-    `<br><br>⚠️ 롯데렌터카가 할인율을 홈페이지에 <b>그림으로만</b> 올려둬서 자동으로 못 읽어옵니다. ` +
-    `그래서 <b>직접 적어두는 칸</b>을 만들었어요. 앱에서 쿠폰팩을 한 번 열어 보고 아래에 숫자만 적으면 ` +
-    `<b>두 사람 카드에 영구히 저장</b>됩니다. 지금 <b>${filled}/${LOTTE_ALL.length}곳</b> 채워져 있어요.`;
-  document.getElementById("lotteBody").innerHTML = LOTTE_ALL.map(x=>{
-    const r = rateOf(x), sc = rateSrc(x);
-    return '<div class="lt-row"><div class="lt-l"><span class="lt-nm">'+x.name+
-    (x.id?'<span class="lt-have">스탬프북에 있음</span>':"")+
-    '</span><span class="lt-rg">'+x.rg+
-    (sc==="news"?' · 기사 확인분':sc==="mine"?' · 직접 적어둠':'')+'</span></div>'+
-    '<input class="lt-in" data-nm="'+x.name+'" value="'+(rates[x.name]||"")+'" placeholder="'+
-    (r?r:"미입력")+'"></div>';
-  }).join("");
-  document.querySelectorAll("#lotteBody .lt-in").forEach(el=>{
-    el.addEventListener("change",()=>saveRate(el.dataset.nm, el.value.trim()));
-  });
+// ===== 🎟 제주에서 쓸 수 있는 할인 =====
+// 2026-08-30 조사. 전부 출처를 확인한 것만 넣는다 (지어내지 말 것).
+// 혜택·기간·비율은 자주 바뀌므로 화면에 "조사 시점 기준"을 반드시 함께 적는다.
+const COUPONS = [
+  {
+    ico:"🪪", nm:"나우다 (NOWDA)", tag:"제주도 공식 디지털 관광증", best:1,
+    what:"제주에 온 <b>만 14세 이상 내국인이면 누구나 무료</b>로 받는 관광증이에요. "+
+         "네이버페이 앱에서 <b>QR을 찍으면 바로 발급</b>됩니다.",
+    save:["가맹점(식사·카페·전시·체험·쇼핑)에서 <b>약 10% 할인</b>",
+          "공영관광지 <b>27곳</b>(성산일출봉·천지연폭포·비자림·주상절리 등) <b>무료 또는 50%</b>"],
+    warn:"공영관광지 할인은 <b>2026년 7월부터 레벨 2(스페셜)</b>부터 적용돼요. "+
+         "가입 직후에는 1레벨이라 관광지 할인은 안 되고, <b>가맹점 10% 할인은 바로</b> 됩니다.",
+    url:"https://www.visitjeju.net/kr/nowda/intro", link:"나우다 안내 보기"
+  },
+  {
+    ico:"💳", nm:"탐나는전", tag:"제주 지역화폐 · 제주도 공식", best:1,
+    what:"관광객도 <b>앱에서 모바일카드를 만들고 충전</b>해서 쓸 수 있어요. "+
+         "실물 카드 없이 <b>앱 QR로 결제</b>합니다.",
+    save:["가맹점 결제액 <b>10% 캐시백</b> (월 70만원 한도)",
+          "<b>착한가격업소</b>에서는 <b>5% 더</b> 붙어서 총 <b>15%</b>",
+          "적립금은 <b>5년간</b> 쓸 수 있어요 (1인 월 7만원까지 적립)"],
+    warn:"제주 착한가격업소 <b>432곳 중 414곳</b>이 탐나는전 가맹점이에요. "+
+         "밥집·카페에서 특히 많이 받습니다.",
+    url:"https://tamna.bizplay.co.kr/", link:"탐나는전 홈페이지",
+    url2:"https://www.jeju.go.kr/sobi/kind/kind.htm", link2:"착한가격업소 목록 보기"
+  },
+  {
+    ico:"🗓", nm:"문화가 있는 날", tag:"매월 마지막 수요일 · 전국",
+    what:"매달 <b>마지막 수요일</b>에는 국·공립 <b>박물관·미술관이 무료</b>이거나 할인되고 "+
+         "문 여는 시간도 늘어나요.",
+    save:["국립제주박물관 등 국·공립 시설 <b>무료 관람</b>", "일부 시설은 <b>야간 연장 개방</b>"],
+    url:"https://www.culture.go.kr/wday/", link:"참여 시설 찾아보기"
+  },
+  {
+    ico:"🌅", nm:"성산일출봉 무료 관람의 날", tag:"매월 첫째 주 월요일",
+    what:"성산일출봉은 <b>매월 첫째 주 월요일</b>을 무료 관람의 날로 운영해 왔어요. "+
+         "(평소 입장료 5,000원)",
+    save:["그날 가면 <b>입장료 없이</b> 올라갈 수 있어요"],
+    warn:"운영이 바뀔 수 있으니 <b>가기 전에 전화로 한 번 확인</b>하시는 게 안전해요.",
+    url:"https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500349", link:"성산일출봉 정보"
+  }
+];
+const couponModal = document.getElementById("couponModal");
+function drawCoupons(){
+  const box = document.getElementById("couponBody");
+  if(!box) return;
+  box.innerHTML = COUPONS.map(c=>
+    '<div class="cp-card'+(c.best?" best":"")+'">'+
+      '<div class="cp-h"><span class="cp-ico">'+c.ico+'</span>'+
+        '<span class="cp-nm">'+c.nm+(c.best?'<span class="cp-badge">추천</span>':"")+'</span>'+
+        '<span class="cp-tag">'+c.tag+'</span></div>'+
+      '<p class="cp-what">'+c.what+'</p>'+
+      '<ul class="cp-save">'+c.save.map(x=>'<li>'+x+'</li>').join("")+'</ul>'+
+      (c.warn?'<p class="cp-warn">💡 '+c.warn+'</p>':"")+
+      '<div class="cp-links">'+
+        '<a href="'+c.url+'" target="_blank" rel="noopener">'+c.link+' ↗</a>'+
+        (c.url2?'<a href="'+c.url2+'" target="_blank" rel="noopener">'+c.link2+' ↗</a>':"")+
+      '</div>'+
+    '</div>').join("");
 }
-document.getElementById("lotteBtn").addEventListener("click",()=>{
-  lotteModal.classList.add("open");
-  drawLotte();
+document.getElementById("couponBtn").addEventListener("click",()=>{
+  couponModal.classList.add("open");
+  drawCoupons();
 });
-document.getElementById("lt_close").addEventListener("click",()=>lotteModal.classList.remove("open"));
-document.getElementById("lt_open").addEventListener("click",()=>window.open(LOTTE_URL,"_blank","noopener"));
-lotteModal.addEventListener("click",e=>{ if(e.target===lotteModal) lotteModal.classList.remove("open"); });
+document.getElementById("cp_close").addEventListener("click",()=>couponModal.classList.remove("open"));
+couponModal.addEventListener("click",e=>{ if(e.target===couponModal) couponModal.classList.remove("open"); });
 
 // ===== 🆕 요즘 뜨는 곳 업데이트 =====
 const UPD_URL = "updates.json";
@@ -4520,9 +4827,9 @@ function markUpdBtn(){
       if(!d) return;
       updFeed = d;
       const n = (d.items||[]).filter(it=>!hasPlace(it.id)).length;
-      updBtn.innerHTML = "🆕 요즘 뜨는 곳 업데이트 받기" +
-        (n ? '<span class="u-dot">새 '+n+'곳</span>' : "") +
-        '<span class="u-sub">' + (n ? "새로 올라온 곳이 "+n+"곳 있어요 · 갱신 "+(d.updated||"") : "지금은 모두 담겨 있어요 · 갱신 "+(d.updated||"")) + '</span>';
+      updBtn.innerHTML = '<span class="t-ico">🆕</span>요즘 뜨는 곳' +
+        (n ? '<span class="t-badge">'+n+'</span>' : "");
+      updBtn.title = n ? ("새로 올라온 곳이 "+n+"곳 있어요 · 갱신 "+(d.updated||"")) : ("지금은 모두 담겨 있어요 · 갱신 "+(d.updated||""));
     }).catch(()=>{});
 }
 if(updBtn){
@@ -4710,9 +5017,1027 @@ selBtn.addEventListener("click", ()=>{
   const sel=window.getSelection(); if(sel) sel.removeAllRanges();
 });
 
+// ===== ✈️ 항공사 운영시간 + 탑승권 QR·바코드 인식 =====
+// 탑승권 바코드(IATA BCBP)에는 편명·좌석·예약번호는 들어 있지만 출발 시각과 탑승구는 들어 있지 않다.
+// 그래서 바코드에서 읽을 수 있는 건 다 읽어내고, 출발 시각은 한 번만 넣게 해서 그 뒤 시간표를 계산한다.
+// 탑승구는 당일 배정이라 실시간 조회 링크로 연결한다.
+const AIRLINES = [
+  {c:"KE", nm:"대한항공",   en:"Korean Air",  tel:"1588-2001",
+   hr:"국내선 07:00~19:00 · 국제선 07:00~22:00", cut:30, icut:60, site:"https://www.koreanair.com/"},
+  {c:"OZ", nm:"아시아나항공", en:"Asiana",     tel:"1588-8000",
+   hr:"국내선 07:00~19:00 · 국제선 평일 07:00~22:00, 주말·공휴일 08:00~19:00", cut:30, icut:60, site:"https://flyasiana.com/"},
+  {c:"7C", nm:"제주항공",   en:"Jeju Air",    tel:"1599-1500",
+   hr:"09:00~19:00", cut:30, icut:60, site:"https://www.jejuair.net/"},
+  {c:"LJ", nm:"진에어",     en:"Jin Air",     tel:"1600-6200",
+   hr:"09:00~18:00", cut:30, icut:60, site:"https://www.jinair.com/"},
+  {c:"TW", nm:"티웨이항공",  en:"T'way Air",   tel:"1688-8686",
+   hr:"07:00~19:00", cut:30, icut:60, site:"https://www.twayair.com/"},
+  {c:"BX", nm:"에어부산",   en:"Air Busan",   tel:"1666-3060",
+   hr:"09:00~19:00", cut:30, icut:60, site:"https://www.airbusan.com/"},
+  {c:"ZE", nm:"이스타항공",  en:"Eastar Jet",  tel:"1544-0080",
+   hr:"09:00~18:00", cut:30, icut:60, site:"https://www.eastarjet.com/"},
+  {c:"RS", nm:"에어서울",   en:"Air Seoul",   tel:"1800-8100",
+   hr:"09:00~18:00", cut:30, icut:60, site:"https://flyairseoul.com/"},
+  {c:"RF", nm:"에어로케이",  en:"Aero K",      tel:"1899-2299",
+   hr:"09:00~18:00 · 연중무휴", cut:30, icut:60, site:"https://www.aerok.com/"},
+  {c:"KJ", nm:"파라타항공",  en:"Parata Air",  tel:"1800-8877",
+   hr:"09:00~18:00", cut:30, icut:60, site:"https://www.parataair.com/"}
+];
+const AIRLINE_OF = AIRLINES.reduce((o,a)=>(o[a.c]=a,o),{});
+// 제주 노선에 들어오는 외항사 (이름 표시용)
+const CARRIER_ETC = {YP:"에어프레미아",CZ:"중국남방항공",MU:"중국동방항공",CA:"중국국제항공",
+  MF:"샤먼항공",SC:"산둥항공","9C":"춘추항공","3U":"쓰촨항공",HU:"하이난항공",JD:"수도항공",
+  CI:"중화항공",BR:"에바항공",IT:"타이거에어 대만",HX:"홍콩항공",UO:"홍콩익스프레스",
+  NX:"에어마카오",MM:"피치항공",JL:"일본항공",NH:"전일본공수",TR:"스쿠트",
+  VJ:"비엣젯항공",VN:"베트남항공",PR:"필리핀항공","5J":"세부퍼시픽",OM:"미아트 몽골항공"};
+// 탑승권에 드물게 3자리 코드가 들어오는 경우가 있어 IATA 2자리로 되돌린다
+const ICAO_IATA = {KAL:"KE",AAR:"OZ",JJA:"7C",JNA:"LJ",TWB:"TW",ABL:"BX",ESR:"ZE",ASV:"RS",EOK:"RF",APZ:"YP"};
+function carrierName(c){
+  const a = AIRLINE_OF[c];
+  return a ? a.nm : (CARRIER_ETC[c] || c || "항공사 미확인");
+}
+// 공항 코드 (제주 취항 노선 위주) — kac: 한국공항공사 사이트 경로
+const AIRPORTS = {
+  CJU:{nm:"제주",       kac:"jeju",      kr:1},
+  GMP:{nm:"서울 김포",   kac:"gimpo",     kr:1},
+  ICN:{nm:"인천",       kac:null,        kr:1},
+  PUS:{nm:"부산 김해",   kac:"gimhae",    kr:1},
+  TAE:{nm:"대구",       kac:"daegu",     kr:1},
+  CJJ:{nm:"청주",       kac:"cheongju",  kr:1},
+  KWJ:{nm:"광주",       kac:"gwangju",   kr:1},
+  MWX:{nm:"무안",       kac:"muan",      kr:1},
+  RSU:{nm:"여수",       kac:"yeosu",     kr:1},
+  USN:{nm:"울산",       kac:"ulsan",     kr:1},
+  HIN:{nm:"사천",       kac:"sacheon",   kr:1},
+  KPO:{nm:"포항경주",    kac:"pohang",    kr:1},
+  WJU:{nm:"원주",       kac:"wonju",     kr:1},
+  KUV:{nm:"군산",       kac:"gunsan",    kr:1},
+  YNY:{nm:"양양",       kac:"yangyang",  kr:1},
+  NRT:{nm:"도쿄 나리타"}, HND:{nm:"도쿄 하네다"}, KIX:{nm:"오사카 간사이"},
+  FUK:{nm:"후쿠오카"},   CTS:{nm:"삿포로"},      NGO:{nm:"나고야"}, OKA:{nm:"오키나와"},
+  PVG:{nm:"상하이 푸둥"}, SHA:{nm:"상하이 훙차오"}, PEK:{nm:"베이징 서우두"}, PKX:{nm:"베이징 다싱"},
+  TAO:{nm:"칭다오"},    HGH:{nm:"항저우"},      NKG:{nm:"난징"},   XIY:{nm:"시안"},
+  WUH:{nm:"우한"},      CGO:{nm:"정저우"},      SZX:{nm:"선전"},   CAN:{nm:"광저우"},
+  XMN:{nm:"샤먼"},      CTU:{nm:"청두"},        TPE:{nm:"타이베이"}, KHH:{nm:"가오슝"},
+  HKG:{nm:"홍콩"},      MFM:{nm:"마카오"},      BKK:{nm:"방콕"},   SIN:{nm:"싱가포르"},
+  KUL:{nm:"쿠알라룸푸르"}, DAD:{nm:"다낭"},       HAN:{nm:"하노이"}, SGN:{nm:"호치민"},
+  CXR:{nm:"나트랑"},    MNL:{nm:"마닐라"},      CEB:{nm:"세부"},   UBN:{nm:"울란바토르"}
+};
+function apName(c){ const a=AIRPORTS[c]; return a ? a.nm : (c||"—"); }
+function apIsKR(c){ const a=AIRPORTS[c]; return !!(a && a.kr); }
+function apLive(c){
+  const a = AIRPORTS[c];
+  if(a && a.kac) return "https://www.airport.co.kr/"+a.kac+"/cms/frCon/index.do?MENU_ID=30";
+  if(c==="ICN") return "https://www.airport.kr/ap/ko/dep/depPasSchedule.do";
+  return null;
+}
+const CJU_LIVE = "https://www.airport.co.kr/jeju/cms/frCon/index.do?MENU_ID=30";
+function flightSearch(car,fno){ return "https://search.naver.com/search.naver?query="+encodeURIComponent(car+fno); }
+
+// ===== 탑승권 바코드 읽기 (IATA BCBP M1) =====
+function isoDate(d){
+  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+}
+// BCBP에는 연도가 없고 "그 해 몇 번째 날"만 들어 있다 → 오늘과 가장 가까운 해로 맞춘다
+function julianToISO(j){
+  const n = parseInt(j,10);
+  if(!(n>=1 && n<=366)) return "";
+  const now = new Date(); let best=null, bd=Infinity;
+  for(let y=now.getFullYear()-1; y<=now.getFullYear()+1; y++){
+    const d = new Date(y,0,1); d.setDate(n);
+    const diff = Math.abs(d.getTime()-now.getTime());
+    if(diff<bd){ bd=diff; best=d; }
+  }
+  return best ? isoDate(best) : "";
+}
+// 이름 칸 길이를 한두 칸 어기는 탑승권이 실제로 있다. 그러면 뒤 항목이 통째로 밀린다.
+// 공항 코드·항공사 코드·편명이 한꺼번에 맞아떨어지는 위치를 찾아 밀린 만큼 보정한다.
+function bcbpShift(s, needE){
+  const order = [0,-1,1,-2,2,-3,3];
+  for(let i=0;i<order.length;i++){
+    const d = order[i];
+    if(22+d < 2 || 57+d > s.length) continue;
+    if(needE && s.charAt(22+d) !== "E") continue;
+    const fr = s.slice(30+d,33+d).toUpperCase(), to = s.slice(33+d,36+d).toUpperCase();
+    const car = s.slice(36+d,39+d).trim().toUpperCase(), fno = s.slice(39+d,44+d).trim().toUpperCase();
+    if(/^[A-Z]{3}$/.test(fr) && /^[A-Z]{3}$/.test(to) &&
+       /^[A-Z0-9]{2,3}$/.test(car) && /^\d{1,4}[A-Z]?$/.test(fno)) return d;
+  }
+  return null;
+}
+function parseBCBP(raw){
+  const s = String(raw||"").replace(/\r|\n/g," ");
+  if(!/^M[1-9]/.test(s) || s.length < 57) return null;
+  let sh = bcbpShift(s, true);
+  if(sh === null) sh = bcbpShift(s, false);
+  if(sh === null) return null;
+  const at = (a,b)=>s.slice(a+sh, b+sh).trim();
+  const car  = at(36,39).toUpperCase().replace(/\s/g,"");
+  const fnoR = at(39,44).toUpperCase();
+  return {
+    car: car.length===3 ? (ICAO_IATA[car] || car) : car,
+    fno: fnoR.replace(/^0+/,"") || fnoR,
+    from: at(30,33).toUpperCase(), to: at(33,36).toUpperCase(),
+    date: julianToISO(at(44,47)),
+    dep: "",
+    seat: at(48,52).replace(/^0+/,""),
+    pnr: at(23,30).replace(/[^A-Z0-9]/gi,""),
+    pax: s.slice(2, 22+sh).trim().replace(/\s+/g," "),
+    src: "bcbp"
+  };
+}
+// BCBP가 아닌 QR(항공사 자체 형식·링크 등)에서 편명·공항·날짜만이라도 건져낸다
+function parseLoose(raw){
+  const s = String(raw||"").toUpperCase();
+  if(!s) return null;
+  const known = Object.keys(AIRLINE_OF).concat(Object.keys(CARRIER_ETC));
+  let car="", fno="";
+  const re = /\b([A-Z]{2}|[A-Z][0-9]|[0-9][A-Z])[ \-]?([0-9]{1,4})\b/g;
+  let m;
+  while((m = re.exec(s))){
+    if(known.indexOf(m[1])>=0){ car=m[1]; fno=m[2].replace(/^0+/,"")||m[2]; break; }
+  }
+  const aps = (s.match(/\b[A-Z]{3}\b/g)||[]).filter(x=>AIRPORTS[x]);
+  const dm = s.match(/\b(20\d{2})[-.\/]?(0[1-9]|1[0-2])[-.\/]?(0[1-9]|[12]\d|3[01])\b/);
+  const tm = s.match(/\b([01]\d|2[0-3]):([0-5]\d)\b/);
+  if(!(car && fno) && aps.length < 2) return null;
+  return {
+    car: car, fno: fno,
+    from: aps[0]||"", to: aps[1]||"",
+    date: dm ? (dm[1]+"-"+dm[2]+"-"+dm[3]) : "",
+    dep: tm ? (tm[1]+":"+tm[2]) : "",
+    seat:"", pnr:"", pax:"", src:"loose"
+  };
+}
+function parsePass(raw){ return parseBCBP(raw) || parseLoose(raw); }
+
+// ===== 내 항공편 저장 (개인정보라 이 기기에만 저장 — 공유 서버로 보내지 않는다) =====
+const FKEY = "jeju_flights_v1";
+let myFlights = [];
+function loadFlights(){
+  try{ const a = JSON.parse(lsGet(FKEY)||"[]"); myFlights = Array.isArray(a)?a:[]; }
+  catch(e){ myFlights = []; }
+  sortFlights();
+}
+function sortFlights(){
+  myFlights.sort((a,b)=>((a.date||"9999")+"T"+(a.dep||"23:59")).localeCompare((b.date||"9999")+"T"+(b.dep||"23:59")));
+}
+function persistFlights(){
+  sortFlights();
+  lsSet(FKEY, JSON.stringify(myFlights));
+  renderFlightBar(); renderSavedFlights();
+}
+function delFlight(id){
+  if(!confirm("이 항공편을 지울까요?")) return;
+  myFlights = myFlights.filter(f=>f.id!==id);
+  persistFlights();
+}
+
+// ===== 시간 계산: 출발 시각 하나만 알면 나머지는 다 나온다 =====
+const DOW_F = ["일","월","화","수","목","금","토"];
+function fmtHM(d){ return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0"); }
+function fmtDateF(iso){
+  const p = String(iso||"").split("-");
+  if(p.length!==3) return iso||"";
+  const d = new Date(+p[0], +p[1]-1, +p[2]);
+  return (+p[1])+"월 "+(+p[2])+"일("+DOW_F[d.getDay()]+")";
+}
+function flightIntl(f){ return !(apIsKR(f.from) && apIsKR(f.to)); }
+function flightTimes(f){
+  if(!f.date || !f.dep) return null;
+  const p = f.date.split("-"), t = f.dep.split(":");
+  if(p.length!==3 || t.length<2) return null;
+  const dep = new Date(+p[0], +p[1]-1, +p[2], +t[0], +t[1], 0);
+  if(isNaN(dep.getTime())) return null;
+  const intl = flightIntl(f);
+  const a = AIRLINE_OF[f.car];
+  const cut = intl ? ((a&&a.icut)||60) : ((a&&a.cut)||30);
+  const back = m => new Date(dep.getTime() - m*60000);
+  return {dep:dep, intl:intl, cutMin:cut,
+    arrive: back(intl?150:60), checkin: back(cut), board: back(intl?40:20), gate: back(intl?20:10)};
+}
+function cdText(ms){
+  const m = Math.floor(ms/60000);
+  const d = Math.floor(m/1440), h = Math.floor((m%1440)/60), mm = m%60;
+  if(d>0) return d+"일 "+h+"시간";
+  if(h>0) return h+"시간 "+mm+"분";
+  return mm+"분";
+}
+
+// ===== 화면 그리기 =====
+function ticketHtml(f, saved){
+  const T = flightTimes(f);
+  const air = carrierName(f.car);
+  const kv = [];
+  if(f.date) kv.push('<span>날짜<b>'+escHtml(fmtDateF(f.date))+'</b></span>');
+  if(f.seat) kv.push('<span>좌석<b>'+escHtml(f.seat)+'</b></span>');
+  if(f.pnr)  kv.push('<span>예약번호<b>'+escHtml(f.pnr)+'</b></span>');
+  if(f.pax)  kv.push('<span>탑승객<b>'+escHtml(f.pax)+'</b></span>');
+  let tl = "";
+  if(T){
+    const now = Date.now(), left = T.dep.getTime()-now;
+    const rows = [
+      [T.arrive, "공항 도착 권장", (T.intl?"국제선은 2시간 30분 전":"국내선은 1시간 전")+"에는 공항에 도착하는 걸 권합니다", false],
+      [T.checkin, "탑승 수속·수하물 마감", "출발 "+T.cutMin+"분 전 · 부칠 짐이 있으면 이 시각 전에 카운터로", true],
+      [T.board, "탑승 시작(예상)", "탑승구 앞에서 대기 · 정확한 시각은 전광판 확인", false],
+      [T.gate, "탑승구 마감(예상)", "이 시각을 넘기면 탑승할 수 없습니다", true],
+      [T.dep, "출발", "이륙 예정 시각", false]
+    ];
+    tl = '<div class="tl">' + rows.map(r=>
+      '<div class="tl-row'+(r[3]?" hi":"")+'"><div class="t">'+fmtHM(r[0])+'</div>'+
+      '<div class="l">'+escHtml(r[1])+'<small>'+escHtml(r[2])+'</small></div></div>').join("") +
+      '<div class="tl-row"><div class="t">'+(left>0?"⏳":"✅")+'</div><div class="l">'+
+      (left>0 ? "출발까지 <b>"+cdText(left)+"</b> 남았어요" : "출발 예정 시각이 지났어요") +
+      '<small>기준 시각은 휴대폰 시계 · 지연·변경은 실시간 조회로 확인하세요</small></div></div></div>';
+  }else{
+    tl = '<div class="fl-msg info" style="margin:10px 0 0;">⏰ <b>출발 시각</b>을 넣으면 공항 도착 권장 시각, 수속 마감, 탑승 시작까지 자동으로 계산해드려요. 탑승권이나 항공사 앱에 적힌 시각을 넣어주세요.</div>';
+  }
+  const live = apLive(f.from) || CJU_LIVE;
+  const btns = ['<a class="live" href="'+live+'" target="_blank" rel="noopener">🛫 '+escHtml(apName(f.from)||"공항")+' 실시간 운항·탑승구 ↗</a>'];
+  if(f.car && f.fno) btns.push('<a href="'+flightSearch(f.car,f.fno)+'" target="_blank" rel="noopener">🔎 '+escHtml(f.car+f.fno)+' 편 조회 ↗</a>');
+  const a = AIRLINE_OF[f.car];
+  if(a) btns.push('<a href="tel:'+a.tel.replace(/-/g,"")+'">☎ '+escHtml(a.nm)+' '+escHtml(a.tel)+'</a>');
+  if(saved) btns.push('<button class="del" data-del="'+escHtml(f.id)+'">지우기</button>');
+  return '<div class="tk">'+
+    '<div class="tk-top"><div><span class="tk-no">'+escHtml((f.car||"")+(f.fno||"")||"편명 미확인")+'</span>'+
+      '<span class="tk-air">'+escHtml(air)+'</span></div>'+
+      '<div class="tk-route"><div class="tk-ap">'+escHtml(apName(f.from))+'<small>'+escHtml(f.from||"")+'</small></div>'+
+      '<div class="tk-arrow">✈︎ →</div>'+
+      '<div class="tk-ap">'+escHtml(apName(f.to))+'<small>'+escHtml(f.to||"")+'</small></div></div></div>'+
+    '<div class="tk-body">'+(kv.length?'<div class="tk-kv">'+kv.join("")+'</div>':"")+tl+
+      '<div class="tk-btns">'+btns.join("")+'</div></div></div>';
+}
+function apOptions(sel){
+  const codes = Object.keys(AIRPORTS);
+  if(sel && codes.indexOf(sel)<0) codes.unshift(sel);
+  return '<option value="">선택</option>' + codes.map(c=>
+    '<option value="'+c+'"'+(c===sel?" selected":"")+'>'+escHtml(apName(c)+" ("+c+")")+'</option>').join("");
+}
+let flDraft = null;
+// 폼은 한 번만 그리고, 값이 바뀌면 위쪽 미리보기만 다시 그린다.
+// (폼 자체를 다시 그리면 입력 중이던 칸과 초점이 날아간다)
+function renderFlightPreview(){
+  const el = document.getElementById("flPreview");
+  if(el && flDraft) el.innerHTML = ticketHtml(flDraft, false);
+}
+function renderFlightForm(){
+  const box = document.getElementById("flForm");
+  if(!flDraft){ box.innerHTML = ""; return; }
+  const d = flDraft;
+  box.innerHTML = '<div id="flPreview">' + ticketHtml(d, false) + '</div>' +
+    '<div class="fl-form"><h4>✏️ 확인하고 저장하기</h4><div class="fl-grid">'+
+      '<div class="fl-f wide"><label>편명 (예: 7C123)</label><input id="ff_no" value="'+escHtml((d.car||"")+(d.fno||""))+'" placeholder="7C123"></div>'+
+      '<div class="fl-f"><label>출발 공항</label><select id="ff_from">'+apOptions(d.from)+'</select></div>'+
+      '<div class="fl-f"><label>도착 공항</label><select id="ff_to">'+apOptions(d.to)+'</select></div>'+
+      '<div class="fl-f"><label>날짜</label><input id="ff_date" type="date" value="'+escHtml(d.date||"")+'"></div>'+
+      '<div class="fl-f"><label>출발 시각</label><input id="ff_dep" type="time" value="'+escHtml(d.dep||"")+'"></div>'+
+      '<div class="fl-f"><label>좌석 (선택)</label><input id="ff_seat" value="'+escHtml(d.seat||"")+'" placeholder="12A"></div>'+
+      '<div class="fl-f"><label>예약번호 (선택)</label><input id="ff_pnr" value="'+escHtml(d.pnr||"")+'" placeholder="ABC123"></div>'+
+    '</div><button class="fl-save" id="ff_save">💾 내 항공편으로 저장</button></div>';
+  document.getElementById("ff_save").addEventListener("click", saveDraft);
+  ["ff_no","ff_from","ff_to","ff_date","ff_dep","ff_seat","ff_pnr"].forEach(id=>{
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.addEventListener("change", syncDraft);
+    el.addEventListener("input", syncDraft);
+  });
+}
+function syncDraft(){
+  if(!flDraft) return;
+  const v = id => { const el=document.getElementById(id); return el ? el.value.trim() : ""; };
+  const no = v("ff_no").toUpperCase().replace(/\s|-/g,"");
+  const m = no.match(/^([A-Z0-9]{2,3}?)(\d{1,4}[A-Z]?)$/);
+  flDraft.car = m ? m[1] : "";
+  flDraft.fno = m ? m[2] : no;
+  flDraft.from = v("ff_from"); flDraft.to = v("ff_to");
+  flDraft.date = v("ff_date"); flDraft.dep = v("ff_dep");
+  flDraft.seat = v("ff_seat").toUpperCase(); flDraft.pnr = v("ff_pnr").toUpperCase();
+  renderFlightPreview();
+}
+function saveDraft(){
+  syncDraft();
+  if(!flDraft) return;
+  if(!flDraft.fno){ alert("편명을 넣어주세요. (예: 7C123)"); return; }
+  if(!flDraft.date){ alert("탑승 날짜를 넣어주세요."); return; }
+  const f = Object.assign({}, flDraft, {id: flDraft.id || ("fl_"+Date.now())});
+  myFlights = myFlights.filter(x=>x.id!==f.id).concat([f]);
+  flDraft = null;
+  renderFlightForm();
+  persistFlights();
+  flMsg("ok","✅ 저장했어요. 아래 <b>내 항공편</b>과 메인 화면 위쪽에서 남은 시간을 볼 수 있어요.");
+}
+function renderSavedFlights(){
+  const box = document.getElementById("flSaved");
+  if(!box) return;
+  if(!myFlights.length){ box.innerHTML = ""; return; }
+  box.innerHTML = '<h4 style="font-size:14px;font-weight:900;color:#0B2E52;margin:14px 0 9px;">🎫 내 항공편 ('+myFlights.length+')</h4>' +
+    myFlights.map(f=>ticketHtml(f,true)).join("");
+  box.querySelectorAll("[data-del]").forEach(b=>b.addEventListener("click",()=>delFlight(b.dataset.del)));
+}
+function renderFlightBar(){
+  const bar = document.getElementById("myFlightBar");
+  if(!bar) return;
+  const now = Date.now();
+  let pick = null, best = Infinity;
+  myFlights.forEach(f=>{
+    const T = flightTimes(f);
+    let ms;
+    if(T) ms = T.dep.getTime() - now;
+    else if(f.date){ const p=f.date.split("-"); ms = new Date(+p[0],+p[1]-1,+p[2],23,59).getTime()-now; }
+    else return;
+    if(ms > -3*3600000 && ms < best){ best = ms; pick = f; }
+  });
+  if(!pick){ bar.classList.remove("on"); return; }
+  const T = flightTimes(pick);
+  let cd = '<span class="mf-cd gone">날짜만 저장됨 · 출발 시각을 넣어보세요</span>', note = "";
+  if(T){
+    const left = T.dep.getTime()-now;
+    if(left > 0){
+      cd = '<span class="mf-cd'+(left < 6*3600000 ? " soon":"")+'">⏳ 출발까지 '+cdText(left)+'</span>';
+      const c = T.checkin.getTime()-now;
+      note = c > 0
+        ? '<span class="mf-note">수속 마감 '+fmtHM(T.checkin)+' · 공항 도착 권장 '+fmtHM(T.arrive)+'</span>'
+        : '<span class="mf-note">수속 마감 시각('+fmtHM(T.checkin)+')이 지났어요 · 탑승구 마감 '+fmtHM(T.gate)+'</span>';
+    }else{
+      cd = '<span class="mf-cd gone">출발 시각이 지났어요</span>';
+    }
+  }
+  bar.innerHTML = '<div class="mf-top"><span class="mf-no">'+escHtml((pick.car||"")+(pick.fno||""))+'</span>'+
+    '<span class="mf-air">'+escHtml(carrierName(pick.car))+' · '+escHtml(fmtDateF(pick.date))+
+    (T?" "+fmtHM(T.dep)+" 출발":"")+'</span></div>'+
+    '<div class="mf-route">'+escHtml(apName(pick.from))+' ✈︎ → '+escHtml(apName(pick.to))+
+    (pick.seat?' · 좌석 '+escHtml(pick.seat):"")+'</div>'+cd+note;
+  bar.classList.add("on");
+}
+function renderAirTable(){
+  document.getElementById("airTableWrap").innerHTML = AIRLINES.map(a=>
+    '<div class="air-card">'+
+      '<div class="ac-top"><span class="ac-nm">'+escHtml(a.nm)+'</span>'+
+        '<span class="ac-code">'+escHtml(a.c+" · "+a.en)+'</span>'+
+        '<a class="ac-tel" href="tel:'+a.tel.replace(/-/g,"")+'">☎ '+escHtml(a.tel)+'</a></div>'+
+      '<div class="ac-row"><span class="k">상담시간</span><span class="v">'+escHtml(a.hr)+'</span></div>'+
+      '<div class="ac-row"><span class="k">수속 마감</span><span class="v">국내선 출발 <b>'+a.cut+
+        '분 전</b> · 국제선 출발 <b>'+a.icut+'분 전</b></span></div>'+
+      '<a class="go" href="'+a.site+'" target="_blank" rel="noopener">공지·예약 바로가기 ↗</a>'+
+    '</div>').join("");
+}
+const AP_STEPS = [
+  ["3층 출발층으로 올라가기",
+   "렌터카를 반납했다면 셔틀에서 내려 청사로 들어와 <b>3층</b>까지 올라가면 돼요. 1층에서 내리는 경우가 많아 그대로 서 있다가 늦는 일이 잦습니다."],
+  ["전광판에서 내 편명 찾기",
+   "3층 전광판에 편명별 <b>체크인 카운터 번호</b>가 뜹니다. 카운터 구역은 같은 항공사도 날마다 바뀔 수 있어서 <b>전광판이 가장 정확</b>해요."],
+  ["체크인 · 수하물 부치기",
+   "부칠 짐이 있으면 카운터나 셀프 백드롭으로. <b>국내선은 출발 30분 전, 국제선은 보통 1시간 전</b>에 마감됩니다. 온라인 체크인을 했고 부칠 짐이 없으면 이 단계를 건너뛰어도 돼요."],
+  ["보안검색 (3층)",
+   "<b>국내선도 신분증이 꼭 필요</b>합니다. 보조배터리는 기내 반입만 되고 위탁 수하물엔 넣을 수 없어요. 성수기엔 줄이 길어 20~30분 걸리기도 합니다."],
+  ["2층 탑승장에서 탑승구 확인",
+   "보안검색을 지나면 2층 탑승장이에요. 여기 전광판에서 <b>탑승구(게이트) 번호</b>를 확인하세요. 탑승구는 <b>당일 배정</b>이라 탑승권에 적힌 것과 달라지는 일이 잦습니다."],
+  ["탑승",
+   "국내선은 보통 <b>출발 20분 전 탑승 시작, 10분 전 마감</b>이에요. 마감 시각을 넘기면 표가 있어도 탈 수 없으니 안내 방송을 놓치지 마세요."]
+];
+function renderApSteps(){
+  document.getElementById("apSteps").innerHTML = AP_STEPS.map((s,i)=>
+    '<div class="ap-step"><div class="n">'+(i+1)+'</div><div class="b"><h5>'+s[0]+'</h5><p>'+s[1]+'</p></div></div>').join("");
+  document.getElementById("apLive").href = CJU_LIVE;
+  document.getElementById("apMap").href = "https://map.naver.com/p/search/"+encodeURIComponent("제주국제공항");
+}
+
+// ===== 스캐너: 기기에 내장된 인식기 우선, 없으면 라이브러리를 불러온다 =====
+// 인식기는 3단계로 준비한다.
+// 1) 기기에 내장된 BarcodeDetector (안드로이드 크롬 등 · PDF417 종이 탑승권까지 읽음)
+// 2) ZXing (QR·PDF417·Aztec 전부) — CDN 여러 곳을 순서대로 시도
+// 3) jsQR (QR 전용) — 위 둘이 모두 안 될 때의 마지막 보루. 모바일 탑승권은 대부분 QR이라 이걸로도 된다.
+// 인식기 파일은 이 저장소 안(lib/)에 같이 넣어뒀다. CDN이 막힌 망이나 광고 차단기
+// 뒤에서도 되게 하려는 것. 혹시 lib/ 없이 index.html만 따로 열었을 때를 대비해 CDN도 남겨둔다.
+const SCAN_LIBS = [
+  "lib/zxing.min.js",
+  "https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3/umd/index.min.js",
+  "https://unpkg.com/@zxing/library@0.21.3/umd/index.min.js"
+];
+const QR_LIBS = [
+  "lib/jsQR.js",
+  "https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js",
+  "https://unpkg.com/jsqr@1.4.0/dist/jsQR.js"
+];
+let flStream=null, flReader=null, flRaf=0, flTimer=0, flHintTimer=0, flScanning=false, natDet=null, natTried=false, zxTried=false, qrTried=false;
+let flCanvas=null, flCtx=null, flProbe=null, flProbeCtx=null, flSharp=null, flSharpCtx=null;
+function flMsg(kind, html){
+  const el = document.getElementById("flMsg");
+  if(el) el.innerHTML = html ? '<div class="fl-msg '+kind+'">'+html+'</div>' : "";
+}
+function loadScript(src){
+  return new Promise((ok,no)=>{
+    const t = document.createElement("script");
+    t.src = src; t.async = true;
+    t.onload = ()=>ok(); t.onerror = ()=>no(new Error(src));
+    document.head.appendChild(t);
+  });
+}
+// 답이 늦으면 그냥 포기하고 넘어간다.
+// 안드로이드 기기 내장 인식기는 Play 서비스의 바코드 부품이 없거나 받는 중일 때
+// 오류도 안 내고 **영영 답을 안 주는** 경우가 있다. 그걸 그냥 기다리면
+// 스캔이 시작조차 못 하고 카메라 화면만 떠 있게 된다 (실제로 겪은 문제).
+const TIMED_OUT = {};   // "제한 시간을 넘겼다"는 표식 (그냥 못 읽은 것과 구분하려고)
+function withTimeout(p, ms, fallback){
+  return new Promise(ok=>{
+    let done = false;
+    const t = setTimeout(()=>{ if(!done){ done = true; ok(fallback); } }, ms);
+    Promise.resolve(p).then(
+      v=>{ if(!done){ done = true; clearTimeout(t); ok(v); } },
+      ()=>{ if(!done){ done = true; clearTimeout(t); ok(fallback); } }
+    );
+  });
+}
+async function getNativeDetector(){
+  if(natTried) return natDet;
+  natTried = true;
+  try{
+    if(!("BarcodeDetector" in window)) return null;
+    const sup = await withTimeout(window.BarcodeDetector.getSupportedFormats(), 2000, null);
+    if(!sup) return null;   // 제때 답이 없으면 없는 셈 치고 우리 인식기로 간다
+    const want = ["pdf417","aztec","qr_code","data_matrix","code_128"].filter(f=>sup.indexOf(f)>=0);
+    if(!want.length) return null;
+    natDet = new window.BarcodeDetector({formats:want});
+  }catch(e){ natDet = null; }
+  return natDet;
+}
+// 화면이 얼마나 또렷한지 재서 0~100 으로 돌려준다.
+// 초점이 나가면 QR 은 통째로 안 읽히는데, 사용자는 화면만 봐서는 그걸 모른다.
+// 실측(이웃 픽셀 차이 평균): 또렷 21 · 1px흐림 20 · 2px 16 · 3px 13 · 4px 10
+function sharpness(v){
+  try{
+    if(!flProbe){
+      flProbe = document.createElement("canvas"); flProbe.width = flProbe.height = 16;
+      flProbeCtx = flProbe.getContext("2d", {willReadFrequently:true});
+    }
+    if(!flSharp){
+      flSharp = document.createElement("canvas"); flSharp.width = flSharp.height = 256;
+      flSharpCtx = flSharp.getContext("2d", {willReadFrequently:true});
+    }
+    const w = v.videoWidth, h = v.videoHeight;
+    if(!w || !h) return -1;
+    const side = Math.min(w,h) * 0.75;              // 안내 네모 안쪽만 본다
+    flSharpCtx.imageSmoothingEnabled = true;
+    flSharpCtx.drawImage(v, (w-side)/2, (h-side)/2, side, side, 0, 0, 256, 256);
+    const a = flSharpCtx.getImageData(0,0,256,256).data;
+    let sum = 0, cnt = 0;
+    for(let y=1;y<255;y+=2){
+      for(let x=1;x<255;x+=2){
+        const i = (y*256+x)*4;
+        sum += Math.abs(a[i]-a[i+4]) + Math.abs(a[i]-a[i+1024]);
+        cnt++;
+      }
+    }
+    const g = sum/cnt;                               // 10(아주 흐림) ~ 21(또렷)
+    return Math.max(0, Math.min(100, Math.round((g-9) * 100/11)));
+  }catch(e){ return -1; }
+}
+// 카메라 그림이 실제로 넘어오고 있는지 보는 값 (0 이면 화면이 캔버스로 안 넘어온다는 뜻)
+function frameBrightness(v){
+  try{
+    if(!flProbe){
+      flProbe = document.createElement("canvas"); flProbe.width = flProbe.height = 16;
+      flProbeCtx = flProbe.getContext("2d", {willReadFrequently:true});
+    }
+    flProbeCtx.drawImage(v, 0, 0, 16, 16);
+    const a = flProbeCtx.getImageData(0,0,16,16).data;
+    let sum = 0;
+    for(let i=0;i<a.length;i+=4) sum += a[i];
+    return Math.round(sum/(a.length/4));
+  }catch(e){ return -1; }
+}
+async function ensureZXing(){
+  if(window.ZXing) return window.ZXing;
+  if(zxTried) return null;
+  zxTried = true;
+  for(let i=0;i<SCAN_LIBS.length;i++){
+    try{ await loadScript(SCAN_LIBS[i]); if(window.ZXing) return window.ZXing; }catch(e){}
+  }
+  return null;
+}
+async function ensureJsQR(){
+  if(window.jsQR) return window.jsQR;
+  if(qrTried) return null;
+  qrTried = true;
+  for(let i=0;i<QR_LIBS.length;i++){
+    try{ await loadScript(QR_LIBS[i]); if(window.jsQR) return window.jsQR; }catch(e){}
+  }
+  return null;
+}
+// 한 번에 안 읽히는 경우가 많아서, 프레임마다 다른 방식으로 돌려가며 시도한다.
+// 실제 t'way 종이 탑승권 사진으로 확인한 결과 아래 세 갈래가 다 필요했다.
+//   - adap : 자리마다 밝기를 따로 재서 검정/흰색을 가른다 (번들거림·굽은 종이·흐린 인쇄)
+//   - max  : 줄이는 크기를 갈래마다 다르게 한다 (같은 사진도 크기에 따라 읽히고 안 읽힌다)
+//   - zoom : 가운데만 확대한다 (코드가 멀리서 작게 잡힐 때)
+const SCAN_MAX = 1600;      // 보통은 이 크기로 줄여서 본다 (빠르다)
+const SCAN_MAX_FULL = 2560; // 사진 갈래에서 줄이지 않고 한 번 더 본다 (작은 코드에 필요)
+// 카메라일 때 이 크기를 넘기지 않는다. 다만 **줄이기보다 잘라내는 걸 먼저** 쓴다 —
+// 줄이면 QR 한 칸에 배정된 픽셀이 같이 줄어서 흐린 화면이 아예 안 읽히기 때문이다.
+// (사진 갈래는 시간에 안 쫓기므로 Infinity 로 두고 원래 크기대로 본다)
+const SCAN_CAP_LIVE = 1600;
+let scanCap = Infinity;
+const SCAN_PASSES = [
+  {bin:"h", zoom:1.8, sharp:3, srad:3, adap:16},  // 1. 가운데 확대 + 선명화 + 자리별 보정  ★ 초점 나간 카메라에 가장 잘 먹힌다
+  {bin:"h", zoom:1,   adap:16},                   // 2. 전체 화면 + 자리별 보정
+  {bin:"h", zoom:1                     },         // 3. 있는 그대로 (또렷하면 이게 제일 빠르다)
+  {bin:"h", zoom:1.4, sharp:3, srad:3, adap:16},  // 4. 살짝 확대 + 선명화
+  {bin:"h", zoom:1,   sharp:3, srad:3, adap:16},  // 5. 전체 화면 + 선명화
+  {bin:"h", zoom:1.8                   },         // 6. 가운데만 확대
+  {bin:"g", zoom:1,           max:2560 },         // 7. 줄이지 않고 원본 크기로
+  {bin:"h", zoom:2.4, sharp:4, srad:4, adap:20},  // 8. 많이 확대 + 강한 선명화 (멀리서 잡혔을 때)
+  {bin:"h", zoom:1,   boost:1          },         // 9. 화면 전체의 밝기 차이를 벌려서
+  {bin:"h", zoom:1,   adap:28, max:1100}          // 10. 많이 줄여서 (흔들린 사진)
+];
+let flPass = 0;
+function nextPass(){ return SCAN_PASSES[(flPass++) % SCAN_PASSES.length]; }
+// 밝기 차이를 최대로 벌린다 (형광등 번들거림·흐린 인쇄에 도움)
+function boostContrast(){
+  try{
+    const d = flCtx.getImageData(0,0,flCanvas.width,flCanvas.height), a = d.data;
+    let mn=255, mx=0;
+    for(let i=0;i<a.length;i+=64){ const v=a[i]; if(v<mn)mn=v; if(v>mx)mx=v; }
+    const sp = Math.max(1, mx-mn);
+    for(let i=0;i<a.length;i+=4){
+      let v = (a[i]-mn)*255/sp; v = v<0?0:(v>255?255:v);
+      a[i]=a[i+1]=a[i+2]=v;
+    }
+    flCtx.putImageData(d,0,0);
+  }catch(e){}
+}
+// 자리마다 밝기를 따로 재서 검정/흰색을 가른다.
+// 형광등 번들거림·굽은 종이·그림자처럼 "한쪽은 밝고 한쪽은 어두운" 사진에 강하다.
+// 화면 전체를 한꺼번에 늘리는 boostContrast 로는 못 잡는 경우를 이게 잡아준다.
+// (적분영상을 써서 창이 아무리 커도 픽셀당 한 번만 계산한다)
+function adaptiveBin(win, pct){
+  try{
+    const w = flCanvas.width, h = flCanvas.height;
+    if(!w || !h) return;
+    const d = flCtx.getImageData(0,0,w,h), a = d.data, n = w*h;
+    const gray = new Uint8Array(n);
+    for(let i=0,p=0; p<n; p++, i+=4) gray[p] = (a[i]*77 + a[i+1]*151 + a[i+2]*28) >> 8;
+    const S = new Int32Array((w+1)*(h+1));
+    for(let y=0; y<h; y++){
+      let run = 0; const o = (y+1)*(w+1), o0 = y*(w+1), row = y*w;
+      for(let x=0; x<w; x++){ run += gray[row+x]; S[o+x+1] = S[o0+x+1] + run; }
+    }
+    const r = Math.max(4, Math.round(Math.min(w,h)/win));
+    for(let y=0; y<h; y++){
+      const y0 = y-r<0?0:y-r, y1 = y+r>h-1?h-1:y+r, rh = y1-y0+1;
+      const A = y0*(w+1), B = (y1+1)*(w+1), row = y*w;
+      for(let x=0; x<w; x++){
+        const x0 = x-r<0?0:x-r, x1 = x+r>w-1?w-1:x+r;
+        const sum = S[B+x1+1] - S[A+x1+1] - S[B+x0] + S[A+x0];
+        const i = (row+x) << 2;
+        a[i] = a[i+1] = a[i+2] = (gray[row+x]*rh*(x1-x0+1)*100 < sum*pct) ? 0 : 255;
+      }
+    }
+    flCtx.putImageData(d,0,0);
+  }catch(e){}
+}
+// 흐릿한 경계를 되살린다 (언샤프 마스크).
+// 카메라 미리보기는 초점이 살짝 나가기만 해도 QR 이 통째로 안 읽힌다.
+// 실측: 2px 만 뭉개져도 QR 이 500px 이어도 못 읽는데, 이걸 거치면 읽힌다.
+let shCache = null;
+function shBuf(w,h){
+  const n = w*h;
+  if(!shCache || shCache.w !== w || shCache.h !== h){
+    shCache = {w:w, h:h, g:new Float32Array(n), t:new Float32Array(n), s:new Float64Array((w+1)*(h+1))};
+  }
+  return shCache;
+}
+function unsharp(amount, radius){
+  try{
+    const w = flCanvas.width, h = flCanvas.height;
+    if(!w || !h) return;
+    const d = flCtx.getImageData(0,0,w,h), a = d.data, n = w*h;
+    const B = shBuf(w,h);           // 버퍼를 매 프레임 새로 잡으면 폰에서 버벅인다 → 재사용
+    const g = B.g, tmp = B.t, S = B.s, r = radius;
+    for(let i=0,p=0; p<n; p++, i+=4) g[p] = a[i]*0.299 + a[i+1]*0.587 + a[i+2]*0.114;
+    // 상자흐림 (적분영상이라 창이 커도 픽셀당 한 번)
+    for(let y=0;y<h;y++){
+      let run=0; const o=(y+1)*(w+1), o0=y*(w+1), row=y*w;
+      for(let x=0;x<w;x++){ run += g[row+x]; S[o+x+1] = S[o0+x+1] + run; }
+    }
+    for(let y=0;y<h;y++){
+      const y0=y-r<0?0:y-r, y1=y+r>h-1?h-1:y+r, A=y0*(w+1), Bo=(y1+1)*(w+1), row=y*w;
+      for(let x=0;x<w;x++){
+        const x0=x-r<0?0:x-r, x1=x+r>w-1?w-1:x+r;
+        tmp[row+x] = (S[Bo+x1+1]-S[A+x1+1]-S[Bo+x0]+S[A+x0]) / ((y1-y0+1)*(x1-x0+1));
+      }
+    }
+    for(let p=0,i=0; p<n; p++, i+=4){
+      let v = g[p] + amount*(g[p]-tmp[p]);
+      a[i] = a[i+1] = a[i+2] = v<0?0:(v>255?255:v);
+    }
+    flCtx.putImageData(d,0,0);
+  }catch(e){}
+}
+// 영상 프레임을 한 장 떠서 캔버스에 올린다. 인식기 셋 다 이 캔버스를 같이 쓴다.
+// ps 는 SCAN_PASSES 의 한 갈래 {zoom, max, sharp, boost, adap} — 없으면 있는 그대로 뜬다.
+function grabCanvas(src, w, h, ps){
+  if(!w || !h) return null;
+  ps = ps || {};
+  const zoom = ps.zoom || 1;
+  if(!flCanvas){ flCanvas = document.createElement("canvas"); flCtx = flCanvas.getContext("2d", {willReadFrequently:true}); }
+  const sw = w/zoom, sh = h/zoom, sx = (w-sw)/2, sy = (h-sh)/2;
+  const sc = Math.min(1, Math.min(ps.max || SCAN_MAX, scanCap)/Math.max(sw,sh));
+  flCanvas.width = Math.round(sw*sc); flCanvas.height = Math.round(sh*sc);
+  try{
+    flCtx.imageSmoothingEnabled = true;
+    flCtx.drawImage(src, sx, sy, sw, sh, 0, 0, flCanvas.width, flCanvas.height);
+    if(ps.sharp) unsharp(ps.sharp, ps.srad || 3);
+    if(ps.boost) boostContrast();
+    if(ps.adap) adaptiveBin(ps.adap, ps.pct || 96);
+    return flCanvas;
+  }catch(e){ return null; }
+}
+function grabPixels(src, w, h){
+  const c = grabCanvas(src, w, h);
+  if(!c) return null;
+  try{ return flCtx.getImageData(0, 0, c.width, c.height); }catch(e){ return null; }
+}
+// ZXing 이 video 를 직접 읽는 기능은 프레임을 제대로 못 떠오는 경우가 있다.
+// 우리가 뜬 캔버스를 넘기면 확실히 읽으므로 그렇게 한다.
+function zxDecodeCanvas(Z, canvas, bin){
+  try{
+    const lum = new Z.HTMLCanvasElementLuminanceSource(canvas);
+    const B = bin === "g" ? new Z.GlobalHistogramBinarizer(lum) : new Z.HybridBinarizer(lum);
+    const r = flReader.decodeBitmap(new Z.BinaryBitmap(B));
+    return r ? (r.getText ? r.getText() : r.text) : null;
+  }catch(e){ return null; }   // 이번 프레임에 코드가 없다는 뜻일 뿐
+}
+// 이미 떠 놓은 캔버스를 QR 전용 인식기로 한 번 더 본다 (ZXing 이 놓치는 걸 종종 잡아준다)
+function jsqrCanvas(){
+  if(!window.jsQR) return null;
+  try{
+    const d = flCtx.getImageData(0,0,flCanvas.width,flCanvas.height);
+    const r = window.jsQR(d.data, d.width, d.height, {inversionAttempts:"attemptBoth"});
+    return r && r.data ? r.data : null;
+  }catch(e){ return null; }
+}
+function jsqrRead(src, w, h){
+  const px = grabPixels(src, w, h);
+  if(!px || !window.jsQR) return null;
+  try{
+    const r = window.jsQR(px.data, px.width, px.height, {inversionAttempts:"attemptBoth"});
+    return r && r.data ? r.data : null;
+  }catch(e){ return null; }
+}
+// 탑승권에 실제로 쓰이는 형식은 QR·PDF417·Aztec 셋뿐이다.
+// 안 쓰는 형식까지 매번 뒤지면 한 바퀴 도는 시간이 두 배가 된다 (폰에서 치명적).
+// 그래서 카메라는 셋만 보고, 사진은 시간에 안 쫓기니 넉넉하게 다섯을 다 본다.
+function zxHints(Z, fast){
+  const h = new Map();
+  try{
+    const f = [Z.BarcodeFormat.QR_CODE, Z.BarcodeFormat.PDF_417, Z.BarcodeFormat.AZTEC];
+    if(!fast) f.push(Z.BarcodeFormat.DATA_MATRIX, Z.BarcodeFormat.CODE_128);
+    h.set(Z.DecodeHintType.POSSIBLE_FORMATS, f);
+    h.set(Z.DecodeHintType.TRY_HARDER, true);
+  }catch(e){}
+  return h;
+}
+// 상태는 카메라 화면 위에 겹쳐서 보여준다.
+// 예전처럼 화면 아래에 적으면 스크롤 밖이라 사용자가 못 보고 지나간다.
+function setEngine(html){
+  const ov = document.getElementById("flLive");
+  if(ov) ov.innerHTML = html || "";
+}
+function stopScan(){
+  flScanning = false;
+  scanCap = Infinity;
+  setEngine("");
+  if(flHintTimer){ clearTimeout(flHintTimer); flHintTimer = 0; }
+  if(flTorchOn){ const t = torchTrack(); if(t){ try{ t.applyConstraints({advanced:[{torch:false}]}); }catch(e){} } flTorchOn = false; }
+  const tb = document.getElementById("flTorch"); if(tb){ tb.hidden = true; tb.classList.remove("on"); }
+  if(flRaf){ cancelAnimationFrame(flRaf); flRaf = 0; }
+  if(flTimer){ clearTimeout(flTimer); flTimer = 0; }
+  if(flReader){ try{ flReader.reset(); }catch(e){} flReader = null; }
+  if(flStream){ flStream.getTracks().forEach(t=>{ try{ t.stop(); }catch(e){} }); flStream = null; }
+  const v = document.getElementById("flVideo");
+  if(v){ try{ v.pause(); v.srcObject = null; }catch(e){} }
+  document.getElementById("flScan").classList.remove("on");
+}
+function onDecoded(raw){
+  stopScan();
+  const p = parsePass(raw);
+  if(!p){
+    const peek = String(raw||"").slice(0,140);
+    flMsg("warn","🔍 코드는 읽었는데 <b>탑승권 형식이 아니었어요.</b> 탑승권 말고 다른 QR을 읽었거나, "+
+      "항공사가 자체 형식을 쓰는 경우예요. <b>[⌨️ 직접 입력]</b>으로 넣으시면 똑같이 계산해드립니다."+
+      "<br><br>읽은 내용 ▸ <code style=\'word-break:break-all;font-size:11px;\'>"+escHtml(peek)+"</code>");
+    return;
+  }
+  flDraft = p;
+  if(p.src === "bcbp"){
+    flMsg("ok","✅ 탑승권을 읽었어요! 바코드에는 <b>출발 시각과 탑승구가 들어 있지 않아서</b> 출발 시각만 아래에 넣어주시면 나머지를 계산해드립니다.");
+  }else{
+    flMsg("warn","⚠️ 표준 탑승권 바코드는 아니지만 <b>읽어낼 수 있는 정보만</b> 채웠어요. 빈 칸을 확인하고 채워주세요.");
+  }
+  renderFlightForm();
+  document.getElementById("flForm").scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+// 인식기가 셋(내장·ZXing·jsQR)이지만 화면을 읽는 방식은 하나로 통일한다.
+// ZXing 자체 영상 기능은 video 의 'playing' 이벤트를 기다리는데, 우리가 카메라를 먼저 켜두면
+// 그 이벤트가 이미 지나가 버려서 영원히 시작되지 않는다. 그래서 프레임을 직접 넘겨준다.
+// 인식기를 하나로 합쳐서 돌린다.
+// 예전에는 기기 내장 인식기가 있으면 그것만 썼는데, 그게 조용히 죽으면
+// (답이 없거나 · 빈손만 주거나 · 오류를 던지거나) 손쓸 방법이 없었다.
+// 이제는 **매 프레임 내장 → 우리 인식기 순으로 둘 다** 돌린다.
+async function pickEngine(){
+  setEngine("⏳ 인식기를 준비하는 중…");
+  let det = await getNativeDetector();
+  // 내장이 있든 없든 ZXing·jsQR 은 항상 준비한다
+  const Z = await ensureZXing();
+  if(Z && !flReader){ try{ flReader = new Z.BrowserMultiFormatReader(zxHints(Z, true), 200); }catch(e){ flReader = null; } }
+  await ensureJsQR();
+  if(!det && !flReader && !window.jsQR) return null;
+  let tries = 0, natTimeouts = 0, natOff = "";
+  const label = ()=>{
+    const names = [];
+    if(det) names.push("기기내장");
+    else if(natOff) names.push("기기내장(" + natOff + ")");
+    if(flReader) names.push("ZXing");
+    if(window.jsQR) names.push("QR전용");
+    return "🟢 인식기: " + names.join(" + ");
+  };
+  // 내장 인식기에 화면 한 장을 보여준다. 제한 시간을 넘기면 두 번까지만 봐주고 끈다.
+  // (답이 없는 기기에서 매 프레임 3초씩 까먹으면 우리 인식기가 돌 기회가 줄어든다)
+  const askNative = async src=>{
+    if(!det) return null;
+    const c = await withTimeout(det.detect(src), 1200, TIMED_OUT);
+    if(c === TIMED_OUT){
+      if(++natTimeouts >= 2){ det = null; natOff = "응답없음·끔"; }
+      return null;
+    }
+    return (c && c.length && c[0].rawValue) ? c[0].rawValue : null;
+  };
+  return {
+    label: label(), gap: 60,
+    read: async v=>{
+      const vw = v.videoWidth, vh = v.videoHeight;
+      tries++;
+      // 초점이 맞았는지를 가장 크게 알려준다. 흐리면 QR 은 아무리 커도 안 읽히는데
+      // 사용자는 화면만 봐서는 그걸 모르기 때문이다.
+      const sh = sharpness(v);
+      let head;
+      if(sh < 0)       head = "카메라 화면을 기다리는 중…";
+      else if(sh >= 55) head = "✅ 또렷해요 — 그대로 들고 계세요";
+      else if(sh >= 32) head = "⚠️ 조금 흐려요 — 화면을 톡 누르거나 손을 살짝 움직여보세요";
+      else              head = "❌ 흐려서 못 읽어요 — 화면을 <u>톡 누르고</u> 조금 <u>멀리</u> 떼주세요";
+      setEngine('<div style="font-size:13px;">' + head + '</div>' +
+        '<div style="opacity:.75;">또렷함 ' + (sh<0?"-":sh) + '/100 · ' + label() +
+        ' · ' + tries + '회 · ' + (vw||0) + '×' + (vh||0) + ' · 밝기 ' + frameBrightness(v) + '</div>');
+      if(!vw || !vh) return null;   // 아직 카메라 화면 크기가 안 잡혔다
+      // ① 기기 내장 인식기부터 (빠르다)
+      const a = await askNative(v);
+      if(a) return a;
+      // ② 우리 인식기 — 프레임마다 다른 갈래로 화면을 다듬어서 본다
+      const ps = nextPass();
+      const cv = grabCanvas(v, vw, vh, ps);
+      if(!cv) return null;
+      // 다듬은 화면(확대·밝기 보정)을 내장 인식기에도 한 번 더 보여준다
+      const b = await askNative(cv);
+      if(b) return b;
+      return ((window.ZXing && flReader) ? zxDecodeCanvas(window.ZXing, cv, ps.bin) : null) || jsqrCanvas();
+    }
+  };
+}
+async function startScan(){
+  flMsg("",""); setEngine("");
+  if(!window.isSecureContext){
+    flMsg("warn","🔒 카메라는 <b>https 주소</b>에서만 열 수 있어요. <b>[🖼 사진에서 찾기]</b>나 <b>[⌨️ 직접 입력]</b>을 이용해주세요.");
+    return;
+  }
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    flMsg("warn","📷 이 브라우저에서는 카메라를 열 수 없어요. <b>[🖼 사진에서 찾기]</b>나 <b>[⌨️ 직접 입력]</b>을 이용해주세요.");
+    return;
+  }
+  const vid = document.getElementById("flVideo");
+  document.getElementById("flScan").classList.add("on");
+  flScanning = true;
+  scanCap = SCAN_CAP_LIVE;   // 카메라는 작게 봐야 폰에서 빠르다
+  // 아이폰은 사용자가 버튼을 누른 '그 순간'에 카메라를 열어야 허락을 받는다.
+  // 인식기 파일(수백 KB)을 먼저 받고 나서 열면 그 시점이 만료돼 조용히 거부되는 일이 있다.
+  try{
+    // 해상도가 높을수록 QR 한 칸에 픽셀이 많이 배정돼 흐릿해도 살아남는다.
+    // 실측: 초점이 2px만 나가도 QR 이 500px 이어도 못 읽는데, 크게 잡으면 버틴다.
+    flStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:"environment"},
+      width:{ideal:3840}, height:{ideal:2160},
+      advanced:[{focusMode:"continuous"}]}});
+  }catch(e){
+    try{
+      flStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:"environment"},
+        width:{ideal:1920}, height:{ideal:1080}, advanced:[{focusMode:"continuous"}]}});
+    }catch(e2){
+      try{ flStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:"environment"}}}); }
+      catch(e3){ camError(e3); return; }
+    }
+  }
+  // 카메라를 연 뒤에 한 번 더 걸어준다. 열 때 준 조건을 무시하는 기기가 많다.
+  refocus();
+  if(!flScanning){ stopScan(); return; }
+  setupTorch();
+  vid.srcObject = flStream;
+  vid.muted = true;
+  try{ await vid.play(); }catch(e){}
+
+  const eng = await pickEngine();
+  if(!flScanning){ stopScan(); return; }
+  if(!eng){
+    stopScan();
+    flMsg("warn","📶 인식기를 불러오지 못했어요(인터넷 연결 확인). <b>[⌨️ 직접 입력]</b>으로 편명과 시각을 넣으면 똑같이 계산해드립니다.");
+    return;
+  }
+  setEngine(eng.label);
+  flHintTimer = setTimeout(()=>{
+    if(flScanning) flMsg("info","🔍 아직 안 읽히나요? <b>거의 다 초점 때문</b>입니다. 화면 속 코드가 <b>또렷하게 보이는지</b> 확인해주세요.<br>"+
+      "① <b>화면을 한 번 톡</b> 누르기 (초점 다시 잡기) · ② 손을 <b>살짝 뒤로</b> 뺐다가 천천히 앞으로 (너무 가까우면 초점이 안 잡힙니다) · "+
+      "③ 번들거리면 <b>[🔦 불 켜기]</b>나 각도 바꾸기<br>"+
+      "그래도 안 되면 <b>[🖼 사진에서 찾기]</b>로 <b>탑승권을 사진으로 찍어</b> 골라주세요. 사진은 초점이 제대로 잡혀서 거의 확실히 읽힙니다.");
+  }, 9000);
+  const loop = async ()=>{
+    if(!flScanning) return;
+    let raw = null;
+    try{ raw = await eng.read(vid); }catch(e){}
+    if(!flScanning) return;
+    if(raw){ onDecoded(raw); return; }
+    flTimer = setTimeout(loop, eng.gap);
+  };
+  loop();
+}
+// 초점을 다시 잡게 한다. 카메라 미리보기가 흐리면 QR 은 아예 안 읽힌다 (가장 흔한 실패 원인).
+// x,y 를 주면 그 자리에 초점을 맞춘다 (화면을 눌렀을 때).
+async function refocus(x, y){
+  if(!flStream) return;
+  const t = flStream.getVideoTracks()[0];
+  if(!t || !t.applyConstraints) return;
+  const adv = [];
+  if(x != null && y != null) adv.push({pointsOfInterest:[{x:x, y:y}]});
+  adv.push({focusMode:"continuous"});
+  try{ await t.applyConstraints({advanced:adv}); }catch(e){}
+  // 한 번 끊었다 이어야 다시 맞추는 기기가 있다
+  try{
+    await t.applyConstraints({advanced:[{focusMode:"single-shot"}]});
+    await t.applyConstraints({advanced:[{focusMode:"continuous"}]});
+  }catch(e){}
+}
+// 플래시: 종이 탑승권은 형광등 아래서 번들거려 안 읽히는 일이 잦아 켤 수 있게 해둔다
+let flTorchOn = false;
+function torchTrack(){
+  if(!flStream) return null;
+  const t = flStream.getVideoTracks()[0];
+  if(!t || !t.getCapabilities) return null;
+  try{ return t.getCapabilities().torch ? t : null; }catch(e){ return null; }
+}
+function setupTorch(){
+  const btn = document.getElementById("flTorch");
+  if(!btn) return;
+  flTorchOn = false;
+  btn.classList.remove("on");
+  btn.textContent = "🔦 불 켜기";
+  btn.hidden = !torchTrack();
+}
+async function toggleTorch(){
+  const t = torchTrack();
+  if(!t) return;
+  flTorchOn = !flTorchOn;
+  try{ await t.applyConstraints({advanced:[{torch:flTorchOn}]}); }
+  catch(e){ flTorchOn = !flTorchOn; return; }
+  const btn = document.getElementById("flTorch");
+  btn.classList.toggle("on", flTorchOn);
+  btn.textContent = flTorchOn ? "🔦 불 끄기" : "🔦 불 켜기";
+}
+function camError(e){
+  stopScan();
+  const n = e && e.name || "";
+  if(n === "NotAllowedError" || n === "SecurityError")
+    flMsg("warn","🚫 카메라 사용이 <b>거부</b>됐어요. 브라우저 주소창의 자물쇠 → 카메라 <b>허용</b>으로 바꾸거나, <b>[🖼 사진에서 찾기]</b>를 이용해주세요.");
+  else if(n === "NotFoundError" || n === "OverconstrainedError")
+    flMsg("warn","📷 쓸 수 있는 카메라를 찾지 못했어요. <b>[🖼 사진에서 찾기]</b>나 <b>[⌨️ 직접 입력]</b>을 이용해주세요.");
+  else
+    flMsg("warn","📷 카메라를 여는 데 실패했어요. <b>[🖼 사진에서 찾기]</b>나 <b>[⌨️ 직접 입력]</b>을 이용해주세요.");
+}
+async function decodeImageFile(file){
+  scanCap = Infinity;   // 사진은 줄이지 않고 크게도 본다
+  const det = await getNativeDetector();
+  if(det){
+    try{
+      const bmp = await createImageBitmap(file);
+      const codes = await det.detect(bmp);
+      try{ bmp.close(); }catch(e){}
+      if(codes && codes.length && codes[0].rawValue) return codes[0].rawValue;
+    }catch(e){}
+  }
+  const Z = await ensureZXing();
+  await ensureJsQR();
+  // 사진 갈래는 카메라와 달리 형식을 다섯 다 본다(시간에 안 쫓긴다).
+  // 카메라가 만들어 둔 인식기는 빠른 형식만 보므로 여기서 따로 만든다.
+  if(Z){
+    try{ flReader = new Z.BrowserMultiFormatReader(zxHints(Z), 200); }catch(e){}
+  }
+  // 사진은 멈춰 있으니 모든 방식을 다 시도해본다 (카메라와 달리 시간에 쫓기지 않는다)
+  let bmp = null;
+  try{ bmp = await createImageBitmap(file); }catch(e){}
+  if(bmp){
+    // 줄인 화면과 원본 화면 둘 다 본다. 줄이면 흔들림·노이즈가 눌려서 오히려 잘 읽히는 경우가 있다
+    for(const full of [0,1]){
+      for(let i=0;i<SCAN_PASSES.length;i++){
+        const ps = full ? Object.assign({}, SCAN_PASSES[i], {max:SCAN_MAX_FULL}) : SCAN_PASSES[i];
+        const c = grabCanvas(bmp, bmp.width, bmp.height, ps);
+        if(!c) continue;
+        const raw = (Z ? zxDecodeCanvas(Z, c, ps.bin) : null) || jsqrCanvas();
+        if(raw){ try{ bmp.close(); }catch(e){} return raw; }
+      }
+    }
+    try{ bmp.close(); }catch(e){}
+  }
+  if(Z){
+    const url = URL.createObjectURL(file);
+    try{
+      const reader = new Z.BrowserMultiFormatReader(zxHints(Z), 400);
+      const res = await reader.decodeFromImageUrl(url);
+      try{ reader.reset(); }catch(e){}
+      if(res) return res.getText ? res.getText() : (res.text||"");
+    }catch(e){}
+    finally{ URL.revokeObjectURL(url); }
+  }
+  return null;
+}
+
+// ===== 연결 =====
+const flightModal = document.getElementById("flightModal");
+function openFlight(pane){
+  flightModal.classList.add("open");
+  setFlPane(pane || "pass");
+  renderSavedFlights();
+}
+function closeFlight(){ stopScan(); flightModal.classList.remove("open"); }
+function setFlPane(k){
+  document.querySelectorAll("#flSeg .fl-seg").forEach(b=>b.classList.toggle("on", b.dataset.pane===k));
+  document.querySelectorAll(".fl-pane").forEach(p=>p.classList.toggle("on", p.id==="flPane_"+k));
+  if(k!=="pass") stopScan();
+}
+document.getElementById("flightBtn").addEventListener("click", ()=>openFlight("pass"));
+document.getElementById("myFlightBar").addEventListener("click", ()=>openFlight("pass"));
+document.getElementById("fl_close").addEventListener("click", closeFlight);
+flightModal.addEventListener("click", e=>{ if(e.target===flightModal) closeFlight(); });
+document.querySelectorAll("#flSeg .fl-seg").forEach(b=>b.addEventListener("click",()=>setFlPane(b.dataset.pane)));
+// [📷 카메라로 스캔]은 화면에서 뺐다 (2026-08-30i).
+// 갤럭시 노트20에서 미리보기가 계속 흐려(실측 또렷함 13.9 ≈ 2.7px 뭉개짐) 다섯 번을 고쳐도
+// 안 읽혔다. 미리보기 화질은 웹페이지가 어떻게 할 수 있는 영역이 아니다.
+// 아래 스캔 코드(startScan·pickEngine·#flScan)는 **지우지 않고 남겨뒀다.**
+// 되살리려면 버튼 하나와 이 연결 한 줄만 도로 넣으면 된다.
+document.getElementById("flScanStop").addEventListener("click", ()=>{ stopScan(); flMsg("",""); });
+document.getElementById("flTorch").addEventListener("click", toggleTorch);
+// 카메라 화면을 누르면 그 자리에 초점을 다시 잡는다 (흐릿하면 QR 이 안 읽힌다)
+document.getElementById("flVideo").addEventListener("click", e=>{
+  if(!flScanning) return;
+  const r = e.currentTarget.getBoundingClientRect();
+  refocus((e.clientX-r.left)/r.width, (e.clientY-r.top)/r.height);
+  setEngine("🎯 초점을 다시 맞추는 중…");
+});
+document.getElementById("flPhotoBtn").addEventListener("click", ()=>{
+  stopScan(); document.getElementById("flPhotoInput").click();
+});
+// 📸 찍어서 읽기 — 폰의 사진 앱으로 직접 찍는다.
+// 사진 앱은 초점을 제대로 잡아주기 때문에, 미리보기가 흐려 안 읽히는 폰에서도 이 길은 통한다.
+function openShot(){ stopScan(); document.getElementById("flShotInput").click(); }
+document.getElementById("flShotBtn").addEventListener("click", openShot);
+document.getElementById("flShotBtn2").addEventListener("click", openShot);
+async function handlePhoto(e){
+  const f = e.target.files && e.target.files[0];
+  e.target.value = "";
+  if(!f) return;
+  flMsg("info","🔍 사진에서 탑승권 코드를 찾는 중이에요…");
+  const raw = await decodeImageFile(f);
+  if(raw) onDecoded(raw);
+  else flMsg("warn","😢 사진에서 코드를 찾지 못했어요. 코드가 <b>사진에 꽉 차게, 반듯하게, 또렷하게</b> 나오도록 "+
+    "다시 찍어보세요(찍기 전에 <b>코드를 한 번 눌러</b> 초점을 맞추면 확실합니다). 그래도 안 되면 <b>[⌨️ 직접 입력]</b>을 이용해주세요.");
+}
+document.getElementById("flPhotoInput").addEventListener("change", handlePhoto);
+document.getElementById("flShotInput").addEventListener("change", handlePhoto);
+document.getElementById("flManualBtn").addEventListener("click", ()=>{
+  stopScan();
+  flDraft = {car:"", fno:"", from:"CJU", to:"GMP", date:"", dep:"", seat:"", pnr:"", pax:"", src:"manual"};
+  flMsg("info","⌨️ 편명과 날짜, 출발 시각만 넣으면 <b>수속 마감·탑승 시작 시각</b>까지 계산해드려요.");
+  renderFlightForm();
+});
+
+loadFlights();
+renderAirTable();
+renderApSteps();
+renderSavedFlights();
+renderFlightBar();
+setInterval(renderFlightBar, 30000);
+document.addEventListener("visibilitychange", ()=>{ if(document.hidden) stopScan(); else renderFlightBar(); });
+
 (async function init(){
   const raw = lsGet(KEY) || lsGet("jeju_visited"); // 예전 저장분도 인식
   if(raw){ try{ const d = normalize(JSON.parse(raw)); visited=d.v; customPlaces=d.c; wish=d.w||{}; rates=d.r||{}; }catch(e){} }
+  // 접었다 펴는 메뉴는 시작할 때 한 번만 건다 (render 안에서 걸면 누를 때마다 중복된다)
+  setupFold("effTitle","effBody");
+  setupFold("zoneTitle","zoneBody");
+  setupFold("helpTitle","helpBody");
   render();
   await autoSync();  // 열자마자 최신 공유 기록 반영
   markUpdBtn();      // 새로 올라온 곳 개수를 버튼에 표시
