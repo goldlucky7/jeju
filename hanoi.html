@@ -33,6 +33,34 @@
     transition:width .5s cubic-bezier(.22,1,.36,1);min-width:14px;}
   .progress-label{text-align:center;font-size:13px;margin-top:8px;font-weight:500;}
   .progress-label b{color:var(--canola);font-size:16px;}
+  /* ── 💱 환율 계산기 (머리말 바로 아래 작은 막대) ── */
+  #fxBar{max-width:1080px;margin:12px auto 0;padding:0 16px;}
+  .fx-card{border:1.5px solid var(--line);background:#fff;border-radius:14px;padding:10px 12px;}
+  .fx-row{display:flex;align-items:flex-end;gap:8px;}
+  .fx-side{flex:1 1 0;min-width:0;}
+  .fx-lab{font-size:10.5px;font-weight:900;color:#8A9490;margin-bottom:4px;letter-spacing:.2px;}
+  .fx-in{position:relative;}
+  #fxAmt{width:100%;box-sizing:border-box;padding:9px 40px 9px 11px;border:1.5px solid var(--line);
+    border-radius:11px;background:#fff;font-family:inherit;font-size:16px;font-weight:800;
+    color:var(--basalt);outline:none;text-align:right;}
+  #fxAmt:focus{border-color:var(--sea);}
+  .fx-unit{position:absolute;right:11px;top:50%;transform:translateY(-50%);
+    font-size:12.5px;font-weight:800;color:#8A9490;pointer-events:none;}
+  .fx-out{padding:9px 11px;border:1.5px solid #CFE6E3;border-radius:11px;background:#E8F4F3;
+    font-size:16px;font-weight:900;color:#0F5A56;text-align:right;line-height:1.35;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  #fxSwap{flex:0 0 auto;width:36px;height:40px;border:1.5px solid var(--line);background:#fff;
+    color:var(--sea);border-radius:11px;font-family:inherit;font-size:15px;font-weight:900;cursor:pointer;}
+  #fxSwap:active{transform:scale(.94);}
+  .fx-quick{display:flex;gap:6px;overflow-x:auto;margin-top:8px;padding-bottom:2px;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+  .fx-quick::-webkit-scrollbar{display:none;}
+  .fx-q{flex:0 0 auto;border:1.5px solid var(--line);background:#fff;color:var(--basalt);
+    border-radius:999px;padding:5px 11px;font-family:inherit;font-size:12px;font-weight:800;
+    cursor:pointer;white-space:nowrap;}
+  .fx-q:active{transform:scale(.95);}
+  .fx-note{margin-top:7px;font-size:11px;line-height:1.65;color:#8A9490;}
+  .fx-note b{color:var(--sea);}
   nav{display:flex;gap:7px;flex-wrap:nowrap;overflow-x:auto;padding:11px 16px 10px;position:sticky;top:0;
     background:rgba(247,250,249,.96);backdrop-filter:blur(8px);z-index:10;border-bottom:1px solid var(--line);
     scrollbar-width:none;-webkit-overflow-scrolling:touch;}
@@ -577,6 +605,28 @@
   </div>
 </header>
 
+<!-- 💱 환율 계산기: 10만동을 넣으면 한국 돈으로 얼마인지 바로 보여준다 -->
+<section id="fxBar">
+  <div class="fx-card">
+    <div class="fx-row">
+      <div class="fx-side">
+        <div class="fx-lab" id="fxFromLab">💱 베트남 돈을 넣어보세요</div>
+        <div class="fx-in">
+          <input id="fxAmt" type="text" inputmode="numeric" autocomplete="off" placeholder="100,000">
+          <span class="fx-unit" id="fxFromUnit">동</span>
+        </div>
+      </div>
+      <button id="fxSwap" type="button" title="동↔원 바꾸기" aria-label="동과 원을 바꿔서 계산">⇄</button>
+      <div class="fx-side">
+        <div class="fx-lab" id="fxToLab">한국 돈으로는</div>
+        <div class="fx-out" id="fxOut">0원</div>
+      </div>
+    </div>
+    <div class="fx-quick" id="fxQuick"></div>
+    <p class="fx-note" id="fxNote"></p>
+  </div>
+</section>
+
 <button id="myFlightBar"></button>
 
 <!-- 장소 종류: 한 줄 가로 스크롤 (예전엔 12개가 구름처럼 흩어져 있었다) -->
@@ -658,6 +708,7 @@
     🔴 다녀온 곳은 <b>[갔다왔음]</b>을 눌러 도장을 찍으세요. 목록에서 사라지고 <b>[갔다온 곳]</b>에 모입니다.<br>
     🧭 <b>[얼마나 움직여야 하나요?]</b>는 덜 힘든 순서로 나눠둔 거예요. 하노이는 여름이 아주 더우니 요긴합니다.<br>
     ✈️ 돌아가는 날은 <b>[항공편]</b>에서 탑승권을 찍으면 출발까지 남은 시간과 수속 마감을 계산해줍니다.<br>
+    💱 맨 위 <b>환율 계산기</b>에 값을 넣으면 <b>10만동이 한국 돈으로 얼마인지</b> 바로 나옵니다 (⇄를 누르면 반대로도 계산돼요).<br>
     👫 도장과 일정은 <b>두 사람이 자동으로 함께</b> 봅니다.</p>
   </div>
 </div>
@@ -798,7 +849,7 @@
       </div>
 
     </div>
-    <p class="fl-ver">화면 버전 <b>하노이 2026-08-30a</b> · 이 숫자가 안 보이면 예전 화면이니 새로고침해주세요</p>
+    <p class="fl-ver">화면 버전 <b>하노이 2026-08-30b</b> · 이 숫자가 안 보이면 예전 화면이니 새로고침해주세요</p>
     <div class="modal-actions">
       <button id="fl_close" style="background:#F1F4F3;border:1.5px solid var(--line);color:#5C6664;">닫기</button>
     </div>
@@ -1953,7 +2004,7 @@ const GLOSSARY = {
   "논라":"야자잎으로 만든 원뿔 모양 삿갓이에요. 베트남의 상징입니다.",
   "씨클로":"자전거 앞에 사람 자리를 붙인 인력거예요. 타기 전에 값을 반드시 정하세요.",
   "그랩":"동남아에서 쓰는 택시·배달 앱이에요. 앱에서 요금이 미리 확정돼 바가지를 안 씁니다.",
-  "동":"베트남 화폐 단위(VND)예요. 대략 0을 하나 떼고 반으로 나누면 원화가 됩니다.",
+  "동":"베트남 화폐 단위(VND)예요. 대략 0을 하나 떼고 반으로 나누면 원화가 됩니다. 맨 위 환율 계산기에 넣으면 정확한 금액이 바로 나와요.",
   "뗏":"베트남 설(음력 정월)이에요. 이 기간엔 문 닫는 가게가 아주 많습니다.",
   "수상인형극":"물을 무대 삼아 인형을 조종하는 베트남 전통 공연이에요. 천 년 넘은 농촌 놀이에서 나왔습니다.",
   "비아허이코너":"따히엔과 르엉응옥꾸옌이 만나는 모퉁이로 하노이 술문화의 중심입니다.",
@@ -4462,6 +4513,146 @@ renderSavedFlights();
 renderFlightBar();
 setInterval(renderFlightBar, 30000);
 document.addEventListener("visibilitychange", ()=>{ if(document.hidden) stopScan(); else renderFlightBar(); });
+
+/* ══════════════ 💱 환율 계산기 (동 ↔ 원) ══════════════
+   화면 맨 위 작은 막대. 10만동을 넣으면 한국 돈으로 얼마인지 바로 보여준다.
+   환율은 열 때 인터넷에서 받아오고, 못 받아오면 저장해 둔 값으로 계산한다
+   (하노이 현지에서 인터넷이 끊겨도 계산기는 늘 동작해야 한다). */
+const FX_KEY = "hanoi_fx_v1";
+const FX_FALLBACK = 0.0529;            // 1동 ≈ 0.0529원 (2026-08-30 조사, 인터넷이 안 될 때만 쓴다)
+const FX_FALLBACK_DATE = "2026-08-30";
+const FX_MAXAGE = 6 * 3600 * 1000;     // 6시간 안에 받아둔 환율이면 다시 받지 않는다 (로밍 데이터 절약)
+const FX_SRC = [
+  {url:"https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/vnd.json",
+   pick:d => ({r: d && d.vnd && d.vnd.krw, d: d && d.date})},
+  {url:"https://latest.currency-api.pages.dev/v1/currencies/vnd.json",
+   pick:d => ({r: d && d.vnd && d.vnd.krw, d: d && d.date})},
+  {url:"https://open.er-api.com/v6/latest/VND",
+   pick:d => ({r: d && d.rates && d.rates.KRW, d: d && d.time_last_update_utc})}
+];
+let fxRate = FX_FALLBACK;   // 1동당 원
+let fxDate = FX_FALLBACK_DATE;
+let fxLive = false;         // 인터넷에서 받아온 환율인가
+let fxToKrw = true;         // true: 동 → 원, false: 원 → 동
+
+const fxAmt = document.getElementById("fxAmt");
+const fxOut = document.getElementById("fxOut");
+const fxNote = document.getElementById("fxNote");
+const fxQuick = document.getElementById("fxQuick");
+
+// 터무니없는 값이 오면 쓰지 않는다 (1동 = 0.02~0.12원 밖이면 환율이 아니거나 단위가 뒤집힌 것)
+function fxOk(r){ return typeof r === "number" && isFinite(r) && r > 0.02 && r < 0.12; }
+function fxDateStr(v){
+  const d = new Date(v);
+  if(!isNaN(d.getTime())) return d.getFullYear() + "-" +
+    String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+  return String(v || "").slice(0,10);
+}
+function fxComma(n){ return Math.round(n).toLocaleString("en-US"); }
+function fxShort(n){ // 10000 → "1만" · 1000 → "1천"
+  if(n >= 10000 && n % 10000 === 0) return (n/10000).toLocaleString("en-US") + "만";
+  if(n >= 1000 && n % 1000 === 0) return (n/1000) + "천";
+  return n.toLocaleString("en-US");
+}
+function fxDigits(){ return fxAmt.value.replace(/\D/g,""); }
+
+// 숫자를 치는 동안 세 자리마다 쉼표를 넣는다 (커서 자리는 지켜준다)
+function fxFormatInput(){
+  const before = fxAmt.value.slice(0, fxAmt.selectionStart || 0).replace(/\D/g,"").length;
+  const digits = fxAmt.value.replace(/\D/g,"").replace(/^0+(?=\d)/,"").slice(0,12);
+  fxAmt.value = digits ? Number(digits).toLocaleString("en-US") : "";
+  let seen = 0, pos = before === 0 ? 0 : fxAmt.value.length;
+  if(before > 0){
+    for(let i=0; i<fxAmt.value.length; i++){
+      if(/\d/.test(fxAmt.value[i])) seen++;
+      if(seen === before){ pos = i + 1; break; }
+    }
+  }
+  try{ fxAmt.setSelectionRange(pos, pos); }catch(e){}
+}
+
+function fxCalc(){
+  const digits = fxDigits();
+  const n = digits ? Number(digits) : 0;
+  if(!n){ fxOut.textContent = fxToKrw ? "0원" : "0동"; return; }
+  if(fxToKrw){
+    const won = n * fxRate;
+    const r = won < 1000 ? Math.round(won) : Math.round(won/10)*10;
+    fxOut.textContent = "약 " + fxComma(r) + "원";
+  }else{
+    const dong = n / fxRate;
+    const r = dong < 10000 ? Math.round(dong/100)*100 : Math.round(dong/1000)*1000;
+    fxOut.textContent = "약 " + fxComma(r) + "동";
+  }
+}
+
+function fxRenderQuick(){
+  const list = fxToKrw ? [10000,20000,50000,100000,200000,500000,1000000]
+                       : [1000,5000,10000,30000,50000,100000];
+  const unit = fxToKrw ? "동" : "원";
+  fxQuick.innerHTML = list.map(v =>
+    '<button type="button" class="fx-q" data-fx="' + v + '">' + fxShort(v) + unit + '</button>').join("");
+}
+
+function fxRenderLabels(){
+  document.getElementById("fxFromLab").textContent = fxToKrw ? "💱 베트남 돈을 넣어보세요" : "💱 한국 돈을 넣어보세요";
+  document.getElementById("fxToLab").textContent   = fxToKrw ? "한국 돈으로는" : "베트남 돈으로는";
+  document.getElementById("fxFromUnit").textContent = fxToKrw ? "동" : "원";
+  fxAmt.placeholder = fxToKrw ? "100,000" : "10,000";
+}
+
+function fxRenderNote(){
+  const per = fxRate * 1000;                       // 1,000동이 몇 원인가
+  const shown = per >= 100 ? Math.round(per) : Math.round(per*10)/10;
+  fxNote.innerHTML =
+    (fxLive ? "오늘 환율 " : "저장해 둔 환율 ") + "<b>1,000동 ≈ " + shown + "원</b> · " + fxDate + " 기준" +
+    (fxLive ? " (환전소·카드는 조금 달라요)" : " · 인터넷이 되면 최신 환율로 바뀝니다") +
+    "<br>🧮 <b>0 하나 떼고 반</b>으로 나누면 대략 원화 (10만동 ≈ 5천원)";
+}
+
+async function fxFetchRate(){
+  for(const src of FX_SRC){
+    try{
+      const res = await fetch(src.url, {cache:"no-store"});
+      if(!res.ok) continue;
+      const got = src.pick(await res.json());
+      if(fxOk(got.r)){
+        fxRate = got.r; fxDate = fxDateStr(got.d) || fxDate; fxLive = true;
+        lsSet(FX_KEY, JSON.stringify({r:fxRate, d:fxDate, t:Date.now()}));
+        fxRenderNote(); fxCalc();
+        return;
+      }
+    }catch(e){}
+  }
+}
+
+(function fxInit(){
+  let cachedAt = 0;
+  try{
+    const c = JSON.parse(lsGet(FX_KEY) || "null");
+    if(c && fxOk(c.r)){ fxRate = c.r; fxDate = c.d || fxDate; fxLive = true; cachedAt = c.t || 0; }
+  }catch(e){}
+
+  fxRenderLabels(); fxRenderQuick(); fxRenderNote(); fxCalc();
+
+  fxAmt.addEventListener("input", ()=>{ fxFormatInput(); fxCalc(); });
+  fxQuick.addEventListener("click", e=>{
+    const b = e.target.closest("[data-fx]");
+    if(!b) return;
+    fxAmt.value = Number(b.dataset.fx).toLocaleString("en-US");
+    fxCalc();
+  });
+  document.getElementById("fxSwap").addEventListener("click", ()=>{
+    // 방향을 바꾸면 방금 나온 결과를 그대로 입력칸으로 옮겨준다
+    const back = (fxOut.textContent.match(/\d/g) || []).join("");
+    fxToKrw = !fxToKrw;
+    fxRenderLabels(); fxRenderQuick();
+    fxAmt.value = back && back !== "0" ? Number(back).toLocaleString("en-US") : "";
+    fxCalc();
+  });
+
+  if(Date.now() - cachedAt > FX_MAXAGE) fxFetchRate();
+})();
 
 (async function init(){
   const raw = lsGet(KEY) || lsGet("jeju_visited"); // 예전 저장분도 인식
