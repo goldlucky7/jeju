@@ -444,8 +444,8 @@
   .fl-pane.on{display:block;}
   .fl-lead{font-size:12.5px;color:#5C6664;line-height:1.65;margin-bottom:11px;}
   .fl-lead b{color:#0B2E52;}
-  .fl-ways{display:flex;gap:7px;margin-bottom:11px;}
-  .fl-ways button{flex:1;padding:12px 4px;border-radius:12px;border:1.5px solid var(--line);
+  .fl-ways{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:11px;}
+  .fl-ways button{padding:12px 4px;border-radius:12px;border:1.5px solid var(--line);
     background:#fff;font-family:inherit;font-size:12.5px;font-weight:800;color:var(--basalt);
     cursor:pointer;line-height:1.4;}
   .fl-ways button.main{background:linear-gradient(135deg,#0B2E52,#1D7FB8);border-color:transparent;color:#fff;}
@@ -465,6 +465,9 @@
   .sc-tools{display:flex;gap:7px;margin-top:8px;}
   #flScan .sc-stop{flex:1;padding:11px;border-radius:11px;border:1.5px solid var(--line);
     background:#F1F4F3;color:#5C6664;font-family:inherit;font-size:13px;font-weight:800;cursor:pointer;}
+  #flShotBtn2{flex:none;padding:11px 12px;border-radius:11px;border:none;
+    background:linear-gradient(135deg,#0B2E52,#1D7FB8);color:#fff;
+    font-family:inherit;font-size:13px;font-weight:800;cursor:pointer;}
   #flTorch{flex:none;padding:11px 14px;border-radius:11px;border:1.5px solid var(--line);
     background:#fff;color:var(--basalt);font-family:inherit;font-size:13px;font-weight:800;cursor:pointer;}
   #flTorch.on{background:#FDE047;border-color:#FACC15;color:#7C2D12;}
@@ -674,22 +677,27 @@
     <div id="flBody">
 
       <div class="fl-pane on" id="flPane_pass">
-        <p class="fl-lead">탑승권의 <b>QR코드·바코드</b>를 비추면 편명·좌석·예약번호를 자동으로 읽어옵니다.
+        <p class="fl-lead">📸 <b>[찍어서 읽기]가 가장 잘 됩니다.</b> 폰 사진 앱이 초점을 제대로 잡아주기 때문이에요.
+        카메라로 계속 비추는 방식은 화면이 흐리면 안 읽힐 수 있습니다.<br>
+        탑승권의 <b>QR코드·바코드</b>에서 편명·좌석·예약번호를 자동으로 읽어옵니다.
         출발 시각만 한 번 넣으면 <b>카운트다운·수속 마감·탑승 시작 시각</b>까지 계산해드려요.
         읽은 내용은 <b>이 기기에만 저장</b>되고 어디로도 전송되지 않습니다.</p>
         <div class="fl-ways">
-          <button id="flScanBtn" class="main">📷 카메라로<br>스캔</button>
+          <button id="flShotBtn" class="main">📸 찍어서 읽기<br><small style="font-weight:700;opacity:.85;">가장 잘 됩니다</small></button>
+          <button id="flScanBtn">📷 카메라로<br>스캔</button>
           <button id="flPhotoBtn">🖼 사진에서<br>찾기</button>
           <button id="flManualBtn">⌨️ 직접<br>입력</button>
         </div>
         <input type="file" id="flPhotoInput" accept="image/*" style="display:none">
+        <input type="file" id="flShotInput" accept="image/*" capture="environment" style="display:none">
         <div id="flScan">
           <div class="sc-frame"><video id="flVideo" playsinline muted></video><div class="sc-guide"></div><div class="sc-live" id="flLive"></div></div>
           <p class="sc-hint">📄 코드를 <b>네모 안에 꽉 차게</b> 맞춰주세요. <b>화면이 또렷해야 읽힙니다</b> —
           흐릿하면 <b>화면을 한 번 톡 누르고</b>(초점을 다시 잡습니다) 손을 살짝 앞뒤로 움직여 또렷해질 때까지 기다려주세요.</p>
           <div class="sc-tools">
+            <button id="flShotBtn2">📸 찍어서 읽기</button>
             <button id="flTorch" hidden>🔦 불 켜기</button>
-            <button class="sc-stop" id="flScanStop">스캔 멈추기</button>
+            <button class="sc-stop" id="flScanStop">멈추기</button>
           </div>
         </div>
         <div id="flMsg"></div>
@@ -723,7 +731,7 @@
       </div>
 
     </div>
-    <p class="fl-ver">화면 버전 <b>2026-08-30g</b> · 이 숫자가 안 보이면 예전 화면이니 새로고침해주세요</p>
+    <p class="fl-ver">화면 버전 <b>2026-08-30h</b> · 이 숫자가 안 보이면 예전 화면이니 새로고침해주세요</p>
     <div class="modal-actions">
       <button id="fl_close" style="background:#F1F4F3;border:1.5px solid var(--line);color:#5C6664;">닫기</button>
     </div>
@@ -5124,7 +5132,7 @@ const QR_LIBS = [
   "https://unpkg.com/jsqr@1.4.0/dist/jsQR.js"
 ];
 let flStream=null, flReader=null, flRaf=0, flTimer=0, flHintTimer=0, flScanning=false, natDet=null, natTried=false, zxTried=false, qrTried=false;
-let flCanvas=null, flCtx=null, flProbe=null, flProbeCtx=null;
+let flCanvas=null, flCtx=null, flProbe=null, flProbeCtx=null, flSharp=null, flSharpCtx=null;
 function flMsg(kind, html){
   const el = document.getElementById("flMsg");
   if(el) el.innerHTML = html ? '<div class="fl-msg '+kind+'">'+html+'</div>' : "";
@@ -5164,6 +5172,37 @@ async function getNativeDetector(){
     natDet = new window.BarcodeDetector({formats:want});
   }catch(e){ natDet = null; }
   return natDet;
+}
+// 화면이 얼마나 또렷한지 재서 0~100 으로 돌려준다.
+// 초점이 나가면 QR 은 통째로 안 읽히는데, 사용자는 화면만 봐서는 그걸 모른다.
+// 실측(이웃 픽셀 차이 평균): 또렷 21 · 1px흐림 20 · 2px 16 · 3px 13 · 4px 10
+function sharpness(v){
+  try{
+    if(!flProbe){
+      flProbe = document.createElement("canvas"); flProbe.width = flProbe.height = 16;
+      flProbeCtx = flProbe.getContext("2d", {willReadFrequently:true});
+    }
+    if(!flSharp){
+      flSharp = document.createElement("canvas"); flSharp.width = flSharp.height = 256;
+      flSharpCtx = flSharp.getContext("2d", {willReadFrequently:true});
+    }
+    const w = v.videoWidth, h = v.videoHeight;
+    if(!w || !h) return -1;
+    const side = Math.min(w,h) * 0.75;              // 안내 네모 안쪽만 본다
+    flSharpCtx.imageSmoothingEnabled = true;
+    flSharpCtx.drawImage(v, (w-side)/2, (h-side)/2, side, side, 0, 0, 256, 256);
+    const a = flSharpCtx.getImageData(0,0,256,256).data;
+    let sum = 0, cnt = 0;
+    for(let y=1;y<255;y+=2){
+      for(let x=1;x<255;x+=2){
+        const i = (y*256+x)*4;
+        sum += Math.abs(a[i]-a[i+4]) + Math.abs(a[i]-a[i+1024]);
+        cnt++;
+      }
+    }
+    const g = sum/cnt;                               // 10(아주 흐림) ~ 21(또렷)
+    return Math.max(0, Math.min(100, Math.round((g-9) * 100/11)));
+  }catch(e){ return -1; }
 }
 // 카메라 그림이 실제로 넘어오고 있는지 보는 값 (0 이면 화면이 캔버스로 안 넘어온다는 뜻)
 function frameBrightness(v){
@@ -5449,8 +5488,17 @@ async function pickEngine(){
     read: async v=>{
       const vw = v.videoWidth, vh = v.videoHeight;
       tries++;
-      // 화면 아래에 상태를 계속 적어 둔다. 안 읽힐 때 이 줄만 보면 원인을 안다.
-      setEngine(label() + " · " + tries + "회 · " + (vw||0) + "×" + (vh||0) + " · 밝기 " + frameBrightness(v));
+      // 초점이 맞았는지를 가장 크게 알려준다. 흐리면 QR 은 아무리 커도 안 읽히는데
+      // 사용자는 화면만 봐서는 그걸 모르기 때문이다.
+      const sh = sharpness(v);
+      let head;
+      if(sh < 0)       head = "카메라 화면을 기다리는 중…";
+      else if(sh >= 55) head = "✅ 또렷해요 — 그대로 들고 계세요";
+      else if(sh >= 32) head = "⚠️ 조금 흐려요 — 화면을 톡 누르거나 손을 살짝 움직여보세요";
+      else              head = "❌ 흐려서 못 읽어요 — 화면을 <u>톡 누르고</u> 조금 <u>멀리</u> 떼주세요";
+      setEngine('<div style="font-size:13px;">' + head + '</div>' +
+        '<div style="opacity:.75;">또렷함 ' + (sh<0?"-":sh) + '/100 · ' + label() +
+        ' · ' + tries + '회 · ' + (vw||0) + '×' + (vh||0) + ' · 밝기 ' + frameBrightness(v) + '</div>');
       if(!vw || !vh) return null;   // 아직 카메라 화면 크기가 안 잡혔다
       // ① 기기 내장 인식기부터 (빠르다)
       const a = await askNative(v);
@@ -5659,15 +5707,23 @@ document.getElementById("flVideo").addEventListener("click", e=>{
 document.getElementById("flPhotoBtn").addEventListener("click", ()=>{
   stopScan(); document.getElementById("flPhotoInput").click();
 });
-document.getElementById("flPhotoInput").addEventListener("change", async e=>{
+// 📸 찍어서 읽기 — 폰의 사진 앱으로 직접 찍는다.
+// 사진 앱은 초점을 제대로 잡아주기 때문에, 미리보기가 흐려 안 읽히는 폰에서도 이 길은 통한다.
+function openShot(){ stopScan(); document.getElementById("flShotInput").click(); }
+document.getElementById("flShotBtn").addEventListener("click", openShot);
+document.getElementById("flShotBtn2").addEventListener("click", openShot);
+async function handlePhoto(e){
   const f = e.target.files && e.target.files[0];
   e.target.value = "";
   if(!f) return;
   flMsg("info","🔍 사진에서 탑승권 코드를 찾는 중이에요…");
   const raw = await decodeImageFile(f);
   if(raw) onDecoded(raw);
-  else flMsg("warn","😢 사진에서 코드를 찾지 못했어요. 바코드가 <b>화면에 꽉 차게, 반듯하게</b> 나오도록 다시 찍어보시거나 <b>[⌨️ 직접 입력]</b>을 이용해주세요.");
-});
+  else flMsg("warn","😢 사진에서 코드를 찾지 못했어요. 코드가 <b>사진에 꽉 차게, 반듯하게, 또렷하게</b> 나오도록 "+
+    "다시 찍어보세요(찍기 전에 <b>코드를 한 번 눌러</b> 초점을 맞추면 확실합니다). 그래도 안 되면 <b>[⌨️ 직접 입력]</b>을 이용해주세요.");
+}
+document.getElementById("flPhotoInput").addEventListener("change", handlePhoto);
+document.getElementById("flShotInput").addEventListener("change", handlePhoto);
 document.getElementById("flManualBtn").addEventListener("click", ()=>{
   stopScan();
   flDraft = {car:"", fno:"", from:"CJU", to:"GMP", date:"", dep:"", seat:"", pnr:"", pax:"", src:"manual"};
