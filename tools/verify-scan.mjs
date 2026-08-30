@@ -9,6 +9,7 @@
  *   1) 인식기 파일(lib/)이 제대로 읽히는지
  *   2) 시험 이미지 한 장 한 장을 실제 스캔 경로로 돌려 인식되는지
  *   3) 캔버스로 가짜 카메라를 만들어 실시간 스캔 전체 흐름이 도는지
+ *   4) 안드로이드 기기 내장 인식기가 고장 났을 때 ZXing 으로 넘어가는지
  *
  * 이 컨테이너에는 카메라가 없어서 getUserMedia 가 NotFoundError 를 낸다.
  * 그래서 3)은 캔버스 captureStream 으로 진짜 MediaStream 을 만들어 대신 물린다.
@@ -51,7 +52,7 @@ if (!ready.zx && !ready.jq) { console.error('\n인식기를 못 읽었습니다.
 // 2) 시험 이미지별 인식
 const files = fs.readdirSync(DIR).filter(f => f.endsWith('.png')).sort();
 let ok = 0;
-console.log('\n이미지별 인식 (실제 스캔과 같은 방식으로 5가지를 번갈아 시도)');
+console.log('\n이미지별 인식 (실제 스캔과 같은 방식으로 여러 갈래를 번갈아 시도)');
 for (const f of files) {
   const b64 = fs.readFileSync(path.join(DIR, f)).toString('base64');
   const got = await page.evaluate(async (b64) => {
@@ -59,7 +60,7 @@ for (const f of files) {
     await new Promise(r => { img.onload = r; img.src = 'data:image/png;base64,' + b64; });
     for (let i = 0; i < SCAN_PASSES.length; i++) {
       const ps = SCAN_PASSES[i];
-      const c = grabCanvas(img, img.width, img.height, ps.zoom, ps.boost, ps.full);
+      const c = grabCanvas(img, img.width, img.height, ps);
       const raw = c ? (zxDecodeCanvas(window.ZXing, c, ps.bin) || jsqrCanvas()) : null;
       if (raw) return raw;
     }
@@ -91,5 +92,38 @@ for (let i = 0; i < 40 && !draft; i++) {
 console.log('\n실시간 카메라 흐름:', draft ? ('✅ ' + draft) : '❌ 16초 안에 인식 실패');
 console.log('스캔 자동 종료:', await page.evaluate(() => !flScanning) ? '✅' : '❌');
 console.log('\n자바스크립트 오류:', errs.length ? errs.join(' | ') : '없음');
+await page.close();
+
+// 4) 안드로이드 기기 내장 인식기가 "고장 난" 경우 ZXing 으로 넘어가는지
+//    (Play 서비스 바코드 부품이 없으면 오류도 없이 빈손만 계속 돌려준다.
+//     예전에는 여기서 갈아탈 방법이 없어 아무리 비춰도 영영 안 읽혔다.)
+console.log('\n기기 내장 인식기가 고장 났을 때');
+for (const [name, body] of [
+  ['빈손만 돌려줌', 'async detect(){ return []; }'],
+  ['오류를 던짐',   "async detect(){ throw new Error('service unavailable'); }"],
+]) {
+  const p2 = await browser.newPage({ viewport: { width: 400, height: 900 } });
+  await p2.addInitScript(`class BD{ static async getSupportedFormats(){ return ['qr_code','pdf417','aztec']; }
+    constructor(){} ${body} } window.BarcodeDetector = BD;`);
+  await p2.goto(BASE, { waitUntil: 'domcontentloaded' });
+  await p2.waitForTimeout(1200);
+  await p2.evaluate(async (b64) => {
+    const img = new Image();
+    await new Promise(r => { img.onload = r; img.src = 'data:image/png;base64,' + b64; });
+    const cv = document.createElement('canvas'); cv.width = 1280; cv.height = 720;
+    const g = cv.getContext('2d');
+    (function draw() { g.drawImage(img, 0, 0, 1280, 720); requestAnimationFrame(draw); })();
+    navigator.mediaDevices.getUserMedia = async () => cv.captureStream(15);
+  }, camImg);
+  await p2.click('#flightBtn');
+  await p2.click('#flScanBtn');
+  let got = null;
+  for (let i = 0; i < 40 && !got; i++) {
+    await p2.waitForTimeout(400);
+    got = await p2.evaluate(() => flDraft ? (flDraft.car + flDraft.fno) : null);
+  }
+  console.log('  ', name.padEnd(12), got ? ('✅ ZXing 으로 넘어가 읽음 ' + got) : '❌ 16초 안에 못 읽음');
+  await p2.close();
+}
 await browser.close();
 process.exit(ok === files.length && draft && !errs.length ? 0 : 0);

@@ -718,7 +718,7 @@
       </div>
 
     </div>
-    <p class="fl-ver">화면 버전 <b>2026-08-30c</b> · 이 숫자가 안 보이면 예전 화면이니 새로고침해주세요</p>
+    <p class="fl-ver">화면 버전 <b>2026-08-30d</b> · 이 숫자가 안 보이면 예전 화면이니 새로고침해주세요</p>
     <div class="modal-actions">
       <button id="fl_close" style="background:#F1F4F3;border:1.5px solid var(--line);color:#5C6664;">닫기</button>
     </div>
@@ -5163,15 +5163,22 @@ async function ensureJsQR(){
   return null;
 }
 // 한 번에 안 읽히는 경우가 많아서, 프레임마다 다른 방식으로 돌려가며 시도한다.
-// (있는 그대로 / 가운데를 확대 / 밝기 차이를 벌려서 / 이진화 방식을 바꿔서)
+// 실제 t'way 종이 탑승권 사진으로 확인한 결과 아래 세 갈래가 다 필요했다.
+//   - adap : 자리마다 밝기를 따로 재서 검정/흰색을 가른다 (번들거림·굽은 종이·흐린 인쇄)
+//   - max  : 줄이는 크기를 갈래마다 다르게 한다 (같은 사진도 크기에 따라 읽히고 안 읽힌다)
+//   - zoom : 가운데만 확대한다 (코드가 멀리서 작게 잡힐 때)
 const SCAN_MAX = 1600;      // 보통은 이 크기로 줄여서 본다 (빠르다)
-const SCAN_MAX_FULL = 2560; // full 갈래만 줄이지 않고 본다 (작은 코드에 필요)
+const SCAN_MAX_FULL = 2560; // 사진 갈래에서 줄이지 않고 한 번 더 본다 (작은 코드에 필요)
 const SCAN_PASSES = [
-  {bin:"h", zoom:1,   boost:0},
-  {bin:"h", zoom:1.8, boost:0},
-  {bin:"g", zoom:1,   boost:0, full:1},
-  {bin:"h", zoom:1,   boost:1},
-  {bin:"g", zoom:1.8, boost:0}
+  {bin:"h", zoom:1                     },  // 1. 있는 그대로
+  {bin:"h", zoom:1,   adap:16          },  // 2. 자리별 밝기 보정  ★ 실제 종이 탑승권에서 가장 잘 먹힌다
+  {bin:"h", zoom:1.8                   },  // 3. 가운데만 확대
+  {bin:"h", zoom:1,   adap:28, max:1100},  // 4. 자리별 보정 + 많이 줄여서 (초점이 나간 사진)
+  {bin:"g", zoom:1,           max:2560 },  // 5. 줄이지 않고 원본 크기로
+  {bin:"h", zoom:1,   boost:1          },  // 6. 화면 전체의 밝기 차이를 벌려서
+  {bin:"h", zoom:1,   adap:12, max:1400},  // 7. 자리별 보정(좁은 창) + 조금 줄여서
+  {bin:"g", zoom:1.8                   },  // 8. 가운데 확대 + 다른 이진화
+  {bin:"h", zoom:1.4, adap:20          }   // 9. 살짝 확대 + 자리별 보정
 ];
 let flPass = 0;
 function nextPass(){ return SCAN_PASSES[(flPass++) % SCAN_PASSES.length]; }
@@ -5189,18 +5196,51 @@ function boostContrast(){
     flCtx.putImageData(d,0,0);
   }catch(e){}
 }
+// 자리마다 밝기를 따로 재서 검정/흰색을 가른다.
+// 형광등 번들거림·굽은 종이·그림자처럼 "한쪽은 밝고 한쪽은 어두운" 사진에 강하다.
+// 화면 전체를 한꺼번에 늘리는 boostContrast 로는 못 잡는 경우를 이게 잡아준다.
+// (적분영상을 써서 창이 아무리 커도 픽셀당 한 번만 계산한다)
+function adaptiveBin(win, pct){
+  try{
+    const w = flCanvas.width, h = flCanvas.height;
+    if(!w || !h) return;
+    const d = flCtx.getImageData(0,0,w,h), a = d.data, n = w*h;
+    const gray = new Uint8Array(n);
+    for(let i=0,p=0; p<n; p++, i+=4) gray[p] = (a[i]*77 + a[i+1]*151 + a[i+2]*28) >> 8;
+    const S = new Int32Array((w+1)*(h+1));
+    for(let y=0; y<h; y++){
+      let run = 0; const o = (y+1)*(w+1), o0 = y*(w+1), row = y*w;
+      for(let x=0; x<w; x++){ run += gray[row+x]; S[o+x+1] = S[o0+x+1] + run; }
+    }
+    const r = Math.max(4, Math.round(Math.min(w,h)/win));
+    for(let y=0; y<h; y++){
+      const y0 = y-r<0?0:y-r, y1 = y+r>h-1?h-1:y+r, rh = y1-y0+1;
+      const A = y0*(w+1), B = (y1+1)*(w+1), row = y*w;
+      for(let x=0; x<w; x++){
+        const x0 = x-r<0?0:x-r, x1 = x+r>w-1?w-1:x+r;
+        const sum = S[B+x1+1] - S[A+x1+1] - S[B+x0] + S[A+x0];
+        const i = (row+x) << 2;
+        a[i] = a[i+1] = a[i+2] = (gray[row+x]*rh*(x1-x0+1)*100 < sum*pct) ? 0 : 255;
+      }
+    }
+    flCtx.putImageData(d,0,0);
+  }catch(e){}
+}
 // 영상 프레임을 한 장 떠서 캔버스에 올린다. 인식기 셋 다 이 캔버스를 같이 쓴다.
-function grabCanvas(src, w, h, zoom, boost, full){
+// ps 는 SCAN_PASSES 의 한 갈래 {zoom, max, boost, adap} — 없으면 있는 그대로 뜬다.
+function grabCanvas(src, w, h, ps){
   if(!w || !h) return null;
-  zoom = zoom || 1;
+  ps = ps || {};
+  const zoom = ps.zoom || 1;
   if(!flCanvas){ flCanvas = document.createElement("canvas"); flCtx = flCanvas.getContext("2d", {willReadFrequently:true}); }
   const sw = w/zoom, sh = h/zoom, sx = (w-sw)/2, sy = (h-sh)/2;
-  const sc = Math.min(1, (full ? SCAN_MAX_FULL : SCAN_MAX)/Math.max(sw,sh));
+  const sc = Math.min(1, (ps.max || SCAN_MAX)/Math.max(sw,sh));
   flCanvas.width = Math.round(sw*sc); flCanvas.height = Math.round(sh*sc);
   try{
     flCtx.imageSmoothingEnabled = true;
     flCtx.drawImage(src, sx, sy, sw, sh, 0, 0, flCanvas.width, flCanvas.height);
-    if(boost) boostContrast();
+    if(ps.boost) boostContrast();
+    if(ps.adap) adaptiveBin(ps.adap, ps.pct || 96);
     return flCanvas;
   }catch(e){ return null; }
 }
@@ -5285,19 +5325,44 @@ function onDecoded(raw){
 // 인식기가 셋(내장·ZXing·jsQR)이지만 화면을 읽는 방식은 하나로 통일한다.
 // ZXing 자체 영상 기능은 video 의 'playing' 이벤트를 기다리는데, 우리가 카메라를 먼저 켜두면
 // 그 이벤트가 이미 지나가 버려서 영원히 시작되지 않는다. 그래서 프레임을 직접 넘겨준다.
+// 한 프레임을 ZXing/jsQR 갈래로 한 번 훑는다 (갈래는 프레임마다 돌아가며 바뀐다)
+function zxScanFrame(v){
+  const Z = window.ZXing;
+  const ps = nextPass();
+  const c = grabCanvas(v, v.videoWidth, v.videoHeight, ps);
+  if(!c) return null;
+  return ((Z && flReader) ? zxDecodeCanvas(Z, c, ps.bin) : null) || jsqrCanvas();
+}
+// 내장 인식기가 계속 못 읽으면 이만큼 지나서부터 ZXing 갈래도 같이 돌린다 (프레임 수)
+const NATIVE_GRACE = 8;
 async function pickEngine(){
   const det = await getNativeDetector();
-  if(det) return {
-    label:"🟢 기기 내장 인식기 · QR코드와 종이 탑승권 바코드 모두 읽습니다", gap:120,
-    read: async v=>{
-      let c = await det.detect(v);
-      if(c && c.length && c[0].rawValue) return c[0].rawValue;
-      // 코드가 작게 잡힐 때를 대비해 가운데를 확대해서 한 번 더
-      const z = grabCanvas(v, v.videoWidth, v.videoHeight, 1.8, 0);
-      if(z){ c = await det.detect(z); if(c && c.length && c[0].rawValue) return c[0].rawValue; }
-      return null;
-    }
-  };
+  if(det){
+    // 안드로이드 기기 내장 인식기는 빠르지만, Play 서비스의 바코드 부품이 안 깔려 있으면
+    // 오류도 없이 "못 찾았다"만 계속 돌려준다. 예전에는 여기서 갈아탈 방법이 없어
+    // 아무리 비춰도 영영 안 읽혔다. 그래서 ZXing 을 뒤에서 미리 받아두고,
+    // 내장으로 1초쯤 안 되면 같은 프레임을 ZXing 갈래로도 훑는다.
+    let miss = 0;
+    ensureZXing().then(Z=>{   // 스캔을 이미 멈췄으면 만들지 않는다 (정리 못 한 채로 남는다)
+      if(Z && flScanning && !flReader){ try{ flReader = new Z.BrowserMultiFormatReader(zxHints(Z), 200); }catch(e){} }
+    });
+    ensureJsQR();
+    return {
+      label:"🟢 기기 내장 인식기 · QR코드와 종이 탑승권 바코드 모두 읽습니다", gap:120,
+      read: async v=>{
+        try{
+          let c = await det.detect(v);
+          if(c && c.length && c[0].rawValue) return c[0].rawValue;
+          // 코드가 작게 잡힐 때를 대비해 가운데를 확대해서 한 번 더
+          const z = grabCanvas(v, v.videoWidth, v.videoHeight, {zoom:1.8});
+          if(z){ c = await det.detect(z); if(c && c.length && c[0].rawValue) return c[0].rawValue; }
+        }catch(e){}   // 내장 인식기가 아예 동작하지 않는 기기도 있다 → 아래 갈래로 넘어간다
+        if(++miss <= NATIVE_GRACE) return null;
+        if(miss === NATIVE_GRACE+1) setEngine("🟢 기기 내장 + ZXing 인식기를 함께 씁니다");
+        return zxScanFrame(v);
+      }
+    };
+  }
   setEngine("⏳ 인식기를 불러오는 중…");
   const Z = await ensureZXing();
   if(Z){
@@ -5306,22 +5371,14 @@ async function pickEngine(){
       ensureJsQR();   // 뒤에서 같이 받아둔다. 받아지면 프레임마다 한 번 더 봐준다
       return {
         label:"🟢 ZXing 인식기 · QR코드와 종이 탑승권 바코드 모두 읽습니다", gap:150,
-        read: v=>{
-          const ps = nextPass();
-          const c = grabCanvas(v, v.videoWidth, v.videoHeight, ps.zoom, ps.boost, ps.full);
-          if(!c) return null;
-          return zxDecodeCanvas(Z, c, ps.bin) || jsqrCanvas();
-        }
+        read: v=>zxScanFrame(v)
       };
     }catch(e){ flReader = null; }
   }
   const J = await ensureJsQR();
   if(J) return {
     label:"🟡 QR 전용 인식기 · 종이 탑승권의 긴 바코드는 <b>[⌨️ 직접 입력]</b>을 이용해주세요", gap:120,
-    read: v=>{
-      const ps = nextPass();
-      return grabCanvas(v, v.videoWidth, v.videoHeight, ps.zoom, ps.boost, ps.full) ? jsqrCanvas() : null;
-    }
+    read: v=>zxScanFrame(v)
   };
   return null;
 }
@@ -5436,8 +5493,8 @@ async function decodeImageFile(file){
     // 줄인 화면과 원본 화면 둘 다 본다. 줄이면 흔들림·노이즈가 눌려서 오히려 잘 읽히는 경우가 있다
     for(const full of [0,1]){
       for(let i=0;i<SCAN_PASSES.length;i++){
-        const ps = SCAN_PASSES[i];
-        const c = grabCanvas(bmp, bmp.width, bmp.height, ps.zoom, ps.boost, full);
+        const ps = full ? Object.assign({}, SCAN_PASSES[i], {max:SCAN_MAX_FULL}) : SCAN_PASSES[i];
+        const c = grabCanvas(bmp, bmp.width, bmp.height, ps);
         if(!c) continue;
         const raw = (Z ? zxDecodeCanvas(Z, c, ps.bin) : null) || jsqrCanvas();
         if(raw){ try{ bmp.close(); }catch(e){} return raw; }
