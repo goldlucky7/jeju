@@ -718,7 +718,7 @@
       </div>
 
     </div>
-    <p class="fl-ver">화면 버전 <b>2026-08-30d</b> · 이 숫자가 안 보이면 예전 화면이니 새로고침해주세요</p>
+    <p class="fl-ver">화면 버전 <b>2026-08-30e</b> · 이 숫자가 안 보이면 예전 화면이니 새로고침해주세요</p>
     <div class="modal-actions">
       <button id="fl_close" style="background:#F1F4F3;border:1.5px solid var(--line);color:#5C6664;">닫기</button>
     </div>
@@ -5119,7 +5119,7 @@ const QR_LIBS = [
   "https://unpkg.com/jsqr@1.4.0/dist/jsQR.js"
 ];
 let flStream=null, flReader=null, flRaf=0, flTimer=0, flHintTimer=0, flScanning=false, natDet=null, natTried=false, zxTried=false, qrTried=false;
-let flCanvas=null, flCtx=null;
+let flCanvas=null, flCtx=null, flProbe=null, flProbeCtx=null;
 function flMsg(kind, html){
   const el = document.getElementById("flMsg");
   if(el) el.innerHTML = html ? '<div class="fl-msg '+kind+'">'+html+'</div>' : "";
@@ -5132,17 +5132,47 @@ function loadScript(src){
     document.head.appendChild(t);
   });
 }
+// 답이 늦으면 그냥 포기하고 넘어간다.
+// 안드로이드 기기 내장 인식기는 Play 서비스의 바코드 부품이 없거나 받는 중일 때
+// 오류도 안 내고 **영영 답을 안 주는** 경우가 있다. 그걸 그냥 기다리면
+// 스캔이 시작조차 못 하고 카메라 화면만 떠 있게 된다 (실제로 겪은 문제).
+const TIMED_OUT = {};   // "제한 시간을 넘겼다"는 표식 (그냥 못 읽은 것과 구분하려고)
+function withTimeout(p, ms, fallback){
+  return new Promise(ok=>{
+    let done = false;
+    const t = setTimeout(()=>{ if(!done){ done = true; ok(fallback); } }, ms);
+    Promise.resolve(p).then(
+      v=>{ if(!done){ done = true; clearTimeout(t); ok(v); } },
+      ()=>{ if(!done){ done = true; clearTimeout(t); ok(fallback); } }
+    );
+  });
+}
 async function getNativeDetector(){
   if(natTried) return natDet;
   natTried = true;
   try{
     if(!("BarcodeDetector" in window)) return null;
-    const sup = await window.BarcodeDetector.getSupportedFormats();
+    const sup = await withTimeout(window.BarcodeDetector.getSupportedFormats(), 2000, null);
+    if(!sup) return null;   // 제때 답이 없으면 없는 셈 치고 우리 인식기로 간다
     const want = ["pdf417","aztec","qr_code","data_matrix","code_128"].filter(f=>sup.indexOf(f)>=0);
     if(!want.length) return null;
     natDet = new window.BarcodeDetector({formats:want});
   }catch(e){ natDet = null; }
   return natDet;
+}
+// 카메라 그림이 실제로 넘어오고 있는지 보는 값 (0 이면 화면이 캔버스로 안 넘어온다는 뜻)
+function frameBrightness(v){
+  try{
+    if(!flProbe){
+      flProbe = document.createElement("canvas"); flProbe.width = flProbe.height = 16;
+      flProbeCtx = flProbe.getContext("2d", {willReadFrequently:true});
+    }
+    flProbeCtx.drawImage(v, 0, 0, 16, 16);
+    const a = flProbeCtx.getImageData(0,0,16,16).data;
+    let sum = 0;
+    for(let i=0;i<a.length;i+=4) sum += a[i];
+    return Math.round(sum/(a.length/4));
+  }catch(e){ return -1; }
 }
 async function ensureZXing(){
   if(window.ZXing) return window.ZXing;
@@ -5325,62 +5355,59 @@ function onDecoded(raw){
 // 인식기가 셋(내장·ZXing·jsQR)이지만 화면을 읽는 방식은 하나로 통일한다.
 // ZXing 자체 영상 기능은 video 의 'playing' 이벤트를 기다리는데, 우리가 카메라를 먼저 켜두면
 // 그 이벤트가 이미 지나가 버려서 영원히 시작되지 않는다. 그래서 프레임을 직접 넘겨준다.
-// 한 프레임을 ZXing/jsQR 갈래로 한 번 훑는다 (갈래는 프레임마다 돌아가며 바뀐다)
-function zxScanFrame(v){
-  const Z = window.ZXing;
-  const ps = nextPass();
-  const c = grabCanvas(v, v.videoWidth, v.videoHeight, ps);
-  if(!c) return null;
-  return ((Z && flReader) ? zxDecodeCanvas(Z, c, ps.bin) : null) || jsqrCanvas();
-}
-// 내장 인식기가 계속 못 읽으면 이만큼 지나서부터 ZXing 갈래도 같이 돌린다 (프레임 수)
-const NATIVE_GRACE = 8;
+// 인식기를 하나로 합쳐서 돌린다.
+// 예전에는 기기 내장 인식기가 있으면 그것만 썼는데, 그게 조용히 죽으면
+// (답이 없거나 · 빈손만 주거나 · 오류를 던지거나) 손쓸 방법이 없었다.
+// 이제는 **매 프레임 내장 → 우리 인식기 순으로 둘 다** 돌린다.
 async function pickEngine(){
-  const det = await getNativeDetector();
-  if(det){
-    // 안드로이드 기기 내장 인식기는 빠르지만, Play 서비스의 바코드 부품이 안 깔려 있으면
-    // 오류도 없이 "못 찾았다"만 계속 돌려준다. 예전에는 여기서 갈아탈 방법이 없어
-    // 아무리 비춰도 영영 안 읽혔다. 그래서 ZXing 을 뒤에서 미리 받아두고,
-    // 내장으로 1초쯤 안 되면 같은 프레임을 ZXing 갈래로도 훑는다.
-    let miss = 0;
-    ensureZXing().then(Z=>{   // 스캔을 이미 멈췄으면 만들지 않는다 (정리 못 한 채로 남는다)
-      if(Z && flScanning && !flReader){ try{ flReader = new Z.BrowserMultiFormatReader(zxHints(Z), 200); }catch(e){} }
-    });
-    ensureJsQR();
-    return {
-      label:"🟢 기기 내장 인식기 · QR코드와 종이 탑승권 바코드 모두 읽습니다", gap:120,
-      read: async v=>{
-        try{
-          let c = await det.detect(v);
-          if(c && c.length && c[0].rawValue) return c[0].rawValue;
-          // 코드가 작게 잡힐 때를 대비해 가운데를 확대해서 한 번 더
-          const z = grabCanvas(v, v.videoWidth, v.videoHeight, {zoom:1.8});
-          if(z){ c = await det.detect(z); if(c && c.length && c[0].rawValue) return c[0].rawValue; }
-        }catch(e){}   // 내장 인식기가 아예 동작하지 않는 기기도 있다 → 아래 갈래로 넘어간다
-        if(++miss <= NATIVE_GRACE) return null;
-        if(miss === NATIVE_GRACE+1) setEngine("🟢 기기 내장 + ZXing 인식기를 함께 씁니다");
-        return zxScanFrame(v);
-      }
-    };
-  }
-  setEngine("⏳ 인식기를 불러오는 중…");
+  setEngine("⏳ 인식기를 준비하는 중…");
+  let det = await getNativeDetector();
+  // 내장이 있든 없든 ZXing·jsQR 은 항상 준비한다
   const Z = await ensureZXing();
-  if(Z){
-    try{
-      flReader = new Z.BrowserMultiFormatReader(zxHints(Z), 200);
-      ensureJsQR();   // 뒤에서 같이 받아둔다. 받아지면 프레임마다 한 번 더 봐준다
-      return {
-        label:"🟢 ZXing 인식기 · QR코드와 종이 탑승권 바코드 모두 읽습니다", gap:150,
-        read: v=>zxScanFrame(v)
-      };
-    }catch(e){ flReader = null; }
-  }
-  const J = await ensureJsQR();
-  if(J) return {
-    label:"🟡 QR 전용 인식기 · 종이 탑승권의 긴 바코드는 <b>[⌨️ 직접 입력]</b>을 이용해주세요", gap:120,
-    read: v=>zxScanFrame(v)
+  if(Z && !flReader){ try{ flReader = new Z.BrowserMultiFormatReader(zxHints(Z), 200); }catch(e){ flReader = null; } }
+  await ensureJsQR();
+  if(!det && !flReader && !window.jsQR) return null;
+  let tries = 0, natTimeouts = 0, natOff = "";
+  const label = ()=>{
+    const names = [];
+    if(det) names.push("기기내장");
+    else if(natOff) names.push("기기내장(" + natOff + ")");
+    if(flReader) names.push("ZXing");
+    if(window.jsQR) names.push("QR전용");
+    return "🟢 인식기: " + names.join(" + ");
   };
-  return null;
+  // 내장 인식기에 화면 한 장을 보여준다. 제한 시간을 넘기면 두 번까지만 봐주고 끈다.
+  // (답이 없는 기기에서 매 프레임 3초씩 까먹으면 우리 인식기가 돌 기회가 줄어든다)
+  const askNative = async src=>{
+    if(!det) return null;
+    const c = await withTimeout(det.detect(src), 1200, TIMED_OUT);
+    if(c === TIMED_OUT){
+      if(++natTimeouts >= 2){ det = null; natOff = "응답없음·끔"; }
+      return null;
+    }
+    return (c && c.length && c[0].rawValue) ? c[0].rawValue : null;
+  };
+  return {
+    label: label(), gap: 60,
+    read: async v=>{
+      const vw = v.videoWidth, vh = v.videoHeight;
+      tries++;
+      // 화면 아래에 상태를 계속 적어 둔다. 안 읽힐 때 이 줄만 보면 원인을 안다.
+      setEngine(label() + " · " + tries + "회 · " + (vw||0) + "×" + (vh||0) + " · 밝기 " + frameBrightness(v));
+      if(!vw || !vh) return null;   // 아직 카메라 화면 크기가 안 잡혔다
+      // ① 기기 내장 인식기부터 (빠르다)
+      const a = await askNative(v);
+      if(a) return a;
+      // ② 우리 인식기 — 프레임마다 다른 갈래로 화면을 다듬어서 본다
+      const ps = nextPass();
+      const cv = grabCanvas(v, vw, vh, ps);
+      if(!cv) return null;
+      // 다듬은 화면(확대·밝기 보정)을 내장 인식기에도 한 번 더 보여준다
+      const b = await askNative(cv);
+      if(b) return b;
+      return ((window.ZXing && flReader) ? zxDecodeCanvas(window.ZXing, cv, ps.bin) : null) || jsqrCanvas();
+    }
+  };
 }
 async function startScan(){
   flMsg("",""); setEngine("");

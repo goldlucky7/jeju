@@ -98,12 +98,17 @@ await page.close();
 //    (Play 서비스 바코드 부품이 없으면 오류도 없이 빈손만 계속 돌려준다.
 //     예전에는 여기서 갈아탈 방법이 없어 아무리 비춰도 영영 안 읽혔다.)
 console.log('\n기기 내장 인식기가 고장 났을 때');
-for (const [name, body] of [
-  ['빈손만 돌려줌', 'async detect(){ return []; }'],
-  ['오류를 던짐',   "async detect(){ throw new Error('service unavailable'); }"],
+for (const [name, body, formats] of [
+  ['빈손만 돌려줌', 'async detect(){ return []; }', null],
+  ['오류를 던짐',   "async detect(){ throw new Error('service unavailable'); }", null],
+  // 가장 고약한 경우: 오류도 없이 영영 답을 안 준다 (Play 서비스 바코드 부품이 없을 때)
+  ['답이 영영 없음', 'async detect(){ return new Promise(()=>{}); }', null],
+  ['형식 조회부터 답이 없음', 'async detect(){ return []; }',
+   'static async getSupportedFormats(){ return new Promise(()=>{}); }'],
 ]) {
   const p2 = await browser.newPage({ viewport: { width: 400, height: 900 } });
-  await p2.addInitScript(`class BD{ static async getSupportedFormats(){ return ['qr_code','pdf417','aztec']; }
+  const fmt = formats || "static async getSupportedFormats(){ return ['qr_code','pdf417','aztec']; }";
+  await p2.addInitScript(`class BD{ ${fmt}
     constructor(){} ${body} } window.BarcodeDetector = BD;`);
   await p2.goto(BASE, { waitUntil: 'domcontentloaded' });
   await p2.waitForTimeout(1200);
@@ -122,7 +127,7 @@ for (const [name, body] of [
     await p2.waitForTimeout(400);
     got = await p2.evaluate(() => flDraft ? (flDraft.car + flDraft.fno) : null);
   }
-  console.log('  ', name.padEnd(12), got ? ('✅ ZXing 으로 넘어가 읽음 ' + got) : '❌ 16초 안에 못 읽음');
+  console.log('  ', name.padEnd(14), got ? ('✅ ZXing 으로 넘어가 읽음 ' + got) : '❌ 16초 안에 못 읽음');
   await p2.close();
 }
 await browser.close();
