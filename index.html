@@ -17,24 +17,27 @@
   body{font-family:'Noto Sans KR',sans-serif;background:var(--paper);color:var(--basalt);line-height:1.6;}
   header{
     background:linear-gradient(160deg,var(--sea-deep) 0%,var(--sea) 60%,#1E8FA5 100%);
-    color:#fff;padding:44px 20px 30px;position:relative;overflow:hidden;
+    color:#fff;padding:28px 20px 22px;position:relative;overflow:hidden;
   }
   header::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:26px;
     background:radial-gradient(circle at 10px -6px, transparent 14px, var(--paper) 15px);
     background-size:40px 26px;}
-  .h-eyebrow{font-size:13px;letter-spacing:4px;color:var(--canola);font-weight:700;margin-bottom:8px;}
-  h1{font-family:'Gowun Batang',serif;font-size:clamp(28px,6vw,44px);font-weight:700;letter-spacing:-1px;}
+  .h-eyebrow{font-size:11.5px;letter-spacing:3px;color:var(--canola);font-weight:700;margin-bottom:8px;}
+  h1{font-family:'Gowun Batang',serif;font-size:clamp(24px,5.6vw,34px);font-weight:700;letter-spacing:-1px;}
   h1 .dot{color:var(--tangerine);}
-  .h-sub{margin-top:10px;font-size:14px;opacity:.92;max-width:600px;}
+  .h-sub{margin-top:7px;font-size:13.5px;opacity:.92;max-width:600px;line-height:1.6;}
   .progress-wrap{margin:22px auto 6px;max-width:680px;background:rgba(255,255,255,.16);border-radius:999px;padding:5px;}
   .progress-bar{height:14px;border-radius:999px;width:0%;
     background:linear-gradient(90deg,var(--canola),var(--tangerine));
     transition:width .5s cubic-bezier(.22,1,.36,1);min-width:14px;}
   .progress-label{text-align:center;font-size:13px;margin-top:8px;font-weight:500;}
   .progress-label b{color:var(--canola);font-size:16px;}
-  nav{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:22px 16px 6px;position:sticky;top:0;background:rgba(247,250,249,.94);backdrop-filter:blur(6px);z-index:10;border-bottom:1px solid var(--line);}
-  .tab{border:1.5px solid var(--line);background:#fff;color:var(--basalt);
-    padding:8px 16px;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer;
+  nav{display:flex;gap:7px;flex-wrap:nowrap;overflow-x:auto;padding:11px 16px 10px;position:sticky;top:0;
+    background:rgba(247,250,249,.96);backdrop-filter:blur(8px);z-index:10;border-bottom:1px solid var(--line);
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+  nav::-webkit-scrollbar{display:none;}
+  .tab{flex:0 0 auto;white-space:nowrap;border:1.5px solid var(--line);background:#fff;color:var(--basalt);
+    padding:8px 15px;border-radius:999px;font-size:13.5px;font-weight:700;cursor:pointer;
     transition:all .18s;font-family:inherit;}
   .tab:hover{border-color:var(--sea);}
   .tab.active{background:var(--basalt);color:#fff;border-color:var(--basalt);}
@@ -65,6 +68,30 @@
   #filterBar .fb-cnt{font-size:11.5px;font-weight:900;color:var(--sea);}
   .no-result{text-align:center;color:#8A9490;padding:48px 16px;font-size:14px;line-height:1.7;}
   #zoneWrap{max-width:1080px;margin:14px auto 0;padding:0 16px;}
+  /* ── 내 여행 (꼭 가볼 곳 · 내 일정 · 갔다온 곳) ── */
+  #myRow{max-width:1080px;margin:14px auto 0;padding:0 16px;display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px;}
+  #myRow .tab .t-ico{font-size:21px;line-height:1;}
+  #myRow .tab .t-num{display:block;font-size:10.5px;font-weight:900;color:#8A9490;margin-top:1px;}
+  #myRow .tab.active .t-num{color:rgba(255,255,255,.85);}
+  #myRow .tab{flex:none;white-space:normal;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;gap:4px;min-height:62px;padding:9px 5px;border-radius:14px;
+    font-size:12.5px;font-weight:800;line-height:1.35;text-align:center;}
+  /* ── 도구 타일 ── */
+  #toolGrid{max-width:1080px;margin:12px auto 0;padding:0 16px;display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(112px,1fr));gap:8px;}
+  .tool{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:5px;min-height:76px;padding:10px 5px;border:1.5px solid var(--line);border-radius:14px;
+    background:#fff;font-family:inherit;font-size:12px;font-weight:800;color:var(--basalt);
+    cursor:pointer;line-height:1.35;text-align:center;transition:all .18s;}
+  .tool .t-ico{font-size:21px;line-height:1;}
+  .tool:hover{border-color:var(--sea);}
+  .tool.on{background:var(--tangerine);border-color:var(--tangerine);color:#fff;}
+  .tool .t-badge{position:absolute;top:6px;right:7px;background:var(--tangerine);color:#fff;
+    border-radius:999px;padding:1px 6px;font-size:10px;font-weight:900;}
+  /* ── 구역 제목 ── */
+  .sec-lab{max-width:1080px;margin:18px auto 7px;padding:0 16px;
+    font-size:12px;font-weight:900;color:#8A9490;letter-spacing:.3px;}
 
   #zoneGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px;}
   .zone-btn{border:1.5px solid var(--line);background:#fff;border-radius:14px;
@@ -77,12 +104,8 @@
   .zone-badge{display:inline-block;background:#FFF4EC;color:var(--tangerine);
     border:1px solid #FFDCC2;border-radius:8px;padding:2px 7px;
     font-size:10.5px;font-weight:900;margin-bottom:5px;}
-  #nearbyBtn{width:100%;margin-top:10px;border:none;border-radius:14px;
-    background:linear-gradient(135deg,#0E7490,#0891B2);color:#fff;
-    padding:14px;font-family:inherit;font-size:15px;font-weight:900;cursor:pointer;
-    box-shadow:0 4px 14px rgba(14,116,144,.3);}
-  #nearbyBtn.on{background:linear-gradient(135deg,#C2410C,#EA580C);
-    box-shadow:0 4px 14px rgba(234,88,12,.35);}
+
+
   .dist-badge{display:inline-block;background:#E6F7FA;color:#0E7490;
     border:1px solid #BAE6EF;border-radius:8px;padding:2px 7px;
     font-size:10.5px;font-weight:900;margin-bottom:5px;margin-left:4px;}
@@ -147,10 +170,7 @@
     border-radius:999px;padding:7px 16px;cursor:pointer;transition:all .15s;}
   .bk-btn:hover{border-color:var(--sea);background:var(--sea);color:#fff;}
   /* 장소 추가 버튼(플로팅) & 입력창 */
-  #fabAdd{position:fixed;right:16px;bottom:20px;z-index:50;
-    background:var(--tangerine);color:#fff;border:none;border-radius:999px;
-    padding:14px 20px;font-family:inherit;font-size:15px;font-weight:900;
-    box-shadow:0 6px 18px rgba(242,118,46,.4);cursor:pointer;}
+
   #addModal{position:fixed;inset:0;background:rgba(20,30,28,.55);z-index:60;
     display:none;align-items:center;justify-content:center;padding:20px;}
   #addModal.open{display:flex;}
@@ -164,9 +184,7 @@
     font-size:14px;font-weight:700;cursor:pointer;}
   #np_cancel{background:#F1F4F3;border:1.5px solid var(--line);color:#5C6664;}
   #np_save{background:var(--tangerine);border:none;color:#fff;}
-  #updBtn{width:100%;margin-top:10px;border:none;border-radius:14px;
-    padding:14px;font-family:inherit;font-size:14.5px;font-weight:900;cursor:pointer;color:#fff;
-    background:linear-gradient(135deg,#7C3AED,#DB2777);box-shadow:0 6px 18px rgba(124,58,237,.32);}
+
   #updBtn .u-sub{display:block;font-size:11.5px;font-weight:700;opacity:.9;margin-top:3px;}
   #updBtn .u-dot{display:inline-block;background:#FDE047;color:#7C3AED;border-radius:999px;
     padding:1px 7px;font-size:11px;font-weight:900;margin-left:5px;}
@@ -192,10 +210,7 @@
   .upd-btns .add{background:var(--tangerine);border-color:var(--tangerine);color:#fff;}
   .upd-btns .add[disabled]{background:#DDE4E2;border-color:#DDE4E2;color:#8A9490;cursor:default;}
   #updAddAll{background:linear-gradient(135deg,#7C3AED,#DB2777);border:none;color:#fff;}
-  #fabHours{position:fixed;left:16px;bottom:20px;z-index:50;
-    background:var(--sea);color:#fff;border:none;border-radius:999px;
-    padding:14px 18px;font-family:inherit;font-size:14px;font-weight:900;
-    box-shadow:0 6px 18px rgba(14,116,144,.4);cursor:pointer;}
+
   #lotteModal,#hoursModal{position:fixed;inset:0;background:rgba(20,30,28,.55);z-index:60;
     display:none;align-items:center;justify-content:center;padding:20px;}
   #lotteModal.open,#hoursModal.open{display:flex;}
@@ -224,8 +239,8 @@
   .meta a.tel-link{color:#0E7490;font-weight:700;text-decoration:none;}
   .meta a.tel-link:active{opacity:.6;}
 
-  .tab.tab-must{background:linear-gradient(135deg,#B45309,#F59E0B);color:#fff;border-color:transparent;font-weight:800;}
-  .tab.tab-must.active{background:linear-gradient(135deg,#92400E,#D97706);box-shadow:0 2px 8px rgba(180,83,9,.35);}
+  
+    #myRow .tab.tab-must.active{background:linear-gradient(135deg,#B45309,#F59E0B);border-color:transparent;}
   .must-star{position:absolute;left:10px;bottom:10px;background:linear-gradient(135deg,#B45309,#F59E0B);
     color:#fff;font-size:11px;font-weight:800;padding:3px 9px;border-radius:999px;
     box-shadow:0 2px 6px rgba(0,0,0,.22);letter-spacing:-.2px;}
@@ -359,9 +374,7 @@
     font-size:13px;font-weight:900;box-shadow:0 2px 8px rgba(0,0,0,.22);}
   .route-hop{position:absolute;left:10px;bottom:10px;font-size:11px;font-weight:800;
     background:rgba(0,0,0,.55);color:#fff;padding:3px 8px;border-radius:999px;}
-  #lotteBtn{display:block;width:100%;margin:10px 0 0;padding:14px;border-radius:14px;border:none;
-    background:linear-gradient(135deg,#D32F2F,#F57C00);color:#fff;font-size:15px;font-weight:800;cursor:pointer;
-    box-shadow:0 6px 18px rgba(211,47,47,.26);position:relative;z-index:11;}
+
   #lotteBtn .l-sub{display:block;margin-top:4px;font-size:11.5px;font-weight:600;opacity:.92;}
   .lt-row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;
     padding:11px 12px;border-bottom:1px solid var(--line);}
@@ -426,11 +439,9 @@
   .star-badge{display:inline-block;background:#FEF3C7;color:#92400E;border:1px solid #FDE68A;
     border-radius:8px;padding:2px 7px;font-size:10.5px;font-weight:900;margin-bottom:5px;margin-right:4px;}
   /* ===== ✈️ 항공사 운영시간 · 탑승권 읽기 ===== */
-  #flightBtn{display:block;width:100%;margin:10px 0 0;padding:14px;border-radius:14px;border:none;
-    background:linear-gradient(135deg,#0B2E52,#1D7FB8);color:#fff;font-size:15px;font-weight:800;cursor:pointer;
-    box-shadow:0 6px 18px rgba(11,46,82,.28);position:relative;z-index:11;}
+
   #flightBtn .f-sub{display:block;margin-top:4px;font-size:11.5px;font-weight:600;opacity:.92;}
-  #myFlightBar{display:none;width:100%;margin:10px 0 0;border-radius:14px;padding:13px 14px;
+  #myFlightBar{display:none;width:calc(100% - 32px);margin:12px auto 0;border-radius:14px;padding:13px 14px;
     background:linear-gradient(135deg,#0B2E52,#1668A8);color:#fff;text-align:left;border:none;
     box-shadow:0 6px 18px rgba(11,46,82,.3);position:relative;z-index:11;cursor:pointer;font-family:inherit;}
   #myFlightBar.on{display:block;}
@@ -556,9 +567,8 @@
   <div style="max-width:1080px;margin:0 auto;">
     <div class="h-eyebrow">JEJU STAMP BOOK · 295 PLACES</div>
     <h1>제주 여행 스탬프북<span class="dot">.</span></h1>
-    <p class="h-sub">감성 포토스팟부터 액티비티, 자연 명소, 노포 맛집까지 —
-    20대부터 40대까지 모두를 위한 295곳. 모든 곳을 <b>덜 힘든 순서(실내 → 시원한 야외 → 차로 → 야외 → 걷기 → 등산)</b>로 나눠뒀고,
-    맛집·소품샵·술집·호텔·마사지는 <b>꼭 가야 할 곳</b>을 맨 위에 올렸고, 카드마다 <b>주차 정보</b>와 <b>주소 복사</b> 버튼이 있어요. 가보고 싶은 곳은 <b>[☆ 가보고 싶어요]</b>로 담고 날짜를 정하면 <b>[⭐ 내 일정]</b> 탭에 날짜별로 정리됩니다. 다녀온 곳은 <b>[갔다왔음]</b>을 눌러 도장을 찍어보세요. 도장 찍은 곳은 목록에서 사라지고 <b>[🔴 갔다온 곳]</b> 탭에 모입니다.<br>돌아가는 날은 <b>[✈️ 항공사 운영시간 · 탑승권 읽기]</b>에서 탑승권을 찍어보세요. 편명·좌석을 읽어 <b>출발까지 남은 시간, 수속 마감, 타는 위치</b>까지 정리해줍니다.</p>
+    <p class="h-sub">가볼 만한 곳 <b>295곳</b>을 한곳에. 다녀온 곳엔 도장을 찍고,
+    가보고 싶은 곳은 담아서 날짜별 일정으로 만들어보세요.</p>
     <div class="progress-wrap"><div class="progress-bar" id="pbar"></div></div>
     <div class="progress-label" id="plabel"></div>
     <div style="text-align:center;margin-top:12px;">
@@ -567,19 +577,19 @@
   </div>
 </header>
 
+<button id="myFlightBar"></button>
+
+<!-- 장소 종류: 한 줄 가로 스크롤 (예전엔 12개가 구름처럼 흩어져 있었다) -->
 <nav id="tabs">
   <button class="tab active" data-filter="all">전체</button>
-  <button class="tab tab-must" data-filter="must">⭐ 꼭 가볼 곳</button>
   <button class="tab" data-filter="spot">🏝 관광지</button>
   <button class="tab" data-filter="food">🍽 맛집</button>
   <button class="tab" data-filter="cafe">☕ 카페</button>
+  <button class="tab" data-filter="cheap">💸 가성비 카페</button>
   <button class="tab" data-filter="shop">🛍 소품샵</button>
   <button class="tab" data-filter="bar">🍻 술집·안주</button>
   <button class="tab" data-filter="hotel">🏨 호텔</button>
   <button class="tab" data-filter="spa">💆 마사지</button>
-  <button class="tab" data-filter="cheap">💸 가성비 카페</button>
-  <button class="tab tab-plan" data-filter="plan">⭐ 내 일정</button>
-  <button class="tab" data-filter="visited">🔴 갔다온 곳</button>
 </nav>
 
 <div id="searchWrap">
@@ -592,6 +602,25 @@
   <div id="filterBar"></div>
   <button id="aiAskBtn">🤖 모르는 말이 있나요? 눌러서 바로 찾아보기</button>
 </div>
+
+<p class="sec-lab">내 여행</p>
+<div id="myRow">
+  <button class="tab tab-must" data-filter="must">⭐<br>꼭 가볼 곳</button>
+  <button class="tab tab-plan" data-filter="plan">🗓<br>내 일정</button>
+  <button class="tab" data-filter="visited">🔴<br>갔다온 곳</button>
+</div>
+
+<p class="sec-lab">여행 도구</p>
+<div id="toolGrid">
+  <button class="tool" id="nearbyBtn"><span class="t-ico">📍</span>내 주변</button>
+  <button class="tool" id="updBtn"><span class="t-ico">🆕</span>요즘 뜨는 곳</button>
+  <button class="tool" id="flightBtn"><span class="t-ico">✈️</span>항공편</button>
+  <button class="tool" id="lotteBtn"><span class="t-ico">🎟</span>렌터카 할인</button>
+  <button class="tool" id="fabHours"><span class="t-ico">🕐</span>영업시간표</button>
+  <button class="tool" id="fabAdd"><span class="t-ico">➕</span>장소 추가</button>
+</div>
+
+<p class="sec-lab">골라 보기</p>
 
 <div id="effWrap">
   <button class="fold-head" id="effTitle" aria-expanded="false">
@@ -612,18 +641,30 @@
     <span class="fh-ar">▾</span>
   </button>
   <div class="fold-body" id="zoneBody"><div id="zoneGrid"></div></div>
-  <button id="nearbyBtn">📍 내 주변 15km 이내 보기</button>
-  <button id="updBtn">🆕 요즘 뜨는 곳 업데이트 받기<span class="u-sub">눌러서 새로 올라온 맛집·명소를 확인하세요</span></button>
-  <button id="lotteBtn">🎟 롯데렌터카 할인되는 곳 보기<span class="l-sub">제주 웰컴 쿠폰팩 제휴처 39곳 · 렌터카 예약 고객 무료</span></button>
-  <button id="flightBtn">✈️ 항공사 운영시간 · 탑승권 읽기<span class="f-sub">탑승권을 찍으면 편명·좌석을 읽고 출발까지 남은 시간과 수속 마감을 계산해요</span></button>
-  <button id="myFlightBar"></button>
+</div>
+
+<div id="helpWrap" style="max-width:1080px;margin:16px auto 0;padding:0 16px;">
+  <button class="fold-head" id="helpTitle" aria-expanded="false">
+    <span class="fh-t">❓ 처음이신가요?</span>
+    <span class="fh-now">· 쓰는 법 보기</span>
+    <span class="fh-ar">▾</span>
+  </button>
+  <div class="fold-body" id="helpBody">
+    <p style="font-size:13px;line-height:1.75;color:#4A5553;margin:0 0 6px;">
+    감성 포토스팟부터 액티비티, 자연 명소, 노포 맛집까지 <b>295곳</b>이 들어 있어요.<br><br>
+    🏝 <b>위쪽 종류 버튼</b>을 옆으로 밀어 관광지·맛집·카페 등을 골라 보세요.<br>
+    🔍 <b>검색</b>은 초성만 쳐도 찾아줍니다 (예: ㅇㅈㅎㅈ).<br>
+    ☆ 마음에 드는 곳은 <b>[가보고 싶어요]</b>로 담고 날짜를 정하면 <b>[🗓 내 일정]</b>에 날짜별로 정리됩니다.<br>
+    🔴 다녀온 곳은 <b>[갔다왔음]</b>을 눌러 도장을 찍으세요. 목록에서 사라지고 <b>[갔다온 곳]</b>에 모입니다.<br>
+    🧭 <b>[얼마나 움직여야 하나요?]</b>는 덜 힘든 순서로 나눠둔 거예요. 더운 날·비 오는 날에 유용합니다.<br>
+    ✈️ 돌아가는 날은 <b>[항공편]</b>에서 탑승권을 찍으면 출발까지 남은 시간과 수속 마감을 계산해줍니다.<br>
+    👫 도장과 일정은 <b>두 사람이 자동으로 함께</b> 봅니다.</p>
+  </div>
 </div>
 
 <main id="list"></main>
 
-<button id="fabAdd">➕ 장소 추가</button>
 
-<button id="fabHours">🕐 영업시간표</button>
 
 <div id="updModal">
   <div class="modal-box">
@@ -753,7 +794,7 @@
       </div>
 
     </div>
-    <p class="fl-ver">화면 버전 <b>2026-08-30j</b> · 이 숫자가 안 보이면 예전 화면이니 새로고침해주세요</p>
+    <p class="fl-ver">화면 버전 <b>2026-08-30k</b> · 이 숫자가 안 보이면 예전 화면이니 새로고침해주세요</p>
     <div class="modal-actions">
       <button id="fl_close" style="background:#F1F4F3;border:1.5px solid var(--line);color:#5C6664;">닫기</button>
     </div>
@@ -3841,22 +3882,22 @@ nearbyBtn.addEventListener("click",()=>{
   if(nearbyOn){
     nearbyOn=false; if(!barNear) distMap=null;
     nearbyBtn.classList.remove("on");
-    nearbyBtn.textContent="📍 내 주변 15km 이내 보기";
+    nearbyBtn.innerHTML='<span class="t-ico">📍</span>내 주변';
     render(); return;
   }
   if(!navigator.geolocation){ alert("이 브라우저는 위치 기능을 지원하지 않아요."); return; }
   if(currentFilter==="must") setTab("all"); // 꼭 가볼 곳 탭은 거리 무시라 전체 탭으로 옮겨서 보여준다
-  nearbyBtn.textContent="📡 내 위치 찾는 중…";
+  nearbyBtn.innerHTML='<span class="t-ico">📡</span>위치 찾는 중…';
   navigator.geolocation.getCurrentPosition(pos=>{
     myPos={lat:pos.coords.latitude, lng:pos.coords.longitude};
     distMap={};
     allPlaces().forEach(p=>{ const c=LL[p.id]||p.ll; if(c) distMap[p.id]=distKm(myPos.lat,myPos.lng,c[0],c[1]); });
     nearbyOn=true;
     nearbyBtn.classList.add("on");
-    nearbyBtn.textContent="📍 내 주변 보기 켜짐 · 누르면 해제";
+    nearbyBtn.innerHTML='<span class="t-ico">📍</span>내 주변 켜짐';
     render();
   },err=>{
-    nearbyBtn.textContent="📍 내 주변 15km 이내 보기";
+    nearbyBtn.innerHTML='<span class="t-ico">📍</span>내 주변';
     alert("위치를 가져올 수 없어요.\n브라우저의 위치 권한을 허용한 뒤 다시 눌러주세요.");
   },{enableHighAccuracy:true, timeout:10000, maximumAge:60000});
 });
@@ -3905,7 +3946,7 @@ function syncChips(){
 function visibleCount(){ return allPlaces().filter(passes).length; }
 function clearNearby(){
   nearbyOn=false; barNear=false; distMap=null;
-  if(nearbyBtn){ nearbyBtn.classList.remove("on"); nearbyBtn.textContent="📍 내 주변 "+NEAR_LIMIT_KM+"km 이내 보기"; }
+  if(nearbyBtn){ nearbyBtn.classList.remove("on"); nearbyBtn.innerHTML='<span class="t-ico">📍</span>내 주변'; }
 }
 function setTab(f){
   currentFilter=f;
@@ -4419,22 +4460,18 @@ function makeCard(p){
 }
 
 function updateVisitedTab(){
-  const btn = document.querySelector('.tab[data-filter="visited"]');
-  if(btn){
-    const n = allPlaces().filter(p=>visited[p.id]).length;
-    btn.textContent = n ? ("🔴 갔다온 곳 "+n) : "🔴 갔다온 곳";
-  }
-  const pb = document.querySelector('.tab[data-filter="plan"]');
-  if(pb){
-    const n = Object.keys(wish).length;
-    pb.textContent = n ? ("⭐ 내 일정 "+n) : "⭐ 내 일정";
-  }
-  const mb = document.querySelector('.tab[data-filter="must"]');
-  if(mb){
-    const ids = Object.keys(MUST);
-    const doneN = ids.filter(id=>visited[id]).length;
-    mb.textContent = `⭐ 꼭 가볼 곳 ${doneN}/${ids.length}`;
-  }
+  // 내 여행 타일 세 개: 아이콘 · 이름 · 숫자를 같은 모양으로 맞춘다
+  const myTile = (f, ico, name, num)=>{
+    const el = document.querySelector('.tab[data-filter="'+f+'"]');
+    if(!el) return;
+    el.innerHTML = '<span class="t-ico">'+ico+'</span>' + name +
+      (num ? '<span class="t-num">'+num+'</span>' : "");
+  };
+  const vN = allPlaces().filter(p=>visited[p.id]).length;
+  const mustIds = Object.keys(MUST);
+  myTile("must", "⭐", "꼭 가볼 곳", mustIds.filter(id=>visited[id]).length + "/" + mustIds.length);
+  myTile("plan", "🗓", "내 일정", Object.keys(wish).length || "");
+  myTile("visited", "🔴", "갔다온 곳", vN || "");
 }
 
 function updateProgress(){
@@ -4447,7 +4484,8 @@ function updateProgress(){
     `전체 <b>${total}</b>곳 중 <b>${done}</b>곳 방문 · 달성률 <b>${pct}%</b>`;
 }
 
-document.getElementById("tabs").addEventListener("click",e=>{
+// 종류 탭(#tabs)과 내 여행 탭(#myRow)이 나뉘어 있으므로 문서에서 한 번에 받는다
+document.addEventListener("click",e=>{
   const btn = e.target.closest(".tab");
   if(!btn) return;
   document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));
@@ -4582,9 +4620,9 @@ function markUpdBtn(){
       if(!d) return;
       updFeed = d;
       const n = (d.items||[]).filter(it=>!hasPlace(it.id)).length;
-      updBtn.innerHTML = "🆕 요즘 뜨는 곳 업데이트 받기" +
-        (n ? '<span class="u-dot">새 '+n+'곳</span>' : "") +
-        '<span class="u-sub">' + (n ? "새로 올라온 곳이 "+n+"곳 있어요 · 갱신 "+(d.updated||"") : "지금은 모두 담겨 있어요 · 갱신 "+(d.updated||"")) + '</span>';
+      updBtn.innerHTML = '<span class="t-ico">🆕</span>요즘 뜨는 곳' +
+        (n ? '<span class="t-badge">'+n+'</span>' : "");
+      updBtn.title = n ? ("새로 올라온 곳이 "+n+"곳 있어요 · 갱신 "+(d.updated||"")) : ("지금은 모두 담겨 있어요 · 갱신 "+(d.updated||""));
     }).catch(()=>{});
 }
 if(updBtn){
@@ -5792,6 +5830,7 @@ document.addEventListener("visibilitychange", ()=>{ if(document.hidden) stopScan
   // 접었다 펴는 메뉴는 시작할 때 한 번만 건다 (render 안에서 걸면 누를 때마다 중복된다)
   setupFold("effTitle","effBody");
   setupFold("zoneTitle","zoneBody");
+  setupFold("helpTitle","helpBody");
   render();
   await autoSync();  // 열자마자 최신 공유 기록 반영
   markUpdBtn();      // 새로 올라온 곳 개수를 버튼에 표시
