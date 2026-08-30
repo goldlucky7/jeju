@@ -685,7 +685,8 @@
         <input type="file" id="flPhotoInput" accept="image/*" style="display:none">
         <div id="flScan">
           <div class="sc-frame"><video id="flVideo" playsinline muted></video><div class="sc-guide"></div><div class="sc-live" id="flLive"></div></div>
-          <p class="sc-hint">📄 종이 탑승권은 <b>가로로 긴 바코드</b>를, 모바일 탑승권은 <b>QR코드</b>를 네모 안에 꽉 차게 맞춰주세요. 화면 밝기를 올리면 더 잘 읽힙니다.</p>
+          <p class="sc-hint">📄 코드를 <b>네모 안에 꽉 차게</b> 맞춰주세요. <b>화면이 또렷해야 읽힙니다</b> —
+          흐릿하면 <b>화면을 한 번 톡 누르고</b>(초점을 다시 잡습니다) 손을 살짝 앞뒤로 움직여 또렷해질 때까지 기다려주세요.</p>
           <div class="sc-tools">
             <button id="flTorch" hidden>🔦 불 켜기</button>
             <button class="sc-stop" id="flScanStop">스캔 멈추기</button>
@@ -722,7 +723,7 @@
       </div>
 
     </div>
-    <p class="fl-ver">화면 버전 <b>2026-08-30f</b> · 이 숫자가 안 보이면 예전 화면이니 새로고침해주세요</p>
+    <p class="fl-ver">화면 버전 <b>2026-08-30g</b> · 이 숫자가 안 보이면 예전 화면이니 새로고침해주세요</p>
     <div class="modal-actions">
       <button id="fl_close" style="background:#F1F4F3;border:1.5px solid var(--line);color:#5C6664;">닫기</button>
     </div>
@@ -5203,20 +5204,22 @@ async function ensureJsQR(){
 //   - zoom : 가운데만 확대한다 (코드가 멀리서 작게 잡힐 때)
 const SCAN_MAX = 1600;      // 보통은 이 크기로 줄여서 본다 (빠르다)
 const SCAN_MAX_FULL = 2560; // 사진 갈래에서 줄이지 않고 한 번 더 본다 (작은 코드에 필요)
-// 카메라일 때는 이 크기를 넘기지 않는다. 폰에서 한 바퀴 도는 시간이 훨씬 짧아진다.
+// 카메라일 때 이 크기를 넘기지 않는다. 다만 **줄이기보다 잘라내는 걸 먼저** 쓴다 —
+// 줄이면 QR 한 칸에 배정된 픽셀이 같이 줄어서 흐린 화면이 아예 안 읽히기 때문이다.
 // (사진 갈래는 시간에 안 쫓기므로 Infinity 로 두고 원래 크기대로 본다)
-const SCAN_CAP_LIVE = 1280;
+const SCAN_CAP_LIVE = 1600;
 let scanCap = Infinity;
 const SCAN_PASSES = [
-  {bin:"h", zoom:1                     },  // 1. 있는 그대로
-  {bin:"h", zoom:1,   adap:16          },  // 2. 자리별 밝기 보정  ★ 실제 종이 탑승권에서 가장 잘 먹힌다
-  {bin:"h", zoom:1.8                   },  // 3. 가운데만 확대
-  {bin:"h", zoom:1,   adap:28, max:1100},  // 4. 자리별 보정 + 많이 줄여서 (초점이 나간 사진)
-  {bin:"g", zoom:1,           max:2560 },  // 5. 줄이지 않고 원본 크기로
-  {bin:"h", zoom:1,   boost:1          },  // 6. 화면 전체의 밝기 차이를 벌려서
-  {bin:"h", zoom:1,   adap:12, max:1400},  // 7. 자리별 보정(좁은 창) + 조금 줄여서
-  {bin:"g", zoom:1.8                   },  // 8. 가운데 확대 + 다른 이진화
-  {bin:"h", zoom:1.4, adap:20          }   // 9. 살짝 확대 + 자리별 보정
+  {bin:"h", zoom:1.8, sharp:3, srad:3, adap:16},  // 1. 가운데 확대 + 선명화 + 자리별 보정  ★ 초점 나간 카메라에 가장 잘 먹힌다
+  {bin:"h", zoom:1,   adap:16},                   // 2. 전체 화면 + 자리별 보정
+  {bin:"h", zoom:1                     },         // 3. 있는 그대로 (또렷하면 이게 제일 빠르다)
+  {bin:"h", zoom:1.4, sharp:3, srad:3, adap:16},  // 4. 살짝 확대 + 선명화
+  {bin:"h", zoom:1,   sharp:3, srad:3, adap:16},  // 5. 전체 화면 + 선명화
+  {bin:"h", zoom:1.8                   },         // 6. 가운데만 확대
+  {bin:"g", zoom:1,           max:2560 },         // 7. 줄이지 않고 원본 크기로
+  {bin:"h", zoom:2.4, sharp:4, srad:4, adap:20},  // 8. 많이 확대 + 강한 선명화 (멀리서 잡혔을 때)
+  {bin:"h", zoom:1,   boost:1          },         // 9. 화면 전체의 밝기 차이를 벌려서
+  {bin:"h", zoom:1,   adap:28, max:1100}          // 10. 많이 줄여서 (흔들린 사진)
 ];
 let flPass = 0;
 function nextPass(){ return SCAN_PASSES[(flPass++) % SCAN_PASSES.length]; }
@@ -5264,8 +5267,46 @@ function adaptiveBin(win, pct){
     flCtx.putImageData(d,0,0);
   }catch(e){}
 }
+// 흐릿한 경계를 되살린다 (언샤프 마스크).
+// 카메라 미리보기는 초점이 살짝 나가기만 해도 QR 이 통째로 안 읽힌다.
+// 실측: 2px 만 뭉개져도 QR 이 500px 이어도 못 읽는데, 이걸 거치면 읽힌다.
+let shCache = null;
+function shBuf(w,h){
+  const n = w*h;
+  if(!shCache || shCache.w !== w || shCache.h !== h){
+    shCache = {w:w, h:h, g:new Float32Array(n), t:new Float32Array(n), s:new Float64Array((w+1)*(h+1))};
+  }
+  return shCache;
+}
+function unsharp(amount, radius){
+  try{
+    const w = flCanvas.width, h = flCanvas.height;
+    if(!w || !h) return;
+    const d = flCtx.getImageData(0,0,w,h), a = d.data, n = w*h;
+    const B = shBuf(w,h);           // 버퍼를 매 프레임 새로 잡으면 폰에서 버벅인다 → 재사용
+    const g = B.g, tmp = B.t, S = B.s, r = radius;
+    for(let i=0,p=0; p<n; p++, i+=4) g[p] = a[i]*0.299 + a[i+1]*0.587 + a[i+2]*0.114;
+    // 상자흐림 (적분영상이라 창이 커도 픽셀당 한 번)
+    for(let y=0;y<h;y++){
+      let run=0; const o=(y+1)*(w+1), o0=y*(w+1), row=y*w;
+      for(let x=0;x<w;x++){ run += g[row+x]; S[o+x+1] = S[o0+x+1] + run; }
+    }
+    for(let y=0;y<h;y++){
+      const y0=y-r<0?0:y-r, y1=y+r>h-1?h-1:y+r, A=y0*(w+1), Bo=(y1+1)*(w+1), row=y*w;
+      for(let x=0;x<w;x++){
+        const x0=x-r<0?0:x-r, x1=x+r>w-1?w-1:x+r;
+        tmp[row+x] = (S[Bo+x1+1]-S[A+x1+1]-S[Bo+x0]+S[A+x0]) / ((y1-y0+1)*(x1-x0+1));
+      }
+    }
+    for(let p=0,i=0; p<n; p++, i+=4){
+      let v = g[p] + amount*(g[p]-tmp[p]);
+      a[i] = a[i+1] = a[i+2] = v<0?0:(v>255?255:v);
+    }
+    flCtx.putImageData(d,0,0);
+  }catch(e){}
+}
 // 영상 프레임을 한 장 떠서 캔버스에 올린다. 인식기 셋 다 이 캔버스를 같이 쓴다.
-// ps 는 SCAN_PASSES 의 한 갈래 {zoom, max, boost, adap} — 없으면 있는 그대로 뜬다.
+// ps 는 SCAN_PASSES 의 한 갈래 {zoom, max, sharp, boost, adap} — 없으면 있는 그대로 뜬다.
 function grabCanvas(src, w, h, ps){
   if(!w || !h) return null;
   ps = ps || {};
@@ -5277,6 +5318,7 @@ function grabCanvas(src, w, h, ps){
   try{
     flCtx.imageSmoothingEnabled = true;
     flCtx.drawImage(src, sx, sy, sw, sh, 0, 0, flCanvas.width, flCanvas.height);
+    if(ps.sharp) unsharp(ps.sharp, ps.srad || 3);
     if(ps.boost) boostContrast();
     if(ps.adap) adaptiveBin(ps.adap, ps.pct || 96);
     return flCanvas;
@@ -5441,14 +5483,22 @@ async function startScan(){
   // 아이폰은 사용자가 버튼을 누른 '그 순간'에 카메라를 열어야 허락을 받는다.
   // 인식기 파일(수백 KB)을 먼저 받고 나서 열면 그 시점이 만료돼 조용히 거부되는 일이 있다.
   try{
-    // 인쇄된 탑승권의 코드는 작게 나오므로 해상도를 높게 요청하고, 초점은 계속 맞추게 한다
+    // 해상도가 높을수록 QR 한 칸에 픽셀이 많이 배정돼 흐릿해도 살아남는다.
+    // 실측: 초점이 2px만 나가도 QR 이 500px 이어도 못 읽는데, 크게 잡으면 버틴다.
     flStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:"environment"},
-      width:{ideal:1920}, height:{ideal:1080},
+      width:{ideal:3840}, height:{ideal:2160},
       advanced:[{focusMode:"continuous"}]}});
   }catch(e){
-    try{ flStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:"environment"}}}); }
-    catch(e2){ camError(e2); return; }
+    try{
+      flStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:"environment"},
+        width:{ideal:1920}, height:{ideal:1080}, advanced:[{focusMode:"continuous"}]}});
+    }catch(e2){
+      try{ flStream = await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:"environment"}}}); }
+      catch(e3){ camError(e3); return; }
+    }
   }
+  // 카메라를 연 뒤에 한 번 더 걸어준다. 열 때 준 조건을 무시하는 기기가 많다.
+  refocus();
   if(!flScanning){ stopScan(); return; }
   setupTorch();
   vid.srcObject = flStream;
@@ -5464,8 +5514,10 @@ async function startScan(){
   }
   setEngine(eng.label);
   flHintTimer = setTimeout(()=>{
-    if(flScanning) flMsg("info","🔦 아직 안 읽히나요? <b>탑승권을 화면에 꽉 차게</b> 가까이 대고, 코드가 <b>네모 한가운데</b> 오도록 맞춰보세요. "+
-      "번들거리면 <b>[🔦 불 켜기]</b>를 누르거나 각도를 살짝 틀어보세요. 그래도 안 되면 <b>[🖼 사진에서 찾기]</b>나 <b>[⌨️ 직접 입력]</b>이 확실합니다.");
+    if(flScanning) flMsg("info","🔍 아직 안 읽히나요? <b>거의 다 초점 때문</b>입니다. 화면 속 코드가 <b>또렷하게 보이는지</b> 확인해주세요.<br>"+
+      "① <b>화면을 한 번 톡</b> 누르기 (초점 다시 잡기) · ② 손을 <b>살짝 뒤로</b> 뺐다가 천천히 앞으로 (너무 가까우면 초점이 안 잡힙니다) · "+
+      "③ 번들거리면 <b>[🔦 불 켜기]</b>나 각도 바꾸기<br>"+
+      "그래도 안 되면 <b>[🖼 사진에서 찾기]</b>로 <b>탑승권을 사진으로 찍어</b> 골라주세요. 사진은 초점이 제대로 잡혀서 거의 확실히 읽힙니다.");
   }, 9000);
   const loop = async ()=>{
     if(!flScanning) return;
@@ -5476,6 +5528,22 @@ async function startScan(){
     flTimer = setTimeout(loop, eng.gap);
   };
   loop();
+}
+// 초점을 다시 잡게 한다. 카메라 미리보기가 흐리면 QR 은 아예 안 읽힌다 (가장 흔한 실패 원인).
+// x,y 를 주면 그 자리에 초점을 맞춘다 (화면을 눌렀을 때).
+async function refocus(x, y){
+  if(!flStream) return;
+  const t = flStream.getVideoTracks()[0];
+  if(!t || !t.applyConstraints) return;
+  const adv = [];
+  if(x != null && y != null) adv.push({pointsOfInterest:[{x:x, y:y}]});
+  adv.push({focusMode:"continuous"});
+  try{ await t.applyConstraints({advanced:adv}); }catch(e){}
+  // 한 번 끊었다 이어야 다시 맞추는 기기가 있다
+  try{
+    await t.applyConstraints({advanced:[{focusMode:"single-shot"}]});
+    await t.applyConstraints({advanced:[{focusMode:"continuous"}]});
+  }catch(e){}
 }
 // 플래시: 종이 탑승권은 형광등 아래서 번들거려 안 읽히는 일이 잦아 켤 수 있게 해둔다
 let flTorchOn = false;
@@ -5581,6 +5649,13 @@ document.querySelectorAll("#flSeg .fl-seg").forEach(b=>b.addEventListener("click
 document.getElementById("flScanBtn").addEventListener("click", startScan);
 document.getElementById("flScanStop").addEventListener("click", ()=>{ stopScan(); flMsg("",""); });
 document.getElementById("flTorch").addEventListener("click", toggleTorch);
+// 카메라 화면을 누르면 그 자리에 초점을 다시 잡는다 (흐릿하면 QR 이 안 읽힌다)
+document.getElementById("flVideo").addEventListener("click", e=>{
+  if(!flScanning) return;
+  const r = e.currentTarget.getBoundingClientRect();
+  refocus((e.clientX-r.left)/r.width, (e.clientY-r.top)/r.height);
+  setEngine("🎯 초점을 다시 맞추는 중…");
+});
 document.getElementById("flPhotoBtn").addEventListener("click", ()=>{
   stopScan(); document.getElementById("flPhotoInput").click();
 });
