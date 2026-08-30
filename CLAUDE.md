@@ -192,6 +192,64 @@ node tools/verify-scan.mjs /tmp/passes           # 실제 스캔 경로로 확�
 (`PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers`) **카메라 장치는 없다.** 카메라 흐름을 시험하려면
 `tools/verify-scan.mjs`처럼 캔버스 `captureStream()`으로 가짜 MediaStream을 만들어 물리면 된다.
 
+## 하노이판 (`hanoi.html` + `hanoi-updates.json`)
+
+제주판과 같은 구조의 해외판. 장소 193곳(관광지 55 · 맛집 40 · 카페 26 · 소품샵 12 ·
+술집 14 · 호텔 14 · 마사지 16 · 가성비카페 16). 배포 주소는
+https://goldlucky7.github.io/jeju/hanoi.html
+
+**장소 id는 파일 안 여러 표에 흩어져 있다.** 장소를 지우거나 id를 바꾸면 아래를 **전부** 같이 고쳐야 한다.
+하나라도 빠뜨리면 그 장소만 조용히 기능이 죽는다 (동선 순서·활동 강도·지역별 보기·내 주변 거리):
+
+| 표 | 하는 일 |
+|---|---|
+| `PLACES` | 장소 카드 본문 |
+| `PK` | 이동 수단 (walk/metro/grab/far/tour) |
+| `EFFORT` | 활동 강도 (in/cool/car/out/hike) |
+| `ZONE_OF` | 지역별 보기 (hk/tayho/badinh/dongda/hbt/caugiay/longbien/hadong/sontay/ninhbinh) |
+| `LL` | 위·경도 (내 주변 거리 계산) |
+| `CHEAPG`·`BARTIER`·`SPATIER`·`HOTELTIER`·`STARS` 등 | 종류별 추천 묶음 |
+
+고치고 나면 이 검사를 돌려서 **빠진 id가 없는지** 확인할 것:
+```bash
+python3 - <<'EOF'
+import re,io
+s=io.open('hanoi.html',encoding='utf-8').read()
+i=s.index('const PLACES = ['); j=s.index('const CATS =')
+ids=[m.group(1) for m in re.finditer(r'\{id:"([^"]+)",cat:"',s[i:j])]
+def keys(start,pat=r'(\w+):'):
+    k=s.index(start); return set(re.findall(pat,s[k:s.index('\n};',k)]))
+for name,st,pat in [('PK','const PK = {',r'(\w+):'),('EFFORT','const EFFORT = {',r'(\w+):'),
+                    ('ZONE_OF','const ZONE_OF = {',r'(\w+):'),('LL','const LL={',r'(\w+):\[')]:
+    ks=keys(st,pat)
+    print(name,'빠짐:',[x for x in ids if x not in ks],'남음:',[x for x in ks if x not in ids])
+EOF
+```
+
+### 팩트체크 이력 (2026-08-30)
+
+처음 만들 때 급하게 채운 부분이 있어 전 항목을 웹으로 재확인하고 45곳을 고쳤다.
+**해외판에서 반복되는 함정 세 가지:**
+
+1. **없어진 랜드마크를 그대로 적어 둔다.** 호안끼엠 호숫가 "함까맙(Hàm Cá Mập)" 건물은
+   2025년 7월에 철거됐다. 그 안에 있던 3층 하이랜즈 커피(호수 통유리 뷰)도 같이 사라졌는데,
+   한국 블로그에는 아직 추천으로 남아 있다. → 카티낫 카드로 교체하고 카드에 경고를 적어 뒀다
+2. **입장료·개방시간이 통째로 틀린다.** 탕롱 황성 3만동→**10만동**(2025년 인상),
+   호아로 수용소 3만동→**5만동**, 호치민 묘는 "07:00~17:00"이 아니라 **오전에만** 연다
+   (4~10월 07:30~10:30 / 11~3월 08:00~11:00, 월·금 휴관, 가을에 두 달쯤 보수 휴관)
+3. **널리 퍼진 헛소문을 그대로 옮긴다.** 롱비엔 다리는 에펠이 지은 게 아니라
+   파리의 **데데&필레(Daydé & Pillé)**가 설계·시공했다 (에펠 후계사는 입찰에서 떨어졌다)
+
+그 밖에 고친 것: 미쉐린 등급을 등급별로 정확히(분짜 닥킴은 빕구르망이 아니라 **셀렉티드**),
+꽌넴 주소의 구(區) 오류(Giảng Võ는 동다가 아니라 **바딘**), 페리도트/오리엔탈 제이드/아나톨/
+달 보스트로 호텔의 뭉개진 주소를 번지까지, 트랭퀼·젠스파·저스트마사지·퍼브루·스탠딩바의 실제 주소,
+이름 없이 "루프탑 바"·"재즈 클럽"이던 카드를 실명(**더 허드슨 룸스**·**빈민 재즈클럽**)으로,
+미도리 스파 후기 수를 3천 건 → 실제치 1,900건대로.
+
+**규칙: 숫자(요금·연도·순위·후기 수)와 상호는 반드시 출처를 확인하고 적는다.**
+확인이 안 되면 "소액 입장료"처럼 뭉뚱그리지 말고 **아예 빼거나** 종류만 적는다.
+어림수를 적어 두면 다음 사람이 그걸 사실로 믿고 그대로 옮긴다.
+
 ## 관련 저장소
 
 | 저장소 | 담는 것 |
