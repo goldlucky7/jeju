@@ -23,8 +23,9 @@
     background:radial-gradient(circle at 10px -6px, transparent 14px, var(--paper) 15px);
     background-size:40px 26px;}
   .h-eyebrow{font-size:11.5px;letter-spacing:3px;color:var(--canola);font-weight:700;margin-bottom:8px;}
-  h1{font-family:'Gowun Batang',serif;font-size:clamp(24px,5.6vw,34px);font-weight:700;letter-spacing:-1px;}
-  h1 .dot{color:var(--tangerine);}
+  h1{font-family:'Gowun Batang',serif;font-size:clamp(24px,5.6vw,34px);font-weight:700;letter-spacing:-1px;
+    color:#FF7A1A;text-shadow:0 0 14px rgba(255,138,26,.55),0 0 34px rgba(255,110,0,.32),0 2px 3px rgba(0,0,0,.25);}
+  h1 .dot{color:#FFD24A;}
   .h-sub{margin-top:7px;font-size:13.5px;opacity:.92;max-width:600px;line-height:1.6;}
   .progress-wrap{margin:22px auto 6px;max-width:680px;background:rgba(255,255,255,.16);border-radius:999px;padding:5px;}
   .progress-bar{height:14px;border-radius:999px;width:0%;
@@ -211,14 +212,34 @@
   .upd-btns .add[disabled]{background:#DDE4E2;border-color:#DDE4E2;color:#8A9490;cursor:default;}
   #updAddAll{background:linear-gradient(135deg,#7C3AED,#DB2777);border:none;color:#fff;}
 
-  #lotteModal,#hoursModal{position:fixed;inset:0;background:rgba(20,30,28,.55);z-index:60;
+  #couponModal,#hoursModal{position:fixed;inset:0;background:rgba(20,30,28,.55);z-index:60;
     display:none;align-items:center;justify-content:center;padding:20px;}
-  #lotteModal.open,#hoursModal.open{display:flex;}
-  #lotteModal .modal-box{max-width:540px;max-height:86vh;display:flex;flex-direction:column;}
+  #couponModal.open,#hoursModal.open{display:flex;}
+  #couponModal .modal-box{max-width:560px;max-height:88vh;display:flex;flex-direction:column;}
+  .cp-lead{font-size:13px;line-height:1.7;color:#4A5553;margin:0 0 12px;}
+  .cp-note{font-size:11.5px;line-height:1.6;color:#8A9490;margin:10px 0 0;
+    background:#F6FAF9;border:1px dashed var(--line);border-radius:10px;padding:9px 11px;}
+  #couponBody{overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch;}
+  .cp-card{border:1.5px solid var(--line);border-radius:14px;padding:13px;margin-bottom:10px;background:#fff;}
+  .cp-card.best{border-color:#F2762E;background:#FFFAF6;}
+  .cp-h{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-bottom:7px;}
+  .cp-ico{font-size:20px;line-height:1;}
+  .cp-nm{font-size:15px;font-weight:900;color:var(--basalt);}
+  .cp-badge{display:inline-block;margin-left:5px;background:var(--tangerine);color:#fff;
+    border-radius:999px;padding:1px 8px;font-size:10.5px;font-weight:900;vertical-align:2px;}
+  .cp-tag{flex-basis:100%;font-size:11.5px;font-weight:800;color:#8A9490;}
+  .cp-what{font-size:12.5px;line-height:1.7;color:#4A5553;margin:0 0 8px;}
+  .cp-save{list-style:none;margin:0 0 8px;padding:0;}
+  .cp-save li{position:relative;padding-left:17px;font-size:12.5px;line-height:1.75;color:var(--basalt);}
+  .cp-save li::before{content:"💰";position:absolute;left:0;font-size:11px;}
+  .cp-warn{font-size:11.5px;line-height:1.65;color:#7C2D12;background:#FFF7ED;
+    border:1px solid #FED7AA;border-radius:9px;padding:8px 10px;margin:0 0 8px;}
+  .cp-links{display:flex;flex-wrap:wrap;gap:6px;}
+  .cp-links a{border:1.5px solid var(--line);border-radius:9px;padding:7px 11px;
+    font-size:11.5px;font-weight:800;color:var(--sea);text-decoration:none;background:#F6FAF9;}
   #lotteHead{font-size:12.5px;color:#7C8684;line-height:1.6;margin-bottom:8px;}
   #lotteBody{overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch;margin-bottom:10px;}
   /* .modal-box input 규칙(width:100%)이 더 세서 할인율 칸이 줄을 다 먹어버린다 → 여기서 되돌린다 */
-  #lotteBody input.lt-in{width:104px;margin-bottom:0;padding:7px 9px;}
   #hoursModal .modal-box{max-width:540px;max-height:84vh;display:flex;flex-direction:column;}
   #hoursTableWrap{overflow-y:auto;flex:1;margin-bottom:10px;-webkit-overflow-scrolling:touch;}
   .hours-table{width:100%;border-collapse:collapse;font-size:12.5px;}
@@ -343,10 +364,6 @@
   .cheap-head{background:linear-gradient(135deg,#166534,#3F9E63);color:#fff;border-radius:14px;
     padding:14px 16px;margin:14px 4px 12px;font-size:15px;font-weight:900;line-height:1.35;}
   .cheap-head .ch-sub{font-size:12.5px;font-weight:500;opacity:.95;margin-top:4px;line-height:1.55;}
-  .lotte-badge{position:absolute;left:10px;bottom:10px;background:linear-gradient(135deg,#D32F2F,#F57C00);
-    color:#fff;font-size:11px;font-weight:800;padding:4px 9px;border-radius:999px;letter-spacing:-.2px;}
-  .lotte-line{margin:8px 0 0;padding:9px 11px;border-radius:10px;background:#FFF4EC;
-    border:1.5px solid #FFD3B0;color:#8A4B18;font-size:12.5px;line-height:1.55;font-weight:700;}
   .wish-btn{width:100%;margin-top:8px;padding:11px;border-radius:12px;border:1.5px solid #F0C64A;
     background:#FFFBEB;color:#8A6A08;font-size:14px;font-weight:800;cursor:pointer;}
   .wish-btn.on{background:linear-gradient(135deg,#F59E0B,#F0C64A);border-color:#F59E0B;color:#fff;}
@@ -375,23 +392,6 @@
   .route-hop{position:absolute;left:10px;bottom:10px;font-size:11px;font-weight:800;
     background:rgba(0,0,0,.55);color:#fff;padding:3px 8px;border-radius:999px;}
 
-  #lotteBtn .l-sub{display:block;margin-top:4px;font-size:11.5px;font-weight:600;opacity:.92;}
-  .lt-row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;
-    padding:11px 12px;border-bottom:1px solid var(--line);}
-  .lt-row:last-child{border-bottom:none;}
-  .lt-nm{font-size:14px;font-weight:700;color:#26302E;}
-  .lt-rg{display:block;font-size:11.5px;color:#7C8684;font-weight:600;margin-top:2px;}
-  .lt-l{flex:1;min-width:0;}
-  .lt-in{flex:none;width:104px;padding:7px 9px;border-radius:9px;border:1.5px solid #FFD3B0;
-    background:#FFF9F4;font-size:13px;font-weight:800;color:#C2410C;text-align:center;}
-  .lt-in::placeholder{color:#B9A99C;font-weight:600;}
-  .lotte-edit{margin-top:7px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
-  .lotte-edit b{font-size:12px;}
-  .lotte-in{width:96px;padding:6px 8px;border-radius:8px;border:1.5px solid #FFD3B0;
-    background:#fff;font-size:13px;font-weight:800;color:#C2410C;text-align:center;}
-  .li-tip{font-size:11px;color:#A9743F;font-weight:600;}
-  .lt-have{display:inline-block;margin-left:6px;font-size:10.5px;font-weight:800;color:#fff;
-    background:#2E7D6B;border-radius:999px;padding:2px 7px;vertical-align:middle;}
   .tab.tab-eat{background:linear-gradient(135deg,#9F1239,#E11D48);color:#fff;border-color:transparent;font-weight:800;}
   .tab.tab-eat.active{background:linear-gradient(135deg,#881337,#BE123C);}
   /* 주차 */
@@ -615,7 +615,7 @@
   <button class="tool" id="nearbyBtn"><span class="t-ico">📍</span>내 주변</button>
   <button class="tool" id="updBtn"><span class="t-ico">🆕</span>요즘 뜨는 곳</button>
   <button class="tool" id="flightBtn"><span class="t-ico">✈️</span>항공편</button>
-  <button class="tool" id="lotteBtn"><span class="t-ico">🎟</span>렌터카 할인</button>
+  <button class="tool" id="couponBtn"><span class="t-ico">🎟</span>할인 쿠폰</button>
   <button class="tool" id="fabHours"><span class="t-ico">🕐</span>영업시간표</button>
   <button class="tool" id="fabAdd"><span class="t-ico">➕</span>장소 추가</button>
 </div>
@@ -708,14 +708,16 @@
   </div>
 </div>
 
-<div id="lotteModal">
+<div id="couponModal">
   <div class="modal-box">
-    <h3>🎟 롯데렌터카 제주 웰컴 쿠폰팩</h3>
-    <div id="lotteHead"></div>
-    <div id="lotteBody"></div>
+    <h3>🎟 제주에서 쓸 수 있는 할인</h3>
+    <p class="cp-lead">폰에 미리 받아두면 <b>보여주기만 해도</b> 깎아주는 것들이에요.
+    아래 둘은 <b>제주도가 직접 하는 공식 제도</b>라 가맹점이 아주 많습니다.</p>
+    <div id="couponBody"></div>
+    <p class="cp-note">📌 위 내용은 <b>2026년 8월 조사 시점</b> 기준이에요. 혜택·기간·비율은 바뀔 수 있으니
+    가기 전에 각 <b>[바로가기]</b>에서 한 번 더 확인해주세요.</p>
     <div class="modal-actions">
-      <button id="lt_close" style="background:#F1F4F3;border:1.5px solid var(--line);color:#5C6664;">닫기</button>
-      <button id="lt_open">공식 쿠폰팩 열기 ↗</button>
+      <button id="cp_close" style="background:#F1F4F3;border:1.5px solid var(--line);color:#5C6664;">닫기</button>
     </div>
   </div>
 </div>
@@ -794,7 +796,7 @@
       </div>
 
     </div>
-    <p class="fl-ver">화면 버전 <b>2026-08-30k</b> · 이 숫자가 안 보이면 예전 화면이니 새로고침해주세요</p>
+    <p class="fl-ver">화면 버전 <b>2026-08-30m</b> · 이 숫자가 안 보이면 예전 화면이니 새로고침해주세요</p>
     <div class="modal-actions">
       <button id="fl_close" style="background:#F1F4F3;border:1.5px solid var(--line);color:#5C6664;">닫기</button>
     </div>
@@ -3172,6 +3174,9 @@ const CAT = {spot:{label:"관광지"},food:{label:"맛집"},cafe:{label:"카페"
 // ===== 🎟 롯데렌터카 제주 웰컴 쿠폰팩 제휴처 (공식 홈페이지 기준) =====
 // rate: 확인된 할인율만 적음. null이면 쿠폰팩 화면에서 직접 확인해야 하는 곳.
 // id: 이 스탬프북에 이미 들어 있는 장소면 그 id를 적어 카드에 뱃지가 붙게 한다.
+// 🎟 롯데렌터카 쿠폰팩 화면은 뺐다 (2026-08-30 · 사용자 요청, 대신 COUPONS 로 교체).
+// 아래 데이터와 저장 칸 r(rates)은 **지우지 않는다** — 상대방 기기에 남아 있는 기록을
+// 병합할 때 이 칸을 빠뜨리면 저쪽 데이터가 날아간다. 되살리려면 화면만 다시 붙이면 된다.
 const LOTTE_URL = "https://www.lotterentacar.net/hp/kor/reservation/welcomeCouponpack/jeju.do";
 const LOTTE_ALL = [
  {id:"park981",     name:"9.81파크",            rg:"제주시 애월",  rate:"최대 54%"},
@@ -3315,7 +3320,7 @@ async function saveWish(id, val, remove){
 // 🎟 쿠폰팩에서 본 할인율을 직접 적어두기 (두 사람 공유)
 async function saveRate(nm, val){
   if(val) rates[nm] = val; else delete rates[nm];
-  render(); drawLotte();
+  render();
   try{
     let latest = {v:visited, c:customPlaces, w:wish, r:rates};
     try{ latest = await fetchRemote(); }catch(e){}
@@ -3327,7 +3332,7 @@ async function saveRate(nm, val){
     rates = latest.r;
     await pushRemote();
     saveLocal(); online = true;
-    render(); drawLotte(); updateSyncLabel();
+    render(); updateSyncLabel();
   }catch(e){ online = false; saveLocal(); updateSyncLabel(); }
 }
 // 우선순위: 우리가 직접 적어둔 값 > 기사로 확인된 값 > 없음
@@ -3441,7 +3446,6 @@ const CHIPS=[
  {label:"🍞 빵·디저트",cats:["cafe","food"],keys:["베이커리","빵","도넛","떡","푸딩","케이크","제과","디저트","타르트","젤라또","아이스크림","카이막","젤루","크로플","크로칸슈","마카롱","소금빵"]},
  {label:"🌅 오션뷰 카페",cats:["cafe"],keys:["오션뷰","바다뷰","바다 뷰","해안","바다가","바다를","해변"]},
  {label:"🍧 빙수·팥빙수",cats:["cafe","food"],keys:["빙수","팥빙수","팥죽","눈꽃","팥칼국수"]},
- {label:"🎟 롯데렌터카 할인",ids:LOTTE_IDS},
  {label:"💆 마사지·테라피",cats:["spa"],keys:["마사지","아로마","테라피","오일","타이","발관리","지압","스포츠"]},
  {label:"🌸 정원·꽃",cats:["spot","cafe"],keys:["정원","꽃","수국","동백","핑크뮬리","억새","귤밭","유채","벚꽃","포토존"]},
 ];
@@ -4391,7 +4395,6 @@ function makeCard(p){
         if(MUSTEAT[p.id]) return '<span class="musteat-star">🔥 죽어도 맛봐야 할 집</span>';
         if(MUST[p.id]) return '<span class="must-star">⭐ 꼭 가볼 곳</span>';
         return "";})()}
-      ${LOTTE[p.id]?`<span class="lotte-badge">🎟 롯데렌터카 ${rateOf(LOTTE[p.id])||"쿠폰 할인"}</span>`:""}
     </div>
     <div class="stamp"><span class="chk">✔</span>방문완료</div>
     <div class="body">
@@ -4422,14 +4425,6 @@ function makeCard(p){
         <a class="photo-link" href="${PHOTO(p.name)}" target="_blank" rel="noopener">📷 대표 사진 보기 ↗</a>
         ${p.links.map(l=>`<a href="${l[1]}" target="_blank" rel="noopener">${l[0]} ↗</a>`).join("")}
       </div>
-      ${LOTTE[p.id]?(()=>{const x=LOTTE[p.id],r=rateOf(x),sc=rateSrc(x);
-        return `<div class="lotte-line">🎟 <b>롯데렌터카 제주 웰컴 쿠폰팩 제휴처</b>
-        ${r?("· 할인율 <b>"+r+"</b>"+(sc==="mine"?" (직접 적어둔 값)":" (기사 확인분)")):"· 할인율 미확인"}
-        <br>단기렌터카 예약 고객이면 현장에서 모바일 쿠폰만 보여주면 됩니다.
-        <div class="lotte-edit"><b>할인율 적어두기</b>
-          <input class="lotte-in" data-nm="${x.name}" value="${rates[x.name]||""}" placeholder="예: 20%">
-          <span class="li-tip">앱에서 본 숫자를 적으면 두 사람 카드에 같이 뜹니다</span></div>
-        <a href="${LOTTE_URL}" target="_blank" rel="noopener">쿠폰팩 열기 ↗</a></div>`;})():""}
       <button class="wish-btn${isWished(p.id)?" on":""}" aria-pressed="${isWished(p.id)}">
         ${isWished(p.id)?"⭐ 가보고 싶은 곳에 담김 (누르면 빼기)":"☆ 가보고 싶어요"}
       </button>
@@ -4448,8 +4443,6 @@ function makeCard(p){
   if(wb) wb.addEventListener("click",()=>{ toggleWish(p.id); });
   const wd = c.querySelector(".wish-date");
   if(wd) wd.addEventListener("change",()=>{ setWishDate(p.id, wd.value); });
-  const li = c.querySelector(".lotte-in");
-  if(li) li.addEventListener("change",()=>{ saveRate(li.dataset.nm, li.value.trim()); });
   const wc = c.querySelector(".wish-clear");
   if(wc) wc.addEventListener("click",()=>{ setWishDate(p.id, ""); });
   const cp = c.querySelector(".copy-link");
@@ -4509,40 +4502,72 @@ document.getElementById("fabAdd").addEventListener("click",()=>{ modal.classList
 document.getElementById("np_cancel").addEventListener("click",()=>{ modal.classList.remove("open"); });
 modal.addEventListener("click",e=>{ if(e.target===modal) modal.classList.remove("open"); });
 
-// ===== 🎟 롯데렌터카 쿠폰팩 =====
-const lotteModal = document.getElementById("lotteModal");
-function drawLotte(){
-  const head = document.getElementById("lotteHead");
-  if(!head || !lotteModal.classList.contains("open")) return;
-  const have = LOTTE_ALL.filter(x=>x.id).length;
-  const filled = LOTTE_ALL.filter(x=>rateOf(x)).length;
-  head.innerHTML =
-    `롯데렌터카로 <b>제주 단기렌터카</b>를 빌리면 아래 <b>${LOTTE_ALL.length}곳</b>을 할인가에 이용할 수 있어요. ` +
-    `미리 티켓을 살 필요 없이 현장에서 모바일 쿠폰만 보여주면 됩니다. 반납 후 1주일까지 쓸 수 있어요. ` +
-    `이 중 <b>${have}곳</b>은 이 스탬프북에도 있어서 카드에 🎟 표시가 붙습니다.` +
-    `<br><br>⚠️ 롯데렌터카가 할인율을 홈페이지에 <b>그림으로만</b> 올려둬서 자동으로 못 읽어옵니다. ` +
-    `그래서 <b>직접 적어두는 칸</b>을 만들었어요. 앱에서 쿠폰팩을 한 번 열어 보고 아래에 숫자만 적으면 ` +
-    `<b>두 사람 카드에 영구히 저장</b>됩니다. 지금 <b>${filled}/${LOTTE_ALL.length}곳</b> 채워져 있어요.`;
-  document.getElementById("lotteBody").innerHTML = LOTTE_ALL.map(x=>{
-    const r = rateOf(x), sc = rateSrc(x);
-    return '<div class="lt-row"><div class="lt-l"><span class="lt-nm">'+x.name+
-    (x.id?'<span class="lt-have">스탬프북에 있음</span>':"")+
-    '</span><span class="lt-rg">'+x.rg+
-    (sc==="news"?' · 기사 확인분':sc==="mine"?' · 직접 적어둠':'')+'</span></div>'+
-    '<input class="lt-in" data-nm="'+x.name+'" value="'+(rates[x.name]||"")+'" placeholder="'+
-    (r?r:"미입력")+'"></div>';
-  }).join("");
-  document.querySelectorAll("#lotteBody .lt-in").forEach(el=>{
-    el.addEventListener("change",()=>saveRate(el.dataset.nm, el.value.trim()));
-  });
+// ===== 🎟 제주에서 쓸 수 있는 할인 =====
+// 2026-08-30 조사. 전부 출처를 확인한 것만 넣는다 (지어내지 말 것).
+// 혜택·기간·비율은 자주 바뀌므로 화면에 "조사 시점 기준"을 반드시 함께 적는다.
+const COUPONS = [
+  {
+    ico:"🪪", nm:"나우다 (NOWDA)", tag:"제주도 공식 디지털 관광증", best:1,
+    what:"제주에 온 <b>만 14세 이상 내국인이면 누구나 무료</b>로 받는 관광증이에요. "+
+         "네이버페이 앱에서 <b>QR을 찍으면 바로 발급</b>됩니다.",
+    save:["가맹점(식사·카페·전시·체험·쇼핑)에서 <b>약 10% 할인</b>",
+          "공영관광지 <b>27곳</b>(성산일출봉·천지연폭포·비자림·주상절리 등) <b>무료 또는 50%</b>"],
+    warn:"공영관광지 할인은 <b>2026년 7월부터 레벨 2(스페셜)</b>부터 적용돼요. "+
+         "가입 직후에는 1레벨이라 관광지 할인은 안 되고, <b>가맹점 10% 할인은 바로</b> 됩니다.",
+    url:"https://www.visitjeju.net/kr/nowda/intro", link:"나우다 안내 보기"
+  },
+  {
+    ico:"💳", nm:"탐나는전", tag:"제주 지역화폐 · 제주도 공식", best:1,
+    what:"관광객도 <b>앱에서 모바일카드를 만들고 충전</b>해서 쓸 수 있어요. "+
+         "실물 카드 없이 <b>앱 QR로 결제</b>합니다.",
+    save:["가맹점 결제액 <b>10% 캐시백</b> (월 70만원 한도)",
+          "<b>착한가격업소</b>에서는 <b>5% 더</b> 붙어서 총 <b>15%</b>",
+          "적립금은 <b>5년간</b> 쓸 수 있어요 (1인 월 7만원까지 적립)"],
+    warn:"제주 착한가격업소 <b>432곳 중 414곳</b>이 탐나는전 가맹점이에요. "+
+         "밥집·카페에서 특히 많이 받습니다.",
+    url:"https://tamna.bizplay.co.kr/", link:"탐나는전 홈페이지",
+    url2:"https://www.jeju.go.kr/sobi/kind/kind.htm", link2:"착한가격업소 목록 보기"
+  },
+  {
+    ico:"🗓", nm:"문화가 있는 날", tag:"매월 마지막 수요일 · 전국",
+    what:"매달 <b>마지막 수요일</b>에는 국·공립 <b>박물관·미술관이 무료</b>이거나 할인되고 "+
+         "문 여는 시간도 늘어나요.",
+    save:["국립제주박물관 등 국·공립 시설 <b>무료 관람</b>", "일부 시설은 <b>야간 연장 개방</b>"],
+    url:"https://www.culture.go.kr/wday/", link:"참여 시설 찾아보기"
+  },
+  {
+    ico:"🌅", nm:"성산일출봉 무료 관람의 날", tag:"매월 첫째 주 월요일",
+    what:"성산일출봉은 <b>매월 첫째 주 월요일</b>을 무료 관람의 날로 운영해 왔어요. "+
+         "(평소 입장료 5,000원)",
+    save:["그날 가면 <b>입장료 없이</b> 올라갈 수 있어요"],
+    warn:"운영이 바뀔 수 있으니 <b>가기 전에 전화로 한 번 확인</b>하시는 게 안전해요.",
+    url:"https://www.visitjeju.net/kr/detail/view?contentsid=CONT_000000000500349", link:"성산일출봉 정보"
+  }
+];
+const couponModal = document.getElementById("couponModal");
+function drawCoupons(){
+  const box = document.getElementById("couponBody");
+  if(!box) return;
+  box.innerHTML = COUPONS.map(c=>
+    '<div class="cp-card'+(c.best?" best":"")+'">'+
+      '<div class="cp-h"><span class="cp-ico">'+c.ico+'</span>'+
+        '<span class="cp-nm">'+c.nm+(c.best?'<span class="cp-badge">추천</span>':"")+'</span>'+
+        '<span class="cp-tag">'+c.tag+'</span></div>'+
+      '<p class="cp-what">'+c.what+'</p>'+
+      '<ul class="cp-save">'+c.save.map(x=>'<li>'+x+'</li>').join("")+'</ul>'+
+      (c.warn?'<p class="cp-warn">💡 '+c.warn+'</p>':"")+
+      '<div class="cp-links">'+
+        '<a href="'+c.url+'" target="_blank" rel="noopener">'+c.link+' ↗</a>'+
+        (c.url2?'<a href="'+c.url2+'" target="_blank" rel="noopener">'+c.link2+' ↗</a>':"")+
+      '</div>'+
+    '</div>').join("");
 }
-document.getElementById("lotteBtn").addEventListener("click",()=>{
-  lotteModal.classList.add("open");
-  drawLotte();
+document.getElementById("couponBtn").addEventListener("click",()=>{
+  couponModal.classList.add("open");
+  drawCoupons();
 });
-document.getElementById("lt_close").addEventListener("click",()=>lotteModal.classList.remove("open"));
-document.getElementById("lt_open").addEventListener("click",()=>window.open(LOTTE_URL,"_blank","noopener"));
-lotteModal.addEventListener("click",e=>{ if(e.target===lotteModal) lotteModal.classList.remove("open"); });
+document.getElementById("cp_close").addEventListener("click",()=>couponModal.classList.remove("open"));
+couponModal.addEventListener("click",e=>{ if(e.target===couponModal) couponModal.classList.remove("open"); });
 
 // ===== 🆕 요즘 뜨는 곳 업데이트 =====
 const UPD_URL = "updates.json";
